@@ -3,294 +3,385 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-  <title>Autovalutazione Consapevole - Stradivari</title>
+  <link rel="icon" type="image/svg+xml" href="https://stradilab.org/favicon.svg">
+  <title>Autovalutazione Consapevole — Stradivari</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    body { -webkit-tap-highlight-color: transparent; }
-    .word-break-normal { word-break: normal; overflow-wrap: break-word; }
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --ink: #1a1814;
+      --ink-soft: #5a5550;
+      --ink-muted: #9a9590;
+      --accent: #2d5a3d;
+      --accent-lt: #e8f0eb;
+      --border: #e2ddd8;
+      --border-strong: #c8c3bc;
+      --radius: 2px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(247,245,240,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-brand { display: flex; align-items: center; text-decoration: none; height: 100%; }
+    .nav-brand svg { height: 30px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--ink-soft); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── CONTAINER ── */
+    .app-wrap {
+      max-width: 680px; margin: 3rem auto; padding: 0 1.5rem 4rem;
+    }
+
+    /* ── CARD APP ── */
+    .app-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    /* ── SCHERMATA INIZIO ── */
+    #schermata-inizio { text-align: center; }
+    .app-icon {
+      display: inline-flex; padding: 1rem;
+      background: var(--accent-lt); border-radius: var(--radius);
+      margin-bottom: 1.5rem; border: 1px solid rgba(45,90,61,0.15);
+    }
+    .app-icon svg { width: 2rem; height: 2rem; color: var(--accent); }
+    .app-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 300; line-height: 1.1;
+      margin-bottom: 1rem; letter-spacing: -0.01em;
+    }
+    .app-title em { font-style: italic; color: var(--accent); }
+    .app-desc { font-size: 0.9rem; color: var(--ink-soft); max-width: 440px; margin: 0 auto 1.5rem; line-height: 1.7; }
+    .app-info {
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1rem 1.25rem; margin-bottom: 2rem; max-width: 440px; margin-left: auto; margin-right: auto;
+      font-size: 0.84rem; color: var(--ink-soft); line-height: 1.6; text-align: left;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #fff; background: var(--accent);
+      border: none; border-radius: var(--radius);
+      padding: 0.85rem 2.5rem; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover:not(:disabled) { background: #1e3d29; transform: translateY(-1px); }
+    .btn-primary:disabled { background: var(--border); color: var(--ink-muted); cursor: not-allowed; }
+    .btn-secondary {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-muted); background: transparent;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 0.7rem 1.5rem; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--border-strong); color: var(--ink); }
+
+    /* ── SCHERMATA STEP ── */
+    #schermata-step { display: none; }
+    .step-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .step-progress-text { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+    .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; }
+    .progress-bar-wrap { width: 80px; height: 2px; background: var(--border); flex-shrink: 0; border-radius: 1px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 1px; transition: width 0.3s ease; }
+
+    .step-aiuto {
+      background: var(--accent-lt); border: 1px solid rgba(45,90,61,0.15);
+      border-radius: var(--radius); padding: 0.85rem 1rem; margin-bottom: 1.25rem;
+      font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6;
+    }
+    .step-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.75rem; }
+
+    #opzioni-container { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; max-height: 48vh; overflow-y: auto; padding-right: 2px; }
+    #opzioni-container::-webkit-scrollbar { width: 3px; }
+    #opzioni-container::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+
+    .opzione-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 0.85rem 1rem; cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+    }
+    .opzione-card:hover { border-color: var(--border-strong); background: #faf8f5; }
+    .opzione-card.selezionata { border-color: var(--accent); background: var(--accent-lt); }
+    .opzione-lettera {
+      flex-shrink: 0; width: 26px; height: 26px; border-radius: 1px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 400;
+      background: var(--border); color: var(--ink-muted);
+      transition: background 0.18s, color 0.18s;
+    }
+    .opzione-card.selezionata .opzione-lettera { background: var(--accent); color: #fff; }
+    .opzione-testo { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.65; word-break: normal; overflow-wrap: break-word; }
+    .opzione-card.selezionata .opzione-testo { color: var(--ink); }
+
+    .step-nav { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+    /* ── SCHERMATA RISULTATO ── */
+    #schermata-risultato { display: none; }
+    .risultato-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 300; margin-bottom: 0.25rem; }
+    .risultato-title em { font-style: italic; color: var(--accent); }
+    .risultato-sub { font-size: 0.88rem; color: var(--ink-muted); margin-bottom: 2rem; }
+
+    .voto-box {
+      background: var(--ink); color: #fff; border-radius: var(--radius);
+      padding: 1.5rem; text-align: center; margin-bottom: 1rem;
+    }
+    .voto-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); display: block; margin-bottom: 0.5rem; }
+    .voto-number { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; line-height: 1; }
+
+    .consiglio-box {
+      background: #fef8ee; border: 1px solid #e8d5a0; border-radius: var(--radius);
+      padding: 1.25rem; margin-bottom: 1rem;
+    }
+    .consiglio-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7a5a10; margin-bottom: 0.5rem; }
+    .consiglio-testo { font-size: 0.88rem; color: #5a4010; line-height: 1.7; }
+
+    .radar-box { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; display: flex; justify-content: center; align-items: center; min-height: 220px; margin-bottom: 1.5rem; }
+    .radar-box canvas { max-width: 240px; }
+
+    .risultato-footer { padding-top: 1.25rem; border-top: 1px solid var(--border); display: flex; justify-content: center; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; max-width: 680px; margin: 0 auto; }
+    .footer-left { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ink-muted); letter-spacing: 0.06em; }
+    .footer-right a { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.06em; transition: color 0.2s; }
+    .footer-right a:hover { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .app-wrap { padding: 1rem 1rem 3rem; margin-top: 1.5rem; }
+      .app-card { padding: 1.5rem 1.25rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem 1rem; }
+    }
   </style>
 </head>
-<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 font-sans text-slate-700 min-h-screen flex items-center justify-center p-3 sm:p-6 selection:bg-blue-200">
+<body>
 
-  <div id="app" class="bg-white rounded-3xl shadow-xl shadow-slate-200/80 p-4 sm:p-10 max-w-2xl w-full border border-slate-200/60 my-4 transition-all duration-300">
-    
-    <div id="schermata-inizio" class="text-center py-8 px-2">
-      <div class="inline-flex p-4 bg-blue-50 rounded-2xl text-blue-600 mb-6 border border-blue-100 shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+<nav>
+  <a class="nav-brand" href="https://stradilab.org" aria-label="Stradilab — home">
+    <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 0 560 200">
+      <circle cx="76" cy="100" r="58" fill="#f0ede8" stroke="#c8c3bb" stroke-width="0.5"/>
+      <circle cx="76" cy="100" r="46" fill="none" stroke="#b8b0a6" stroke-width="0.7" stroke-dasharray="3 3"/>
+      <circle cx="76" cy="100" r="30" fill="none" stroke="#9b2335" stroke-width="1"/>
+      <line x1="76" y1="42" x2="76" y2="158" stroke="#b8b0a6" stroke-width="0.7"/>
+      <line x1="18" y1="100" x2="134" y2="100" stroke="#b8b0a6" stroke-width="0.7"/>
+      <path d="M 52 68 Q 28 100 52 132" fill="none" stroke="#9b2335" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M 100 68 Q 124 100 100 132" fill="none" stroke="#b8b0a6" stroke-width="0.7" stroke-linecap="round"/>
+      <polygon points="76,78 92,100 76,122 60,100" fill="none" stroke="#9b2335" stroke-width="0.7"/>
+      <line x1="60" y1="90" x2="92" y2="90" stroke="#c8c3bb" stroke-width="0.5"/>
+      <line x1="60" y1="97" x2="92" y2="97" stroke="#c8c3bb" stroke-width="0.5"/>
+      <line x1="60" y1="104" x2="92" y2="104" stroke="#c8c3bb" stroke-width="0.5"/>
+      <line x1="60" y1="111" x2="92" y2="111" stroke="#c8c3bb" stroke-width="0.5"/>
+      <circle cx="76" cy="100" r="2.5" fill="#9b2335"/>
+      <text x="152" y="84" font-family="Georgia,'Times New Roman',serif" font-size="42" font-weight="400" letter-spacing="5" fill="#1a1814">STRADI</text>
+      <text x="152" y="128" font-family="Georgia,'Times New Roman',serif" font-size="42" font-weight="400" letter-spacing="5" fill="#9b2335">LAB</text>
+      <line x1="152" y1="136" x2="490" y2="136" stroke="#e2ddd8" stroke-width="0.5"/>
+      <text x="154" y="153" font-family="Arial,sans-serif" font-size="10" font-weight="400" letter-spacing="3.5" fill="#7a7368">ISTITUTO STRADIVARI · CREMONA</text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://stradilab.org">Home</a></li>
+    <li><a href="https://www.istitutostradivari.it" target="_blank" rel="noopener">Istituto</a></li>
+  </ul>
+</nav>
+
+<div class="app-wrap">
+  <div class="app-card">
+
+    <!-- SCHERMATA INIZIO -->
+    <div id="schermata-inizio">
+      <div class="app-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
         </svg>
       </div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-        Profilo di Autovalutazione
-      </h1>
-      <p class="text-slate-500 mb-6 max-w-sm mx-auto text-sm sm:text-base leading-relaxed">
-        Analizza i criteri generali del PTOF dello Stradivari. Leggi con attenzione e seleziona le voci per comporre il tuo quadro finale.
-      </p>
-      <div class="bg-slate-50 rounded-2xl p-4 mb-8 border border-slate-100 max-w-md mx-auto">
-        <p class="text-slate-600 font-medium text-xs sm:text-sm flex items-start gap-3 text-left">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span>Le opzioni appaiono in <strong>ordine casuale anonimo</strong>. Concentrati solo sul testo che descrive accuratamente la tua situazione attuale.</span>
-        </p>
+      <h1 class="app-title">Profilo di <em>Autovalutazione</em></h1>
+      <p class="app-desc">Analizza i criteri generali del PTOF dello Stradivari. Leggi con attenzione e seleziona le voci per comporre il tuo quadro finale.</p>
+      <div class="app-info">
+        Le opzioni appaiono in <strong>ordine casuale anonimo</strong>. Concentrati solo sul testo che descrive accuratamente la tua situazione attuale.
       </div>
-      <button id="btn-inizio-attiva" onclick="iniziaWizard()" disabled class="w-full sm:w-auto bg-slate-200 text-slate-400 font-bold py-4 px-10 rounded-2xl cursor-not-allowed transition transform">
-        Caricamento criteri...
+      <button id="btn-inizio-attiva" onclick="iniziaWizard()" disabled class="btn-primary">
+        Caricamento criteri…
       </button>
     </div>
 
-    <div id="schermata-step" class="hidden">
-      <div class="flex items-center justify-between gap-4 mb-5 pb-3 border-b border-slate-100">
-        <div class="min-w-0">
-          <span id="progress-text" class="text-xs font-bold uppercase tracking-widest text-blue-600 block mb-0.5">Macro-area 1 di 5</span>
-          <h2 id="titolo-descrittore" class="text-xl sm:text-2xl font-extrabold text-slate-900 truncate"></h2>
+    <!-- SCHERMATA STEP -->
+    <div id="schermata-step">
+      <div class="step-header">
+        <div>
+          <span id="progress-text" class="step-progress-text">Macro-area 1 di 5</span>
+          <h2 id="titolo-descrittore" class="step-title"></h2>
         </div>
-        <div class="w-20 sm:w-28 bg-slate-100 rounded-full h-2 overflow-hidden flex-shrink-0">
-          <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300 ease-out" style="width: 20%"></div>
+        <div class="progress-bar-wrap">
+          <div id="progress-bar" class="progress-bar-fill" style="width:20%"></div>
         </div>
       </div>
-      
-      <div class="bg-blue-50/40 border border-blue-100 rounded-2xl p-4 mb-5">
-        <p id="aiuto-descrittore" class="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed"></p>
+      <div class="step-aiuto">
+        <p id="aiuto-descrittore"></p>
       </div>
-
-      <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Scegli la frase in cui ti ritrovi maggiormente:</p>
-      
-      <div id="opzioni-container" class="space-y-3 mb-6 max-h-[48vh] overflow-y-auto pr-1">
-        </div>
-
-      <div class="flex justify-between items-center pt-4 border-t border-slate-100">
-        <button id="btn-indietro" onclick="passoPrecedente()" class="text-slate-400 hover:text-slate-600 font-bold px-4 py-3 rounded-xl hover:bg-slate-50 transition active:scale-95">
-          ← Indietro
-        </button>
-        <button id="btn-avanti" onclick="passoSuccessivo()" disabled class="bg-slate-100 text-slate-400 font-bold py-3.5 px-6 rounded-xl transition cursor-not-allowed">
-          Avanti →
-        </button>
+      <p class="step-label">Scegli la frase in cui ti ritrovi maggiormente:</p>
+      <div id="opzioni-container"></div>
+      <div class="step-nav">
+        <button id="btn-indietro" onclick="passoPrecedente()" class="btn-secondary">← Indietro</button>
+        <button id="btn-avanti" onclick="passoSuccessivo()" disabled class="btn-primary">Avanti →</button>
       </div>
     </div>
 
-    <div id="schermata-risultato" class="hidden text-center py-2">
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">Elaborazione Completata</h2>
-      <p class="text-slate-400 mb-5 max-w-sm mx-auto text-xs sm:text-sm">Ecco la sintesi grafica e i consigli di studio calcolati in base alle scelte effettuate.</p>
-      
-      <div class="flex flex-col gap-4 max-w-md mx-auto">
-        <div class="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-5 flex flex-col justify-center items-center shadow-md text-white">
-          <span class="text-[10px] font-bold text-blue-100/80 uppercase tracking-widest mb-1">Voto Indicativo PTOF</span>
-          <span id="voto-finale" class="text-5xl font-black tracking-tight">--</span>
-        </div>
-
-        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-left shadow-inner">
-          <h4 class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-1">💡 Suggerimento di Miglioramento:</h4>
-          <p id="box-consiglio" class="text-xs sm:text-sm text-amber-900 leading-relaxed font-normal">Generazione dell'analisi strategica in corso...</p>
-        </div>
-
-        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 flex justify-center items-center min-h-[220px]">
-          <div class="w-full max-w-[240px]">
-            <canvas id="radarChart"></canvas>
-          </div>
-        </div>
+    <!-- SCHERMATA RISULTATO -->
+    <div id="schermata-risultato">
+      <h2 class="risultato-title">Elaborazione <em>Completata</em></h2>
+      <p class="risultato-sub">Sintesi grafica e consigli calcolati in base alle tue scelte.</p>
+      <div class="voto-box">
+        <span class="voto-label">Voto Indicativo PTOF</span>
+        <span id="voto-finale" class="voto-number">--</span>
       </div>
-
-      <div class="mt-6 pt-5 border-t border-slate-100">
-        <button onclick="location.reload()" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-8 rounded-xl transition active:scale-95">
-          Ricomincia
-        </button>
+      <div class="consiglio-box">
+        <div class="consiglio-label">💡 Suggerimento di Miglioramento</div>
+        <p id="box-consiglio" class="consiglio-testo">Generazione dell'analisi in corso…</p>
+      </div>
+      <div class="radar-box"><canvas id="radarChart"></canvas></div>
+      <div class="risultato-footer">
+        <button onclick="location.reload()" class="btn-secondary">↺ Ricomincia</button>
       </div>
     </div>
+
   </div>
+</div>
 
-  <script>
-    // URL AGGIORNATO E VERIFICATO CON LA NUOVA VERSIONE DELLA WEB APP
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiANRYe9WvMKQCI0WpHqc-qDsYNpsiR7N-Qif751xa5mtEOS_c4TKRk49hXXYV4RUM/exec";
+<footer>
+  <div class="footer-left">© 2026 Istituto Stradivari — Cremona &nbsp;·&nbsp; stradilab.org</div>
+  <div class="footer-right"><a href="https://www.istitutostradivari.it" target="_blank" rel="noopener">www.istitutostradivari.it</a></div>
+</footer>
 
-    const aiutiDescrittori = {
-      "CONOSCENZA": "Cosa sai: Riguarda il livello di precisione, la ricchezza o le eventuali lacune presenti nelle informazioni memorizzate ed assimilate.",
-      "COMPRENSIONE": "Cosa hai capito: Riguarda il modo in cui interpreti i concetti, la tua capacità di rielaborarli in modo semplice, autonomo o originale.",
-      "CAPACITÀ DI ESPOSIZIONE": "Come ti esprimi: Riguarda la fluidità, la chiarezza e la correttezza del linguaggio usato per comunicare e spiegare gli argomenti.",
-      "CAPACITÀ DI ANALISI": "Saper scomporre: Misura l'abilità di individuare le singole parti di un argomento o di un problema, connettendole in modo logico.",
-      "CAPACITÀ DI SINTESI": "Saper unire: Misura la capacità di riassumere i concetti essenziali in una visione coerente, efficace, personale o interdisciplinare."
-    };
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiANRYe9WvMKQCI0WpHqc-qDsYNpsiR7N-Qif751xa5mtEOS_c4TKRk49hXXYV4RUM/exec";
 
-    const livelliOrdinati = ["Gravemente Insufficiente", "Insufficiente", "Sufficiente", "Discreto", "Buono", "Ottimo"];
+  const aiutiDescrittori = {
+    "CONOSCENZA": "Cosa sai: Riguarda il livello di precisione, la ricchezza o le eventuali lacune presenti nelle informazioni memorizzate ed assimilate.",
+    "COMPRENSIONE": "Cosa hai capito: Riguarda il modo in cui interpreti i concetti, la tua capacità di rielaborarli in modo semplice, autonomo o originale.",
+    "CAPACITÀ DI ESPOSIZIONE": "Come ti esprimi: Riguarda la fluidità, la chiarezza e la correttezza del linguaggio usato per comunicare e spiegare gli argomenti.",
+    "CAPACITÀ DI ANALISI": "Saper scomporre: Misura l'abilità di individuare le singole parti di un argomento o di un problema, connettendole in modo logico.",
+    "CAPACITÀ DI SINTESI": "Saper unire: Misura la capacità di riassumere i concetti essenziali in una visione coerente, efficace, personale o interdisciplinare."
+  };
+  const livelliOrdinati = ["Gravemente Insufficiente","Insufficiente","Sufficiente","Discreto","Buono","Ottimo"];
+  let grigliaDati = {}, chiaviDescrittori = [], indiceCorrente = 0, risposteUtente = {}, opzioniMescolatePerStep = [];
 
-    let grigliaDati = {};
-    let chiaviDescrittori = [];
-    let indiceCorrente = 0;
-    let risposteUtente = {};
-    let opzioniMescolatePerStep = [];
+  function mescolaArray(array) { let c = [...array]; for (let i = c.length-1; i>0; i--) { const j = Math.floor(Math.random()*(i+1)); [c[i],c[j]]=[c[j],c[i]]; } return c; }
 
-    function mescolaArray(array) {
-      let copia = [...array];
-      for (let i = copia.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copia[i], copia[j]] = [copia[j], copia[i]];
-      }
-      return copia;
-    }
+  fetch(SCRIPT_URL).then(res => res.json()).then(data => {
+    grigliaDati = data;
+    chiaviDescrittori = Object.keys(data).filter(k => aiutiDescrittori[k] !== undefined);
+    const btn = document.getElementById('btn-inizio-attiva');
+    btn.disabled = false; btn.textContent = 'Inizia il Percorso';
+  }).catch(() => { document.getElementById('btn-inizio-attiva').textContent = 'Errore di connessione. Riprova.'; });
 
-    // Caricamento asincrono iniziale
-    fetch(SCRIPT_URL)
+  function iniziaWizard() {
+    document.getElementById('schermata-inizio').style.display = 'none';
+    document.getElementById('schermata-step').style.display = 'block';
+    indiceCorrente = 0; preparaE_MostraStep();
+  }
+
+  function preparaE_MostraStep() {
+    const desc = chiaviDescrittori[indiceCorrente];
+    const opz = grigliaDati[desc];
+    opzioniMescolatePerStep = mescolaArray(livelliOrdinati.map(liv => ({ livello: liv, testo: opz[liv].testo })));
+    mostraStep();
+  }
+
+  function mostraStep() {
+    const desc = chiaviDescrittori[indiceCorrente];
+    document.getElementById('titolo-descrittore').textContent = desc;
+    document.getElementById('aiuto-descrittore').textContent = aiutiDescrittori[desc] || '';
+    document.getElementById('progress-text').textContent = `Macro-area ${indiceCorrente+1} di ${chiaviDescrittori.length}`;
+    document.getElementById('progress-bar').style.width = `${((indiceCorrente+1)/chiaviDescrittori.length)*100}%`;
+    const container = document.getElementById('opzioni-container');
+    container.innerHTML = '';
+    opzioniMescolatePerStep.forEach((opzione, index) => {
+      const isSel = risposteUtente[desc] === opzione.livello;
+      const lettera = String.fromCharCode(65+index);
+      const card = document.createElement('div');
+      card.className = 'opzione-card' + (isSel ? ' selezionata' : '');
+      card.onclick = () => { risposteUtente[desc] = opzione.livello; mostraStep(); };
+      card.innerHTML = `<div class="opzione-lettera">${lettera}</div><div class="opzione-testo">${opzione.testo}</div>`;
+      container.appendChild(card);
+    });
+    document.getElementById('btn-indietro').style.visibility = indiceCorrente === 0 ? 'hidden' : 'visible';
+    aggiornaStatoBottoneAvanti();
+  }
+
+  function aggiornaStatoBottoneAvanti() {
+    const btn = document.getElementById('btn-avanti');
+    const desc = chiaviDescrittori[indiceCorrente];
+    btn.disabled = !risposteUtente[desc];
+  }
+
+  function passoSuccessivo() {
+    if (indiceCorrente < chiaviDescrittori.length-1) { indiceCorrente++; preparaE_MostraStep(); }
+    else calcolaE_MostraRisultati();
+  }
+  function passoPrecedente() { if (indiceCorrente > 0) { indiceCorrente--; preparaE_MostraStep(); } }
+
+  function calcolaE_MostraRisultati() {
+    document.getElementById('schermata-step').style.display = 'none';
+    document.getElementById('schermata-risultato').style.display = 'block';
+    fetch(`${SCRIPT_URL}?risposte=${encodeURIComponent(JSON.stringify(risposteUtente))}`)
       .then(res => res.json())
-      .then(data => {
-        grigliaDati = data;
-        // Filtro di sicurezza per leggere esclusivamente i 5 descrittori impostati
-        chiaviDescrittori = Object.keys(data).filter(k => aiutiDescrittori[k] !== undefined);
-        
-        // Attivazione del bottone iniziale
-        const btnInizio = document.getElementById('btn-inizio-attiva');
-        btnInizio.disabled = false;
-        btnInizio.innerText = "Inizia il Percorso";
-        btnInizio.className = "w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-2xl shadow-md shadow-blue-600/10 transition transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95 cursor-pointer";
-      }).catch(err => {
-        console.error("Errore di caricamento dati dal server Google Script:", err);
-        document.getElementById('btn-inizio-attiva').innerText = "Errore di connessione. Riprova.";
+      .then(r => {
+        document.getElementById('voto-finale').textContent = r.votoFinale;
+        document.getElementById('box-consiglio').textContent = r.consiglio || 'Nessun suggerimento elaborato per questo profilo.';
+        mostraGraficoRadar();
       });
+  }
 
-    function iniziaWizard() {
-      document.getElementById('schermata-inizio').classList.add('hidden');
-      document.getElementById('schermata-step').classList.remove('hidden');
-      indiceCorrente = 0;
-      preparaE_MostraStep();
-    }
-
-    function preparaE_MostraStep() {
-      const descrittore = chiaviDescrittori[indiceCorrente];
-      const opzioniOriginali = grigliaDati[descrittore];
-      
-      let listaOpzioni = livelliOrdinati.map(liv => {
-        return { livello: liv, testo: opzioniOriginali[liv].testo };
-      });
-
-      opzioniMescolatePerStep = mescolaArray(listaOpzioni);
-      mostraStep();
-    }
-
-    function mostraStep() {
-      const descrittore = chiaviDescrittori[indiceCorrente];
-      document.getElementById('titolo-descrittore').innerText = descrittore;
-      document.getElementById('aiuto-descrittore').innerText = aiutiDescrittori[descrittore] || "";
-      
-      document.getElementById('progress-text').innerText = `Macro-area ${indiceCorrente + 1} di ${chiaviDescrittori.length}`;
-      document.getElementById('progress-bar').style.width = `${((indiceCorrente + 1) / chiaviDescrittori.length) * 100}%`;
-
-      const container = document.getElementById('opzioni-container');
-      container.innerHTML = "";
-      
-      opzioniMescolatePerStep.forEach((opzione, index) => {
-        const isSelezionato = risposteUtente[descrittore] === opzione.livello;
-        const letteraOpzione = String.fromCharCode(65 + index); 
-
-        const card = document.createElement('div');
-        card.className = `p-3.5 sm:p-4 border rounded-xl cursor-pointer transition-all duration-200 flex items-start space-x-3 ${
-          isSelezionato 
-            ? 'border-blue-500 bg-blue-50/60 shadow-sm ring-1 ring-blue-500/30' 
-            : 'border-slate-200 bg-slate-50/40 hover:bg-slate-50'
-        }`;
-        
-        card.onclick = () => {
-          risposteUtente[descrittore] = opzione.livello;
-          mostraStep();
-        };
-        
-        card.innerHTML = `
-          <div class="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs ${
-            isSelezionato ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-500'
-          }">
-            ${letteraOpzione}
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal text-left word-break-normal">
-              ${opzione.testo}
-            </p>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-
-      document.getElementById('btn-indietro').style.visibility = indiceCorrente === 0 ? 'hidden' : 'visible';
-      aggiornaStatoBottoneAvanti();
-    }
-
-    function aggiornaStatoBottoneAvanti() {
-      const btn = document.getElementById('btn-avanti');
-      const descrittore = chiaviDescrittori[indiceCorrente];
-      
-      if (risposteUtente[descrittore]) {
-        btn.disabled = false;
-        btn.className = "bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md shadow-blue-600/10 cursor-pointer active:scale-95";
-      } else {
-        btn.disabled = true;
-        btn.className = "bg-slate-100 text-slate-400 font-bold py-3 px-6 rounded-xl transition cursor-not-allowed";
+  function mostraGraficoRadar() {
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    const valori = chiaviDescrittori.map(d => livelliOrdinati.indexOf(risposteUtente[d])+1);
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: chiaviDescrittori.map(l => l.replace("'","'")),
+        datasets: [{ label: 'Profilo', data: valori, backgroundColor: 'rgba(45,90,61,0.1)', borderColor: 'rgba(45,90,61,0.8)', borderWidth: 2, pointBackgroundColor: '#2d5a3d', pointRadius: 3 }]
+      },
+      options: {
+        scales: { r: { min:0, max:6, ticks:{display:false,stepSize:1}, grid:{color:'#e2ddd8'}, angleLines:{color:'#e2ddd8'}, pointLabels:{font:{size:9,weight:'400'},color:'#5a5550'} } },
+        plugins: { legend:{display:false} }
       }
-    }
-
-    function passoSuccessivo() {
-      if (indiceCorrente < chiaviDescrittori.length - 1) {
-        indiceCorrente++;
-        preparaE_MostraStep();
-      } else {
-        calcolaE_MostraRisultati();
-      }
-    }
-
-    function passoPrecedente() {
-      if (indiceCorrente > 0) {
-        indiceCorrente--;
-        preparaE_MostraStep();
-      }
-    }
-
-    function calcolaE_MostraRisultati() {
-      document.getElementById('schermata-step').classList.add('hidden');
-      document.getElementById('schermata-risultato').classList.remove('hidden');
-
-      // Interrogazione del server con l'array delle scelte
-      fetch(`${SCRIPT_URL}?risposte=${encodeURIComponent(JSON.stringify(risposteUtente))}`)
-        .then(res => res.json())
-        .then(risposta => {
-          document.getElementById('voto-finale').innerText = risposta.votoFinale;
-          document.getElementById('box-consiglio').innerText = risposta.consiglio || "Nessun suggerimento elaborato per questo profilo.";
-          mostraGraficoRadar();
-        });
-    }
-
-    function mostraGraficoRadar() {
-      const ctx = document.getElementById('radarChart').getContext('2d');
-      const valoriMappati = chiaviDescrittori.map(d => livelliOrdinati.indexOf(risposteUtente[d]) + 1);
-
-      new Chart(ctx, {
-        type: 'radar',
-        data: {
-          labels: chiaviDescrittori.map(label => label.replace("’", "'")),
-          datasets: [{
-            label: 'Profilo',
-            data: valoriMappati,
-            backgroundColor: 'rgba(37, 99, 235, 0.12)',
-            borderColor: 'rgba(37, 99, 235, 0.85)',
-            borderWidth: 2,
-            pointBackgroundColor: '#2563eb',
-            pointRadius: 3
-          }]
-        },
-        options: {
-          scales: {
-            r: {
-              min: 0,
-              max: 6,
-              ticks: { display: false, stepSize: 1 },
-              grid: { color: '#e2e8f0' },
-              angleLines: { color: '#e2e8f0' },
-              pointLabels: { font: { size: 9, weight: '700' }, color: '#64748b' }
-            }
-          },
-          plugins: { legend: { display: false } }
-        }
-      });
-    }
-  </script>
+    });
+  }
+</script>
 </body>
 </html>
