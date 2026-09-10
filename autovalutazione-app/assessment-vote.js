@@ -82,7 +82,26 @@
 
   let current = 'comuni';
   const answers = Object.fromEntries(Object.keys(grids).map(key => [key, {}]));
-  const descriptorFor = (item, score) => item.levels.find(entry => score <= entry.max) || item.levels.at(-1);
+  const orderCache = {};
+  const scoreFor = entry => {
+    const values = entry.range.match(/\d+/g).map(Number);
+    return values.reduce((sum, value) => sum + value, 0) / values.length;
+  };
+  const shuffledLevels = (gridKey, itemIndex, levels) => {
+    const key = `${gridKey}-${itemIndex}`;
+    if (!orderCache[key]) {
+      const choices = levels.map((entry, levelIndex) => ({ entry, levelIndex }));
+      for (let index = choices.length - 1; index > 0; index -= 1) {
+        const target = Math.floor(Math.random() * (index + 1));
+        [choices[index], choices[target]] = [choices[target], choices[index]];
+      }
+      const ascending = choices.every((choice, index) => choice.levelIndex === index);
+      const descending = choices.every((choice, index) => choice.levelIndex === choices.length - index - 1);
+      if (ascending || descending) choices.push(choices.shift());
+      orderCache[key] = choices;
+    }
+    return orderCache[key];
+  };
 
   function render() {
     const grid = grids[current];
@@ -90,8 +109,8 @@
     document.getElementById('assessmentHint').textContent = grid.hint;
     document.getElementById('rubricGrid').innerHTML = grid.items.map((item, index) => {
       const selected = answers[current][index];
-      const guide = item.levels.map(entry => `<li><strong>${entry.range}:</strong> ${entry.text}</li>`).join('');
-      return `<article class="rubric"><div class="rubric-number">${String(index + 1).padStart(2, '0')}</div><h3>${item.name}</h3><p class="rubric-prompt">${item.prompt}</p><div class="vote-scale" aria-label="Voto per ${item.name}">${Array.from({ length: 10 }, (_, scoreIndex) => { const score = scoreIndex + 1; return `<label class="vote-option"><input type="radio" name="ptofo-${current}-${index}" value="${score}" ${selected === score ? 'checked' : ''}><span>${score}</span></label>`; }).join('')}</div><p class="selected-descriptor" id="descriptor-${current}-${index}">${selected ? `<strong>${selected}/10.</strong> ${descriptorFor(item, selected).text}` : 'Scegli un voto da 1 a 10 per leggere il descrittore corrispondente.'}</p><details class="scale-guide"><summary>Vedi tutti i descrittori PTOF</summary><ul>${guide}</ul></details></article>`;
+      const choices = shuffledLevels(current, index, item.levels);
+      return `<article class="rubric"><div class="rubric-number">${String(index + 1).padStart(2, '0')}</div><h3>${item.name}</h3><p class="rubric-prompt">${item.prompt}</p><div class="descriptor-choices" role="radiogroup" aria-label="Descrizioni per ${item.name}">${choices.map(({ entry, levelIndex }) => `<label class="descriptor-option"><input type="radio" name="ptofo-${current}-${index}" value="${levelIndex}" ${selected === levelIndex ? 'checked' : ''}><span>${entry.text}</span></label>`).join('')}</div></article>`;
     }).join('');
   }
 
@@ -111,23 +130,21 @@
     if (!match) return;
     const [, gridKey, rawIndex] = match;
     const index = Number(rawIndex);
-    const score = Number(event.target.value);
-    answers[gridKey][index] = score;
-    const item = grids[gridKey].items[index];
-    document.getElementById(`descriptor-${gridKey}-${index}`).innerHTML = `<strong>${score}/10.</strong> ${descriptorFor(item, score).text}`;
+    answers[gridKey][index] = Number(event.target.value);
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
 
   document.getElementById('ptofoDone').addEventListener('click', () => {
     const grid = grids[current];
-    const values = Object.values(answers[current]);
-    if (values.length < grid.items.length) {
+    const selections = Object.values(answers[current]);
+    if (selections.length < grid.items.length) {
       alert('Completa tutti gli indicatori di questa griglia per ottenere il voto.');
       return;
     }
-    const average = values.reduce((sum, value) => sum + value, 0) / values.length;
+    const scores = grid.items.map((item, index) => scoreFor(item.levels[answers[current][index]]));
+    const average = scores.reduce((sum, value) => sum + value, 0) / scores.length;
     const vote = Math.max(1, Math.min(10, Math.round(average)));
-    document.getElementById('ptofoResult').innerHTML = `<h3>Il voto che emerge è ${vote}/10</h3><p>Media analitica: ${average.toFixed(1)}/10. Il risultato usa tutti gli indicatori della griglia “${grid.title}”.</p><div class="score-row">${grid.items.map((item, index) => `<div class="score"><strong>${answers[current][index]}/10</strong><span>${item.name}</span></div>`).join('')}</div>`;
+    document.getElementById('ptofoResult').innerHTML = `<h3>Il voto che emerge è ${vote}/10</h3><p>Hai scelto prima i descrittori che ti rappresentano, senza vedere la loro corrispondenza numerica. Il risultato usa tutti gli indicatori della griglia “${grid.title}”.</p><div class="score-row">${grid.items.map(item => `<div class="score"><strong aria-hidden="true">✓</strong><span>${item.name}</span></div>`).join('')}</div>`;
     document.getElementById('ptofoResult').classList.add('show');
     document.getElementById('ptofoResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
