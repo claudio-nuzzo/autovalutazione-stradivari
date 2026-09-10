@@ -1,16 +1,140 @@
-(()=>{
-  const levels=['Da costruire','Con guida','In autonomia','Per gli altri'];
-  const layout=document.createElement('style');layout.textContent='#tab-studio{min-width:0;overflow:hidden}.study-content{width:100%;max-width:100%;min-width:0;overflow:hidden}.study-question,.study-option,.study-card{max-width:100%;min-width:0;overflow-wrap:anywhere;word-break:normal}.study-option{white-space:normal}.study-option small{display:inline;overflow-wrap:anywhere}.study-actions{display:flex;flex-wrap:wrap;gap:10px}';document.head.appendChild(layout);
-  const grids={
-    comuni:{title:'Materie comuni',hint:'Interrogazione, verifica orale o scritta',items:[['Conoscenza','Riconosco e ricordo le informazioni fondamentali.'],['Comprensione','Spiego con parole mie e collego i concetti.'],['Capacità di analisi','Scompongo un problema e ne individuo le parti.'],['Capacità di sintesi','Seleziono l’essenziale e costruisco una visione coerente.'],['Capacità di esposizione','Comunico i contenuti in modo chiaro e preciso.']]},
-    professionali:{title:'Materie professionali',hint:'Esercitazione pratica o progetto tecnico di indirizzo',items:[['Conoscenza anche dei contenuti e delle procedure informatiche','Conosco contenuti, procedure e norme di sicurezza.'],['Comprensione dei contenuti e delle procedure informatiche','Comprendo e applico le istruzioni ricevute.'],['Capacità pratiche e utilizzo delle tecnologie','Uso attrezzature, materiali e tecnologie in modo corretto.'],['Grado di autonomia anche in ambiente digitale','Lavoro con autonomia crescente e so correggere gli errori.']]},
-    grafica:{title:'Progettazione e grafica',hint:'Elaborato grafico o progetto del Liceo Artistico',items:[['Conoscenze e procedure tecniche','Conosco tecniche, strumenti, procedure e norme di sicurezza.'],['Competenze-metodo','Seguo un metodo operativo e documento il lavoro.'],['Competenze digitali','Uso lo strumento informatico in modo adeguato e consapevole.'],['Capacità-progetto','Analizzo, progetto e comunico un’idea in modo personale.'],['Impegno','Lavoro con continuità, cura e responsabilità.'],['Partecipazione','Partecipo in modo attivo e costruttivo.'],['Metodo di lavoro','Organizzo tempi, materiali e fasi del progetto in autonomia.']]},
-    performance:{title:'Esecuzione e interpretazione',hint:'Esecuzione musicale o performance',items:[['Competenza tecnico-esecutiva anche in ambiente digitale','Mantengo postura, respirazione, coordinazione e controllo del corpo.'],['Competenza esecutivo-strumentale anche in ambiente digitale','Eseguo i brani con tecnica, precisione e uso corretto dello strumento.'],['Capacità di interpretazione','Interpreto il repertorio con coerenza stilistica e originalità espressiva.'],['Conoscenza della specifica letteratura, solistica e d’insieme','Conosco il repertorio affrontato e so collocarlo nel suo contesto.']]}
+(() => {
+  const level = (range, max, text) => ({ range, max, text });
+  const commonBands = {
+    conoscenza: [
+      level('1–4', 4, 'Informazione molto lacunosa dei contenuti.'), level('5', 5, 'Informazione superficiale e imprecisa.'), level('6', 6, 'Informazione basilare dei contenuti.'), level('7', 7, 'Conoscenze estese anche alle nozioni particolari.'), level('8', 8, 'Informazione completa e precisa.'), level('9–10', 10, 'Conoscenze complete, approfondite e autonome.')
+    ],
+    comprensione: [
+      level('1–4', 4, 'Comprende con molta difficoltà, anche se guidato.'), level('5', 5, 'Rielabora in modo impreciso o meccanico.'), level('6', 6, 'Rielabora in modo semplice gli aspetti fondamentali.'), level('7', 7, 'Rielabora autonomamente le conoscenze semplici e, se guidato, quelle complesse.'), level('8', 8, 'Comprende e rielabora autonomamente anche contenuti complessi.'), level('9–10', 10, 'Rielabora in modo autonomo e originale e formula nuove domande.')
+    ],
+    esposizione: [
+      level('1–4', 4, 'Si esprime in modo molto confuso.'), level('5', 5, 'Espone con esitazioni e difficoltà espressive.'), level('6', 6, 'Espone in modo semplice ma generalmente corretto.'), level('7', 7, 'Espone in modo organico e corretto con linguaggio abbastanza autonomo.'), level('8', 8, 'Espone con organicità, indipendenza e proprietà di linguaggio.'), level('9–10', 10, 'Espone con estrema chiarezza, proprietà e disinvoltura.')
+    ],
+    analisi: [
+      level('1–4', 4, 'Riconosce a fatica gli elementi e non stabilisce relazioni.'), level('5', 5, 'Riconosce gli elementi ma fatica a collegarli.'), level('6', 6, 'Riconosce gli elementi e, se guidato, le relazioni fondamentali.'), level('7', 7, 'Individua e collega autonomamente le relazioni fondamentali.'), level('8', 8, 'Analizza con abilità e individua rapidamente le correlazioni.'), level('9–10', 10, 'Riconosce con grande efficacia elementi e relazioni, anche sottili.')
+    ],
+    sintesi: [
+      level('1–4', 4, 'Non compone le parti né individua gli aspetti fondamentali.'), level('5', 5, 'Compone le parti ma non sa sintetizzare gli aspetti fondamentali.'), level('6', 6, 'Con guida costruisce una sintesi essenziale.'), level('7', 7, 'Compone autonomamente gli aspetti essenziali.'), level('8', 8, 'Produce sintesi efficaci e personali tra argomenti collegati.'), level('9–10', 10, 'Costruisce visioni unitarie dentro la disciplina e tra discipline diverse.')
+    ]
   };
-  let current='comuni', answers={comuni:{},professionali:{},grafica:{},performance:{}};
-  function render(){const g=grids[current];document.getElementById('assessmentTitle').textContent=g.title;document.getElementById('assessmentHint').textContent=g.hint;document.getElementById('rubricGrid').innerHTML=g.items.map((r,i)=>`<article class="rubric"><div class="number">${String(i+1).padStart(2,'0')}</div><h3>${r[0]}</h3><p>${r[1]}</p><div class="choices">${levels.map((l,j)=>`<label class="choice"><input type="radio" name="vote-r${i}" value="${j}" ${answers[current][i]===j?'checked':''}>${l}</label>`).join('')}</div></article>`).join('')}
-  function calculate(){const vals=Object.values(answers[current]);const total=grids[current].items.length;if(vals.length<total){alert('Completa tutti gli indicatori della griglia per ottenere il voto.');return}const avg=vals.reduce((a,b)=>a+b,0)/total;const vote=Math.max(1,Math.min(10,Math.round(1+(avg/3)*9)));const result=document.getElementById('ptofoResult');result.innerHTML=`<h3>Il tuo voto: ${vote}/10</h3><p>Questo voto nasce dalle risposte che hai dato nella griglia “${grids[current].title}”. Confrontalo con il voto del docente e discutete insieme gli indicatori più alti e quelli da allenare.</p><div class="score-row">${grids[current].items.map((r,i)=>`<div class="score"><strong>${levels[answers[current][i]]}</strong><span>${r[0]}</span></div>`).join('')}</div>`;result.classList.add('show')}
-  document.addEventListener('click',e=>{const type=e.target.closest('.assessment-type');if(type){e.preventDefault();e.stopImmediatePropagation();current=type.dataset.assessment;document.querySelectorAll('.assessment-type').forEach(b=>{b.classList.toggle('active',b===type);b.setAttribute('aria-selected',b===type?'true':'false')});render();return}if(e.target.closest('#ptofoDone')){e.preventDefault();e.stopImmediatePropagation();calculate()}},true);
-  document.addEventListener('change',e=>{if(e.target.name&&e.target.name.startsWith('vote-r'))answers[current][+e.target.name.slice(6)]=+e.target.value},true);
+
+  const practicalBands = {
+    conoscenza: [
+      level('1–4', 4, 'Non conosce gli aspetti fondamentali né le norme di sicurezza.'), level('5', 5, 'Conoscenza parziale dei contenuti basilari e della sicurezza.'), level('6', 6, 'Conosce gli elementi fondamentali e tiene presenti le norme di sicurezza.'), level('7', 7, 'Conosce adeguatamente attrezzature e uso del laboratorio; rispetta la sicurezza.'), level('8', 8, 'Conoscenza completa e precisa; sicurezza rispettata con continuità.'), level('9–10', 10, 'Conoscenza approfondita, trasferita a situazioni nuove; individua i rischi con accuratezza.')
+    ],
+    comprensione: [
+      level('1–4', 4, 'Comprende le istruzioni solo con molta difficoltà.'), level('5', 5, 'Comprende le istruzioni in modo impreciso e poco chiaro.'), level('6', 6, 'Comprende e rielabora in modo semplice le istruzioni ricevute.'), level('7', 7, 'Rielabora autonomamente le istruzioni basilari e, se guidato, quelle complesse.'), level('8', 8, 'Comprende autonomamente anche istruzioni complesse.'), level('9–10', 10, 'Comprende e rielabora conoscenze complesse con ottima autonomia.')
+    ],
+    pratica: [
+      level('1–4', 4, 'Gravi difficoltà nell’uso delle attrezzature e nella coordinazione.'), level('5', 5, 'Difficoltà nell’uso delle attrezzature e scarsa coordinazione.'), level('6', 6, 'Usa materiali e strumenti e assembla le parti in modo accettabile.'), level('7', 7, 'Usa strumenti e materiali in modo consapevole e adeguato.'), level('8', 8, 'Usa le attrezzature con destrezza; il manufatto è corretto e personale.'), level('9–10', 10, 'Usa attrezzature e materiali con eccellente destrezza, coordinazione e abilità.')
+    ],
+    autonomia: [
+      level('1–4', 4, 'Non riesce a lavorare in autonomia.'), level('5', 5, 'Anche se indirizzato, fatica ad affrontare autonomamente le attività.'), level('6', 6, 'Attua le istruzioni essenziali negli aspetti di base.'), level('7', 7, 'Affronta il processo in modo scolastico ma tecnicamente corretto.'), level('8', 8, 'Lavora con responsabilità, indipendenza e consapevolezza.'), level('9–10', 10, 'Partecipa al processo in piena autonomia con apporto critico e creativo.')
+    ]
+  };
+
+  const artBands = (texts) => [
+    level('1–2', 2, texts[0]), level('3–4', 4, texts[1]), level('5', 5, texts[2]), level('6', 6, texts[3]), level('7', 7, texts[4]), level('8', 8, texts[5]), level('9–10', 10, texts[6])
+  ];
+
+  const grids = {
+    comuni: {
+      title: 'Materie comuni', hint: 'Criteri generali: interrogazione, verifica orale o scritta.',
+      items: [
+        { name: 'Conoscenza', prompt: 'Quanto sono complete e precise le informazioni che possiedo?', levels: commonBands.conoscenza },
+        { name: 'Comprensione', prompt: 'Quanto comprendo e rielaboro i contenuti?', levels: commonBands.comprensione },
+        { name: 'Capacità di esposizione', prompt: 'Quanto espongo in modo chiaro, corretto e autonomo?', levels: commonBands.esposizione },
+        { name: 'Capacità di analisi', prompt: 'Quanto riconosco gli elementi e le relazioni tra essi?', levels: commonBands.analisi },
+        { name: 'Capacità di sintesi', prompt: 'Quanto ricompongo gli aspetti essenziali in una visione coerente?', levels: commonBands.sintesi }
+      ]
+    },
+    professionali: {
+      title: 'Esercitazioni pratiche e professionali', hint: 'Criteri per laboratorio, manufatti, procedure e tecnologie.',
+      items: [
+        { name: 'Conoscenza, anche di contenuti e procedure informatiche', prompt: 'Conosco contenuti, attrezzature, procedure e norme di sicurezza?', levels: practicalBands.conoscenza },
+        { name: 'Comprensione, anche di contenuti e procedure informatiche', prompt: 'Comprendo e rielaboro le istruzioni ricevute?', levels: practicalBands.comprensione },
+        { name: 'Capacità pratiche e utilizzo delle tecnologie', prompt: 'Uso materiali, attrezzature e tecnologie con abilità e coordinazione?', levels: practicalBands.pratica },
+        { name: 'Grado di autonomia, anche in ambiente digitale', prompt: 'Quanto affronto il processo di lavoro in autonomia?', levels: practicalBands.autonomia }
+      ]
+    },
+    grafica: {
+      title: 'Discipline di indirizzo del Liceo Artistico', hint: 'Criteri per progettazione, tecniche, digitale, partecipazione e metodo.',
+      items: [
+        { name: 'Conoscenze e procedure tecniche', prompt: 'Conosco e uso tecniche, strumenti e procedure?', levels: artBands(['Nessuna conoscenza o procedura.', 'Conoscenze frammentarie; tecniche usate in modo scorretto.', 'Conoscenze incerte e incomplete; uso difficoltoso delle tecniche.', 'Conoscenze semplici e tecniche accettabili.', 'Conosce gli elementi grafici fondamentali; tecniche corrette.', 'Uso consapevole e corretto; conoscenza piena.', 'Conoscenze complete e approfondite; padronanza personale di strumenti e tecniche.']) },
+        { name: 'Competenze-metodo', prompt: 'Applico un metodo operativo e documento l’iter progettuale?', levels: artBands(['Nessun metodo.', 'Gravi errori anche con guida; non applica metodi semplici.', 'Procedure incerte e documentazione lacunosa.', 'Esegue compiti semplici; scelte operative imprecise.', 'Metodo semplice ma corretto e documentazione adeguata.', 'Documenta in modo completo e affronta compiti complessi.', 'Documenta in modo organico e risolve autonomamente compiti complessi.']) },
+        { name: 'Competenze digitali', prompt: 'Uso procedure e strumenti digitali con autonomia e consapevolezza?', levels: artBands(['Nessuna competenza digitale.', 'Non riconosce procedure essenziali anche se guidato.', 'Ricorda procedure semplici solo con assistenza.', 'Comprende procedure semplici ma usa il digitale passivamente.', 'È indipendente su compiti definiti e usa il digitale consapevolmente.', 'Applica procedure in autonomia su compiti e problemi diversi.', 'Si adatta a situazioni complesse, risolve problemi creativamente e guida gli altri.']) },
+        { name: 'Capacità-progetto', prompt: 'Analizzo, collego e sviluppo un percorso progettuale personale?', levels: artBands(['Nessuna capacità progettuale.', 'Gravi lacune nel percorso progettuale e nel linguaggio espressivo.', 'Percorso parziale, poco autonomo e da guidare.', 'Analisi superficiale; progetto semplice e meccanico.', 'Coglie i nessi fondamentali e interpreta in modo abbastanza personale.', 'Analizza situazioni nuove e motiva scelte espressive pertinenti.', 'Analizza, collega e sintetizza criticamente; progetto autonomo, creativo e personale.']) },
+        { name: 'Impegno', prompt: 'Quanto lavoro con continuità e responsabilità?', levels: artBands(['Nessuno.', 'Inadeguato.', 'Discontinuo.', 'Superficiale.', 'Essenziale.', 'Diligente.', 'Notevole.']) },
+        { name: 'Partecipazione', prompt: 'Quanto partecipo in modo interessato e costruttivo?', levels: artBands(['Nessuna.', 'Poco interessata o di disturbo.', 'Discontinua.', 'Interessata ma da sollecitare.', 'Ricettiva.', 'Responsabile.', 'Costruttiva.']) },
+        { name: 'Metodo di lavoro', prompt: 'Quanto organizzo e sviluppo il lavoro in modo produttivo?', levels: artBands(['Nessuno.', 'Disorganizzato.', 'Non efficace e con lacune.', 'Ripetitivo.', 'Positivo ma non sempre produttivo.', 'Organizzato.', 'Elaborativo e autonomo.']) }
+      ]
+    },
+    performance: {
+      title: 'Esecuzione e interpretazione', hint: 'Criteri specifici del Liceo Musicale.',
+      items: [
+        { name: 'Competenza tecnico-esecutiva, anche in ambiente digitale', prompt: 'Mantengo equilibrio psicofisico: respirazione, postura, rilassamento e coordinazione?', levels: [level('1–5', 5, 'Raramente.'), level('6–7', 7, 'Qualche volta.'), level('8–10', 10, 'Sempre.')] },
+        { name: 'Competenza esecutivo-strumentale, anche in ambiente digitale', prompt: 'Eseguo con scioltezza brani di adeguato livello?', levels: [level('1–4', 4, 'Raramente.'), level('5–6', 6, 'Non sempre correttamente.'), level('7–8', 8, 'Nella maggior parte dei casi.'), level('9–10', 10, 'Sempre correttamente.')] },
+        { name: 'Capacità di interpretazione', prompt: 'Interpreto il repertorio con coerenza stilistica e originalità espressiva?', levels: [level('1–4', 4, 'Stentatamente.'), level('5–6', 6, 'Sufficientemente.'), level('7–8', 8, 'Adeguatamente.'), level('9–10', 10, 'Ampiamente.')] },
+        { name: 'Conoscenza della specifica letteratura strumentale, solistica e d’insieme', prompt: 'Conosco il repertorio presentato?', levels: [level('1–4', 4, 'Con difficoltà.'), level('5–6', 6, 'In maniera imprecisa.'), level('7–8', 8, 'Adeguatamente.'), level('9–10', 10, 'In modo esaustivo.')] }
+      ]
+    }
+  };
+
+  let current = 'comuni';
+  const answers = Object.fromEntries(Object.keys(grids).map(key => [key, {}]));
+  const descriptorFor = (item, score) => item.levels.find(entry => score <= entry.max) || item.levels.at(-1);
+
+  function render() {
+    const grid = grids[current];
+    document.getElementById('assessmentTitle').textContent = grid.title;
+    document.getElementById('assessmentHint').textContent = grid.hint;
+    document.getElementById('rubricGrid').innerHTML = grid.items.map((item, index) => {
+      const selected = answers[current][index];
+      const guide = item.levels.map(entry => `<li><strong>${entry.range}:</strong> ${entry.text}</li>`).join('');
+      return `<article class="rubric"><div class="rubric-number">${String(index + 1).padStart(2, '0')}</div><h3>${item.name}</h3><p class="rubric-prompt">${item.prompt}</p><div class="vote-scale" aria-label="Voto per ${item.name}">${Array.from({ length: 10 }, (_, scoreIndex) => { const score = scoreIndex + 1; return `<label class="vote-option"><input type="radio" name="ptofo-${current}-${index}" value="${score}" ${selected === score ? 'checked' : ''}><span>${score}</span></label>`; }).join('')}</div><p class="selected-descriptor" id="descriptor-${current}-${index}">${selected ? `<strong>${selected}/10.</strong> ${descriptorFor(item, selected).text}` : 'Scegli un voto da 1 a 10 per leggere il descrittore corrispondente.'}</p><details class="scale-guide"><summary>Vedi tutti i descrittori PTOF</summary><ul>${guide}</ul></details></article>`;
+    }).join('');
+  }
+
+  document.querySelectorAll('.assessment-type').forEach(button => button.addEventListener('click', () => {
+    current = button.dataset.assessment;
+    document.querySelectorAll('.assessment-type').forEach(item => {
+      const active = item === button;
+      item.classList.toggle('active', active);
+      item.setAttribute('aria-selected', String(active));
+    });
+    document.getElementById('ptofoResult').classList.remove('show');
+    render();
+  }));
+
+  document.getElementById('rubricGrid').addEventListener('change', event => {
+    const match = event.target.name?.match(/^ptofo-([a-z]+)-(\d+)$/);
+    if (!match) return;
+    const [, gridKey, rawIndex] = match;
+    const index = Number(rawIndex);
+    const score = Number(event.target.value);
+    answers[gridKey][index] = score;
+    const item = grids[gridKey].items[index];
+    document.getElementById(`descriptor-${gridKey}-${index}`).innerHTML = `<strong>${score}/10.</strong> ${descriptorFor(item, score).text}`;
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
+  });
+
+  document.getElementById('ptofoDone').addEventListener('click', () => {
+    const grid = grids[current];
+    const values = Object.values(answers[current]);
+    if (values.length < grid.items.length) {
+      alert('Completa tutti gli indicatori di questa griglia per ottenere il voto.');
+      return;
+    }
+    const average = values.reduce((sum, value) => sum + value, 0) / values.length;
+    const vote = Math.max(1, Math.min(10, Math.round(average)));
+    document.getElementById('ptofoResult').innerHTML = `<h3>Il voto che emerge è ${vote}/10</h3><p>Media analitica: ${average.toFixed(1)}/10. Il risultato usa tutti gli indicatori della griglia “${grid.title}”.</p><div class="score-row">${grid.items.map((item, index) => `<div class="score"><strong>${answers[current][index]}/10</strong><span>${item.name}</span></div>`).join('')}</div>`;
+    document.getElementById('ptofoResult').classList.add('show');
+    document.getElementById('ptofoResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.StradivariAssessment = {
+    completed: () => Object.values(answers).reduce((sum, group) => sum + Object.keys(group).length, 0),
+    total: () => Object.values(grids).reduce((sum, grid) => sum + grid.items.length, 0)
+  };
   render();
 })();

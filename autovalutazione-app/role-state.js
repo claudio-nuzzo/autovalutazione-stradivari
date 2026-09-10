@@ -1,12 +1,47 @@
-(()=>{
-  const copy={
-    alunno:{label:'Profilo alunno',hero:'Mi osservo, provo, miglioro.',ptofoTitle:'Che voto ti dai?',ptofoLead:'Scegli la situazione, compila la griglia PTOF e scopri il voto che attribuisci al tuo lavoro.',ptofoNotice:'Pensa a una prova reale: interrogazione, esercitazione, progetto o performance. Il voto serve per parlare con il docente di ciò che sai già fare e di ciò che vuoi allenare.',digTitle:'La tua bussola DigComp 3.0',digLead:'Cinque aree digitali per studiare, collaborare, creare e risolvere problemi con maggiore autonomia.',studioTitle:'Trova il tuo metodo di studio',studioLead:'Osserva le tue abitudini, prova strategie basate su evidenze e costruisci un piano personale per la prossima settimana.',courseLead:'Otto micro-lezioni per usare il digitale nello studio, nei progetti e nella vita quotidiana.'},
-    docente:{label:'Profilo docente',hero:'Progetto, accompagno, valuto.',ptofoTitle:'Quale evidenza vuoi far emergere?',ptofoLead:'Usa le stesse griglie PTOF in modalità di osservazione: scegli l’ambito e accompagna l’alunno a motivare il voto che si attribuisce.',ptofoNotice:'La griglia è uno strumento di dialogo: prima l’alunno attribuisce il proprio voto, poi il docente confronta evidenze, descrittori e feedback. Non è una valutazione automatica della persona.',digTitle:'DigComp 3.0 per il docente',digLead:'Cinque aree digitali riferite a progettazione didattica, collaborazione professionale, accessibilità, sicurezza e uso responsabile dell’IA.',studioTitle:'Metodo di studio: cosa osservare per accompagnare',studioLead:'Leggi il percorso come strumento di autovalutazione dell’alunno e come traccia per progettare interventi didattici mirati.',courseLead:'Otto micro-lezioni per progettare attività, materiali e ambienti digitali accessibili e responsabili.'}
+(() => {
+  const copy = {
+    alunno: {
+      label: 'Profilo alunno',
+      studyTitle: 'Trova il tuo metodo di studio',
+      studyLead: 'Osserva le tue abitudini, scopri punti di forza e fragilità, prova strategie efficaci e costruisci un piano personale.',
+      ptofTitle: 'Che voto ti dai?',
+      ptofLead: 'Scegli una situazione reale, valuta tutti gli indicatori della griglia corrispondente e ottieni un voto da 1 a 10.',
+      courseLead: 'Otto moduli con attività autentiche e tre domande di verifica ciascuno.'
+    },
+    docente: {
+      label: 'Profilo docente',
+      studyTitle: 'Metodo di studio: osservare per accompagnare',
+      studyLead: 'Usa il percorso per leggere le strategie dell’alunno, discutere le evidenze e progettare interventi mirati.',
+      ptofTitle: 'Quale voto emerge dalle evidenze?',
+      ptofLead: 'Accompagna l’alunno a compilare tutti gli indicatori PTOF, poi confrontate il voto emerso con osservazioni e feedback.',
+      courseLead: 'Otto moduli per progettare attività digitali affidabili, accessibili, sicure e responsabili.'
+    }
   };
-  const dig={alunno:[['Informazione e dati','Cerco, confronto e organizzo fonti per studiare.'],['Comunicazione e collaborazione','Scelgo il canale giusto e collaboro rispettando persone e regole.'],['Creazione di contenuti','Creo o rielaboro contenuti citando fonti e licenze.'],['Sicurezza e benessere','Proteggo account, dati, dispositivi e benessere.'],['Risoluzione di problemi','Individuo un bisogno, provo soluzioni e imparo dai tentativi.']],docente:[['Informazione e dati','Cerco e confronto fonti per progettare attività affidabili.'],['Comunicazione e collaborazione','Collaboro con colleghi e studenti scegliendo canali e linguaggi adeguati.'],['Creazione di contenuti','Creo materiali didattici accessibili, citando fonti e licenze.'],['Sicurezza e benessere','Proteggo dati, account, dispositivi e persone nella pratica didattica.'],['Risoluzione di problemi','Individuo bisogni, valuto strumenti e IA e rifletto sull’efficacia.']]};
-  function renderDig(role){const box=document.getElementById('digGrid');if(!box)return;const levels=['Da costruire','Con guida','In autonomia','Per gli altri'];box.innerHTML=dig[role].map((d,i)=>`<article class="dig-card"><h3>${i+1}. ${d[0]}</h3><p>${d[1]}</p><div class="level">${levels.map((l,j)=>`<label><input type="radio" name="role-d${i}" value="${j}">${l}</label>`).join('')}</div></article>`).join('')}
-  const roleText=document.createElement('div');roleText.id='activeProfile';roleText.setAttribute('role','status');roleText.style.cssText='position:sticky;top:0;z-index:9;background:var(--ink);color:#fff;padding:10px 14px;margin:-30px auto 18px;font:600 13px "Space Grotesk";letter-spacing:.04em;text-align:center';roleText.textContent='Profilo non ancora scelto';const app=document.getElementById('percorso');if(app)app.parentNode.insertBefore(roleText,app);
-  function update(role){const c=copy[role]||copy.alunno;localStorage.setItem('stradivari-profile',role);renderDig(role);document.querySelectorAll('.role').forEach(b=>{const selected=b.dataset.role===role;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',selected?'true':'false')});roleText.textContent=`Stai lavorando come: ${c.label}`;document.getElementById('roleStatus').textContent=c.label;['ptofoRole','digRole','courseRole','studioRole'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=c.label});const pTitle=document.querySelector('#tab-ptofo h2'),pLead=document.querySelector('#tab-ptofo .lead'),pNotice=document.querySelector('#tab-ptofo .notice');if(pTitle)pTitle.textContent=c.ptofoTitle;if(pLead)pLead.textContent=c.ptofoLead;if(pNotice)pNotice.innerHTML=`<strong>Come usarla.</strong> ${c.ptofoNotice}`;const dTitle=document.getElementById('digTitle'),dLead=document.getElementById('digLead');if(dTitle)dTitle.textContent=c.digTitle;if(dLead)dLead.textContent=c.digLead;const sTitle=document.querySelector('#tab-studio h2'),sLead=document.querySelector('#tab-studio .section-head .lead');if(sTitle)sTitle.textContent=c.studioTitle;if(sLead)sLead.textContent=c.studioLead;const courseLead=document.querySelector('#tab-corso .section-head .lead');if(courseLead)courseLead.textContent=c.courseLead;document.body.dataset.profile=role}
-  document.addEventListener('click',e=>{const b=e.target.closest('.role');if(!b)return;e.preventDefault();e.stopImmediatePropagation();update(b.dataset.role)},true);
-  update(localStorage.getItem('stradivari-profile')||'alunno');
+
+  function setText(selector, value) { const element = document.querySelector(selector); if (element) element.textContent = value; }
+  function update(role, announce = true) {
+    const current = copy[role] || copy.alunno;
+    localStorage.setItem('stradivari-profile', role);
+    document.body.dataset.profile = role;
+    document.querySelectorAll('.role').forEach(button => {
+      const selected = button.dataset.role === role;
+      button.classList.toggle('selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    setText('#activeProfile', `Stai lavorando come: ${current.label}`);
+    setText('#roleStatus', current.label);
+    ['#studioRole', '#ptofoRole', '#digRole', '#courseRole'].forEach(selector => setText(selector, current.label));
+    setText('#tab-studio h2', current.studyTitle);
+    setText('#tab-studio .section-head .lead', current.studyLead);
+    setText('#tab-ptofo h2', current.ptofTitle);
+    setText('#tab-ptofo .section-head .lead', current.ptofLead);
+    setText('#courseLead', current.courseLead);
+    document.querySelector('.teacher-tab')?.toggleAttribute('hidden', role !== 'docente');
+    if (announce) document.dispatchEvent(new CustomEvent('profilechange', { detail: { role } }));
+  }
+
+  document.querySelectorAll('.role').forEach(button => button.addEventListener('click', () => update(button.dataset.role)));
+  const initial = localStorage.getItem('stradivari-profile') || 'alunno';
+  update(initial);
+  window.StradivariRole = { get: () => localStorage.getItem('stradivari-profile') || 'alunno', set: update };
 })();
