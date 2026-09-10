@@ -6,7 +6,7 @@
       studyLead: 'Osserva le tue abitudini, scopri punti di forza e fragilità, prova strategie efficaci e costruisci un piano personale.',
       ptofTitle: 'Che voto ti dai?',
       ptofLead: 'Scegli una situazione reale, valuta tutti gli indicatori della griglia corrispondente e ottieni un voto da 1 a 10.',
-      courseLead: 'Otto moduli con attività autentiche e tre domande di verifica ciascuno.'
+      courseLead: 'Otto capitoli completi per imparare: spiegazioni, esempi, sintesi infografiche, laboratori, checklist e verifiche formative.'
     },
     docente: {
       label: 'Profilo docente',
@@ -14,7 +14,7 @@
       studyLead: 'Usa il percorso per leggere le strategie dell’alunno, discutere le evidenze e progettare interventi mirati.',
       ptofTitle: 'Quale voto emerge dalle evidenze?',
       ptofLead: 'Accompagna l’alunno a compilare tutti gli indicatori PTOF, poi confrontate il voto emerso con osservazioni e feedback.',
-      courseLead: 'Otto moduli per progettare attività digitali affidabili, accessibili, sicure e responsabili.'
+      courseLead: 'Otto capitoli per la didattica: quadro concettuale, casi d’aula, sintesi infografiche, laboratori e verifiche formative.'
     }
   };
 
