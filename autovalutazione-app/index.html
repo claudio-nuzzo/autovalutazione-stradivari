@@ -3,8 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Metodo di studio, griglie disciplinari e percorso DigComp dell'IIS Antonio Stradivari di Cremona.">
-  <title>Autovalutazione · Stradivari</title>
+  <meta name="description" content="Didattica e metodi: metodo di studio, griglie disciplinari e percorso DigComp dell'IIS Antonio Stradivari di Cremona.">
+  <title>Didattica e metodi · Stradivari</title>
+  <link rel="canonical" href="https://didattica.stradilab.org/">
+  <meta property="og:title" content="Didattica e metodi · Stradivari">
+  <meta property="og:description" content="Metodo di studio, app, griglie disciplinari e percorso DigComp 3.0 per studenti e docenti.">
+  <meta property="og:url" content="https://didattica.stradilab.org/">
+  <meta property="og:type" content="website">
   <link rel="icon" href="https://stradilab.org/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,8 +32,8 @@
     <section class="hero wrap">
       <div>
         <div class="eyebrow">IIS Antonio Stradivari · Cremona</div>
-        <h1>Conosci il tuo modo di <em>imparare.</em></h1>
-        <p>Parti dal metodo di studio, poi autovaluta una prova con le griglie PTOF e allena le competenze digitali.</p>
+        <h1>Didattica <em>e metodi.</em></h1>
+        <p>Un portale per imparare a studiare, scegliere strategie, leggere le proprie competenze e allenare il digitale.</p>
       </div>
       <div class="hero-panel">
         <div class="kicker">Prima di iniziare</div>
@@ -47,6 +52,17 @@
             <div class="pdf-dialog-actions"><button class="btn secondary" value="cancel" type="submit">Annulla</button><button class="btn" id="generatePdf" value="default" type="submit">Genera PDF</button></div>
           </form>
         </dialog>
+        <div class="teacher-access" id="teacherAccess" aria-labelledby="teacherAccessTitle">
+          <div class="teacher-access-copy">
+            <div class="kicker">Docenti StradiLab</div>
+            <strong id="teacherAccessTitle">Accedi per riconoscere il tuo profilo docente</strong>
+            <p>Il corso, il check e la verifica da 30 domande sono aperti anche agli ospiti. Il login OAuth serve solo a riconoscere i docenti interni autorizzati nelle pagine riservate StradiLab.</p>
+          </div>
+          <div class="teacher-access-actions">
+            <div id="sl-login"></div>
+            <div class="teacher-auth-status" id="teacherAuthStatus" role="status" aria-live="polite"><span class="guest-dot" aria-hidden="true"></span>Modalità ospite attiva · accesso libero per docenti esterni</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -113,8 +129,8 @@
 
         <section class="section" id="tab-corso" role="tabpanel" hidden>
           <div class="section-head"><div><div class="kicker">04 · Manuale interattivo</div><h2>Corso DigComp 3.0</h2><p class="lead" id="courseLead">Otto capitoli completi per studenti e docenti: spiegazioni, esempi, sintesi infografiche, laboratori, checklist e verifiche formative.</p></div><span class="role-pill" id="courseRole">Profilo alunno</span></div>
-          <div class="course-intro"><strong>Un piccolo manuale da consultare e sperimentare in autonomia.</strong><span>Scegli un capitolo e procedi al tuo ritmo: la lezione cambia prospettiva in base al profilo selezionato e collega ogni concetto a un compito autentico. Non serve un docente accanto: spiegazioni, esempi, esercitazioni e verifiche sono già dentro il percorso.</span></div>
-          <div class="course-map" id="courseMap"></div><div class="lesson" id="lesson"></div><div class="glossary"><div class="kicker">Glossario essenziale</div><div class="glossary-grid" id="glossary"></div></div>
+          <div class="course-intro"><strong>Un piccolo manuale da consultare e sperimentare in autonomia.</strong><span>Scegli un capitolo e procedi al tuo ritmo: la lezione cambia prospettiva in base al profilo selezionato e collega ogni concetto a un compito autentico. Non serve un docente accanto: spiegazioni, esempi, esercitazioni e verifiche sono già dentro il percorso.</span><span><strong>Percorso docente consigliato · 30–45 minuti:</strong> leggi i capitoli 1, 3 e 8, svolgi almeno un laboratorio e completa la verifica finale da 30 domande.</span></div>
+          <div class="course-map" id="courseMap"></div><div class="lesson" id="lesson"></div><div class="glossary"><div class="kicker">Glossario essenziale</div><div class="glossary-grid" id="glossary"></div></div><section class="teacher-course-test" id="teacherCourseTest" hidden><div class="kicker">Aggiornamento interno · docenti</div><h3>Verifica finale DigComp 3.0</h3><p>30 domande per controllare ciò che hai appreso nel corso. La soglia di superamento è <strong>21 risposte esatte su 30</strong>. Puoi ripetere la verifica dopo aver riletto i capitoli.</p><div id="teacherTestContent"></div></section>
         </section>
       </div>
     </section>
@@ -124,8 +140,11 @@
   <div id="pdfReport" aria-hidden="true"></div>
   <script src="study-method.js"></script>
   <script src="assessment-vote.js"></script>
-  <script src="digcomp-course.js"></script>
+  <script src="digcomp-course.js?v=15"></script>
   <script src="role-state.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="stradilab-auth.js"></script>
+  <script src="teacher-auth.js"></script>
   <script src="results-pdf.js"></script>
   <script src="app.js"></script>
 </body>

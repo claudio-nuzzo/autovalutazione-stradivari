@@ -2,18 +2,18 @@
   const levels = ['Da costruire', 'Con guida', 'In autonomia', 'Guido altri'];
   const profiles = {
     alunno: [
-      ['Informazione e dati', ['Formulo ricerche precise e confronto autore, data, scopo e prove.', 'Organizzo fonti e dati in modo da poterli ritrovare e citare.']],
-      ['Comunicazione e collaborazione', ['Scelgo canale, tono e destinatari adatti.', 'Collaboro online rispettando ruoli, identità e contributi.']],
-      ['Creazione di contenuti', ['Creo e rielaboro contenuti accessibili in formati diversi.', 'Cito fonti e licenze e dichiaro l’eventuale uso dell’IA.']],
-      ['Sicurezza e benessere', ['Proteggo account, dati personali e dispositivi.', 'Gestisco attenzione, tempo, reputazione e impatto ambientale.']],
-      ['Risoluzione di problemi', ['Definisco il bisogno, provo soluzioni e imparo dagli errori.', 'Valuto criticamente strumenti digitali e risposte dell’IA.']]
+      ['Informazione e dati', ['Formulo ricerche precise e confronto autore, data, scopo e prove.', 'Organizzo fonti e dati in modo da poterli ritrovare e citare.', 'Riconosco contenuti manipolati e distinguo fatti, opinioni e pubblicità.']],
+      ['Comunicazione e collaborazione', ['Scelgo canale, tono e destinatari adatti.', 'Collaboro online rispettando ruoli, identità e contributi.', 'Condivido file e messaggi controllando permessi, privacy e tracce digitali.']],
+      ['Creazione di contenuti', ['Creo e rielaboro contenuti accessibili in formati diversi.', 'Cito fonti e licenze e dichiaro l’eventuale uso dell’IA.', 'Adatto testo, immagini, audio e video allo scopo e al pubblico.']],
+      ['Sicurezza e benessere', ['Proteggo account, dati personali e dispositivi.', 'Gestisco attenzione, tempo, reputazione e impatto ambientale.', 'Riconosco phishing, richieste anomale e situazioni che richiedono aiuto.']],
+      ['Risoluzione di problemi', ['Definisco il bisogno, provo soluzioni e imparo dagli errori.', 'Valuto criticamente strumenti digitali e risposte dell’IA.', 'Scelgo strumenti accessibili e trasferisco ciò che ho imparato a un caso nuovo.']]
     ],
     docente: [
-      ['Informazione e dati', ['Seleziono fonti affidabili per progettare attività e materiali.', 'Organizzo dati didattici nel rispetto di finalità, minimizzazione e trasparenza.']],
-      ['Comunicazione e collaborazione', ['Progetto ambienti e consegne digitali chiari e inclusivi.', 'Collaboro con colleghi e studenti rendendo visibili ruoli e feedback.']],
-      ['Creazione di contenuti', ['Produco materiali accessibili, riusabili e coerenti con gli obiettivi.', 'Gestisco diritto d’autore, licenze e dichiarazione dell’uso dell’IA.']],
-      ['Sicurezza e benessere', ['Tutelo dati, account e dispositivi nelle attività didattiche.', 'Progetto un uso equilibrato del digitale e prevengo esclusione e sovraccarico.']],
-      ['Risoluzione di problemi', ['Scelgo tecnologie a partire dal bisogno didattico, non dallo strumento.', 'Valuto limiti, bias e impatto dell’IA e mantengo supervisione umana.']]
+      ['Informazione e dati', ['Seleziono fonti affidabili per progettare attività e materiali.', 'Organizzo dati didattici nel rispetto di finalità, minimizzazione e trasparenza.', 'Rendo verificabili fonti, criteri di selezione e limiti dei materiali.']],
+      ['Comunicazione e collaborazione', ['Progetto ambienti e consegne digitali chiari e inclusivi.', 'Collaboro con colleghi e studenti rendendo visibili ruoli e feedback.', 'Definisco permessi, canali, tempi di risposta e alternative di accesso.']],
+      ['Creazione di contenuti', ['Produco materiali accessibili, riusabili e coerenti con gli obiettivi.', 'Gestisco diritto d’autore, licenze e dichiarazione dell’uso dell’IA.', 'Verifico leggibilità, interoperabilità e adeguatezza dei contenuti per destinatari diversi.']],
+      ['Sicurezza e benessere', ['Tutelo dati, account e dispositivi nelle attività didattiche.', 'Progetto un uso equilibrato del digitale e prevengo esclusione e sovraccarico.', 'Applico minimizzazione, gestione degli incidenti e valutazione dei rischi.']],
+      ['Risoluzione di problemi', ['Scelgo tecnologie a partire dal bisogno didattico, non dallo strumento.', 'Valuto limiti, bias e impatto dell’IA e mantengo supervisione umana.', 'Progetto prove, feedback e alternative per migliorare una soluzione didattica.']]
     ]
   };
 
@@ -156,16 +156,50 @@
     }
   ];
 
+  const teacherQuestions = [
+    ['Una ricerca digitale ben formulata parte da…', ['un tema molto ampio', 'una domanda delimitata e un bisogno informativo', 'il primo risultato del motore di ricerca'], 1, 'Informazione e dati'],
+    ['Per valutare una fonte è utile controllare…', ['autore, data, scopo e prove', 'solo il numero di immagini', 'la posizione nella pagina'], 0, 'Informazione e dati'],
+    ['La ricerca laterale consiste nel…', ['leggere più volte la stessa pagina', 'confrontare fonti indipendenti per verificare autore e contenuto', 'usare sempre lo stesso motore'], 1, 'Informazione e dati'],
+    ['Una buona organizzazione dei dati richiede…', ['criteri, nomi e versioni coerenti', 'file chiamati “finale definitivo”', 'cartelle senza struttura'], 0, 'Informazione e dati'],
+    ['La minimizzazione dei dati significa…', ['raccogliere ogni informazione possibile', 'raccogliere solo i dati necessari allo scopo dichiarato', 'pubblicare i dati per trasparenza'], 1, 'Informazione e dati'],
+    ['Quando si usa un contenuto prodotto dall’IA, il docente deve…', ['considerarlo automaticamente corretto', 'verificare attendibilità, limiti e adeguatezza al contesto', 'eliminare ogni traccia del processo'], 1, 'Informazione e dati'],
+    ['Prima di scegliere un canale digitale per una consegna occorre considerare…', ['solo la velocità', 'scopo, destinatari, tono, accessibilità e tracciabilità', 'il canale più nuovo'], 1, 'Comunicazione e collaborazione'],
+    ['Condividere un documento in modo responsabile significa…', ['aprire il link a chiunque', 'assegnare a ciascuno il permesso minimo necessario', 'lasciare sempre tutti come editor'], 1, 'Comunicazione e collaborazione'],
+    ['Una consegna digitale inclusiva dovrebbe…', ['dare istruzioni chiare e prevedere alternative equivalenti', 'presupporre lo stesso dispositivo per tutti', 'usare solo video'], 0, 'Comunicazione e collaborazione'],
+    ['La collaborazione è documentabile quando…', ['ruoli e decisioni restano visibili nel processo', 'una sola persona svolge tutto', 'si cancella la cronologia'], 0, 'Comunicazione e collaborazione'],
+    ['Un feedback formativo efficace è…', ['generico e riferito alla persona', 'specifico, rispettoso e collegato a criteri osservabili', 'dato solo alla fine dell’anno'], 1, 'Comunicazione e collaborazione'],
+    ['Per tutelare la reputazione digitale degli studenti è importante…', ['pubblicare sempre i loro lavori con nome completo', 'definire pubblico, consenso e permanenza della condivisione', 'usare account condivisi'], 1, 'Comunicazione e collaborazione'],
+    ['Un materiale accessibile usa…', ['gerarchia dei titoli, contrasto adeguato e alternative testuali', 'solo colori per distinguere le informazioni', 'testo piccolo per contenere tutto'], 0, 'Creazione di contenuti'],
+    ['Una licenza indica…', ['come e a quali condizioni un contenuto può essere riusato', 'quanto è bello un contenuto', 'quanti studenti lo hanno visto'], 0, 'Creazione di contenuti'],
+    ['La citazione di una fonte serve a…', ['rendere riconoscibile l’origine e verificabile il contenuto', 'sostituire la comprensione', 'rendere il testo più lungo'], 0, 'Creazione di contenuti'],
+    ['Un’attività didattica con IA dovrebbe mantenere…', ['una fase di giudizio e responsabilità umana', 'la delega completa delle decisioni', 'l’assenza di dichiarazioni'], 0, 'Creazione di contenuti'],
+    ['Per controllare un’immagine informativa è utile fornire…', ['un testo alternativo che ne espliciti funzione e significato', 'solo il nome del file', 'una didascalia vuota'], 0, 'Creazione di contenuti'],
+    ['Interoperabilità significa che…', ['formati e sistemi diversi possono scambiare e usare dati', 'ogni file funziona solo in un programma', 'i dati non possono essere esportati'], 0, 'Creazione di contenuti'],
+    ['Una password sicura per un account scolastico dovrebbe essere…', ['riutilizzata per comodità', 'lunga, unica e accompagnata da MFA quando possibile', 'condivisa con la classe'], 1, 'Sicurezza e benessere'],
+    ['Davanti a una richiesta urgente di credenziali il docente dovrebbe…', ['verificare il mittente tramite un canale già noto', 'rispondere subito dal link ricevuto', 'inoltrare il messaggio a tutta la classe'], 0, 'Sicurezza e benessere'],
+    ['In caso di sospetto incidente digitale è corretto…', ['cancellare ogni evidenza', 'limitare il danno, seguire la procedura e avvisare il referente', 'aspettare per vedere se passa'], 1, 'Sicurezza e benessere'],
+    ['Un uso equilibrato del digitale considera…', ['solo il numero di ore', 'attenzione, pause, accessibilità, relazioni e contesto', 'soltanto il dispositivo usato'], 1, 'Sicurezza e benessere'],
+    ['Per una scelta digitale sostenibile è utile…', ['prolungare la vita dei dispositivi e ridurre duplicati inutili', 'sostituire ogni anno ciò che funziona', 'conservare tutti i file per sempre'], 0, 'Sicurezza e benessere'],
+    ['Privacy by design significa…', ['considerare protezione e minimizzazione fin dalla progettazione', 'aggiungere una privacy policy alla fine', 'raccogliere dati prima di definire lo scopo'], 0, 'Sicurezza e benessere'],
+    ['Prima di risolvere un problema tecnico è utile distinguere…', ['sintomo, risultato atteso e causa ipotizzata', 'solo il programma più recente', 'chi ha commesso l’errore'], 0, 'Risoluzione di problemi'],
+    ['Per confrontare due strumenti digitali è meglio definire prima…', ['criteri legati a bisogno, accessibilità, privacy e sostenibilità', 'il colore dell’interfaccia', 'quello usato dalla maggioranza'], 0, 'Risoluzione di problemi'],
+    ['Cambiare una variabile alla volta permette di…', ['capire quale modifica produce un effetto', 'rendere il problema più confuso', 'evitare di documentare'], 0, 'Risoluzione di problemi'],
+    ['Un buon prototipo didattico serve a…', ['provare presto una soluzione e raccogliere feedback', 'dimostrare che non servono revisioni', 'nascondere i limiti'], 0, 'Risoluzione di problemi'],
+    ['Valutare criticamente un sistema di IA significa anche considerare…', ['bias, omissioni, fonti, impatto e responsabilità', 'solo la fluidità della risposta', 'solo la velocità di generazione'], 0, 'Risoluzione di problemi']
+  ];
+
   const glossary = [['Fonte primaria', 'Documento o dato direttamente legato al fenomeno osservato.'], ['Ricerca laterale', 'Controllo di una fonte aprendo altre fonti indipendenti.'], ['Licenza', 'Condizioni con cui un contenuto può essere riusato.'], ['Accessibilità', 'Progettazione utilizzabile da persone e dispositivi diversi.'], ['Dato personale', 'Informazione che identifica o rende identificabile una persona.'], ['Phishing', 'Tentativo di sottrarre dati simulando un mittente affidabile.'], ['Bias', 'Distorsione sistematica nei dati, nel processo o nel risultato.'], ['IA generativa', 'Sistema che produce contenuti da istruzioni e dati: va verificato.'], ['Agency', 'Capacità di comprendere, scegliere e mantenere il controllo delle proprie azioni.'], ['Minimizzazione', 'Raccolta dei soli dati necessari a uno scopo dichiarato.'], ['Interoperabilità', 'Capacità di sistemi e formati diversi di scambiare e usare dati.'], ['MFA', 'Autenticazione che richiede più di un fattore di verifica.']];
   const answers = { alunno: {}, docente: {} };
   let role = localStorage.getItem('stradivari-profile') || 'alunno';
   let currentModule = 0;
   let lastResult = null;
+  let teacherTestAnswers = Array(teacherQuestions.length).fill(null);
+  let teacherTestResult = null;
 
   function renderDig() {
     const grid = profiles[role];
     document.getElementById('digTitle').textContent = role === 'docente' ? 'DigComp per il docente' : 'La tua bussola DigComp';
-    document.getElementById('digLead').textContent = role === 'docente' ? 'Dieci indicatori per rileggere progettazione, collaborazione, contenuti, tutela e scelte tecnologiche.' : 'Dieci indicatori per rileggere come cerchi, collabori, crei, ti proteggi e risolvi problemi.';
+    document.getElementById('digLead').textContent = role === 'docente' ? 'Quindici indicatori per rileggere progettazione, collaborazione, contenuti, tutela e scelte tecnologiche.' : 'Quindici indicatori per rileggere come cerchi, collabori, crei, ti proteggi e risolvi problemi.';
     document.getElementById('digGrid').innerHTML = grid.map((area, areaIndex) => `<article class="dig-card"><h3>${areaIndex + 1}. ${area[0]}</h3>${area[1].map((indicator, indicatorIndex) => { const key = `${areaIndex}-${indicatorIndex}`; return `<div class="dig-indicator"><p>${indicator}</p><div class="level">${levels.map((label, levelIndex) => `<label><input type="radio" name="dig-${role}-${key}" value="${levelIndex}" ${answers[role][key] === levelIndex ? 'checked' : ''}><span>${label}</span></label>`).join('')}</div></div>`; }).join('')}</article>`).join('');
   }
 
@@ -173,6 +207,27 @@
     document.getElementById('courseMap').innerHTML = lessons.map((lesson, index) => `<button class="module-btn ${index === currentModule ? 'active' : ''}" data-module="${index}" aria-label="Apri il capitolo ${index + 1}: ${lesson.title}"><b>CAPITOLO ${String(index + 1).padStart(2, '0')}</b><span>${lesson.title}</span><small>${lesson.time}</small></button>`).join('');
     document.getElementById('glossary').innerHTML = glossary.map(item => `<div class="term"><b>${item[0]}</b>${item[1]}</div>`).join('');
     renderLesson(currentModule, false);
+    renderTeacherTest();
+  }
+
+  function renderTeacherTest() {
+    const section = document.getElementById('teacherCourseTest');
+    if (!section) return;
+    section.hidden = role !== 'docente';
+    if (role !== 'docente') return;
+    const result = teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>${teacherTestResult.correct}/30 risposte esatte</strong><span>${teacherTestResult.message}</span><small>${teacherTestResult.status === 'fail' ? 'Rileggi i capitoli indicati e riprova.' : 'Conserva questo risultato per il futuro attestato.'}</small></div>` : '';
+    document.getElementById('teacherTestContent').innerHTML = `<div class="teacher-test-meta"><span>0–20: insufficiente</span><span>21–25: superato</span><span>26–30: avanzato</span><b>${teacherTestAnswers.filter(answer => answer !== null).length}/30 risposte</b></div>${teacherQuestions.map((question, index) => `<article class="teacher-question"><div><span>${String(index + 1).padStart(2, '0')}</span><small>${question[3]}</small></div><p>${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="teacher-test-${index}" value="${optionIndex}" ${teacherTestAnswers[index] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}</article>`).join('')}<div class="teacher-test-actions"><button class="btn" id="teacherTestSubmit" type="button">Calcola il risultato</button><button class="btn secondary" id="teacherTestReset" type="button">Ricomincia</button></div>${result}`;
+  }
+
+  function evaluateTeacherTest() {
+    if (teacherTestAnswers.some(answer => answer === null)) { alert('Completa tutte le 30 domande prima di calcolare il risultato.'); return; }
+    const correct = teacherTestAnswers.reduce((total, answer, index) => total + (answer === teacherQuestions[index][2] ? 1 : 0), 0);
+    const status = correct < 21 ? 'fail' : correct < 26 ? 'pass' : 'advanced';
+    const message = status === 'fail' ? 'Non ancora sufficiente: la soglia è 21/30.' : status === 'pass' ? 'Verifica superata: hai raggiunto la soglia di 21/30.' : 'Verifica superata con esito avanzato.';
+    teacherTestResult = { correct, status, message };
+    renderTeacherTest();
+    document.getElementById('teacherCourseTest')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
   }
 
   function renderLesson(index, updateHash = true) {
@@ -210,7 +265,7 @@
   });
   document.getElementById('digDone').addEventListener('click', () => {
     const values = Object.values(answers[role]);
-    if (values.length < 10) { alert('Completa tutti i dieci indicatori DigComp del profilo scelto.'); return; }
+    if (values.length < 15) { alert('Completa tutti i quindici indicatori DigComp del profilo scelto.'); return; }
     const average = values.reduce((a, b) => a + b, 0) / values.length;
     const names = ['Da costruire', 'Con guida', 'In autonomia', 'So guidare altri'];
     lastResult = { role, level: names[Math.round(average)], average: average.toFixed(1), completed: true };
@@ -221,6 +276,19 @@
   document.getElementById('courseMap').addEventListener('click', event => {
     const button = event.target.closest('[data-module]');
     if (button) renderLesson(Number(button.dataset.module));
+  });
+  document.getElementById('teacherTestContent')?.addEventListener('change', event => {
+    const match = event.target.name?.match(/^teacher-test-(\d+)$/);
+    if (!match) return;
+    teacherTestAnswers[Number(match[1])] = Number(event.target.value);
+    teacherTestResult = null;
+    const count = document.querySelector('.teacher-test-meta b');
+    if (count) count.textContent = `${teacherTestAnswers.filter(answer => answer !== null).length}/30 risposte`;
+    document.querySelector('.teacher-test-result')?.remove();
+  });
+  document.getElementById('teacherTestContent')?.addEventListener('click', event => {
+    if (event.target.id === 'teacherTestSubmit') evaluateTeacherTest();
+    if (event.target.id === 'teacherTestReset') { teacherTestAnswers = Array(teacherQuestions.length).fill(null); teacherTestResult = null; renderTeacherTest(); }
   });
   document.getElementById('lesson').addEventListener('click', event => {
     const nav = event.target.closest('[data-course-nav]');
@@ -246,7 +314,7 @@
     document.getElementById('digResult').classList.remove('show');
   });
 
-  window.StradivariDig = { completed: () => Object.keys(answers.alunno).length + Object.keys(answers.docente).length, total: 20, getResults: () => lastResult || { completed: false, role } };
-  window.StradivariCourse = { openModule: (index, updateHash = false) => renderLesson(index, updateHash), total: lessons.length, getResults: () => ({ module: currentModule + 1, title: lessons[currentModule].title, role, completed: Boolean(lastResult), digcomp: lastResult }) };
+  window.StradivariDig = { completed: () => Object.keys(answers.alunno).length + Object.keys(answers.docente).length, total: 30, getResults: () => lastResult || { completed: false, role } };
+  window.StradivariCourse = { openModule: (index, updateHash = false) => renderLesson(index, updateHash), total: lessons.length, getResults: () => ({ module: currentModule + 1, title: lessons[currentModule].title, role, completed: Boolean(lastResult), digcomp: lastResult, teacherTest: teacherTestResult }) };
   renderDig(); renderCourse();
 })();

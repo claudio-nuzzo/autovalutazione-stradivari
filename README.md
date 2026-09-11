@@ -1,6 +1,8 @@
-# autovalutazione-stradivari
+# Didattica e metodi · Stradivari
 
-Portale statico di autovalutazione dell'IIS Antonio Stradivari.
+Portale statico “Didattica e metodi” dell'IIS Antonio Stradivari.
+
+Online su https://didattica.stradilab.org
 
 Il percorso è autonomo: non richiede Google Apps Script per caricare le griglie o calcolare i risultati. Comprende:
 
