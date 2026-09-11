@@ -38,6 +38,15 @@
           <button class="role" data-role="alunno" aria-pressed="false"><b>Sono un alunno</b><small>Mi osservo, provo, miglioro.</small></button>
           <button class="role" data-role="docente" aria-pressed="false"><b>Sono un docente</b><small>Progetto, accompagno, valuto.</small></button>
         </div>
+        <div class="pdf-actions"><button class="btn secondary" id="downloadPdf" type="button">Scarica i risultati in PDF</button><small>Salvataggio locale · nessun dato viene inviato</small></div>
+        <dialog id="pdfIdentityDialog" class="pdf-dialog" aria-labelledby="pdfIdentityTitle">
+          <form method="dialog" id="pdfIdentityForm">
+            <div class="kicker">Prima di creare il PDF</div><h2 id="pdfIdentityTitle">Come vuoi intestare il report?</h2><p>Nome e classe sono facoltativi: servono solo a rendere il documento più chiaro e non vengono salvati né inviati.</p>
+            <label for="pdfStudentName">Nome e cognome <span>(facoltativo)</span></label><input id="pdfStudentName" name="studentName" type="text" maxlength="80" autocomplete="name">
+            <label for="pdfStudentClass">Classe <span>(facoltativo)</span></label><input id="pdfStudentClass" name="studentClass" type="text" maxlength="30" autocomplete="off">
+            <div class="pdf-dialog-actions"><button class="btn secondary" value="cancel" type="submit">Annulla</button><button class="btn" id="generatePdf" value="default" type="submit">Genera PDF</button></div>
+          </form>
+        </dialog>
       </div>
     </section>
 
@@ -61,7 +70,7 @@
           <div class="section-head"><div><div class="kicker">01 · 65–70 minuti</div><h2>Trova il tuo metodo di studio</h2><p class="lead">Osserva le tue abitudini, scopri punti di forza e fragilità, prova strategie efficaci e costruisci un piano personale.</p></div><span class="role-pill" id="studioRole">Profilo alunno</span></div>
           <div class="notice"><strong>Non è un voto.</strong> Rispondi pensando a quello che fai davvero: otterrai una mappa personale e tecniche da sperimentare su un contenuto reale.</div>
           <div class="study-research"><strong>Su quali evidenze si basa.</strong> Richiamo attivo, pratica distribuita, alternanza degli esercizi, elaborazione, doppia codifica e monitoraggio metacognitivo.</div>
-          <div class="study-steps" aria-label="Fasi del percorso"><span class="study-step active">1 · Autoplacement <small>10 min</small></span><span class="study-step">2 · Diagnosi <small>10 min</small></span><span class="study-step">3 · Strategie <small>15–20 min</small></span><span class="study-step">4 · Prova <small>20 min</small></span><span class="study-step">5 · Piano <small>10 min</small></span></div>
+          <div class="study-steps" aria-label="Fasi del percorso"><span class="study-step active">1 · Autoplacement <small>15 min</small></span><span class="study-step">2 · Diagnosi <small>10 min</small></span><span class="study-step">3 · Strategie <small>15–20 min</small></span><span class="study-step">4 · Prova <small>20 min</small></span><span class="study-step">5 · Piano <small>10 min</small></span></div>
           <div id="studyContent" class="study-content"></div>
         </section>
 
@@ -110,10 +119,12 @@
   </main>
 
   <footer><div class="wrap">IIS “Antonio Stradivari” · Cremona · <a href="https://stradilab.org/privacy.html">Privacy</a></div></footer>
+  <div id="pdfReport" aria-hidden="true"></div>
   <script src="study-method.js"></script>
   <script src="assessment-vote.js"></script>
   <script src="digcomp-course.js"></script>
   <script src="role-state.js"></script>
+  <script src="results-pdf.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

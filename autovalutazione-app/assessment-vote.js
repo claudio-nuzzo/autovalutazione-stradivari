@@ -81,6 +81,7 @@
   };
 
   let current = 'comuni';
+  let lastResult = null;
   const answers = Object.fromEntries(Object.keys(grids).map(key => [key, {}]));
   const orderCache = {};
   const scoreFor = entry => {
@@ -144,6 +145,7 @@
     const scores = grid.items.map((item, index) => scoreFor(item.levels[answers[current][index]]));
     const average = scores.reduce((sum, value) => sum + value, 0) / scores.length;
     const vote = Math.max(1, Math.min(10, Math.round(average)));
+    lastResult = { grid: grid.title, vote, completed: true };
     document.getElementById('ptofoResult').innerHTML = `<h3>Il voto che emerge è ${vote}/10</h3><p>Hai scelto prima i descrittori che ti rappresentano, senza vedere la loro corrispondenza numerica. Il risultato usa tutti gli indicatori della griglia “${grid.title}”.</p><div class="score-row">${grid.items.map(item => `<div class="score"><strong aria-hidden="true">✓</strong><span>${item.name}</span></div>`).join('')}</div>`;
     document.getElementById('ptofoResult').classList.add('show');
     document.getElementById('ptofoResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -151,7 +153,8 @@
 
   window.StradivariAssessment = {
     completed: () => Object.values(answers).reduce((sum, group) => sum + Object.keys(group).length, 0),
-    total: () => Object.values(grids).reduce((sum, grid) => sum + grid.items.length, 0)
+    total: () => Object.values(grids).reduce((sum, grid) => sum + grid.items.length, 0),
+    getResults: () => lastResult || { grid: grids[current].title, completed: false }
   };
   render();
 })();

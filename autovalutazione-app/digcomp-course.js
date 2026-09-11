@@ -160,6 +160,7 @@
   const answers = { alunno: {}, docente: {} };
   let role = localStorage.getItem('stradivari-profile') || 'alunno';
   let currentModule = 0;
+  let lastResult = null;
 
   function renderDig() {
     const grid = profiles[role];
@@ -212,6 +213,7 @@
     if (values.length < 10) { alert('Completa tutti i dieci indicatori DigComp del profilo scelto.'); return; }
     const average = values.reduce((a, b) => a + b, 0) / values.length;
     const names = ['Da costruire', 'Con guida', 'In autonomia', 'So guidare altri'];
+    lastResult = { role, level: names[Math.round(average)], average: average.toFixed(1), completed: true };
     const result = document.getElementById('digResult');
     result.innerHTML = `<strong>Livello prevalente: ${names[Math.round(average)]}</strong><br>Media ${average.toFixed(1)}/3 sul profilo ${role}. Il risultato serve per scegliere il prossimo modulo da allenare.`;
     result.classList.add('show');
@@ -244,7 +246,7 @@
     document.getElementById('digResult').classList.remove('show');
   });
 
-  window.StradivariDig = { completed: () => Object.keys(answers.alunno).length + Object.keys(answers.docente).length, total: 20 };
-  window.StradivariCourse = { openModule: (index, updateHash = false) => renderLesson(index, updateHash), total: lessons.length };
+  window.StradivariDig = { completed: () => Object.keys(answers.alunno).length + Object.keys(answers.docente).length, total: 20, getResults: () => lastResult || { completed: false, role } };
+  window.StradivariCourse = { openModule: (index, updateHash = false) => renderLesson(index, updateHash), total: lessons.length, getResults: () => ({ module: currentModule + 1, title: lessons[currentModule].title, role, completed: Boolean(lastResult), digcomp: lastResult }) };
   renderDig(); renderCourse();
 })();

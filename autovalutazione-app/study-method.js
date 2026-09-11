@@ -11,7 +11,13 @@
     ['memoria', 'Una sessione efficace termina con…', ['Un’altra rilettura', 'Un breve richiamo senza libro e il prossimo passo', 'Altre evidenziazioni', 'Nessuna verifica'], 1],
     ['monitoraggio', 'Per capire se un metodo funziona…', ['Conti solo il tempo trascorso', 'Controlli cosa sai fare senza aiuti e modifichi il piano', 'Aspetti il voto', 'Cambi metodo ogni giorno'], 1],
     ['attenzione', 'Quando la concentrazione cala…', ['Continui senza capire', 'Fai una pausa breve e riparti con un obiettivo preciso', 'Apri i social', 'Abbandoni la materia'], 1],
-    ['elaborazione', 'Dopo aver studiato un concetto nuovo…', ['Lo lasci isolato', 'Crei un esempio tuo e spieghi dove può essere usato', 'Ricopi la definizione', 'Memorizzi solo le parole in grassetto'], 1]
+    ['elaborazione', 'Dopo aver studiato un concetto nuovo…', ['Lo lasci isolato', 'Crei un esempio tuo e spieghi dove può essere usato', 'Ricopi la definizione', 'Memorizzi solo le parole in grassetto'], 1],
+    ['ambiente', 'Dove riesci più spesso a studiare?', ['In un posto sempre diverso, senza un piano', 'In un posto abbastanza stabile, preparato prima', 'Solo quando tutti gli altri hanno finito', 'Non ho mai osservato questa differenza'], 1],
+    ['ambiente', 'Quando a casa arrivano rumori o interruzioni…', ['Abbandono subito il compito', 'Prevedo una soluzione: pausa, cuffie, altro spazio o avviso agli altri', 'Continuo anche se non capisco più', 'Aspetto che il problema sparisca'], 1],
+    ['motivazione', 'Che cosa ti aiuta di più a iniziare?', ['Un voto o una pressione esterna', 'Un obiettivo concreto e il collegamento con qualcosa che mi interessa', 'Sapere che manca poco tempo', 'Una soluzione già pronta'], 1],
+    ['motivazione', 'Quando un argomento diventa difficile…', ['Penso che non faccia per me', 'Cerco quale passaggio posso capire o provare per primo', 'Cambio subito materia', 'Aspetto che qualcuno lo risolva'], 1],
+    ['aspettative', 'Che cosa vorresti ottenere da questo percorso?', ['Solo finire velocemente', 'Conoscere meglio come studio e portare via una strategia concreta', 'Una risposta uguale per tutti', 'Un voto senza dover provare'], 1],
+    ['aspettative', 'Come capirai che il tuo metodo sta migliorando?', ['Quando studio più ore', 'Quando ricordo e so applicare ciò che ho studiato con meno aiuti', 'Quando il compito sembra più facile', 'Quando non commetto mai errori'], 1]
   ];
 
   const strategies = [
@@ -52,9 +58,11 @@
   function render() {
     updateSteps();
     if (state.step === 0) {
-      content.innerHTML = `<h3>1. Autoplacement: come studi oggi?</h3><p>Rispondi sulle tue abitudini reali, non su quelle ideali. Tempo previsto: 10 minuti.</p>${questions.map((question, index) => `<div class="study-question"><p>${index + 1}. ${question[1]}</p>${question[2].map((option, optionIndex) => `<label class="study-option"><input type="radio" name="study-q${index}" value="${optionIndex}" ${state.answers[index] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}</div>`).join('')}<div class="study-actions">${button('Calcola la mia mappa', 'diagnose')}</div>`;
+      const questionGroups = [['Abitudini di studio', questions.slice(0, 12)], ['Ambiente domestico', questions.slice(12, 14)], ['Motivazioni', questions.slice(14, 16)], ['Aspettative', questions.slice(16, 18)]];
+      let questionIndex = 0;
+      content.innerHTML = `<h3>1. Autoplacement: come studi oggi?</h3><p>Rispondi sulle tue abitudini reali, sull’ambiente in cui studi e su ciò che ti motiva. Non ci sono risposte giuste o sbagliate: servono a costruire un percorso utile per te. Tempo previsto: 15 minuti.</p>${questionGroups.map(([title, group]) => `<section class="study-question-group"><h4>${title}</h4>${group.map(question => { const index = questionIndex++; return `<div class="study-question"><p>${index + 1}. ${question[1]}</p>${question[2].map((option, optionIndex) => `<label class="study-option"><input type="radio" name="study-q${index}" value="${optionIndex}" ${state.answers[index] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}</div>`; }).join('')}</section>`).join('')}<div class="study-actions">${button('Calcola la mia mappa', 'diagnose')}</div>`;
     } else if (state.step === 1) {
-      const areaNames = { pianificazione: 'Pianificazione', memoria: 'Memoria e richiamo', attenzione: 'Gestione dell’attenzione', monitoraggio: 'Controllo del metodo', elaborazione: 'Elaborazione e collegamenti', comprensione: 'Comprensione della consegna' };
+      const areaNames = { pianificazione: 'Pianificazione', memoria: 'Memoria e richiamo', attenzione: 'Gestione dell’attenzione', monitoraggio: 'Controllo del metodo', elaborazione: 'Elaborazione e collegamenti', comprensione: 'Comprensione della consegna', ambiente: 'Ambiente domestico', motivazione: 'Motivazione', aspettative: 'Aspettative personali' };
       const scores = {};
       questions.forEach((question, index) => {
         const area = question[0];
@@ -127,6 +135,6 @@
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
 
-  window.StradivariStudy = { completed: () => state.step === 4 ? 5 : state.step, total: 5 };
+  window.StradivariStudy = { completed: () => state.step === 4 ? 5 : state.step, total: 5, getResults: () => ({ step: state.step, sample: samples[state.sample]?.title, strategies: state.chosen.map(index => strategies[index]?.name).filter(Boolean), reflection: state.reflection, completed: state.step === 4 }) };
   render();
 })();
