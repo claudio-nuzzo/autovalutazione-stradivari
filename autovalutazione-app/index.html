@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Metodo di studio, autovalutazione PTOF e percorso DigComp dell'IIS Antonio Stradivari di Cremona.">
+  <meta name="description" content="Metodo di studio, griglie disciplinari e percorso DigComp dell'IIS Antonio Stradivari di Cremona.">
   <title>Autovalutazione · Stradivari</title>
   <link rel="icon" href="https://stradilab.org/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,13 +45,13 @@
 
     <section class="app wrap" id="percorso">
       <aside class="sidebar">
-        <div class="sidebar-title">I quattro percorsi</div>
+        <div class="sidebar-title">I cinque percorsi</div>
         <div class="tabs" role="tablist" aria-label="Percorsi di autovalutazione">
           <button class="tab active" data-tab="studio" role="tab" aria-selected="true"><b>01</b>Metodo di studio</button>
-          <button class="tab" data-tab="ptofo" role="tab" aria-selected="false"><b>02</b>Griglie PTOF</button>
+          <button class="tab" data-tab="app" role="tab" aria-selected="false"><b>02</b>App per studiare</button>
           <button class="tab" data-tab="digcomp" role="tab" aria-selected="false"><b>03</b>Check DigComp</button>
           <button class="tab" data-tab="corso" role="tab" aria-selected="false"><b>04</b>Corso DigComp</button>
-          <button class="tab teacher-tab" data-tab="ia-docenti" role="tab" aria-selected="false"><b>DOCENTI</b>Insegnare ai tempi dell’IA</button>
+          <button class="tab" data-tab="ptofo" role="tab" aria-selected="false"><b>05</b>Griglie autovalutazione</button>
         </div>
         <div class="status"><strong id="roleStatus">Profilo alunno</strong><div class="progress"><i id="globalProgress"></i></div><span id="progressLabel">0 attività completate</span></div>
       </aside>
@@ -65,10 +65,27 @@
           <div id="studyContent" class="study-content"></div>
         </section>
 
+        <section class="section" id="tab-app" role="tabpanel" hidden>
+          <div class="section-head"><div><div class="kicker">02 · Strumenti</div><h2>App per studiare meglio</h2><p class="lead">Dieci strumenti scelti per funzioni diverse: organizzare, capire, creare, allenarsi e verificare. Prima di usare un’app, controlla sempre privacy, età minima e regole della scuola.</p></div><span class="role-pill">Per alunni e docenti</span></div>
+          <div class="notice"><strong>Con o senza IA.</strong> L’app non sostituisce il metodo: scegli lo strumento dopo aver definito il compito e conserva sempre il controllo del contenuto.</div>
+          <div class="apps-grid" aria-label="Dieci app utili per lo studio">
+            <article class="app-card"><span class="app-number">01</span><h3>Google Keep</h3><p>Note rapide, promemoria, liste e immagini per raccogliere idee prima di organizzarle.</p><a href="https://keep.google.com" target="_blank" rel="noopener">Apri Keep →</a><small>Senza IA · note e organizzazione</small></article>
+            <article class="app-card"><span class="app-number">02</span><h3>Google Calendar</h3><p>Distribuisci studio, prove, consegne e ripassi nel tempo invece di concentrare tutto alla vigilia.</p><a href="https://calendar.google.com" target="_blank" rel="noopener">Apri Calendar →</a><small>Senza IA · pianificazione</small></article>
+            <article class="app-card"><span class="app-number">03</span><h3>Google Docs</h3><p>Scrittura collaborativa con commenti, cronologia delle versioni e revisione del processo.</p><a href="https://docs.google.com" target="_blank" rel="noopener">Apri Docs →</a><small>Senza IA · scrittura condivisa</small></article>
+            <article class="app-card"><span class="app-number">04</span><h3>Google Classroom</h3><p>Un punto ordinato per materiali, consegne, feedback e scadenze del lavoro scolastico.</p><a href="https://classroom.google.com" target="_blank" rel="noopener">Apri Classroom →</a><small>Senza IA · classe digitale</small></article>
+            <article class="app-card"><span class="app-number">05</span><h3>Canva</h3><p>Presentazioni, infografiche e mappe visive: utile per trasformare un’idea in un contenuto leggibile.</p><a href="https://www.canva.com" target="_blank" rel="noopener">Apri Canva →</a><small>Con funzioni IA · comunicazione visiva</small></article>
+            <article class="app-card"><span class="app-number">06</span><h3>Google Gemini</h3><p>Può proporre spiegazioni, domande e alternative da confrontare: verifica sempre fatti e fonti.</p><a href="https://gemini.google.com" target="_blank" rel="noopener">Apri Gemini →</a><small>Con IA · tutor e confronto</small></article>
+            <article class="app-card"><span class="app-number">07</span><h3>NotebookLM</h3><p>Aiuta a interrogare materiali forniti da te, generare sintesi e domande ancorate alle fonti.</p><a href="https://notebooklm.google.com" target="_blank" rel="noopener">Apri NotebookLM →</a><small>Con IA · studio da fonti</small></article>
+            <article class="app-card"><span class="app-number">08</span><h3>Perplexity</h3><p>Ricerca con risposte citate: un buon punto di partenza per imparare a controllare le fonti.</p><a href="https://www.perplexity.ai" target="_blank" rel="noopener">Apri Perplexity →</a><small>Con IA · ricerca guidata</small></article>
+            <article class="app-card"><span class="app-number">09</span><h3>Quizlet</h3><p>Flashcard e modalità di ripasso per richiamare definizioni, vocaboli e concetti in modo distribuito.</p><a href="https://quizlet.com" target="_blank" rel="noopener">Apri Quizlet →</a><small>Con funzioni IA · richiamo attivo</small></article>
+            <article class="app-card"><span class="app-number">10</span><h3>WolframAlpha</h3><p>Motore computazionale per esplorare calcoli, grafici e passaggi: controlla il procedimento, non solo il risultato.</p><a href="https://www.wolframalpha.com" target="_blank" rel="noopener">Apri WolframAlpha →</a><small>Con funzioni IA · esplorazione</small></article>
+          </div>
+        </section>
+
         <section class="section" id="tab-ptofo" role="tabpanel" hidden>
           <div class="section-head"><div><div class="kicker">02 · Griglie ufficiali PTOF</div><h2>Che voto ti dai?</h2><p class="lead">Scegli una situazione reale, valuta tutti gli indicatori della griglia corrispondente e ottieni un voto da 1 a 10.</p></div><span class="role-pill" id="ptofoRole">Profilo alunno</span></div>
           <div class="notice"><strong>Scegli ciò che ti rappresenta davvero.</strong> Per ogni indicatore troverai descrittori mescolati, senza voti né ordine crescente. Il voto apparirà soltanto dopo aver completato tutta la griglia.</div>
-          <div class="assessment-types" role="tablist" aria-label="Tipo di griglia PTOF">
+          <div class="assessment-types" role="tablist" aria-label="Tipo di griglia delle materie">
             <button class="assessment-type active" data-assessment="comuni" role="tab" aria-selected="true"><b>Materie comuni</b><small>Interrogazione, verifica orale o scritta</small></button>
             <button class="assessment-type" data-assessment="professionali" role="tab" aria-selected="false"><b>Esercitazioni pratiche</b><small>Laboratorio e discipline professionali</small></button>
             <button class="assessment-type" data-assessment="grafica" role="tab" aria-selected="false"><b>Discipline artistiche</b><small>Progettazione ed elaborati grafici</small></button>
@@ -85,7 +102,7 @@
 
         <section class="section" id="tab-corso" role="tabpanel" hidden>
           <div class="section-head"><div><div class="kicker">04 · Manuale interattivo</div><h2>Corso DigComp 3.0</h2><p class="lead" id="courseLead">Otto capitoli completi per studenti e docenti: spiegazioni, esempi, sintesi infografiche, laboratori, checklist e verifiche formative.</p></div><span class="role-pill" id="courseRole">Profilo alunno</span></div>
-          <div class="course-intro"><strong>Un piccolo manuale da consultare e sperimentare.</strong><span>Scegli un capitolo: la lezione cambia prospettiva in base al profilo selezionato e collega ogni concetto a un compito autentico.</span></div>
+          <div class="course-intro"><strong>Un piccolo manuale da consultare e sperimentare in autonomia.</strong><span>Scegli un capitolo e procedi al tuo ritmo: la lezione cambia prospettiva in base al profilo selezionato e collega ogni concetto a un compito autentico. Non serve un docente accanto: spiegazioni, esempi, esercitazioni e verifiche sono già dentro il percorso.</span></div>
           <div class="course-map" id="courseMap"></div><div class="lesson" id="lesson"></div><div class="glossary"><div class="kicker">Glossario essenziale</div><div class="glossary-grid" id="glossary"></div></div>
         </section>
       </div>
@@ -96,7 +113,6 @@
   <script src="study-method.js"></script>
   <script src="assessment-vote.js"></script>
   <script src="digcomp-course.js"></script>
-  <script src="teacher-ai.js"></script>
   <script src="role-state.js"></script>
   <script src="app.js"></script>
 </body>

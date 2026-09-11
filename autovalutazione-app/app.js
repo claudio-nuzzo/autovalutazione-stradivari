@@ -1,5 +1,10 @@
 (() => {
-  const validTabs = new Set(['studio', 'ptofo', 'digcomp', 'corso', 'ia-docenti']);
+  const validTabs = new Set(['studio', 'app', 'digcomp', 'corso', 'ptofo']);
+
+  document.querySelector('.hero > div:first-child p')?.replaceChildren(document.createTextNode('Parti dal metodo di studio, poi autovaluta una prova con le griglie delle materie e allena le competenze digitali.'));
+  document.querySelector('#tab-ptofo .kicker')?.replaceChildren(document.createTextNode('05 · Griglie delle materie'));
+  document.querySelector('#tab-ptofo .source-badge')?.replaceChildren(document.createTextNode('Griglie disciplinari'));
+  document.querySelector('#tab-ptofo .assessment-types')?.setAttribute('aria-label', 'Tipo di griglia di autovalutazione');
 
   function activate(name, updateHash = false) {
     if (!validTabs.has(name)) name = 'studio';
