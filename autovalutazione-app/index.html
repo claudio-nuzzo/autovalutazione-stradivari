@@ -52,17 +52,18 @@
             <div class="pdf-dialog-actions"><button class="btn secondary" value="cancel" type="submit">Annulla</button><button class="btn" id="generatePdf" value="default" type="submit">Genera PDF</button></div>
           </form>
         </dialog>
-        <div class="teacher-access" id="teacherAccess" aria-labelledby="teacherAccessTitle">
-          <div class="teacher-access-copy">
-            <div class="kicker">Docenti StradiLab</div>
-            <strong id="teacherAccessTitle">Accedi per riconoscere il tuo profilo docente</strong>
-            <p>Il corso, il check e la verifica da 30 domande sono aperti anche agli ospiti. Il login OAuth serve solo a riconoscere i docenti interni autorizzati nelle pagine riservate StradiLab.</p>
-          </div>
-          <div class="teacher-access-actions">
-            <div id="sl-login"></div>
-            <div class="teacher-auth-status" id="teacherAuthStatus" role="status" aria-live="polite"><span class="guest-dot" aria-hidden="true"></span>Modalità ospite attiva · accesso libero per docenti esterni</div>
-          </div>
-        </div>
+      </div>
+    </section>
+
+    <section class="teacher-access wrap" id="teacherAccess" aria-labelledby="teacherAccessTitle">
+      <div class="teacher-access-copy">
+        <div class="kicker">Accesso facoltativo · docenti StradiLab</div>
+        <strong id="teacherAccessTitle">Riconosci il tuo profilo docente</strong>
+        <p>Corso, check e verifica sono aperti a tutti. Il login identifica soltanto i docenti interni autorizzati.</p>
+      </div>
+      <div class="teacher-access-actions">
+        <div id="sl-login"></div>
+        <div class="teacher-auth-status" id="teacherAuthStatus" role="status" aria-live="polite"><span class="guest-dot" aria-hidden="true"></span>Modalità ospite · accesso libero per docenti esterni</div>
       </div>
     </section>
 
