@@ -1,4 +1,5 @@
 (() => {
+  const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
   const levels = ['Da costruire', 'Con guida', 'In autonomia', 'Guido altri'];
   const profiles = {
     alunno: [
@@ -189,6 +190,92 @@
   ];
 
   const glossary = [['Fonte primaria', 'Documento o dato direttamente legato al fenomeno osservato.'], ['Ricerca laterale', 'Controllo di una fonte aprendo altre fonti indipendenti.'], ['Licenza', 'Condizioni con cui un contenuto può essere riusato.'], ['Accessibilità', 'Progettazione utilizzabile da persone e dispositivi diversi.'], ['Dato personale', 'Informazione che identifica o rende identificabile una persona.'], ['Phishing', 'Tentativo di sottrarre dati simulando un mittente affidabile.'], ['Bias', 'Distorsione sistematica nei dati, nel processo o nel risultato.'], ['IA generativa', 'Sistema che produce contenuti da istruzioni e dati: va verificato.'], ['Agency', 'Capacità di comprendere, scegliere e mantenere il controllo delle proprie azioni.'], ['Minimizzazione', 'Raccolta dei soli dati necessari a uno scopo dichiarato.'], ['Interoperabilità', 'Capacità di sistemi e formati diversi di scambiare e usare dati.'], ['MFA', 'Autenticazione che richiede più di un fattore di verifica.']];
+  const advancedGlossary = [
+    {
+      title: '1. Fondamenti di intelligenza artificiale',
+      description: 'Le parole necessarie per capire che cosa produce un sistema di IA e come lo fa.',
+      terms: [
+        ['Algoritmo', 'Sequenza di regole o istruzioni usata per trasformare dati in un risultato.'],
+        ['Machine learning', 'Metodo con cui un sistema riconosce regolarità nei dati e migliora un compito senza ricevere ogni regola già scritta.'],
+        ['Modello', 'Sistema matematico addestrato sui dati per classificare, prevedere o generare contenuti.'],
+        ['IA generativa', 'Tecnologia che produce testo, immagini, audio, video o codice a partire da istruzioni e contesto.'],
+        ['LLM', 'Large Language Model: modello linguistico addestrato su grandi quantità di testo per elaborare e generare linguaggio.'],
+        ['Token', 'Piccola unità di testo elaborata da un modello: può essere una parola, una parte di parola o un segno.'],
+        ['Prompt', 'Istruzione data a un sistema di IA, possibilmente completa di obiettivo, contesto, vincoli e formato atteso.'],
+        ['Finestra di contesto', 'Quantità massima di testo e informazioni che un modello può considerare durante una singola elaborazione.']
+      ]
+    },
+    {
+      title: '2. Affidabilità e uso responsabile',
+      description: 'Concetti per valutare risposte, rischi e responsabilità.',
+      terms: [
+        ['Allucinazione', 'Risposta plausibile ma falsa, inventata o non sostenuta da prove prodotta da un sistema di IA.'],
+        ['Bias', 'Distorsione sistematica presente nei dati, nelle regole o nei risultati, capace di favorire o penalizzare persone e prospettive.'],
+        ['Grounding', 'Collegamento della risposta a dati o fonti definite, per ridurre affermazioni non verificabili.'],
+        ['Guardrail', 'Regola o controllo tecnico che limita comportamenti rischiosi, contenuti inappropriati o azioni non autorizzate.'],
+        ['Human in the loop', 'Processo in cui una persona controlla, corregge o autorizza i passaggi importanti compiuti dal sistema.'],
+        ['Prompt injection', 'Istruzione nascosta o malevola che tenta di far ignorare al sistema le regole o di ottenere dati e azioni non consentiti.'],
+        ['Trasparenza', 'Possibilità di sapere quando è stata usata l’IA, con quali dati, per quale scopo e con quali limiti.'],
+        ['Tracciabilità', 'Capacità di ricostruire fonti, passaggi, versioni e decisioni che hanno prodotto un risultato.']
+      ]
+    },
+    {
+      title: '3. RAG, agenti e automazioni',
+      description: 'Come un sistema collega conoscenze, strumenti e azioni.',
+      terms: [
+        ['RAG', 'Retrieval-Augmented Generation: prima recupera informazioni da fonti selezionate, poi le usa per costruire la risposta.'],
+        ['Embedding', 'Rappresentazione numerica di un contenuto che permette di confrontarne il significato con altri contenuti.'],
+        ['Database vettoriale', 'Archivio ottimizzato per cercare contenuti simili attraverso gli embedding, spesso impiegato nei sistemi RAG.'],
+        ['Agente IA', 'Sistema che riceve un obiettivo, pianifica passaggi, usa strumenti e controlla i risultati con un certo grado di autonomia.'],
+        ['Tool calling', 'Capacità di un modello di richiamare uno strumento esterno, per esempio una ricerca, un calendario o un database.'],
+        ['Workflow', 'Sequenza definita di attività, decisioni e controlli che porta da un input a un risultato.'],
+        ['Loop engineering / ciclo agentico', 'Progettazione del ciclo osserva, pianifica, agisci e verifica, ripetuto finché il risultato soddisfa i criteri o richiede intervento umano.'],
+        ['Orchestrazione', 'Coordinamento di più modelli, agenti, strumenti o fasi affinché collaborino senza perdere obiettivo e controlli.']
+      ]
+    },
+    {
+      title: '4. Dati, codice e infrastruttura',
+      description: 'Il lessico di base per capire come sono costruiti i servizi digitali.',
+      terms: [
+        ['Dato', 'Rappresentazione di un fatto, una misura o un’informazione che può essere raccolta, elaborata e interpretata.'],
+        ['Database', 'Archivio strutturato che consente di conservare, cercare, aggiornare e collegare dati.'],
+        ['SQL', 'Linguaggio usato per interrogare e modificare database relazionali organizzati in tabelle.'],
+        ['Python', 'Linguaggio di programmazione molto usato per automazione, analisi dei dati, didattica e intelligenza artificiale.'],
+        ['API', 'Interfaccia che permette a programmi diversi di scambiarsi richieste e risultati secondo regole definite.'],
+        ['JSON', 'Formato testuale leggero usato per rappresentare e scambiare dati strutturati tra applicazioni.'],
+        ['Cloud', 'Uso di risorse informatiche remote via Internet per eseguire programmi, archiviare dati o offrire servizi.'],
+        ['Open source', 'Software il cui codice sorgente può essere studiato, riusato e modificato secondo la licenza prevista.']
+      ]
+    },
+    {
+      title: '5. Strumenti, integrazioni e accessi',
+      description: 'Termini che ricorrono quando applicazioni e account scolastici lavorano insieme.',
+      terms: [
+        ['Skill', 'Pacchetto di istruzioni e risorse che specializza un assistente nello svolgimento di un determinato compito.'],
+        ['Connettore', 'Collegamento autorizzato che consente a un’applicazione di leggere o usare funzioni e dati di un altro servizio.'],
+        ['Plugin', 'Componente aggiuntivo che estende un programma con nuove funzioni, strumenti o integrazioni.'],
+        ['OAuth', 'Protocollo che autorizza un servizio ad accedere a funzioni limitate di un altro account senza condividere la password.'],
+        ['SSO', 'Single Sign-On: accesso a più servizi mediante una sola identità, per esempio l’account scolastico.'],
+        ['Webhook', 'Messaggio automatico inviato da un servizio a un altro quando accade un evento stabilito.'],
+        ['Sandbox', 'Ambiente isolato in cui eseguire codice o prove riducendo i rischi per dati e sistemi reali.'],
+        ['Permesso', 'Autorizzazione specifica concessa a una persona o applicazione per leggere, modificare o condividere una risorsa.']
+      ]
+    },
+    {
+      title: '6. Progettazione e qualità dell’esperienza',
+      description: 'Parole utili per creare strumenti digitali chiari, inclusivi e verificabili.',
+      terms: [
+        ['UI', 'User Interface: ciò che una persona vede e usa, come testi, menu, pulsanti, campi e colori.'],
+        ['UX', 'User Experience: qualità complessiva dell’esperienza, compresi chiarezza, facilità, tempi, errori e soddisfazione.'],
+        ['UI/UX design', 'Progettazione coordinata dell’interfaccia e del percorso d’uso a partire dai bisogni reali delle persone.'],
+        ['Accessibilità', 'Progettazione che rende contenuti e funzioni utilizzabili anche con disabilità, tecnologie assistive e condizioni diverse.'],
+        ['Usabilità', 'Misura di quanto uno strumento permetta di raggiungere uno scopo in modo efficace, efficiente e comprensibile.'],
+        ['Prototipo', 'Versione iniziale e ridotta di una soluzione, costruita per provarla e migliorarla prima della realizzazione definitiva.'],
+        ['Design responsivo', 'Interfaccia che adatta struttura e controlli a telefono, tablet, computer e diverse dimensioni del testo.'],
+        ['Interoperabilità', 'Capacità di strumenti e formati differenti di scambiare dati e continuare a utilizzarli correttamente.']
+      ]
+    }
+  ];
   const answers = { alunno: {}, docente: {} };
   let role = localStorage.getItem('stradivari-profile') || 'alunno';
   let currentModule = 0;
@@ -206,6 +293,7 @@
   function renderCourse() {
     document.getElementById('courseMap').innerHTML = lessons.map((lesson, index) => `<button class="module-btn ${index === currentModule ? 'active' : ''}" data-module="${index}" aria-label="Apri il capitolo ${index + 1}: ${lesson.title}"><b>CAPITOLO ${String(index + 1).padStart(2, '0')}</b><span>${lesson.title}</span><small>${lesson.time}</small></button>`).join('');
     document.getElementById('glossary').innerHTML = glossary.map(item => `<div class="term"><b>${item[0]}</b>${item[1]}</div>`).join('');
+    document.getElementById('advancedGlossaryGroups').innerHTML = advancedGlossary.map(group => `<section class="advanced-glossary-group"><div class="advanced-glossary-group-head"><h4>${group.title}</h4><p>${group.description}</p></div><div class="advanced-terms">${group.terms.map(item => `<div class="advanced-term"><b>${item[0]}</b><span>${item[1]}</span></div>`).join('')}</div></section>`).join('');
     renderLesson(currentModule, false);
     renderTeacherTest();
   }
@@ -215,8 +303,29 @@
     if (!section) return;
     section.hidden = role !== 'docente';
     if (role !== 'docente') return;
-    const result = teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>${teacherTestResult.correct}/30 risposte esatte</strong><span>${teacherTestResult.message}</span><small>${teacherTestResult.status === 'fail' ? 'Rileggi i capitoli indicati e riprova.' : 'Conserva questo risultato per il futuro attestato.'}</small></div>` : '';
+    const passed = teacherTestResult?.correct >= 21;
+    const authenticated = Boolean(window.StradivariTeacherAuth?.verified);
+    const certificate = passed ? (authenticated
+      ? `<div class="teacher-certificate-ready"><div><span>Attestazione disponibile</span><strong>Corso di aggiornamento DigComp 3.0 · 4 ore</strong><p>Il PDF riporterà intestazione dell’Istituto, identità del docente, data, durata ed esito della verifica.</p></div><button class="btn teacher-certificate-btn" id="teacherCertificatePdf" type="button">Crea attestato PDF</button></div>`
+      : `<div class="teacher-certificate-login"><strong>Verifica superata.</strong><p>Per creare l’attestazione nominale accedi con l’account istituzionale autorizzato. Il corso resta liberamente accessibile anche agli esterni.</p></div>`) : '';
+    const result = teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>${teacherTestResult.correct}/30 risposte esatte</strong><span>${teacherTestResult.message}</span><small>${teacherTestResult.status === 'fail' ? 'Rileggi i capitoli indicati e riprova.' : 'Esito registrato in questa sessione.'}</small></div>${certificate}` : '';
     document.getElementById('teacherTestContent').innerHTML = `<div class="teacher-test-meta"><span>0–20: insufficiente</span><span>21–25: superato</span><span>26–30: avanzato</span><b>${teacherTestAnswers.filter(answer => answer !== null).length}/30 risposte</b></div>${teacherQuestions.map((question, index) => `<article class="teacher-question"><div><span>${String(index + 1).padStart(2, '0')}</span><small>${question[3]}</small></div><p>${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="teacher-test-${index}" value="${optionIndex}" ${teacherTestAnswers[index] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}</article>`).join('')}<div class="teacher-test-actions"><button class="btn" id="teacherTestSubmit" type="button">Calcola il risultato</button><button class="btn secondary" id="teacherTestReset" type="button">Ricomincia</button></div>${result}`;
+  }
+
+  function generateTeacherCertificate() {
+    const auth = window.StradivariTeacherAuth;
+    if (!teacherTestResult || teacherTestResult.correct < 21) { alert('Per creare l’attestazione devi superare la verifica con almeno 21 risposte corrette.'); return; }
+    if (!auth?.verified || !auth.user) { alert('Accedi con l’account istituzionale docente per creare l’attestazione nominale.'); return; }
+    const user = auth.user;
+    const teacherName = user.nome || user.name || user.email;
+    const teacherEmail = user.email || '';
+    const generated = new Date().toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric' });
+    const level = teacherTestResult.correct >= 26 ? 'avanzato' : 'superato';
+    const report = document.getElementById('pdfReport');
+    report.innerHTML = `<article class="pdf-page certificate-page"><header class="certificate-header"><div class="certificate-school">Istituto di Istruzione Superiore “Antonio Stradivari”</div><div class="certificate-city">Cremona</div></header><main><div class="pdf-eyebrow">Formazione interna del personale docente</div><h1>Attestazione di completamento</h1><p class="certificate-subtitle">Corso di aggiornamento interno<br><strong>DigComp 3.0</strong></p><p class="certificate-declaration">Si attesta che</p><h2 class="certificate-name">${escapeHtml(teacherName)}</h2>${teacherEmail ? `<p class="certificate-email">${escapeHtml(teacherEmail)}</p>` : ''}<p class="certificate-copy">ha svolto il percorso autonomo di formazione e aggiornamento dedicato al quadro europeo delle competenze digitali <strong>DigComp 3.0</strong>, comprensivo di contenuti, casi guidati, laboratori, verifiche formative e verifica finale.</p><div class="certificate-facts"><div><span>Durata del percorso</span><strong>4 ore</strong></div><div><span>Verifica finale</span><strong>${teacherTestResult.correct}/30</strong><small>Soglia: 21/30</small></div><div><span>Esito</span><strong>${escapeHtml(level)}</strong></div><div><span>Data</span><strong>${escapeHtml(generated)}</strong></div></div><section class="certificate-areas"><h3>Ambiti del percorso</h3><p>Informazione e dati · comunicazione e collaborazione · creazione di contenuti · sicurezza e benessere · risoluzione di problemi · uso critico e responsabile dell’intelligenza artificiale.</p></section><p class="certificate-framework">Percorso riconducibile alla formazione in servizio obbligatoria, permanente e strutturale nell’ambito del piano triennale dell’Istituto, previa registrazione e validazione amministrativa.</p><section class="certificate-validation"><div><strong>Documento da inserire nel portale Formazione interna</strong><span>L’efficacia amministrativa è subordinata alla registrazione e alla validazione dell’Istituto.</span></div><div class="certificate-signature"><span>Spazio riservato alla validazione</span></div></section></main><footer>Documento generato dal portale “Didattica e metodi” · didattica.stradilab.org</footer></article>`;
+    report.setAttribute('aria-hidden', 'false');
+    window.print();
+    window.setTimeout(() => report.setAttribute('aria-hidden', 'true'), 1000);
   }
 
   function evaluateTeacherTest() {
@@ -277,6 +386,13 @@
     const button = event.target.closest('[data-module]');
     if (button) renderLesson(Number(button.dataset.module));
   });
+  document.getElementById('advancedGlossaryToggle')?.addEventListener('click', event => {
+    const panel = document.getElementById('advancedGlossary');
+    const willOpen = panel.hidden;
+    panel.hidden = !willOpen;
+    event.currentTarget.setAttribute('aria-expanded', String(willOpen));
+    event.currentTarget.textContent = willOpen ? 'Chiudi glossario approfondito' : 'Glossario approfondito';
+  });
   document.getElementById('teacherTestContent')?.addEventListener('change', event => {
     const match = event.target.name?.match(/^teacher-test-(\d+)$/);
     if (!match) return;
@@ -289,6 +405,7 @@
   document.getElementById('teacherTestContent')?.addEventListener('click', event => {
     if (event.target.id === 'teacherTestSubmit') evaluateTeacherTest();
     if (event.target.id === 'teacherTestReset') { teacherTestAnswers = Array(teacherQuestions.length).fill(null); teacherTestResult = null; renderTeacherTest(); }
+    if (event.target.id === 'teacherCertificatePdf') generateTeacherCertificate();
   });
   document.getElementById('lesson').addEventListener('click', event => {
     const nav = event.target.closest('[data-course-nav]');
@@ -313,6 +430,7 @@
     renderDig(); renderCourse();
     document.getElementById('digResult').classList.remove('show');
   });
+  document.addEventListener('teacherlogin', renderTeacherTest);
 
   window.StradivariDig = { completed: () => Object.keys(answers.alunno).length + Object.keys(answers.docente).length, total: 30, getResults: () => lastResult || { completed: false, role } };
   window.StradivariCourse = { openModule: (index, updateHash = false) => renderLesson(index, updateHash), total: lessons.length, getResults: () => ({ module: currentModule + 1, title: lessons[currentModule].title, role, completed: Boolean(lastResult), digcomp: lastResult, teacherTest: teacherTestResult }) };
