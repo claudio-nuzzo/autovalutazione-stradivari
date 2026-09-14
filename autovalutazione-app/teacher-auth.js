@@ -1,4 +1,4 @@
-/* Accesso opzionale per i docenti interni, coerente con le pagine riservate StradiLab. */
+/* Accesso con l'account d'istituto: il report finale resta associato allo studente. */
 (() => {
   const status = document.getElementById('teacherAuthStatus');
   const login = document.getElementById('sl-login');
@@ -10,16 +10,21 @@
   };
 
   StradilabAuth.init({
-    // "formazione" è la colonna già usata dalle pagine di aggiornamento interne.
-    progetto: 'formazione',
-    minimo: 'docente',
+    // Il controllo del dominio è già effettuato dal componente condiviso. Non
+    // richiediamo un livello minimo: anche gli alunni devono poter conservare
+    // il proprio percorso e ottenere il report finale.
+    progetto: '',
+    minimo: 'nessuno',
     mount: 'sl-login',
     onReady: (user) => {
+      const isTeacher = Boolean(user.isDocente);
       document.body.dataset.teacherAuth = 'verified';
-      window.StradivariTeacherAuth = { verified: true, user };
-      setStatus(`Accesso verificato · ${user.nome || user.email} · docente StradiLab`, 'verified');
-      window.StradivariRole?.set('docente');
-      document.dispatchEvent(new CustomEvent('teacherlogin', { detail: user }));
+      window.StradivariUser = { user, email: user.email, isTeacher };
+      window.StradivariTeacherAuth = { verified: isTeacher, user };
+      setStatus(`Accesso verificato · ${user.nome || user.email} · ${isTeacher ? 'docente' : 'alunno'} StradiLab`, 'verified');
+      window.StradivariRole?.set(isTeacher ? 'docente' : 'alunno');
+      document.dispatchEvent(new CustomEvent('stradivari-login', { detail: user }));
+      if (isTeacher) document.dispatchEvent(new CustomEvent('teacherlogin', { detail: user }));
     },
     onDenied: (user) => {
       document.body.dataset.teacherAuth = 'guest';

@@ -282,6 +282,79 @@
   let lastResult = null;
   let teacherTestAnswers = Array(teacherQuestions.length).fill(null);
   let teacherTestResult = null;
+  let courseAnswers = lessons.map(lesson => Array(lesson.q.length).fill(null));
+  let completedModules = Array(lessons.length).fill(false);
+  let courseCompletedAt = null;
+
+  const storageKey = () => {
+    const email = window.StradivariUser?.email;
+    return email ? `stradivari-digcomp-progress:v1:${String(email).toLowerCase()}` : null;
+  };
+
+  function saveProgress() {
+    const key = storageKey();
+    if (!key) return;
+    localStorage.setItem(key, JSON.stringify({ answers, lastResult, courseAnswers, completedModules, courseCompletedAt }));
+  }
+
+  function loadProgress() {
+    const key = storageKey();
+    if (!key) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem(key) || 'null');
+      if (!saved) return;
+      ['alunno', 'docente'].forEach(profile => {
+        Object.keys(answers[profile]).forEach(item => delete answers[profile][item]);
+        Object.assign(answers[profile], saved.answers?.[profile] || {});
+      });
+      lastResult = saved.lastResult || null;
+      courseAnswers = lessons.map((lesson, index) => lesson.q.map((_, question) => {
+        const answer = saved.courseAnswers?.[index]?.[question];
+        return Number.isInteger(answer) ? answer : null;
+      }));
+      completedModules = lessons.map((_, index) => Boolean(saved.completedModules?.[index]));
+      courseCompletedAt = saved.courseCompletedAt || null;
+    } catch (_) {
+      // Un salvataggio locale non valido non deve impedire di seguire il corso.
+    }
+  }
+
+  function moduleResult(index) {
+    const lesson = lessons[index];
+    const values = courseAnswers[index] || [];
+    const answered = values.filter(value => Number.isInteger(value)).length;
+    const correct = values.reduce((total, value, question) => total + (value === lesson.q[question][2] ? 1 : 0), 0);
+    return { number: index + 1, title: lesson.title, total: lesson.q.length, answered, correct, completed: Boolean(completedModules[index]) };
+  }
+
+  function courseResults() {
+    const modules = lessons.map((_, index) => moduleResult(index));
+    const completed = modules.every(module => module.completed);
+    return {
+      module: currentModule + 1,
+      title: lessons[currentModule].title,
+      role,
+      completed,
+      completedAt: completed ? courseCompletedAt : null,
+      correct: modules.reduce((total, module) => total + module.correct, 0),
+      total: modules.reduce((total, module) => total + module.total, 0),
+      modules,
+      teacherTest: teacherTestResult
+    };
+  }
+
+  function completeModule(index) {
+    const result = moduleResult(index);
+    if (result.answered < result.total) {
+      alert(`Completa tutte le ${result.total} domande del capitolo prima di registrarne l'esito.`);
+      return;
+    }
+    completedModules[index] = true;
+    if (completedModules.every(Boolean)) courseCompletedAt = new Date().toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric' });
+    saveProgress();
+    renderCourse();
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
+  }
 
   function renderDig() {
     const grid = profiles[role];
@@ -291,7 +364,7 @@
   }
 
   function renderCourse() {
-    document.getElementById('courseMap').innerHTML = lessons.map((lesson, index) => `<button class="module-btn ${index === currentModule ? 'active' : ''}" data-module="${index}" aria-label="Apri il capitolo ${index + 1}: ${lesson.title}"><b>CAPITOLO ${String(index + 1).padStart(2, '0')}</b><span>${lesson.title}</span><small>${lesson.time}</small></button>`).join('');
+    document.getElementById('courseMap').innerHTML = lessons.map((lesson, index) => `<button class="module-btn ${index === currentModule ? 'active' : ''} ${completedModules[index] ? 'completed' : ''}" data-module="${index}" aria-label="Apri il capitolo ${index + 1}: ${lesson.title}"><b>CAPITOLO ${String(index + 1).padStart(2, '0')}</b><span>${lesson.title}</span><small>${completedModules[index] ? `Completato · ${moduleResult(index).correct}/${lesson.q.length}` : lesson.time}</small></button>`).join('');
     document.getElementById('glossary').innerHTML = glossary.map(item => `<div class="term"><b>${item[0]}</b>${item[1]}</div>`).join('');
     document.getElementById('advancedGlossaryGroups').innerHTML = advancedGlossary.map(group => `<section class="advanced-glossary-group"><div class="advanced-glossary-group-head"><h4>${group.title}</h4><p>${group.description}</p></div><div class="advanced-terms">${group.terms.map(item => `<div class="advanced-term"><b>${item[0]}</b><span>${item[1]}</span></div>`).join('')}</div></section>`).join('');
     renderLesson(currentModule, false);
@@ -344,6 +417,10 @@
     document.querySelectorAll('.module-btn').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === currentModule));
     const lesson = lessons[currentModule];
     const isTeacher = role === 'docente';
+    const result = moduleResult(currentModule);
+    const isLastModule = currentModule === lessons.length - 1;
+    const missingModules = lessons.map((_, index) => index + 1).filter((_, index) => !completedModules[index]);
+    const completionAction = `<section class="course-completion ${result.completed ? 'done' : ''}"><div><div class="kicker">Esito del capitolo</div><h4>${result.completed ? `Capitolo registrato · ${result.correct}/${result.total}` : `Domande completate: ${result.answered}/${result.total}`}</h4><p>${isLastModule ? (missingModules.length ? `Per terminare il corso devono risultare completati i capitoli: ${missingModules.join(', ')}.` : 'Hai completato gli otto capitoli. Puoi ora generare il report personale.') : 'Dopo aver risposto alle quattro domande, registra l’esito prima di proseguire.'}</p></div><div class="course-completion-actions"><button class="btn ${result.completed ? 'secondary' : ''}" data-complete-module="${currentModule}" type="button">${isLastModule ? 'Concludi il corso' : result.completed ? 'Esito registrato' : 'Registra esito capitolo'}</button>${isLastModule && !missingModules.length ? '<button class="btn secondary" data-course-report type="button">Scarica il report PDF</button>' : ''}</div></section>`;
     document.getElementById('lesson').innerHTML = `
       <article class="lesson-page" aria-labelledby="lesson-title">
         <header class="lesson-cover">
@@ -359,9 +436,9 @@
         <section class="role-example"><div class="role-example-label">Caso guidato · prospettiva ${isTeacher ? 'docente' : 'alunno'}</div><h4>${isTeacher ? 'Portalo nella progettazione' : 'Provalo su un compito vero'}</h4><p>${isTeacher ? lesson.teacherExample : lesson.studentExample}</p></section>
         <section class="activity lesson-lab"><div><div class="kicker">Laboratorio · in autonomia</div><h4>${isTeacher ? 'Esercitazione per il docente' : 'Esercitazione per l’alunno'}</h4></div><p>${isTeacher ? lesson.teacherActivity : lesson.studentActivity}</p><div class="lab-output"><b>Prodotto atteso</b> Una breve evidenza del processo: decisioni, controlli eseguiti, risultato e un possibile miglioramento.</div><div class="self-guided-note"><b>Controllo finale</b> Prima di passare oltre, rileggi il prodotto, confrontalo con i criteri del capitolo e annota una cosa riuscita e una da migliorare.</div></section>
         <section class="takeaway"><div><div class="kicker">Prima di proseguire</div><h4>Checklist del capitolo</h4></div><div class="takeaway-grid">${lesson.checklist.map(item => `<label><input type="checkbox"><span>${item}</span></label>`).join('')}</div></section>
-        <section class="quiz"><div class="quiz-heading"><div><div class="kicker">Verifica formativa</div><h4>Quattro domande per controllarti</h4></div><span>Nessun voto: usa il feedback per rileggere.</span></div>${lesson.q.map((question, questionIndex) => `<div class="quiz-question"><p>${questionIndex + 1}. ${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="course-${currentModule}-${questionIndex}" value="${optionIndex}"><span>${option}</span></label>`).join('')}<button class="btn secondary" data-check-course="${currentModule}-${questionIndex}">Verifica risposta</button><div class="quiz-feedback" id="course-feedback-${currentModule}-${questionIndex}" aria-live="polite"></div></div>`).join('')}</section>
+        <section class="quiz"><div class="quiz-heading"><div><div class="kicker">Verifica formativa</div><h4>Quattro domande per controllarti</h4></div><span>Le risposte sono incluse nel risultato finale del corso.</span></div>${lesson.q.map((question, questionIndex) => `<div class="quiz-question"><p>${questionIndex + 1}. ${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="course-${currentModule}-${questionIndex}" value="${optionIndex}" ${courseAnswers[currentModule][questionIndex] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}<button class="btn secondary" data-check-course="${currentModule}-${questionIndex}">Verifica risposta</button><div class="quiz-feedback" id="course-feedback-${currentModule}-${questionIndex}" aria-live="polite"></div></div>`).join('')}</section>
         <p class="source-note">Adattamento didattico a cura di StradiLab, basato sul <a href="https://joint-research-centre.ec.europa.eu/scientific-activities/key-competences-lifelong-learning/digital-competence-framework-digcomp/digcomp-30_en" target="_blank" rel="noopener">quadro ufficiale DigComp 3.0</a>, Commissione europea – JRC (2025). Contenuti sintetizzati e contestualizzati per la scuola; la Commissione europea non è responsabile dell’adattamento.</p>
-        <nav class="lesson-nav" aria-label="Navigazione tra i capitoli"><button class="btn secondary" data-course-nav="${currentModule - 1}" ${currentModule === 0 ? 'disabled' : ''}>← Capitolo precedente</button><span>${currentModule + 1} / ${lessons.length}</span><button class="btn" data-course-nav="${currentModule + 1}" ${currentModule === lessons.length - 1 ? 'disabled' : ''}>Capitolo successivo →</button></nav>
+        ${completionAction}<nav class="lesson-nav" aria-label="Navigazione tra i capitoli"><button class="btn secondary" data-course-nav="${currentModule - 1}" ${currentModule === 0 ? 'disabled' : ''}>← Capitolo precedente</button><span>${currentModule + 1} / ${lessons.length}</span><button class="btn" data-course-nav="${currentModule + 1}" ${currentModule === lessons.length - 1 ? 'disabled' : ''}>Capitolo successivo →</button></nav>
       </article>`;
     if (updateHash) history.replaceState(null, '', `#corso-${currentModule + 1}`);
   }
@@ -370,6 +447,7 @@
     const match = event.target.name?.match(/^dig-(alunno|docente)-(\d+-\d+)$/);
     if (!match) return;
     answers[match[1]][match[2]] = Number(event.target.value);
+    saveProgress();
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
   document.getElementById('digDone').addEventListener('click', () => {
@@ -377,10 +455,15 @@
     if (values.length < 15) { alert('Completa tutti i quindici indicatori DigComp del profilo scelto.'); return; }
     const average = values.reduce((a, b) => a + b, 0) / values.length;
     const names = ['Da costruire', 'Con guida', 'In autonomia', 'So guidare altri'];
-    lastResult = { role, level: names[Math.round(average)], average: average.toFixed(1), completed: true };
+    const areas = profiles[role].map((area, areaIndex) => {
+      const values = area[1].map((_, indicatorIndex) => answers[role][`${areaIndex}-${indicatorIndex}`]);
+      return { name: area[0], average: (values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(1) };
+    });
+    lastResult = { role, level: names[Math.round(average)], average: average.toFixed(1), areas, completed: true };
     const result = document.getElementById('digResult');
     result.innerHTML = `<strong>Livello prevalente: ${names[Math.round(average)]}</strong><br>Media ${average.toFixed(1)}/3 sul profilo ${role}. Il risultato serve per scegliere il prossimo modulo da allenare.`;
     result.classList.add('show');
+    saveProgress();
   });
   document.getElementById('courseMap').addEventListener('click', event => {
     const button = event.target.closest('[data-module]');
@@ -408,6 +491,15 @@
     if (event.target.id === 'teacherCertificatePdf') generateTeacherCertificate();
   });
   document.getElementById('lesson').addEventListener('click', event => {
+    const complete = event.target.closest('[data-complete-module]');
+    if (complete) {
+      completeModule(Number(complete.dataset.completeModule));
+      return;
+    }
+    if (event.target.closest('[data-course-report]')) {
+      document.getElementById('downloadPdf')?.click();
+      return;
+    }
     const nav = event.target.closest('[data-course-nav]');
     if (nav && !nav.disabled) {
       renderLesson(Number(nav.dataset.courseNav));
@@ -425,6 +517,16 @@
     feedback.dataset.state = correct ? 'correct' : 'error';
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
+  document.getElementById('lesson').addEventListener('change', event => {
+    const match = event.target.name?.match(/^course-(\d+)-(\d+)$/);
+    if (!match) return;
+    const moduleIndex = Number(match[1]);
+    const questionIndex = Number(match[2]);
+    courseAnswers[moduleIndex][questionIndex] = Number(event.target.value);
+    completedModules[moduleIndex] = false;
+    courseCompletedAt = null;
+    saveProgress();
+  });
   document.addEventListener('profilechange', event => {
     role = event.detail.role;
     renderDig(); renderCourse();
@@ -432,7 +534,14 @@
   });
   document.addEventListener('teacherlogin', renderTeacherTest);
 
+  document.addEventListener('stradivari-login', () => {
+    loadProgress();
+    renderDig();
+    renderCourse();
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
+  });
+
   window.StradivariDig = { completed: () => Object.keys(answers.alunno).length + Object.keys(answers.docente).length, total: 30, getResults: () => lastResult || { completed: false, role } };
-  window.StradivariCourse = { openModule: (index, updateHash = false) => renderLesson(index, updateHash), total: lessons.length, getResults: () => ({ module: currentModule + 1, title: lessons[currentModule].title, role, completed: Boolean(lastResult), digcomp: lastResult, teacherTest: teacherTestResult }) };
+  window.StradivariCourse = { openModule: (index, updateHash = false) => renderLesson(index, updateHash), total: lessons.length, getResults: courseResults };
   renderDig(); renderCourse();
 })();

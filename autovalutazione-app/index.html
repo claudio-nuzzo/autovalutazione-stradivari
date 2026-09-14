@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="stradilab-theme.css?v=17">
+  <link rel="stylesheet" href="stradilab-theme.css?v=18">
 </head>
 <body>
   <header class="topbar">
@@ -57,13 +57,13 @@
 
     <section class="teacher-access wrap" id="teacherAccess" aria-labelledby="teacherAccessTitle">
       <div class="teacher-access-copy">
-        <div class="kicker">Accesso facoltativo · docenti StradiLab</div>
-        <strong id="teacherAccessTitle">Riconosci il tuo profilo docente</strong>
-        <p>Corso, check e verifica sono aperti a tutti. Il login identifica soltanto i docenti interni autorizzati.</p>
+        <div class="kicker">Accesso StradiLab · account d'istituto</div>
+        <strong id="teacherAccessTitle">Accedi per conservare il tuo percorso</strong>
+        <p>Per gli alunni, l'accesso associa il corso e il check DigComp al proprio account sul dispositivo e abilita il report finale del modulo 8.</p>
       </div>
       <div class="teacher-access-actions">
         <div id="sl-login"></div>
-        <div class="teacher-auth-status" id="teacherAuthStatus" role="status" aria-live="polite"><span class="guest-dot" aria-hidden="true"></span>Modalità ospite · accesso libero per docenti esterni</div>
+        <div class="teacher-auth-status" id="teacherAuthStatus" role="status" aria-live="polite"><span class="guest-dot" aria-hidden="true"></span>Accedi con l'account @istitutostradivari.it per salvare il report.</div>
       </div>
     </section>
 
@@ -178,12 +178,12 @@
   <div id="pdfReport" aria-hidden="true"></div>
   <script src="study-method.js"></script>
   <script src="assessment-vote.js"></script>
-  <script src="digcomp-course.js?v=16"></script>
+  <script src="digcomp-course.js?v=17"></script>
   <script src="role-state.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="stradilab-auth.js"></script>
-  <script src="teacher-auth.js"></script>
-  <script src="results-pdf.js"></script>
+  <script src="stradilab-auth.js?v=2"></script>
+  <script src="teacher-auth.js?v=2"></script>
+  <script src="results-pdf.js?v=2"></script>
   <script src="app.js"></script>
 </body>
 </html>

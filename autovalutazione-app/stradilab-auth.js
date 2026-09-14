@@ -50,7 +50,10 @@
         if (!opt.progetto && u.accessi) w.StradilabAuth.profilo = u;
         utente = { email: u.email, nome: u.nome, livello: u.livello, isDocente: !!u.isDocente, isStaff: !!u.isStaff, isDirigenza: !!u.isDirigenza, isAdmin: !!u.isAdmin, ruoli: u.ruoli || [], accessi: u.accessi || null, progetti: u.progetti || [], idToken: token };
         var m = $(opt.mount); if (m) m.style.display = 'none';
-        if (LIVELLI.indexOf(u.livello) >= LIVELLI.indexOf(opt.minimo)) opt.onReady && opt.onReady(utente);
+        // Con "nessuno" l'identità dell'account d'istituto è sufficiente:
+        // gli alunni possono usare i percorsi personali pur non avendo un
+        // livello riservato nell'anagrafica StradiLab.
+        if (opt.minimo === 'nessuno' || LIVELLI.indexOf(u.livello) >= LIVELLI.indexOf(opt.minimo)) opt.onReady && opt.onReady(utente);
         else {
           if (m) m.style.display = '';
           msg('Ciao ' + (u.nome || u.email) + ': accesso non abilitato per il livello richiesto.', 'err');
