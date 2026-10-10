@@ -67,11 +67,29 @@ body[data-profile="docente"] #studyContent { display:none; }
 .reverse-five strong { grid-column:1; grid-row:2; }
 .reverse-five span { grid-column:2; grid-row:1 / span 2; color:#535c69; }
 .reverse-callout { margin:18px 0; padding:16px 18px; border-left:4px solid #cba94e; border-radius:10px; background:#fbf4df; color:#493b15; line-height:1.65; }
-.reverse-timeline { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:20px 0; }
+.reverse-timeline { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:20px 0; counter-reset:lesson-step; }
 .reverse-timeline article { padding:17px; border:1px solid #d6dfea; border-radius:14px; background:#fff; }
+.reverse-timeline article { position:relative; counter-increment:lesson-step; }
+.reverse-timeline article::before { content:counter(lesson-step); display:grid; place-items:center; width:28px; height:28px; margin-bottom:10px; border-radius:50%; background:#233348; color:#fff; font-size:13px; font-weight:800; }
+.reverse-timeline article:not(:last-child)::after { content:"→"; position:absolute; z-index:1; top:18px; right:-12px; width:22px; color:#9b2335; text-align:center; font-size:20px; font-weight:800; }
 .reverse-timeline article>span { display:inline-block; margin-bottom:10px; color:#9b2335; font-size:12px; font-weight:800; }
 .reverse-timeline p { margin:0; color:#535c69; font-size:14px; }
 .reverse-example { margin:14px 0; padding:20px; border:1px solid #d6dfea; border-radius:16px; background:#fff; }
+.reverse-example[hidden] { display:none; }
+.reverse-filter-label { display:block; margin:15px 0 5px; font-weight:700; }
+.reverse-filter { min-height:46px; max-width:100%; padding:9px 36px 9px 12px; border:1px solid #a8b6c8; border-radius:10px; color:#233348; background:#fff; font:inherit; }
+.reverse-copy { min-height:44px; padding:9px 13px; border:1px solid #a8b6c8; border-radius:9px; background:#fff; color:#233348; font:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+.reverse-copy:hover { background:#edf4ee; }
+.reverse-copy-status { min-height:1.5em; color:#20583b; font-size:14px; }
+.reverse-sheet-actions { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:14px 0; }
+.reverse-ai-draft { margin:14px 0; padding:16px; border-left:4px solid #9b2335; border-radius:10px; background:#f5f6fa; }
+.reverse-ai-draft p { margin-bottom:0; }
+.reverse-rubric-wrap { max-width:100%; overflow-x:auto; margin:20px 0; }
+.reverse-rubric { width:100%; min-width:680px; border-collapse:collapse; background:#fff; font-size:14px; line-height:1.5; }
+.reverse-rubric caption { padding:12px; text-align:left; font-weight:700; }
+.reverse-rubric th,.reverse-rubric td { padding:12px; border:1px solid #c8d3e0; text-align:left; vertical-align:top; }
+.reverse-rubric thead th { background:#233348; color:#fff; }
+.reverse-rubric tbody th { min-width:130px; background:#edf4ee; }
 .reverse-example-head { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 12px; margin-bottom:12px; color:#9b2335; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
 .reverse-example>p { color:#39475b; }
 .reverse-example ul { display:grid; gap:7px; margin:14px 0 0; padding-left:20px; color:#535c69; font-size:14px; }
@@ -93,6 +111,7 @@ body[data-profile="docente"] #studyContent { display:none; }
   .reverse-section { grid-template-columns:34px minmax(0,1fr); gap:11px; padding:26px 0; }
   .reverse-number { width:32px; height:32px; }
   .reverse-compare,.reverse-grid,.reverse-prompts,.reverse-timeline { grid-template-columns:1fr; }
+  .reverse-timeline article:not(:last-child)::after { content:"↓"; top:auto; right:calc(50% - 11px); bottom:-16px; }
   .reverse-glossary { grid-template-columns:1fr; }
   .reverse-five li { grid-template-columns:1fr; gap:4px; }
   .reverse-five li:before,.reverse-five strong,.reverse-five span { grid-column:1; grid-row:auto; }
@@ -109,6 +128,15 @@ body[data-profile="docente"] #studyContent { display:none; }
 .pdf-page p { white-space:pre-wrap; overflow-wrap:anywhere; }
 .pdf-page + .pdf-page { break-before:page; }
 @media print {
+  body:has(.reverse-page) { display:block!important; }
+  body:has(#reverse-guide-main)>#reverse-guide-main { display:block!important; }
+  body:has(.reverse-page)>*:not(main) { display:none!important; }
+  body:has(.reverse-page) .reverse-page>* { display:none!important; }
+  body:has(.reverse-page) .reverse-page>#preparare { display:block!important; }
+  body:has(.reverse-page) #preparare>.reverse-number { display:none!important; }
+  body:has(.reverse-page) #preparare>div:last-child>* { display:none!important; }
+  body:has(.reverse-page) #preparare>div:last-child>#planning-sheet { display:block!important; width:100%; margin:0; padding:0; border:0; background:#fff; color:#000; }
+  body:has(.reverse-page) #planning-sheet h3::before { content:"StradiLab · Scheda di progettazione didattica"; display:block; margin-bottom:14px; color:#444; font-size:12pt; }
   .pdf-page.certificate-page { min-height:255mm; padding:8mm 10mm; break-inside:avoid; }
   .certificate-header { padding:4mm 0 5mm!important; }
   .certificate-page main { padding-top:5mm; }
