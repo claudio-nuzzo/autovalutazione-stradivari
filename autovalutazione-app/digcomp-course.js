@@ -420,7 +420,7 @@
 
   function generateTeacherCertificate() {
     const auth = window.StradivariTeacherAuth;
-    if (trainingMissing().length || !trainingDeclared) { alert('Completa metodo di insegnamento, otto capitoli, check DigComp e verifica finale; conferma poi lo svolgimento delle attività previste.'); return; }
+    if (trainingMissing().length || !trainingDeclared) { alert('Completa il metodo di insegnamento, il check iniziale DigComp, gli otto capitoli e la verifica finale dopo il corso; conferma poi lo svolgimento delle attività previste.'); return; }
     if (!teacherTestResult || teacherTestResult.correct < 21) { alert('Per creare l’attestazione devi superare la verifica con almeno 21 risposte corrette.'); return; }
     if (!auth?.verified || !auth.user) { alert('Accedi con l’account istituzionale docente per creare l’attestazione nominale.'); return; }
     const user = auth.user;
@@ -433,9 +433,9 @@
     report.setAttribute('aria-hidden', 'false');
     report.querySelector('h1').textContent = 'Attestazione di autoformazione';
     report.querySelector('.certificate-subtitle').innerHTML = 'Metodo di insegnamento e competenze digitali<br><strong>DigComp 3.0</strong>';
-    report.querySelector('.certificate-copy').innerHTML = 'ha dichiarato di aver svolto il percorso autonomo di autoformazione <strong>Metodo di insegnamento e DigComp 3.0</strong>, comprensivo di autocheck delle pratiche, progettazione di una lezione, piano di miglioramento, otto capitoli con evidenze dei laboratori, check digitale e verifica finale. Completamenti ed evidenze sono registrati localmente nel browser, non verificati da un tutor.';
+    report.querySelector('.certificate-copy').innerHTML = 'ha dichiarato di aver svolto il percorso autonomo di autoformazione <strong>Metodo di insegnamento e DigComp 3.0</strong>: autocheck delle pratiche e progettazione di una lezione; check iniziale DigComp su 15 indicatori; otto capitoli con evidenze dei laboratori; verifica finale di 30 domande dopo il corso. Completamenti ed evidenze sono registrati localmente nel browser, non verificati da un tutor.';
     report.querySelector('.certificate-areas p').textContent += ' Progettazione didattica, metacognizione, feedback formativo, inclusione e pratica riflessiva, orientati da DigCompEdu.';
-    report.insertAdjacentHTML('beforeend', `<article class="pdf-page"><h1>Portfolio di autoformazione</h1><p>Articolazione prevista: metodo di insegnamento 60 minuti; corso e laboratori DigComp 150 minuti; check e verifica 30 minuti. Svolgimento dichiarato dal docente, non cronometrato dal portale.</p>${window.StradivariTeacherPortfolio?.html() || ''}<h2>Capitoli completati</h2>${courseResults().modules.map(module=>`<p>${module.number}. ${escapeHtml(module.title)} · ${module.correct}/${module.total}</p>`).join('')}<h2>Check DigComp</h2><p>${escapeHtml(lastResult?.level)} · media ${escapeHtml(lastResult?.average)}/3</p></article>`);
+    report.insertAdjacentHTML('beforeend', `<article class="pdf-page"><h1>Portfolio di autoformazione</h1><p>Articolazione prevista: metodo di insegnamento 60 minuti; check iniziale DigComp su 15 indicatori prima del corso; corso e laboratori DigComp 150 minuti; verifica finale di 30 domande dopo il corso. I due controlli rientrano nei 30 minuti complessivi previsti. Svolgimento dichiarato dal docente, non cronometrato dal portale.</p>${window.StradivariTeacherPortfolio?.html() || ''}<h2>Check iniziale DigComp</h2><p>${escapeHtml(lastResult?.level)} · media ${escapeHtml(lastResult?.average)}/3</p><h2>Capitoli completati</h2>${courseResults().modules.map(module=>`<p>${module.number}. ${escapeHtml(module.title)} · ${module.correct}/${module.total}</p>`).join('')}<h2>Verifica finale</h2><p>${teacherTestResult ? `${teacherTestResult.correct}/30 · ${escapeHtml(teacherTestResult.message)}` : 'Verifica finale non completata.'}</p></article>`);
     report.lastElementChild.insertAdjacentHTML('beforeend', `<section><h2>Evidenze dei laboratori DigComp</h2>${courseLabNotes.map((note,index)=>`<h3>${index+1}. ${escapeHtml(lessons[index].title)}</h3><p>${escapeHtml(note)}</p>`).join('')}</section><p>Fonti del metodo: Commissione europea – JRC, DigCompEdu; EEF, Using Digital Technology to Improve Learning (2019), Metacognition and Self-Regulated Learning (2025), Teacher Feedback to Improve Pupil Learning (2021); UNESCO, Guidance for Generative AI in Education and Research (2023). Collegamenti nel percorso online.</p>`);
     window.print();
     window.setTimeout(() => report.setAttribute('aria-hidden', 'true'), 1000);
@@ -599,7 +599,7 @@
   });
   document.addEventListener('teacherlogin', renderTeacherTest);
   function trainingMissing() {
-    return [!window.StradivariTeaching?.getResults().completed && 'metodo di insegnamento', !courseResults().completed && 'otto capitoli del corso', !(lastResult?.completed && lastResult.role === 'docente') && 'check DigComp docente (15 indicatori)', !(teacherTestResult?.correct >= 21) && 'verifica finale (almeno 21/30)'].filter(Boolean);
+    return [!window.StradivariTeaching?.getResults().completed && 'metodo di insegnamento', !(lastResult?.completed && lastResult.role === 'docente') && 'check iniziale DigComp docente (15 indicatori)', !courseResults().completed && 'otto capitoli del corso', !(teacherTestResult?.correct >= 21) && 'verifica finale dopo il corso (almeno 21/30)'].filter(Boolean);
   }
   document.addEventListener('stradivari-progress', () => { if(role==='docente') renderTeacherTest(); });
 
