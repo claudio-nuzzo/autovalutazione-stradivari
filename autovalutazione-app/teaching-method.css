@@ -29,6 +29,76 @@ body[data-profile="docente"] #studyContent { display:none; }
 .teach-meter { height:10px; border-radius:8px; background:#e2e8f2; overflow:hidden; margin:10px 0; }
 .teach-meter i { display:block; height:100%; background:#31765b; }
 .teach-source { font-size:.9rem; line-height:1.5; }
+.reverse-ai-card { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px 24px; border-left:5px solid #9b2335; }
+.reverse-ai-card h4 { margin:5px 0 4px; }
+.reverse-ai-card p { max-width:70ch; margin:0; color:#5f6672; }
+.reverse-ai-card .kicker { font-size:10px; }
+.reverse-ai-card .btn { flex:none; text-decoration:none; }
+.reverse-page { max-width:1040px; padding-bottom:48px; color:#233348; }
+.reverse-breadcrumb { display:flex; flex-wrap:wrap; gap:9px; margin:24px 0 14px; color:#6d665e; font-size:13px; }
+.reverse-breadcrumb a { color:#185b83; }
+.reverse-hero { padding:clamp(28px,6vw,60px); border:1px solid #d6dfea; border-radius:24px; background:linear-gradient(120deg,#e8f7f1,#eef0ff); }
+.reverse-hero h1 { margin:12px 0 16px; color:#233348; font-size:clamp(2.25rem,6vw,4.5rem); line-height:1.02; letter-spacing:-.055em; }
+.reverse-hero h1 em { color:#9b2335; font-style:normal; }
+.reverse-hero>p { max-width:72ch; color:#3d4b5f; font-size:clamp(1rem,2vw,1.2rem); line-height:1.65; }
+.reverse-meta { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+.reverse-meta span { padding:8px 12px; border:1px solid #c8d3e0; border-radius:999px; background:rgba(255,255,255,.72); color:#334257; font-size:12px; font-weight:700; }
+.reverse-note,.reverse-sources,.reverse-reflection { margin:22px 0; padding:24px; border:1px solid #d6dfea; border-radius:18px; background:#fff; }
+.reverse-note { border-left:5px solid #cba94e; background:#fbf8ee; }
+.reverse-glossary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:12px; }
+.reverse-glossary p { margin:0; padding:12px; border:1px solid #eadfb9; border-radius:10px; background:#fff; font-size:13px; }
+.reverse-glossary strong,.reverse-glossary span { display:block; }
+.reverse-glossary span { margin-top:4px; color:#535c69; line-height:1.55; }
+.reverse-page h2 { margin:0 0 12px; color:#233348; font-size:clamp(1.45rem,3vw,2rem); letter-spacing:-.025em; }
+.reverse-page h3 { margin:0 0 8px; color:#233348; font-size:1.08rem; }
+.reverse-page p,.reverse-page li { line-height:1.68; }
+.reverse-page p { margin:9px 0; }
+.reverse-section { display:grid; grid-template-columns:48px minmax(0,1fr); gap:18px; padding:34px 0; border-bottom:1px solid #d9d1c6; scroll-margin-top:90px; }
+.reverse-number { display:grid; place-items:center; width:40px; height:40px; border-radius:50%; background:#9b2335; color:#fff; font-size:12px; font-weight:800; }
+.reverse-section>div:last-child { min-width:0; }
+.reverse-compare,.reverse-grid,.reverse-prompts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:20px 0; }
+.reverse-compare article,.reverse-grid article,.reverse-prompts article { min-width:0; padding:18px; border:1px solid #d6dfea; border-radius:14px; background:#fff; }
+.reverse-compare article:first-child { background:#f8f4ed; }
+.reverse-compare article:last-child { border-color:#bfd3c3; background:#edf4ee; }
+.reverse-compare p,.reverse-grid p { margin:0; color:#535c69; font-size:14px; }
+.reverse-five { display:grid; gap:10px; margin:20px 0; padding:0; list-style:none; counter-reset:prompt-part; }
+.reverse-five li { display:grid; grid-template-columns:minmax(170px,.65fr) minmax(0,1.35fr); gap:4px 12px; padding:14px 16px; border-radius:12px; background:#f5f6fa; counter-increment:prompt-part; }
+.reverse-five li:before { content:counter(prompt-part,decimal-leading-zero); grid-column:1; grid-row:1; color:#9b2335; font-size:11px; font-weight:800; }
+.reverse-five strong { grid-column:1; grid-row:2; }
+.reverse-five span { grid-column:2; grid-row:1 / span 2; color:#535c69; }
+.reverse-callout { margin:18px 0; padding:16px 18px; border-left:4px solid #cba94e; border-radius:10px; background:#fbf4df; color:#493b15; line-height:1.65; }
+.reverse-timeline { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:20px 0; }
+.reverse-timeline article { padding:17px; border:1px solid #d6dfea; border-radius:14px; background:#fff; }
+.reverse-timeline article>span { display:inline-block; margin-bottom:10px; color:#9b2335; font-size:12px; font-weight:800; }
+.reverse-timeline p { margin:0; color:#535c69; font-size:14px; }
+.reverse-example { margin:14px 0; padding:20px; border:1px solid #d6dfea; border-radius:16px; background:#fff; }
+.reverse-example-head { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 12px; margin-bottom:12px; color:#9b2335; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.reverse-example>p { color:#39475b; }
+.reverse-example ul { display:grid; gap:7px; margin:14px 0 0; padding-left:20px; color:#535c69; font-size:14px; }
+.reverse-prompts blockquote { margin:12px 0 0; padding:14px; border-left:3px solid #9b2335; border-radius:8px; background:#f5f6fa; color:#39475b; line-height:1.65; }
+.reverse-criteria article { background:#edf4ee; }
+.reverse-checklist { display:grid; gap:9px; padding-left:22px; }
+.reverse-checklist li::marker { color:#31765b; }
+.reverse-template { margin:14px 0; padding:20px; border:1px solid #c8d3e0; border-radius:15px; background:#f5f6fa; }
+.reverse-template p { margin:12px 0; }
+.reverse-template ul { display:grid; gap:8px; padding-left:22px; }
+.reverse-reflection { border-color:#bfd3c3; background:#edf4ee; line-height:1.65; }
+.reverse-sources { background:#fbf8f3; }
+.reverse-sources ul { display:grid; gap:7px; padding-left:21px; }
+.reverse-page a:not(.btn) { color:#185b83; text-underline-offset:3px; }
+.reverse-footer { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:26px 0 0; }
+.reverse-footer p,.reverse-small { color:#5f6672; font-size:13px; }
+.reverse-page :focus-visible { outline:3px solid rgba(24,91,131,.35); outline-offset:3px; }
+@media(max-width:700px) {
+  .reverse-section { grid-template-columns:34px minmax(0,1fr); gap:11px; padding:26px 0; }
+  .reverse-number { width:32px; height:32px; }
+  .reverse-compare,.reverse-grid,.reverse-prompts,.reverse-timeline { grid-template-columns:1fr; }
+  .reverse-glossary { grid-template-columns:1fr; }
+  .reverse-five li { grid-template-columns:1fr; gap:4px; }
+  .reverse-five li:before,.reverse-five strong,.reverse-five span { grid-column:1; grid-row:auto; }
+  .reverse-note,.reverse-sources,.reverse-reflection,.reverse-example,.reverse-template { padding:16px; }
+  .reverse-ai-card { align-items:flex-start; }
+}
 #teachingContent a { color:#185b83; text-decoration:underline; text-underline-offset:3px; }
 .teach-error { background:#fff0ec; color:#8c2f20; padding:14px; border-radius:10px; }
 .teach-success { background:#e5f4ec; color:#20583b; padding:14px; border-radius:10px; }

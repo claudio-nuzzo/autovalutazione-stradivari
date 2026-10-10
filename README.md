@@ -13,6 +13,7 @@ Il percorso è autonomo: non richiede Google Apps Script per caricare le griglie
 - nel percorso “Metodo di studio”, tre prove per le classi prime: professionale, tecnico e liceo, con livelli di guida diversi.
 
 Pagina principale: `autovalutazione-app/index.html`.
+La guida autonoma al metodo Reverse AI, raggiungibile dalla scheda docente sotto il riquadro introduttivo, è `autovalutazione-app/reverse-ai.html`.
 
 ## Autoformazione docenti · aggiornamento 10 ottobre 2026
 

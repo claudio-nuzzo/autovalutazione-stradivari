@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Guida pratica StradiLab al metodo Reverse AI: consegne chiare, ruoli, esempi disciplinari e verifica del lavoro in classe.">
+  <title>Reverse AI · Guida pratica · StradiLab</title>
+  <link rel="canonical" href="https://didattica.stradilab.org/reverse-ai.html">
+  <meta property="og:title" content="Reverse AI · Guida pratica · StradiLab">
+  <meta property="og:description" content="Progetta una lezione come un compito di squadra: obiettivo, ruoli, criteri e verifica umana.">
+  <meta property="og:url" content="https://didattica.stradilab.org/reverse-ai.html">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="https://stradilab.org/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="stradilab-theme.css?v=19">
+  <link rel="stylesheet" href="teaching-method.css?v=4">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://stradilab.org" aria-label="StradiLab — home">STRADI<span>LAB</span></a>
+      <nav class="topnav" aria-label="Collegamenti StradiLab">
+        <a href="index.html#percorso">Didattica e metodi</a>
+        <a href="https://stradilab.org/#progetti">Progetti</a>
+        <a href="https://www.istitutostradivari.edu.it" target="_blank" rel="noopener">Istituto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap reverse-page">
+    <nav class="reverse-breadcrumb" aria-label="Percorso di navigazione"><a href="index.html#percorso">Didattica e metodi</a><span aria-hidden="true">›</span><span>Metodo Reverse AI</span></nav>
+    <header class="reverse-hero">
+      <div class="eyebrow">Una guida pratica per docenti</div>
+      <h1>Progetta la lezione,<br><em>rendi visibile il lavoro.</em></h1>
+      <p>Reverse AI è una proposta di progettazione: il docente prepara una consegna precisa e la classe lavora come una squadra con ruoli, tempi e criteri condivisi. La tecnologia può essere usata, ma non è necessaria.</p>
+      <div class="reverse-meta"><span>Obiettivo prima dello strumento</span><span>Collaborazione con ruoli</span><span>Controllo umano</span></div>
+    </header>
+
+    <section class="reverse-note" aria-labelledby="reverse-note-title">
+      <h2 id="reverse-note-title">Un’analogia per progettare, non una teoria sulla mente</h2>
+      <p>Il nome richiama alcuni passaggi usati per descrivere i sistemi di IA: istruzioni, compiti distinti, verifica e revisione. In classe sono metafore organizzative. Una classe non è un modello linguistico e termini come <em>temperatura</em>, <em>allucinazione</em> o <em>RLHF</em> non descrivono processi mentali degli studenti. Qui li traduciamo in azioni osservabili: scegliere, argomentare, cercare riscontri, correggere.</p>
+      <p>La guida non è un protocollo scientificamente validato e non garantisce risultati. È una traccia da adattare alla disciplina, all’età, agli obiettivi e ai bisogni della classe.</p>
+      <h3>Glossario con cautela</h3>
+      <div class="reverse-glossary">
+        <p><strong>System prompt</strong><span>Per la classe: consegna, materiali, ruoli e criteri. Non è un prompt tecnico da impartire agli studenti.</span></p>
+        <p><strong>Sub-agenti</strong><span>Per la classe: ruoli temporanei nel gruppo. Le persone collaborano e imparano; non sono agenti automatici.</span></p>
+        <p><strong>Context window</strong><span>Per la lezione: tempo e materiali disponibili. Non equivale alla memoria di lavoro degli studenti.</span></p>
+        <p><strong>Controllo delle “allucinazioni”</strong><span>In classe: verificare affermazioni, calcoli e fonti. L’errore umano e l’errore generato da un modello hanno cause diverse.</span></p>
+        <p><strong>Feedback loop</strong><span>In classe: ricevere un’indicazione collegata ai criteri, usarla per rivedere il lavoro e controllare di nuovo. Non è RLHF.</span></p>
+      </div>
+    </section>
+
+    <section class="reverse-section" id="idea">
+      <div class="reverse-number">01</div><div>
+        <h2>Che cosa cambia nella lezione</h2>
+        <p>Il punto di partenza non è “quale app uso?”, ma “che cosa devono saper fare gli studenti e quale prova mi farà capire se ci sono riusciti?”. Il docente prepara il compito e accompagna il lavoro; gli studenti affrontano parti collegate e ricompongono un prodotto comune.</p>
+        <div class="reverse-compare"><article><h3>Prima: spiegazione senza traccia del processo</h3><p>Il docente presenta contenuti; pochi studenti intervengono; alla fine si vede soprattutto il prodotto o la risposta.</p></article><article><h3>Con Reverse AI: compito, ruoli, riscontri</h3><p>La classe sa qual è il traguardo; i ruoli rendono visibili passaggi diversi; una revisione e una breve prova individuale mostrano che cosa è stato appreso.</p></article></div>
+      </div>
+    </section>
+
+    <section class="reverse-section" id="prompt">
+      <div class="reverse-number">02</div><div>
+        <h2>La consegna in cinque parti</h2>
+        <p>Un prompt umano è una consegna rivolta alle persone. Usa parole dirette, spiega che cosa fare e chiarisci come si controlla il risultato.</p>
+        <ol class="reverse-five">
+          <li><strong>Situazione e destinatario</strong><span>“Siete la redazione della biblioteca scolastica.”</span></li>
+          <li><strong>Traguardo concreto</strong><span>“Preparate una scheda che aiuti una classe prima a scegliere un libro.”</span></li>
+          <li><strong>Passi e ruoli</strong><span>“Raccogliete informazioni, confrontatele, controllate le fonti e componete il testo.”</span></li>
+          <li><strong>Vincoli e accessi</strong><span>Tempo disponibile, materiali consentiti, formato, lessico e alternative accessibili.</span></li>
+          <li><strong>Criteri di riuscita</strong><span>Che cosa deve esserci? Quali affermazioni vanno documentate? Chi fa la revisione finale?</span></li>
+        </ol>
+        <aside class="reverse-callout"><strong>Un controllo utile prima di consegnarla:</strong> uno studente può capire da solo da dove iniziare, che cosa produrre e come verificare se il lavoro è pronto?</aside>
+      </div>
+    </section>
+
+    <section class="reverse-section" id="ruoli">
+      <div class="reverse-number">03</div><div>
+        <h2>Ruoli che aiutano davvero</h2>
+        <p>I ruoli servono a distribuire l’attenzione e a far partecipare tutti. Non sono etichette fisse né sostituiscono l’apprendimento individuale. Nei gruppi piccoli si possono unire o ruotare.</p>
+        <div class="reverse-grid">
+          <article><h3>Chi cerca</h3><p>Individua dati e passaggi pertinenti nei materiali forniti o nelle fonti autorizzate.</p></article>
+          <article><h3>Chi collega</h3><p>Spiega relazioni, confronta alternative e annota perché una scelta risponde all’obiettivo.</p></article>
+          <article><h3>Chi controlla</h3><p>Cerca affermazioni senza riscontro, errori, omissioni e criteri non rispettati. Indica dove verificare.</p></article>
+          <article><h3>Chi restituisce</h3><p>Organizza il prodotto nel formato concordato e prepara una breve spiegazione delle decisioni.</p></article>
+        </div>
+        <p class="reverse-small">Prevedi una rotazione quando il percorso si ripete. Alla fine chiedi a ciascuno una risposta, una scelta motivata o una correzione individuale.</p>
+      </div>
+    </section>
+
+    <section class="reverse-section" id="tempo">
+      <div class="reverse-number">04</div><div>
+        <h2>Un’ora possibile, con margine</h2>
+        <p>La scansione è una proposta adattabile: non serve forzare ogni attività in sessanta minuti. Riduci il prodotto, cambia i gruppi o riprendi il lavoro nella lezione successiva se la verifica mostra che è necessario.</p>
+        <div class="reverse-timeline">
+          <article><span>0–10′</span><h3>Capire il compito</h3><p>Leggere la consegna, chiarire parole e criteri, formare i gruppi e concordare ruoli.</p></article>
+          <article><span>10–40′</span><h3>Lavorare e confrontare</h3><p>Procedere sui passaggi assegnati. Il docente osserva, ascolta e offre un aiuto breve quando serve.</p></article>
+          <article><span>40–50′</span><h3>Controllare e rivedere</h3><p>Confrontare il prodotto con i criteri, correggere e indicare le fonti o i dati usati.</p></article>
+          <article><span>50–60′</span><h3>Restituire e consolidare</h3><p>Condividere una decisione, raccogliere una prova individuale e indicare il prossimo passo.</p></article>
+        </div>
+        <aside class="reverse-callout"><strong>Il tempo residuo non è un premio automatico per chi finisce prima.</strong> Può diventare revisione, approfondimento a scelta, lettura o pausa concordata per tutti. Prima si controlla la qualità; poi si decide insieme che cosa è utile.</aside>
+      </div>
+    </section>
+
+    <section class="reverse-section" id="esempi">
+      <div class="reverse-number">05</div><div>
+        <h2>Esempi pronti da adattare</h2>
+        <div class="reverse-example">
+          <div class="reverse-example-head"><span>Italiano e letteratura</span><span>Testo fornito dal docente</span></div>
+          <h3>Leggere un testo poetico con prove testuali</h3>
+          <p><strong>Consegna agli studenti:</strong> “In gruppo preparate una lettura ragionata del testo. Un gruppo annota parole e immagini ricorrenti; uno osserva ritmo e figure; uno propone una parafrasi dei passaggi assegnati; un gruppo di controllo verifica ogni interpretazione citando il punto del testo che la sostiene. Riunite le osservazioni in una mappa e segnalate un dubbio ancora aperto.”</p>
+          <ul><li><strong>Prodotto:</strong> mappa con interpretazioni e riscontri testuali.</li><li><strong>Controllo:</strong> distinguere ciò che il testo dice da ciò che il gruppo interpreta.</li><li><strong>Prova individuale:</strong> scegliere un’immagine e spiegarla con un indizio del testo.</li></ul>
+        </div>
+        <div class="reverse-example">
+          <div class="reverse-example-head"><span>Matematica</span><span>Problema o funzione</span></div>
+          <h3>Rendere controllabile una soluzione</h3>
+          <p><strong>Consegna agli studenti:</strong> “Studiate la funzione assegnata. Dividetevi i passaggi: dominio, segno e zeri, limiti e asintoti, grafico qualitativo. Ogni gruppo scrive regola usata e calcoli. Poi scambiate i fogli: chi controlla prova a trovare un passaggio non giustificato e verifica il grafico rispetto ai dati.”</p>
+          <ul><li><strong>Prodotto:</strong> soluzione commentata con grafico.</li><li><strong>Controllo:</strong> verificare ipotesi, segni, unità o passaggi algebrici pertinenti.</li><li><strong>Prova individuale:</strong> spiegare un passaggio e correggere un errore plausibile.</li></ul>
+        </div>
+        <div class="reverse-example">
+          <div class="reverse-example-head"><span>Inglese e professionale</span><span>Comunicazione autentica</span></div>
+          <h3>Scrivere e revisionare una mail di reclamo</h3>
+          <p><strong>Consegna agli studenti:</strong> “Scrivete una mail formale in inglese per segnalare un prodotto arrivato danneggiato. Un gruppo organizza i fatti; uno controlla formule e registro; uno verifica il lessico specifico; uno revisiona chiarezza e richiesta finale. Usate il caso inventato fornito, non dati o account reali.”</p>
+          <ul><li><strong>Prodotto:</strong> mail di 100–130 parole e lista delle revisioni.</li><li><strong>Controllo:</strong> tono, informazioni necessarie, grammatica e richiesta comprensibile.</li><li><strong>Prova individuale:</strong> motivare una scelta di registro e riscrivere una frase.</li></ul>
+        </div>
+        <div class="reverse-example">
+          <div class="reverse-example-head"><span>Laboratorio e indirizzi tecnici</span><span>Sicurezza prima dell’esecuzione</span></div>
+          <h3>Analizzare un guasto senza intervenire sull’impianto</h3>
+          <p><strong>Consegna agli studenti:</strong> “Sul caso simulato, ricostruite le possibili cause del surriscaldamento. Un gruppo ordina i sintomi; uno confronta il manuale fornito; uno controlla che le ipotesi siano sostenute dai dati; uno prepara il rapporto. Non eseguite interventi sull’impianto: applicate solo procedure e indicazioni del docente.”</p>
+          <ul><li><strong>Prodotto:</strong> albero delle cause e rapporto di diagnosi simulata.</li><li><strong>Controllo:</strong> separare osservazioni e ipotesi; citare il manuale; rispettare le procedure di sicurezza.</li><li><strong>Prova individuale:</strong> indicare il dato che sostiene un’ipotesi e un controllo necessario.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="reverse-section" id="prompt-umani">
+      <div class="reverse-number">06</div><div>
+        <h2>Prompt umani: parole che puoi usare in classe</h2>
+        <p>Queste frasi sono rivolte agli studenti. Specificano un’azione, un criterio e un modo per controllare il lavoro.</p>
+        <div class="reverse-prompts">
+          <article><h3>Per partire</h3><blockquote>“Prima di dividervi i compiti, riscrivete l’obiettivo con parole vostre. Segnate che cosa sapete già, che cosa dovete trovare e quale materiale potete usare.”</blockquote></article>
+          <article><h3>Per spiegare una scelta</h3><blockquote>“Non scrivete soltanto la risposta. Indicate quale informazione vi ha aiutato, quale regola avete applicato e come avete controllato il risultato.”</blockquote></article>
+          <article><h3>Per fare revisione tra pari</h3><blockquote>“Leggi il lavoro senza correggerlo subito. Evidenzia un passaggio chiaro, una frase che ha bisogno di una prova e una domanda che aiuterebbe il gruppo a migliorarlo.”</blockquote></article>
+          <article><h3>Per usare una fonte</h3><blockquote>“Per ogni affermazione importante, annota da quale pagina, dato o materiale proviene. Se non trovi un riscontro, scrivi ‘da verificare’ invece di completare a intuito.”</blockquote></article>
+          <article><h3>Per usare un assistente IA, se autorizzato</h3><blockquote>“Usa solo i materiali pubblici indicati. Non inserire nomi, elaborati o informazioni personali. Tratta la risposta come una bozza: controlla i fatti sulle fonti, segnala le parti incerte e spiega che cosa hai cambiato.”</blockquote></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="reverse-section" id="valutare">
+      <div class="reverse-number">07</div><div>
+        <h2>Verifica del gruppo e prova individuale</h2>
+        <p>Un prodotto ben rifinito non dimostra da solo che ogni persona abbia imparato. Usa pochi criteri leggibili e raccogli una risposta individuale breve.</p>
+        <div class="reverse-grid reverse-criteria">
+          <article><h3>Accuratezza</h3><p>Le idee sono corrette rispetto ai materiali e all’obiettivo?</p></article>
+          <article><h3>Riscontri</h3><p>Le affermazioni principali sono sostenute da dati, passaggi o fonti?</p></article>
+          <article><h3>Chiarezza</h3><p>Il prodotto rispetta destinatario, formato e vincoli?</p></article>
+          <article><h3>Comprensione personale</h3><p>Ogni studente sa spiegare una decisione e indicare un dubbio o un passo successivo?</p></article>
+        </div>
+        <aside class="reverse-callout"><strong>Exit ticket da tre minuti:</strong> “Quale scelta del gruppo condividi? Quale prova la sostiene? Che cosa controlleresti ancora?”</aside>
+      </div>
+    </section>
+
+    <section class="reverse-section" id="inclusione">
+      <div class="reverse-number">08</div><div>
+        <h2>Accessibilità, inclusione e cura dei dati</h2>
+        <ul class="reverse-checklist">
+          <li>Consegna breve, leggibile e disponibile anche in forma orale o visiva; dividi il compito in passi.</li>
+          <li>Offri materiali e modalità di risposta accessibili. Mantieni lo stesso obiettivo e criteri coerenti.</li>
+          <li>Assegna ruoli senza isolare chi ha più bisogno di supporto; rendi possibile chiedere aiuto o cambiare ruolo.</li>
+          <li>Prepara una soluzione equivalente senza connessione e senza strumenti digitali.</li>
+          <li>Non inserire dati personali degli studenti in strumenti di IA non autorizzati. Preferisci casi inventati o materiali pubblici.</li>
+          <li>Se usi IA, dichiara lo scopo, controlla errori e distorsioni e mantieni la responsabilità delle decisioni.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="reverse-section" id="preparare">
+      <div class="reverse-number">09</div><div>
+        <h2>La tua scheda di progettazione</h2>
+        <div class="reverse-template">
+          <h3>Consegna per la classe</h3>
+          <p><strong>Argomento e destinatario</strong><br>[Su che cosa lavoriamo? Per chi prepariamo il prodotto?]</p>
+          <p><strong>Obiettivo osservabile</strong><br>[Che cosa sapranno spiegare, confrontare, calcolare, comporre o realizzare?]</p>
+          <p><strong>Prodotto e formato</strong><br>[Che cosa consegnano? Quanto deve essere lungo o dettagliato?]</p>
+          <p><strong>Passi e ruoli</strong><br>[Quali passaggi? Chi cerca, collega, controlla e restituisce?]</p>
+          <p><strong>Materiali, vincoli e accessibilità</strong><br>[Fonti consentite, tempo, strumenti autorizzati, alternativa senza digitale.]</p>
+          <p><strong>Criteri di riuscita</strong><br>[Tre criteri visibili; quale prova individuale raccoglierai?]</p>
+        </div>
+        <div class="reverse-template">
+          <h3>Domande del docente mentre osserva</h3>
+          <ul><li>Quale passaggio è chiaro e quale va modellato?</li><li>Chi sta ancora aspettando istruzioni per iniziare?</li><li>Quale errore ricorre e quale esempio può renderlo visibile?</li><li>Il prodotto risponde all’obiettivo o sta diventando un esercizio di impaginazione?</li><li>Che cosa mi dirà la prova individuale al termine?</li></ul>
+        </div>
+        <div class="reverse-reflection"><strong>Un primo esperimento, non una rivoluzione.</strong> Scegli un compito breve della prossima settimana. Prepara una consegna, due o tre criteri e una domanda individuale finale. Dopo la lezione annota che cosa ha funzionato, quale ostacolo hai osservato e che cosa cambierai la prossima volta.</div>
+      </div>
+    </section>
+
+    <section class="reverse-sources" aria-labelledby="reverse-sources-title">
+      <h2 id="reverse-sources-title">Fonti e limiti</h2>
+      <p>Reverse AI è un adattamento didattico originale StradiLab, non un framework validato né una certificazione. Per progettazione digitale, metacognizione, feedback e uso dell’IA consulta le guide di riferimento e le regole dell’Istituto.</p>
+      <ul>
+        <li><a href="https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/digital" target="_blank" rel="noopener">Education Endowment Foundation · Using Digital Technology to Improve Learning</a></li>
+        <li><a href="https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/metacognition" target="_blank" rel="noopener">Education Endowment Foundation · Metacognition and Self-Regulated Learning</a></li>
+        <li><a href="https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/feedback" target="_blank" rel="noopener">Education Endowment Foundation · Teacher Feedback to Improve Pupil Learning</a></li>
+        <li><a href="https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research" target="_blank" rel="noopener">UNESCO · Guidance for Generative AI in Education and Research</a></li>
+      </ul>
+    </section>
+
+    <footer class="reverse-footer"><a class="btn secondary" href="index.html#percorso">← Torna a Didattica e metodi</a><p>StradiLab · IIS Antonio Stradivari, Cremona</p></footer>
+  </main>
+</body>
+</html>
