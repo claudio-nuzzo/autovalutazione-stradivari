@@ -5,7 +5,7 @@
 
   function buildReport() {
     const role = localStorage.getItem('stradivari-profile') === 'docente' ? 'Docente' : 'Alunno';
-    const study = window.StradivariStudy?.getResults?.() || {};
+    const study = (role === 'Docente' ? window.StradivariTeaching : window.StradivariStudy)?.getResults?.() || {};
     const assessment = window.StradivariAssessment?.getResults?.() || {};
     const dig = window.StradivariDig?.getResults?.() || {};
     const course = window.StradivariCourse?.getResults?.() || {};
@@ -35,10 +35,27 @@
   function generatePdf() {
     const report = document.getElementById('pdfReport');
     report.innerHTML = buildReport();
+    if (document.body.dataset.profile === 'docente') {
+      const page = report.querySelector('.pdf-page');
+      const methodHeading = [...page.querySelectorAll('h2')].find(node => node.textContent === 'Metodo di studio');
+      if (methodHeading) methodHeading.textContent = 'Metodo di insegnamento';
+      const nameLabel = page.querySelector('header p strong');
+      if (nameLabel?.textContent === 'Studente:') nameLabel.textContent = 'Docente:';
+      page.querySelector('footer').innerHTML = '<strong>Un cambiamento mirato, un’evidenza, una nuova decisione: continua a sperimentare.</strong><br>Didattica e metodi · StradiLab';
+      page.querySelector('section:nth-of-type(2) > p:last-child').textContent = window.StradivariTeaching?.getResults().completed ? 'Percorso completato: autocheck, priorità, lezione riprogettata, controllo e piano personale.' : 'Percorso non ancora completato: sono riportate le evidenze disponibili.';
+      page.querySelector('footer').insertAdjacentHTML('beforebegin', teacherPortfolio());
+      const course = window.StradivariCourse?.getResults?.();
+      if (course?.labNotes?.some(Boolean)) page.querySelector('footer').insertAdjacentHTML('beforebegin', `<section><h2>Evidenze dei laboratori DigComp</h2>${course.labNotes.map((note,index)=>note ? line(`${index+1}. ${course.modules[index].title}`,note) : '').join('')}</section>`);
+    }
     report.setAttribute('aria-hidden', 'false');
     window.print();
     window.setTimeout(() => { report.setAttribute('aria-hidden', 'true'); }, 1000);
   }
+  function teacherPortfolio() {
+    const study = window.StradivariTeaching?.getResults?.() || {};
+    return `<section><h2>Portfolio del metodo di insegnamento</h2>${study.areas?.map(area => line(area.name, `${area.average.toFixed(1)}/3 · frequenza dichiarata`)).join('') || ''}${Object.entries({evidence:'Episodio osservato',priority:'Priorità motivate',goal:'Obiettivo e criteri',sequence:'Sequenza e micro-mappa',digital:'Digitale e accessibilità',feedback:'Feedback e revisione',safety:'IA e dati',peer:'Confronto facoltativo',change:'Cambiamento previsto',proof:'Evidenza da raccogliere',criteria:'Criteri di controllo',date:'Data del controllo'}).map(([key,label])=>line(label,study.notes?.[key])).join('')}${line('Controllo dei casi',`${study.correct || 0}/4`)}<p>Metodo di insegnamento: ${study.completed ? 'completato' : 'in corso'}. Blocco previsto: 60 minuti. Percorso complessivo: 4 ore previste; riconoscimento soggetto alla validazione dell’Istituto.</p></section>`;
+  }
+  window.StradivariTeacherPortfolio = { html: teacherPortfolio };
   document.getElementById('pdfIdentityForm')?.addEventListener('submit', event => {
     if (event.submitter?.value === 'cancel') return;
     event.preventDefault();

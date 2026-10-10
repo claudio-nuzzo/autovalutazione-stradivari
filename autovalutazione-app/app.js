@@ -1,7 +1,11 @@
 (() => {
   const validTabs = new Set(['studio', 'app', 'digcomp', 'corso', 'ptofo']);
 
-  document.querySelector('.hero > div:first-child p')?.replaceChildren(document.createTextNode('Parti dal metodo di studio, poi autovaluta una prova con le griglie delle materie e allena le competenze digitali.'));
+  function profileIntro() {
+    document.querySelector('.hero > div:first-child p')?.replaceChildren(document.createTextNode(document.body.dataset.profile === 'docente' ? 'Rifletti sul tuo metodo di insegnamento e costruisci un portfolio: un percorso autonomo sul digitale con 4 ore previste di autoformazione.' : 'Parti dal metodo di studio, poi autovaluta una prova con le griglie delle materie e allena le competenze digitali.'));
+  }
+  profileIntro();
+  document.addEventListener('profilechange', profileIntro);
   document.querySelector('#tab-ptofo .kicker')?.replaceChildren(document.createTextNode('05 · Griglie delle materie'));
   document.querySelector('#tab-ptofo .source-badge')?.replaceChildren(document.createTextNode('Griglie disciplinari'));
   document.querySelector('#tab-ptofo .assessment-types')?.setAttribute('aria-label', 'Tipo di griglia di autovalutazione');
@@ -46,12 +50,14 @@
   });
 
   function progress() {
-    const completed = (window.StradivariAssessment?.completed() || 0) + (window.StradivariDig?.completed() || 0) + (window.StradivariStudy?.completed() || 0);
-    const total = (window.StradivariAssessment?.total() || 20) + (window.StradivariDig?.total || 20) + (window.StradivariStudy?.total || 5);
+    const method = document.body.dataset.profile === 'docente' ? window.StradivariTeaching : window.StradivariStudy;
+    const completed = (window.StradivariAssessment?.completed() || 0) + (window.StradivariDig?.completed() || 0) + (method?.completed() || 0);
+    const total = (window.StradivariAssessment?.total() || 20) + (window.StradivariDig?.total || 20) + (method?.total || 5);
     document.getElementById('globalProgress').style.width = `${Math.min(100, completed / total * 100)}%`;
     document.getElementById('progressLabel').textContent = `${completed} attività completate`;
   }
   document.addEventListener('stradivari-progress', progress);
+  document.addEventListener('profilechange', progress);
   activateRoute();
   progress();
 })();

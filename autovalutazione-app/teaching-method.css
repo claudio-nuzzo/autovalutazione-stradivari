@@ -1,0 +1,61 @@
+body[data-profile="docente"] #tab-studio > .notice,
+body[data-profile="docente"] #tab-studio > .study-research,
+body[data-profile="docente"] #tab-studio > .deepstrad-cta,
+body[data-profile="docente"] #tab-studio > .study-steps,
+body[data-profile="docente"] #studyContent { display:none; }
+#teachingContent { color:#233348; }
+#teachingContent [hidden] { display:none; }
+.teach-cover { background:linear-gradient(120deg,#e8f7f1,#eef0ff); border:1px solid #c9dfdb; border-radius:24px; padding:24px; margin:20px 0; }
+.teach-cover h3 { font-size:clamp(1.5rem,3vw,2.2rem); margin:10px 0; }
+.teach-cover p,.teach-card p { line-height:1.65; }
+.teach-timeline,.teach-nav,.teach-actions { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0; }
+.teach-timeline span { flex:1 1 150px; background:#fff; padding:14px; border-radius:14px; border:1px solid #d6dfea; }
+.teach-timeline strong,.teach-timeline small { display:block; }
+.teach-nav button { flex:1 1 120px; min-height:48px; border:1px solid #c8d3e0; border-radius:12px; background:#fff; color:#233348; padding:12px; cursor:pointer; font:inherit; }
+.teach-nav button[aria-current="step"] { background:#233348; color:#fff; }
+.teach-nav button:disabled { opacity:.55; cursor:not-allowed; }
+.teach-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:16px; }
+.teach-card { border:1px solid #d6dfea; border-radius:18px; padding:20px; background:#fff; margin:16px 0; min-width:0; }
+.teach-card h4 { margin:0 0 12px; font-size:1.2rem; }
+.teach-card fieldset { border:0; padding:12px 0; margin:0; border-bottom:1px solid #e0e6ef; }
+.teach-card legend { line-height:1.5; font-weight:600; padding:0; }
+.teach-options { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.teach-options label { display:flex; align-items:center; gap:8px; min-height:44px; padding:8px 12px; background:#f0f3f9; border-radius:10px; cursor:pointer; }
+.teach-options label:has(input:checked) { background:#dbece5; outline:2px solid #36745d; }
+.teach-field { display:block; font-weight:600; margin:18px 0; }
+.teach-field textarea,.teach-field select,.teach-field input[type="date"] { display:block; width:100%; box-sizing:border-box; font:inherit; color:#233348; background:#fff; border:1px solid #a8b6c8; padding:12px; border-radius:10px; margin-top:8px; min-height:48px; }
+.teach-field textarea { min-height:110px; resize:vertical; }
+.teach-field small { display:block; font-weight:400; line-height:1.5; margin:6px 0; }
+.teach-meter { height:10px; border-radius:8px; background:#e2e8f2; overflow:hidden; margin:10px 0; }
+.teach-meter i { display:block; height:100%; background:#31765b; }
+.teach-source { font-size:.9rem; line-height:1.5; }
+#teachingContent a { color:#185b83; text-decoration:underline; text-underline-offset:3px; }
+.teach-error { background:#fff0ec; color:#8c2f20; padding:14px; border-radius:10px; }
+.teach-success { background:#e5f4ec; color:#20583b; padding:14px; border-radius:10px; }
+.teach-hint { background:#f5f0df; padding:14px; border-radius:10px; line-height:1.6; }
+.teach-pair { border:1px dashed #8da2b8; border-radius:16px; padding:18px; margin:20px 0; }
+.teach-pair summary { cursor:pointer; min-height:44px; font-weight:700; }
+#teachingContent :focus-visible { outline:3px solid #185b83; outline-offset:3px; }
+.pdf-page p { white-space:pre-wrap; overflow-wrap:anywhere; }
+.pdf-page + .pdf-page { break-before:page; }
+@media print {
+  .pdf-page.certificate-page { min-height:255mm; padding:8mm 10mm; break-inside:avoid; }
+  .certificate-header { padding:4mm 0 5mm!important; }
+  .certificate-page main { padding-top:5mm; }
+  .certificate-page h1 { font-size:30px; }
+  .certificate-declaration { margin-top:5mm!important; }
+  .certificate-copy { margin:4mm auto!important; font-size:12px; line-height:1.5!important; }
+  .certificate-facts { margin:4mm 0; }
+  .certificate-facts div { min-height:18mm; }
+  .certificate-areas { padding:3mm 0!important; }
+  .certificate-validation { margin-top:4mm; padding:3mm!important; }
+  .certificate-page footer { margin-top:4mm; }
+  .pdf-page:not(.certificate-page) section { break-inside:auto; }
+  .pdf-page:not(.certificate-page) h2 { break-after:avoid; }
+}
+.teach-heading { scroll-margin-top:90px; }
+@media(max-width:600px) { .teach-cover,.teach-card { padding:16px; } .teach-options label { flex:1 1 130px; } }
+
+.teach-extra { border-style:dashed; }
+.teach-extra summary { cursor:pointer; min-height:44px; line-height:1.5; }
+.teach-extra summary small { font-weight:400; }

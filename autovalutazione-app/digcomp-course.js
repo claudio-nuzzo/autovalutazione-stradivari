@@ -186,7 +186,8 @@
     ['Per confrontare due strumenti digitali è meglio definire prima…', ['criteri legati a bisogno, accessibilità, privacy e sostenibilità', 'il colore dell’interfaccia', 'quello usato dalla maggioranza'], 0, 'Risoluzione di problemi'],
     ['Cambiare una variabile alla volta permette di…', ['capire quale modifica produce un effetto', 'rendere il problema più confuso', 'evitare di documentare'], 0, 'Risoluzione di problemi'],
     ['Un buon prototipo didattico serve a…', ['provare presto una soluzione e raccogliere feedback', 'dimostrare che non servono revisioni', 'nascondere i limiti'], 0, 'Risoluzione di problemi'],
-    ['Valutare criticamente un sistema di IA significa anche considerare…', ['bias, omissioni, fonti, impatto e responsabilità', 'solo la fluidità della risposta', 'solo la velocità di generazione'], 0, 'Risoluzione di problemi']
+    ['Valutare criticamente un sistema di IA significa anche considerare…', ['bias, omissioni, fonti, impatto e responsabilità', 'solo la fluidità della risposta', 'solo la velocità di generazione'], 0, 'Risoluzione di problemi'],
+    ['Per migliorare il proprio metodo di insegnamento con il digitale è utile…', ['contare soltanto le app utilizzate', 'sperimentare un cambiamento mirato, raccogliere evidenze e rivedere le scelte', 'replicare sempre la stessa attività indipendentemente dai risultati'], 1, 'Risoluzione di problemi']
   ];
 
   const glossary = [['Fonte primaria', 'Documento o dato direttamente legato al fenomeno osservato.'], ['Ricerca laterale', 'Controllo di una fonte aprendo altre fonti indipendenti.'], ['Licenza', 'Condizioni con cui un contenuto può essere riusato.'], ['Accessibilità', 'Progettazione utilizzabile da persone e dispositivi diversi.'], ['Dato personale', 'Informazione che identifica o rende identificabile una persona.'], ['Phishing', 'Tentativo di sottrarre dati simulando un mittente affidabile.'], ['Bias', 'Distorsione sistematica nei dati, nel processo o nel risultato.'], ['IA generativa', 'Sistema che produce contenuti da istruzioni e dati: va verificato.'], ['Agency', 'Capacità di comprendere, scegliere e mantenere il controllo delle proprie azioni.'], ['Minimizzazione', 'Raccolta dei soli dati necessari a uno scopo dichiarato.'], ['Interoperabilità', 'Capacità di sistemi e formati diversi di scambiare e usare dati.'], ['MFA', 'Autenticazione che richiede più di un fattore di verifica.']];
@@ -285,23 +286,36 @@
   let courseAnswers = lessons.map(lesson => Array(lesson.q.length).fill(null));
   let completedModules = Array(lessons.length).fill(false);
   let courseCompletedAt = null;
+  let trainingDeclared = false;
+  let courseLabNotes = lessons.map(() => '');
 
   const storageKey = () => {
     const email = window.StradivariUser?.email;
-    return email ? `stradivari-digcomp-progress:v1:${String(email).toLowerCase()}` : null;
+    return `stradivari-digcomp-progress:v2:${email ? String(email).toLowerCase() : 'ospite'}:${role}`;
   };
 
   function saveProgress() {
     const key = storageKey();
     if (!key) return;
-    localStorage.setItem(key, JSON.stringify({ answers, lastResult, courseAnswers, completedModules, courseCompletedAt }));
+    try { localStorage.setItem(key, JSON.stringify({ answers, lastResult, courseAnswers, completedModules, courseCompletedAt, teacherTestAnswers, trainingDeclared, courseLabNotes })); } catch (_) { /* Il percorso resta utilizzabile senza storage. */ }
   }
 
   function loadProgress() {
     const key = storageKey();
     if (!key) return;
+    ['alunno','docente'].forEach(profile => Object.keys(answers[profile]).forEach(item => delete answers[profile][item]));
+    lastResult = null;
+    courseAnswers = lessons.map(lesson => Array(lesson.q.length).fill(null));
+    completedModules = Array(lessons.length).fill(false);
+    courseCompletedAt = null;
+    teacherTestAnswers = Array(teacherQuestions.length).fill(null);
+    teacherTestResult = null;
+    trainingDeclared = false;
+    courseLabNotes = lessons.map(() => '');
     try {
-      const saved = JSON.parse(localStorage.getItem(key) || 'null');
+      const legacyEmail = window.StradivariUser?.email;
+      const legacy = role === 'alunno' && legacyEmail ? localStorage.getItem(`stradivari-digcomp-progress:v1:${String(legacyEmail).toLowerCase()}`) : null;
+      const saved = JSON.parse(localStorage.getItem(key) || legacy || 'null');
       if (!saved) return;
       ['alunno', 'docente'].forEach(profile => {
         Object.keys(answers[profile]).forEach(item => delete answers[profile][item]);
@@ -314,6 +328,16 @@
       }));
       completedModules = lessons.map((_, index) => Boolean(saved.completedModules?.[index]));
       courseCompletedAt = saved.courseCompletedAt || null;
+      teacherTestAnswers = teacherQuestions.map((question,index) => {
+        const value = saved.teacherTestAnswers?.[index];
+        return Number.isInteger(value) && value >= 0 && value < question[1].length ? value : null;
+      });
+      if (teacherTestAnswers.every(value=>value!==null)) {
+        const correct=teacherTestAnswers.reduce((sum,value,index)=>sum+(value===teacherQuestions[index][2]?1:0),0);
+        teacherTestResult={correct,status:correct<21?'fail':correct<26?'pass':'advanced',message:correct<21?'Non ancora sufficiente: la soglia è 21/30.':'Verifica superata.'};
+      }
+      trainingDeclared = saved.trainingDeclared === true;
+      courseLabNotes = lessons.map((_,index) => typeof saved.courseLabNotes?.[index] === 'string' ? saved.courseLabNotes[index] : '');
     } catch (_) {
       // Un salvataggio locale non valido non deve impedire di seguire il corso.
     }
@@ -339,12 +363,17 @@
       correct: modules.reduce((total, module) => total + module.correct, 0),
       total: modules.reduce((total, module) => total + module.total, 0),
       modules,
-      teacherTest: teacherTestResult
+      teacherTest: teacherTestResult,
+      labNotes: [...courseLabNotes]
     };
   }
 
   function completeModule(index) {
     const result = moduleResult(index);
+    if (role === 'docente' && courseLabNotes[index].trim().length < 40) {
+      alert('Documenta il laboratorio nel campo dedicato (almeno 40 caratteri): indica decisioni, prodotto e controllo effettuato.');
+      return;
+    }
     if (result.answered < result.total) {
       alert(`Completa tutte le ${result.total} domande del capitolo prima di registrarne l'esito.`);
       return;
@@ -368,6 +397,7 @@
     document.getElementById('glossary').innerHTML = glossary.map(item => `<div class="term"><b>${item[0]}</b>${item[1]}</div>`).join('');
     document.getElementById('advancedGlossaryGroups').innerHTML = advancedGlossary.map(group => `<section class="advanced-glossary-group"><div class="advanced-glossary-group-head"><h4>${group.title}</h4><p>${group.description}</p></div><div class="advanced-terms">${group.terms.map(item => `<div class="advanced-term"><b>${item[0]}</b><span>${item[1]}</span></div>`).join('')}</div></section>`).join('');
     renderLesson(currentModule, false);
+    if (role === 'docente') document.querySelectorAll('.module-btn small').forEach((node,index) => { if (!completedModules[index]) node.textContent=`${index<6?19:18} min previsti · con laboratorio`; });
     renderTeacherTest();
   }
 
@@ -378,15 +408,19 @@
     if (role !== 'docente') return;
     const passed = teacherTestResult?.correct >= 21;
     const authenticated = Boolean(window.StradivariTeacherAuth?.verified);
-    const certificate = passed ? (authenticated
+    const missing = trainingMissing();
+    if (missing.length) trainingDeclared = false;
+    const declaration = !missing.length ? `<label class="teach-options"><input type="checkbox" id="trainingDeclaration" ${trainingDeclared ? 'checked' : ''}><span>Dichiaro di aver svolto personalmente il percorso complessivo previsto di 4 ore, incluse letture ed esercitazioni. La durata non è misurata automaticamente.</span></label>` : '';
+    const certificate = missing.length ? `<div class="teacher-certificate-login"><strong>Completa il percorso di autoformazione</strong><p>Prima dell’attestato: ${missing.join(' · ')}.</p><p>Il report PDF dei risultati parziali resta disponibile. Per le 4 ore il riconoscimento è subordinato alla validazione dell’Istituto.</p></div>` : (authenticated
       ? `<div class="teacher-certificate-ready"><div><span>Attestazione disponibile</span><strong>Corso di aggiornamento DigComp 3.0 · 4 ore</strong><p>Il PDF riporterà intestazione dell’Istituto, identità del docente, data, durata ed esito della verifica.</p></div><button class="btn teacher-certificate-btn" id="teacherCertificatePdf" type="button">Crea attestato PDF</button></div>`
-      : `<div class="teacher-certificate-login"><strong>Verifica superata.</strong><p>Per creare l’attestazione nominale accedi con l’account istituzionale autorizzato. Il corso resta liberamente accessibile anche agli esterni.</p></div>`) : '';
-    const result = teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>${teacherTestResult.correct}/30 risposte esatte</strong><span>${teacherTestResult.message}</span><small>${teacherTestResult.status === 'fail' ? 'Rileggi i capitoli indicati e riprova.' : 'Esito registrato in questa sessione.'}</small></div>${certificate}` : '';
+      : `<div class="teacher-certificate-login"><strong>Percorso completato.</strong><p>Per creare l’attestazione nominale accedi con l’account istituzionale autorizzato. Gli esterni possono conservare il report PDF; il corso resta aperto.</p></div>`);
+    const result = `${teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>${teacherTestResult.correct}/30 risposte esatte</strong><span>${teacherTestResult.message}</span><small>${teacherTestResult.status === 'fail' ? 'Rileggi i capitoli indicati e riprova.' : 'Esito salvato in questo browser.'}</small></div>` : ''}${declaration}${certificate}`;
     document.getElementById('teacherTestContent').innerHTML = `<div class="teacher-test-meta"><span>0–20: insufficiente</span><span>21–25: superato</span><span>26–30: avanzato</span><b>${teacherTestAnswers.filter(answer => answer !== null).length}/30 risposte</b></div>${teacherQuestions.map((question, index) => `<article class="teacher-question"><div><span>${String(index + 1).padStart(2, '0')}</span><small>${question[3]}</small></div><p>${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="teacher-test-${index}" value="${optionIndex}" ${teacherTestAnswers[index] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}</article>`).join('')}<div class="teacher-test-actions"><button class="btn" id="teacherTestSubmit" type="button">Calcola il risultato</button><button class="btn secondary" id="teacherTestReset" type="button">Ricomincia</button></div>${result}`;
   }
 
   function generateTeacherCertificate() {
     const auth = window.StradivariTeacherAuth;
+    if (trainingMissing().length || !trainingDeclared) { alert('Completa metodo di insegnamento, otto capitoli, check DigComp e verifica finale; conferma poi lo svolgimento delle attività previste.'); return; }
     if (!teacherTestResult || teacherTestResult.correct < 21) { alert('Per creare l’attestazione devi superare la verifica con almeno 21 risposte corrette.'); return; }
     if (!auth?.verified || !auth.user) { alert('Accedi con l’account istituzionale docente per creare l’attestazione nominale.'); return; }
     const user = auth.user;
@@ -397,6 +431,12 @@
     const report = document.getElementById('pdfReport');
     report.innerHTML = `<article class="pdf-page certificate-page"><header class="certificate-header"><div class="certificate-school">Istituto di Istruzione Superiore “Antonio Stradivari”</div><div class="certificate-city">Cremona</div></header><main><div class="pdf-eyebrow">Formazione interna del personale docente</div><h1>Attestazione di completamento</h1><p class="certificate-subtitle">Corso di aggiornamento interno<br><strong>DigComp 3.0</strong></p><p class="certificate-declaration">Si attesta che</p><h2 class="certificate-name">${escapeHtml(teacherName)}</h2>${teacherEmail ? `<p class="certificate-email">${escapeHtml(teacherEmail)}</p>` : ''}<p class="certificate-copy">ha svolto il percorso autonomo di formazione e aggiornamento dedicato al quadro europeo delle competenze digitali <strong>DigComp 3.0</strong>, comprensivo di contenuti, casi guidati, laboratori, verifiche formative e verifica finale.</p><div class="certificate-facts"><div><span>Durata del percorso</span><strong>4 ore</strong></div><div><span>Verifica finale</span><strong>${teacherTestResult.correct}/30</strong><small>Soglia: 21/30</small></div><div><span>Esito</span><strong>${escapeHtml(level)}</strong></div><div><span>Data</span><strong>${escapeHtml(generated)}</strong></div></div><section class="certificate-areas"><h3>Ambiti del percorso</h3><p>Informazione e dati · comunicazione e collaborazione · creazione di contenuti · sicurezza e benessere · risoluzione di problemi · uso critico e responsabile dell’intelligenza artificiale.</p></section><p class="certificate-framework">Percorso riconducibile alla formazione in servizio obbligatoria, permanente e strutturale nell’ambito del piano triennale dell’Istituto, previa registrazione e validazione amministrativa.</p><section class="certificate-validation"><div><strong>Documento da inserire nel portale Formazione interna</strong><span>L’efficacia amministrativa è subordinata alla registrazione e alla validazione dell’Istituto.</span></div><div class="certificate-signature"><span>Spazio riservato alla validazione</span></div></section></main><footer>Documento generato dal portale “Didattica e metodi” · didattica.stradilab.org</footer></article>`;
     report.setAttribute('aria-hidden', 'false');
+    report.querySelector('h1').textContent = 'Attestazione di autoformazione';
+    report.querySelector('.certificate-subtitle').innerHTML = 'Metodo di insegnamento e competenze digitali<br><strong>DigComp 3.0</strong>';
+    report.querySelector('.certificate-copy').innerHTML = 'ha dichiarato di aver svolto il percorso autonomo di autoformazione <strong>Metodo di insegnamento e DigComp 3.0</strong>, comprensivo di autocheck delle pratiche, progettazione di una lezione, piano di miglioramento, otto capitoli con evidenze dei laboratori, check digitale e verifica finale. Completamenti ed evidenze sono registrati localmente nel browser, non verificati da un tutor.';
+    report.querySelector('.certificate-areas p').textContent += ' Progettazione didattica, metacognizione, feedback formativo, inclusione e pratica riflessiva, orientati da DigCompEdu.';
+    report.insertAdjacentHTML('beforeend', `<article class="pdf-page"><h1>Portfolio di autoformazione</h1><p>Articolazione prevista: metodo di insegnamento 60 minuti; corso e laboratori DigComp 150 minuti; check e verifica 30 minuti. Svolgimento dichiarato dal docente, non cronometrato dal portale.</p>${window.StradivariTeacherPortfolio?.html() || ''}<h2>Capitoli completati</h2>${courseResults().modules.map(module=>`<p>${module.number}. ${escapeHtml(module.title)} · ${module.correct}/${module.total}</p>`).join('')}<h2>Check DigComp</h2><p>${escapeHtml(lastResult?.level)} · media ${escapeHtml(lastResult?.average)}/3</p></article>`);
+    report.lastElementChild.insertAdjacentHTML('beforeend', `<section><h2>Evidenze dei laboratori DigComp</h2>${courseLabNotes.map((note,index)=>`<h3>${index+1}. ${escapeHtml(lessons[index].title)}</h3><p>${escapeHtml(note)}</p>`).join('')}</section><p>Fonti del metodo: Commissione europea – JRC, DigCompEdu; EEF, Using Digital Technology to Improve Learning (2019), Metacognition and Self-Regulated Learning (2025), Teacher Feedback to Improve Pupil Learning (2021); UNESCO, Guidance for Generative AI in Education and Research (2023). Collegamenti nel percorso online.</p>`);
     window.print();
     window.setTimeout(() => report.setAttribute('aria-hidden', 'true'), 1000);
   }
@@ -407,6 +447,7 @@
     const status = correct < 21 ? 'fail' : correct < 26 ? 'pass' : 'advanced';
     const message = status === 'fail' ? 'Non ancora sufficiente: la soglia è 21/30.' : status === 'pass' ? 'Verifica superata: hai raggiunto la soglia di 21/30.' : 'Verifica superata con esito avanzato.';
     teacherTestResult = { correct, status, message };
+    saveProgress();
     renderTeacherTest();
     document.getElementById('teacherCourseTest')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
@@ -440,6 +481,10 @@
         <p class="source-note">Adattamento didattico a cura di StradiLab, basato sul <a href="https://joint-research-centre.ec.europa.eu/scientific-activities/key-competences-lifelong-learning/digital-competence-framework-digcomp/digcomp-30_en" target="_blank" rel="noopener">quadro ufficiale DigComp 3.0</a>, Commissione europea – JRC (2025). Contenuti sintetizzati e contestualizzati per la scuola; la Commissione europea non è responsabile dell’adattamento.</p>
         ${completionAction}<nav class="lesson-nav" aria-label="Navigazione tra i capitoli"><button class="btn secondary" data-course-nav="${currentModule - 1}" ${currentModule === 0 ? 'disabled' : ''}>← Capitolo precedente</button><span>${currentModule + 1} / ${lessons.length}</span><button class="btn" data-course-nav="${currentModule + 1}" ${currentModule === lessons.length - 1 ? 'disabled' : ''}>Capitolo successivo →</button></nav>
       </article>`;
+    if (isTeacher) {
+      document.querySelector('#lesson .lesson-cover .kicker').textContent = `Capitolo ${currentModule+1} di ${lessons.length} · ${currentModule<6?19:18} min previsti con laboratorio`;
+      document.querySelector('#lesson .lesson-lab').insertAdjacentHTML('beforeend', `<label class="teach-field">Evidenza del laboratorio (obbligatoria per il percorso docente)<small>Annota decisioni, prodotto realizzato, controllo e miglioramento (almeno 40 caratteri). Non inserire dati personali degli alunni.</small><textarea data-course-lab="${currentModule}" maxlength="5000">${escapeHtml(courseLabNotes[currentModule])}</textarea></label>`);
+    }
     if (updateHash) history.replaceState(null, '', `#corso-${currentModule + 1}`);
   }
 
@@ -447,6 +492,8 @@
     const match = event.target.name?.match(/^dig-(alunno|docente)-(\d+-\d+)$/);
     if (!match) return;
     answers[match[1]][match[2]] = Number(event.target.value);
+    lastResult = null;
+    trainingDeclared = false;
     saveProgress();
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
@@ -464,6 +511,7 @@
     result.innerHTML = `<strong>Livello prevalente: ${names[Math.round(average)]}</strong><br>Media ${average.toFixed(1)}/3 sul profilo ${role}. Il risultato serve per scegliere il prossimo modulo da allenare.`;
     result.classList.add('show');
     saveProgress();
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
   document.getElementById('courseMap').addEventListener('click', event => {
     const button = event.target.closest('[data-module]');
@@ -477,17 +525,21 @@
     event.currentTarget.textContent = willOpen ? 'Chiudi glossario approfondito' : 'Glossario approfondito';
   });
   document.getElementById('teacherTestContent')?.addEventListener('change', event => {
+    if (event.target.id === 'trainingDeclaration') { trainingDeclared=event.target.checked; saveProgress(); return; }
     const match = event.target.name?.match(/^teacher-test-(\d+)$/);
     if (!match) return;
     teacherTestAnswers[Number(match[1])] = Number(event.target.value);
     teacherTestResult = null;
+    trainingDeclared = false;
+    saveProgress();
     const count = document.querySelector('.teacher-test-meta b');
     if (count) count.textContent = `${teacherTestAnswers.filter(answer => answer !== null).length}/30 risposte`;
     document.querySelector('.teacher-test-result')?.remove();
+    document.querySelector('.teacher-certificate-ready')?.remove();
   });
   document.getElementById('teacherTestContent')?.addEventListener('click', event => {
     if (event.target.id === 'teacherTestSubmit') evaluateTeacherTest();
-    if (event.target.id === 'teacherTestReset') { teacherTestAnswers = Array(teacherQuestions.length).fill(null); teacherTestResult = null; renderTeacherTest(); }
+    if (event.target.id === 'teacherTestReset') { teacherTestAnswers = Array(teacherQuestions.length).fill(null); teacherTestResult = null; trainingDeclared=false; saveProgress(); renderTeacherTest(); }
     if (event.target.id === 'teacherCertificatePdf') generateTeacherCertificate();
   });
   document.getElementById('lesson').addEventListener('click', event => {
@@ -525,14 +577,31 @@
     courseAnswers[moduleIndex][questionIndex] = Number(event.target.value);
     completedModules[moduleIndex] = false;
     courseCompletedAt = null;
+    trainingDeclared = false;
     saveProgress();
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
+  });
+  document.getElementById('lesson').addEventListener('input', event => {
+    const index=event.target.dataset.courseLab;
+    if(index===undefined)return;
+    courseLabNotes[Number(index)]=event.target.value;
+    completedModules[Number(index)]=false;
+    courseCompletedAt=null;
+    trainingDeclared=false;
+    saveProgress();
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
   document.addEventListener('profilechange', event => {
     role = event.detail.role;
+    loadProgress();
     renderDig(); renderCourse();
     document.getElementById('digResult').classList.remove('show');
   });
   document.addEventListener('teacherlogin', renderTeacherTest);
+  function trainingMissing() {
+    return [!window.StradivariTeaching?.getResults().completed && 'metodo di insegnamento', !courseResults().completed && 'otto capitoli del corso', !(lastResult?.completed && lastResult.role === 'docente') && 'check DigComp docente (15 indicatori)', !(teacherTestResult?.correct >= 21) && 'verifica finale (almeno 21/30)'].filter(Boolean);
+  }
+  document.addEventListener('stradivari-progress', () => { if(role==='docente') renderTeacherTest(); });
 
   document.addEventListener('stradivari-login', () => {
     loadProgress();
@@ -543,5 +612,5 @@
 
   window.StradivariDig = { completed: () => Object.keys(answers.alunno).length + Object.keys(answers.docente).length, total: 30, getResults: () => lastResult || { completed: false, role } };
   window.StradivariCourse = { openModule: (index, updateHash = false) => renderLesson(index, updateHash), total: lessons.length, getResults: courseResults };
-  renderDig(); renderCourse();
+  loadProgress(); renderDig(); renderCourse();
 })();

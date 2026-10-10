@@ -108,6 +108,7 @@
   const exerciseCheck = (index, label) => `<label class="guided-check"><input type="checkbox" name="study-exercise${index}" ${state.exercise[index] ? 'checked' : ''}><span>${label}</span></label>`;
 
   function updateSteps() {
+    if (document.body.dataset.profile === 'docente') return;
     const easySteps = [['1 · Come studio', '8 min'], ['2 · Diagnosi', '5 min'], ['3 · Strategie', '8 min'], ['4 · Egizi', '25 min'], ['5 · Piano', '6 min']];
     const technicalSteps = [['1 · Come studio', '10 min'], ['2 · Diagnosi', '7 min'], ['3 · Strategie', '15 min'], ['4 · Prova', '20 min'], ['5 · Piano', '5 min']];
     const liceoSteps = [['1 · Autoplacement', '12 min'], ['2 · Diagnosi', '8 min'], ['3 · Strategie', '15–20 min'], ['4 · Prova', '20 min'], ['5 · Piano', '8 min']];
