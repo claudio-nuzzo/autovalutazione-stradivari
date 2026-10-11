@@ -1,0 +1,30 @@
+name: Reviewed archive candidate
+on:
+  push:
+    branches: [codex/archive-ci-20261011]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-reviewed-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      REVIEWED_SHA: d2f16b55eb123d0e797f1d8ede1226ae94c90fca
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: d2f16b55eb123d0e797f1d8ede1226ae94c90fca
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 26.5.0
+      - run: test "$(git rev-parse HEAD)" = "$REVIEWED_SHA"
+      - run: npm ci --ignore-scripts --no-fund --no-audit
+      - run: npm run build:pdf
+      - run: npm run test:archive
+      - run: node --check worker.js
+      - run: node --check autovalutazione-app/certificate-archive.js
+      - run: npx --yes wrangler@4.147.0 deploy --dry-run
+      - run: git diff --exit-code
