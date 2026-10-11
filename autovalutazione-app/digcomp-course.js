@@ -414,11 +414,11 @@
     const certificate = missing.length ? `<div class="teacher-certificate-login"><strong>Completa il percorso di autoformazione</strong><p>Prima dell’attestato: ${missing.join(' · ')}.</p><p>Il report PDF dei risultati parziali resta disponibile. Per le 4 ore il riconoscimento è subordinato alla validazione dell’Istituto.</p></div>` : (authenticated
       ? `<div class="teacher-certificate-ready"><div><span>Attestazione disponibile</span><strong>Corso di aggiornamento DigComp 3.0 · 4 ore</strong><p>Il PDF riporterà intestazione dell’Istituto, identità del docente, data, durata ed esito della verifica.</p></div><button class="btn teacher-certificate-btn" id="teacherCertificatePdf" type="button">Crea attestato PDF</button></div>`
       : `<div class="teacher-certificate-login"><strong>Percorso completato.</strong><p>Per creare l’attestazione nominale accedi con l’account istituzionale autorizzato. Gli esterni possono conservare il report PDF; il corso resta aperto.</p></div>`);
-    const result = `${teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>${teacherTestResult.correct}/30 risposte esatte</strong><span>${teacherTestResult.message}</span><small>${teacherTestResult.status === 'fail' ? 'Rileggi i capitoli indicati e riprova.' : 'Esito salvato in questo browser.'}</small></div>` : ''}${declaration}${certificate}`;
+    const result = `${teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>${teacherTestResult.correct}/30 risposte esatte</strong><span>${teacherTestResult.message}</span><small>${teacherTestResult.status === 'fail' ? 'Rileggi i capitoli indicati e riprova.' : 'Esito salvato in questo browser.'}</small></div>` : ''}${declaration}${certificate.replace('Crea attestato PDF', 'Crea e archivia attestazione PDF')}`;
     document.getElementById('teacherTestContent').innerHTML = `<div class="teacher-test-meta"><span>0–20: insufficiente</span><span>21–25: superato</span><span>26–30: avanzato</span><b>${teacherTestAnswers.filter(answer => answer !== null).length}/30 risposte</b></div>${teacherQuestions.map((question, index) => `<article class="teacher-question"><div><span>${String(index + 1).padStart(2, '0')}</span><small>${question[3]}</small></div><p>${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="teacher-test-${index}" value="${optionIndex}" ${teacherTestAnswers[index] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}</article>`).join('')}<div class="teacher-test-actions"><button class="btn" id="teacherTestSubmit" type="button">Calcola il risultato</button><button class="btn secondary" id="teacherTestReset" type="button">Ricomincia</button></div>${result}`;
   }
 
-  function generateTeacherCertificate() {
+  async function generateTeacherCertificate() {
     const auth = window.StradivariTeacherAuth;
     if (trainingMissing().length || !trainingDeclared) { alert('Completa il metodo di insegnamento, il check iniziale DigComp, gli otto capitoli e la verifica finale dopo il corso; conferma poi lo svolgimento delle attività previste.'); return; }
     if (!teacherTestResult || teacherTestResult.correct < 21) { alert('Per creare l’attestazione devi superare la verifica con almeno 21 risposte corrette.'); return; }
@@ -432,13 +432,36 @@
     report.innerHTML = `<article class="pdf-page certificate-page"><header class="certificate-header"><div class="certificate-school">Istituto di Istruzione Superiore “Antonio Stradivari”</div><div class="certificate-city">Cremona</div></header><main><div class="pdf-eyebrow">Formazione interna del personale docente</div><h1>Attestazione di completamento</h1><p class="certificate-subtitle">Corso di aggiornamento interno<br><strong>DigComp 3.0</strong></p><p class="certificate-declaration">Si attesta che</p><h2 class="certificate-name">${escapeHtml(teacherName)}</h2>${teacherEmail ? `<p class="certificate-email">${escapeHtml(teacherEmail)}</p>` : ''}<p class="certificate-copy">ha svolto il percorso autonomo di formazione e aggiornamento dedicato al quadro europeo delle competenze digitali <strong>DigComp 3.0</strong>, comprensivo di contenuti, casi guidati, laboratori, verifiche formative e verifica finale.</p><div class="certificate-facts"><div><span>Durata del percorso</span><strong>4 ore</strong></div><div><span>Verifica finale</span><strong>${teacherTestResult.correct}/30</strong><small>Soglia: 21/30</small></div><div><span>Esito</span><strong>${escapeHtml(level)}</strong></div><div><span>Data</span><strong>${escapeHtml(generated)}</strong></div></div><section class="certificate-areas"><h3>Ambiti del percorso</h3><p>Informazione e dati · comunicazione e collaborazione · creazione di contenuti · sicurezza e benessere · risoluzione di problemi · uso critico e responsabile dell’intelligenza artificiale.</p></section><p class="certificate-framework">Percorso riconducibile alla formazione in servizio obbligatoria, permanente e strutturale nell’ambito del piano triennale dell’Istituto, previa registrazione e validazione amministrativa.</p><section class="certificate-validation"><div><strong>Documento da inserire nel portale Formazione interna</strong><span>L’efficacia amministrativa è subordinata alla registrazione e alla validazione dell’Istituto.</span></div><div class="certificate-signature"><span>Spazio riservato alla validazione</span></div></section></main><footer>Documento generato dal portale “Didattica e metodi” · didattica.stradilab.org</footer></article>`;
     report.setAttribute('aria-hidden', 'false');
     report.querySelector('h1').textContent = 'Attestazione di autoformazione';
+    report.querySelector('.certificate-facts').insertAdjacentHTML('beforeend', '<div><span>Anno scolastico</span><strong>2026/27</strong></div>');
     report.querySelector('.certificate-subtitle').innerHTML = 'Metodo di insegnamento e competenze digitali<br><strong>DigComp 3.0</strong>';
     report.querySelector('.certificate-copy').innerHTML = 'ha dichiarato di aver svolto il percorso autonomo di autoformazione <strong>Metodo di insegnamento e DigComp 3.0</strong>: autocheck delle pratiche e progettazione di una lezione; check iniziale DigComp su 15 indicatori; otto capitoli con evidenze dei laboratori; verifica finale di 30 domande dopo il corso. Completamenti ed evidenze sono registrati localmente nel browser, non verificati da un tutor.';
     report.querySelector('.certificate-areas p').textContent += ' Progettazione didattica, metacognizione, feedback formativo, inclusione e pratica riflessiva, orientati da DigCompEdu.';
     report.insertAdjacentHTML('beforeend', `<article class="pdf-page"><h1>Portfolio di autoformazione</h1><p>Articolazione prevista: metodo di insegnamento 60 minuti; check iniziale DigComp su 15 indicatori prima del corso; corso e laboratori DigComp 150 minuti; verifica finale di 30 domande dopo il corso. I due controlli rientrano nei 30 minuti complessivi previsti. Svolgimento dichiarato dal docente, non cronometrato dal portale.</p>${window.StradivariTeacherPortfolio?.html() || ''}<h2>Check iniziale DigComp</h2><p>${escapeHtml(lastResult?.level)} · media ${escapeHtml(lastResult?.average)}/3</p><h2>Capitoli completati</h2>${courseResults().modules.map(module=>`<p>${module.number}. ${escapeHtml(module.title)} · ${module.correct}/${module.total}</p>`).join('')}<h2>Verifica finale</h2><p>${teacherTestResult ? `${teacherTestResult.correct}/30 · ${escapeHtml(teacherTestResult.message)}` : 'Verifica finale non completata.'}</p></article>`);
     report.lastElementChild.insertAdjacentHTML('beforeend', `<section><h2>Evidenze dei laboratori DigComp</h2>${courseLabNotes.map((note,index)=>`<h3>${index+1}. ${escapeHtml(lessons[index].title)}</h3><p>${escapeHtml(note)}</p>`).join('')}</section><p>Fonti del metodo: Commissione europea – JRC, DigCompEdu; EEF, Using Digital Technology to Improve Learning (2019), Metacognition and Self-Regulated Learning (2025), Teacher Feedback to Improve Pupil Learning (2021); UNESCO, Guidance for Generative AI in Education and Research (2023). Collegamenti nel percorso online.</p>`);
-    window.print();
-    window.setTimeout(() => report.setAttribute('aria-hidden', 'true'), 1000);
+    const button = document.getElementById('teacherCertificatePdf');
+    const card = document.querySelector('.teacher-certificate-ready');
+    let status = document.getElementById('certificateArchiveStatus');
+    if (!status && card) { status = document.createElement('p'); status.id = 'certificateArchiveStatus'; status.setAttribute('role', 'status'); card.appendChild(status); }
+    if (button) button.disabled = true;
+    if (status) status.textContent = 'Creazione e archiviazione dell’attestazione di autoformazione…';
+    try {
+      const {module: currentChapter, title: currentTitle, ...course} = courseResults();
+      const snapshot = {schoolYear: '2026/27', name: teacherName, course, initialCheck: lastResult, finalTest: teacherTestResult,
+        method: window.StradivariTeaching?.getResults?.(), declaration: trainingDeclared, completedAt: courseCompletedAt};
+      const archive = await window.StradilabCertificateArchive.archive(snapshot,
+        () => window.StradilabCertificateArchive.pdfBytes(report));
+      if (status) status.textContent = 'Attestazione archiviata. L’efficacia amministrativa resta subordinata alla validazione dell’Istituto.';
+      let download = document.getElementById('downloadArchivedCertificate');
+      if (!download && card) { download = document.createElement('button'); download.id = 'downloadArchivedCertificate'; download.className = 'btn'; download.type = 'button'; card.appendChild(download); }
+      if (download) {
+        download.textContent = 'Scarica attestazione archiviata';
+        download.onclick = async () => {
+          try { await window.StradilabCertificateArchive.download(archive.key); }
+          catch (error) { if (status) status.textContent = error.message; }
+        };
+      }
+    } catch (error) { if (status) status.textContent = error.message; }
+    finally { if (button) button.disabled = false; report.setAttribute('aria-hidden', 'true'); }
   }
 
   function evaluateTeacherTest() {
