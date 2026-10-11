@@ -14,10 +14,10 @@ const request=(path,body)=>new Request('https://synthetic.invalid'+path,{method:
 async function mockFetch(fn,run){
   const original=globalThis.fetch;globalThis.fetch=async(url,opt)=>{
     if(url==='https://accesso.stradilab.org/v1/profile'){
-      assert.equal(JSON.parse(opt.body).idToken,token);assert.equal(opt.redirect,'error');
+      assert.equal(JSON.parse(opt.body).idToken,token);assert.equal(opt.redirect,'manual');
       return Response.json({ok:true,email:owner,isDocente:true});
     }
-    assert.equal(opt.headers.Authorization,'Bearer '+token);return fn(url,opt);
+    assert.equal(opt.headers.Authorization,'Bearer '+token);assert.equal(opt.redirect,'manual');return fn(url,opt);
   };try{await run();}finally{globalThis.fetch=original;}
 }
 test('same-origin runtime validates exact annual self-declaration schema and forwards same token',async()=>{
@@ -60,3 +60,36 @@ test('unauthenticated/nonteacher blocked; static assets still served unchanged; 
   }finally{globalThis.fetch=original;}
   await mockFetch(()=>{throw new Error('synthetic timeout');},async()=>assert.equal((await worker.fetch(request('/api/archive/upload',upload()),{})).status,503));
 });
+
+for (const stage of ['auth','upload','metadata','file']) {
+  test(stage+' rejects every 3xx, followed success and non-ok before consuming any upstream body',async()=>{
+    const original=globalThis.fetch,body=upload(),bytes=Buffer.from(body.base64,'base64');
+    const urls=['https://accesso.stradilab.org/v1/profile','https://anagrafica.stradilab.org/'+(stage==='upload'?'carica-file':'consegne/9')];
+    if(stage==='file')urls.push('https://anagrafica.stradilab.org/consegne/9/file');
+    const failures=[...Array.from({length:100},(_,i)=>({status:i+300})),{status:200,followed:true},{status:403},{status:503}];
+    try {
+      for(const failure of failures){
+        const calls=[];
+        globalThis.fetch=async(url,opt)=>{
+          assert.equal(opt.redirect,'manual');calls.push(url);
+          if(url.includes('/v1/profile'))assert.equal(JSON.parse(opt.body).idToken,token);
+          else {assert.equal(opt.headers.Authorization,'Bearer '+token);if(stage==='upload')assert.deepEqual(JSON.parse(opt.body),body);}
+          const target=stage==='auth'?url.includes('/v1/profile'):stage==='upload'?url.endsWith('/carica-file'):stage==='metadata'?url.endsWith('/9'):url.endsWith('/file');
+          if(target){
+            const r=new Response(null,{status:failure.status,headers:{Location:'https://untrusted.invalid/receive'}});
+            if(failure.followed)Object.defineProperty(r,'redirected',{value:true});
+            r.json=()=>assert.fail('must reject before consuming JSON');
+            return r;
+          }
+          if(url.includes('/v1/profile'))return Response.json({ok:true,email:owner,isDocente:true});
+          if(url.endsWith('/file'))return new Response(bytes,{headers:{'Content-Type':'application/pdf'}});
+          return Response.json({ok:true,consegna:{id:9,email:owner,tipo:'attestato-digcomp'}});
+        };
+        const response=await worker.fetch(request(stage==='auth'||stage==='upload'?'/api/archive/upload':'/api/archive/records/9/file',stage==='auth'||stage==='upload'?body:undefined),{});
+        assert.equal(response.status,stage==='auth'?401:failure.followed||failure.status<400?502:failure.status);
+        assert.equal(response.headers.get('Location'),null);assert.equal(response.headers.get('Cache-Control'),'private, no-store');
+        assert.deepEqual(calls,stage==='auth'?urls.slice(0,1):urls);
+      }
+    } finally {globalThis.fetch=original;}
+  });
+}

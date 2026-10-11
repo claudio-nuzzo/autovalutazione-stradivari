@@ -4,6 +4,9 @@ const KEYS = ['tipo','titolo','classe','materia','filename','mime','size','base6
 const noStore = {'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff'};
 const json = (data, status) => Response.json(data, {status, headers: noStore});
 const email = value => String(value || '').trim().toLowerCase();
+// Workers supports manual, not error. Never follow a token-bearing redirect,
+// accept a previously followed response, or expose an upstream Location.
+const redirected = response => response.redirected || (response.status >= 300 && response.status < 400);
 async function hash(bytes) {
   return [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('');
 }
@@ -12,9 +15,9 @@ async function user(token) {
   try {
     const response = await fetch('https://accesso.stradilab.org/v1/profile', {
       method: 'POST', headers: {'Content-Type': 'text/plain;charset=utf-8'},
-      body: JSON.stringify({idToken: token}), redirect: 'error', signal: AbortSignal.timeout(15000)
+      body: JSON.stringify({idToken: token}), redirect: 'manual', signal: AbortSignal.timeout(15000)
     });
-    if (!response.ok) return null;
+    if (redirected(response) || !response.ok) return null;
     const profile = await response.json();
     if (!profile?.ok || profile.isDocente !== true || !email(profile.email).endsWith('@istitutostradivari.it')) return null;
     return profile;
@@ -60,8 +63,11 @@ export default {
       try {
         const response = await fetch(CENTRAL + '/carica-file', {
           method:'POST', headers:{...authorization, 'Content-Type':'application/json'},
-          body:JSON.stringify(body), redirect:'error', signal:AbortSignal.timeout(30000)
+          body:JSON.stringify(body), redirect:'manual', signal:AbortSignal.timeout(30000)
         });
+        if (redirected(response) || !response.ok) {
+          return json({ok:false,error:'Archiviazione centrale non confermata; riprova la stessa richiesta.'}, redirected(response) ? 502 : response.status);
+        }
         const result = await response.json();
         if (!response.ok || result?.ok !== true || !Number.isSafeInteger(result.id) || result.id < 1) {
           return json({ok:false,error:'Archiviazione centrale non confermata; riprova la stessa richiesta.'}, response.ok ? 502 : response.status);
@@ -75,14 +81,14 @@ export default {
       // Browser supplied an application record ID, never a Drive file ID.
       // Derive the permitted record on the gateway and check owner/type before
       // requesting its already authenticated GAS-backed download.
-      const metadata = await fetch(CENTRAL + '/consegne/' + record[1], {headers:authorization, redirect:'error', signal:AbortSignal.timeout(15000)});
-      if (!metadata.ok) return json({ok:false,error:'Documento non disponibile.'}, metadata.status);
+      const metadata = await fetch(CENTRAL + '/consegne/' + record[1], {headers:authorization, redirect:'manual', signal:AbortSignal.timeout(15000)});
+      if (redirected(metadata) || !metadata.ok) return json({ok:false,error:'Documento non disponibile.'}, redirected(metadata) ? 502 : metadata.status);
       const result = await metadata.json(), saved = result?.consegna;
       if (!saved || !Number.isSafeInteger(saved.id) || String(saved.id) !== record[1] || saved.tipo !== 'attestato-digcomp' || email(saved.email) !== email(profile.email)) {
         return json({ok:false,error:'Documento non disponibile.'}, 404);
       }
-      const response = await fetch(CENTRAL + '/consegne/' + saved.id + '/file', {headers:authorization, redirect:'error', signal:AbortSignal.timeout(30000)});
-      if (!response.ok) return json({ok:false,error:'Download privato non disponibile.'}, response.status);
+      const response = await fetch(CENTRAL + '/consegne/' + saved.id + '/file', {headers:authorization, redirect:'manual', signal:AbortSignal.timeout(30000)});
+      if (redirected(response) || !response.ok) return json({ok:false,error:'Download privato non disponibile.'}, redirected(response) ? 502 : response.status);
       if (!(response.headers.get('Content-Type') || '').startsWith('application/pdf')) return json({ok:false,error:'Documento non valido.'}, 502);
       return new Response(response.body, {headers:{
         ...noStore, 'Content-Type':'application/pdf',
