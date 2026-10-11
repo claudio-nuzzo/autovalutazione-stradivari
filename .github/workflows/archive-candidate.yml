@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      REVIEWED_SHA: d2f16b55eb123d0e797f1d8ede1226ae94c90fca
+      REVIEWED_SHA: 867aecafb82d05f60e3a014c65f6ce5bf7f6a887
       WRANGLER_SEND_METRICS: 'false'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: d2f16b55eb123d0e797f1d8ede1226ae94c90fca
+          ref: 867aecafb82d05f60e3a014c65f6ce5bf7f6a887
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
@@ -24,6 +24,8 @@ jobs:
       - run: npm ci --ignore-scripts --no-fund --no-audit
       - run: npm run build:pdf
       - run: npm run test:archive
+      - run: npm run test:workerd
+      - run: node -e "if(require('./release.json').version !== '1.0.6') process.exit(1)"
       - run: node --check worker.js
       - run: node --check autovalutazione-app/certificate-archive.js
       - run: npx --yes wrangler@4.147.0 deploy --dry-run
