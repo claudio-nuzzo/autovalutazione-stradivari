@@ -69,7 +69,7 @@ for (const stage of ['auth','upload','metadata','file']) {
     const failures=[...Array.from({length:100},(_,i)=>({status:i+300})),{status:200,followed:true},{status:403},{status:503}];
     try {
       for(const failure of failures){
-        const calls=[];
+        const calls=[];let consumed=false;
         globalThis.fetch=async(url,opt)=>{
           assert.equal(opt.redirect,'manual');calls.push(url);
           if(url.includes('/v1/profile'))assert.equal(JSON.parse(opt.body).idToken,token);
@@ -78,7 +78,8 @@ for (const stage of ['auth','upload','metadata','file']) {
           if(target){
             const r=new Response(null,{status:failure.status,headers:{Location:'https://untrusted.invalid/receive'}});
             if(failure.followed)Object.defineProperty(r,'redirected',{value:true});
-            r.json=()=>assert.fail('must reject before consuming JSON');
+            r.json=()=>{consumed=true;throw new Error('unexpected body consumption');};
+            Object.defineProperty(r,'body',{get:()=>{consumed=true;throw new Error('unexpected byte consumption');}});
             return r;
           }
           if(url.includes('/v1/profile'))return Response.json({ok:true,email:owner,isDocente:true});
@@ -88,6 +89,7 @@ for (const stage of ['auth','upload','metadata','file']) {
         const response=await worker.fetch(request(stage==='auth'||stage==='upload'?'/api/archive/upload':'/api/archive/records/9/file',stage==='auth'||stage==='upload'?body:undefined),{});
         assert.equal(response.status,stage==='auth'?401:failure.followed||failure.status<400?502:failure.status);
         assert.equal(response.headers.get('Location'),null);assert.equal(response.headers.get('Cache-Control'),'private, no-store');
+        assert.equal(consumed,false,'must reject before consuming upstream JSON or bytes');
         assert.deepEqual(calls,stage==='auth'?urls.slice(0,1):urls);
       }
     } finally {globalThis.fetch=original;}

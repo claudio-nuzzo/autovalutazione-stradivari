@@ -51,7 +51,13 @@ async function fixture(run){
       if(url.startsWith('https://followed.invalid/')){
         assert.equal(request.headers.get('Authorization'),null);
         assert.equal(await request.text(),'');
-        return url.endsWith('/start')?new Response(null,{status:302,headers:{Location:'https://followed.invalid/end'}}):Response.json({ok:true,id:9});
+        if(url.endsWith('/start'))return new Response(null,{status:302,headers:{Location:'https://followed.invalid/end'}});
+        // Valid success for the exact hop: rejection cannot accidentally pass
+        // because a profile, record or PDF fixture has the wrong shape/MIME.
+        if(failure.url===auth)return Response.json({ok:true,email:owner,isDocente:true});
+        if(failure.url===target.file)return new Response(bytes,{headers:{'Content-Type':'application/pdf'}});
+        if(failure.url===target.metadata)return Response.json({ok:true,consegna:{id:9,email:owner,tipo:'attestato-digcomp'}});
+        return Response.json({ok:true,id:9});
       }
       assert.ok(Object.values(target).includes(url),'no redirect destination can receive a token');
       if(url===auth){assert.equal(request.method,'POST');assert.equal(JSON.parse(await request.text()).idToken,token);}
