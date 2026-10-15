@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="stradilab-theme.css?v=19">
-  <link rel="stylesheet" href="teaching-method.css?v=5">
+  <link rel="stylesheet" href="teaching-method.css?v=6">
 </head>
 <body>
   <header class="topbar">
@@ -163,14 +163,14 @@
 
         <section class="section" id="tab-digcomp" role="tabpanel" hidden>
           <div class="section-head"><div><div class="kicker">03 · Autovalutazione digitale</div><h2 id="digTitle">La tua bussola DigComp</h2><p class="lead" id="digLead"></p></div><span class="role-pill" id="digRole">Profilo alunno</span></div>
-          <div class="notice"><strong>Griglia legata al profilo.</strong> Le cinque aree restano riconoscibili, ma indicatori e situazioni cambiano tra alunno e docente.</div>
+          <div class="notice"><strong>Che cos’è DigComp 3.0?</strong> È il quadro europeo delle competenze digitali: 5 aree e 21 competenze. Aiuta a cercare informazioni, comunicare, creare contenuti, proteggersi e risolvere problemi. L’IA è presente in tutte le aree, ma non va usata per forza in ogni materia. Nel check docente puoi scegliere “Non applicabile”: la risposta non entra nel punteggio.</div>
           <div id="digGrid" class="dig-grid"></div><div class="actions"><span class="lead small">Da costruire · con guida · in autonomia · so guidare altri</span><button class="btn" id="digDone">Leggi il risultato</button></div><div class="mini-result" id="digResult" aria-live="polite"></div>
         </section>
 
         <section class="section" id="tab-corso" role="tabpanel" hidden>
-          <div class="section-head"><div><div class="kicker">04 · Manuale interattivo</div><h2>Corso DigComp 3.0</h2><p class="lead" id="courseLead">Otto capitoli completi per studenti e docenti: spiegazioni, esempi, sintesi infografiche, laboratori, checklist e verifiche formative.</p></div><span class="role-pill" id="courseRole">Profilo alunno</span></div>
-          <div class="course-intro"><strong>Un piccolo manuale da consultare e sperimentare in autonomia.</strong><span>Scegli un capitolo e procedi al tuo ritmo: la lezione cambia prospettiva in base al profilo selezionato e collega ogni concetto a un compito autentico. Non serve un docente accanto: spiegazioni, esempi, esercitazioni e verifiche sono già dentro il percorso.</span><span><strong>Percorso docente completo · 4 ore previste:</strong> metodo di insegnamento e portfolio (60 minuti), check iniziale DigComp su 15 indicatori, otto capitoli con evidenze dei laboratori e verifiche formative (150 minuti), verifica finale da 30 domande. Il check si svolge prima del corso; la verifica finale dopo. I due controlli rientrano nei 30 minuti complessivi previsti. Per l’attestazione completa tutti i blocchi, raggiungi almeno 21/30 e conferma lo svolgimento. È richiesto l’accesso istituzionale; il riconoscimento dipende dalla registrazione e validazione nel portale Formazione interna.</span></div>
-          <div class="course-map" id="courseMap"></div><div class="lesson" id="lesson"></div><div class="glossary"><div class="glossary-head"><div><div class="kicker">Glossario essenziale</div><p>Le parole fondamentali del percorso DigComp.</p></div><button class="btn secondary glossary-toggle" id="advancedGlossaryToggle" type="button" aria-expanded="false" aria-controls="advancedGlossary">Glossario approfondito</button></div><div class="glossary-grid" id="glossary"></div><div class="advanced-glossary" id="advancedGlossary" hidden><div class="advanced-glossary-intro"><div><div class="kicker">Per capire strumenti, IA e progettazione digitale</div><h3>Glossario approfondito</h3></div><p>Termini tecnici spiegati in modo operativo: non serve impararli a memoria, ma riconoscerli e sapere quando diventano importanti.</p></div><div class="advanced-glossary-groups" id="advancedGlossaryGroups"></div></div></div><section class="teacher-course-test" id="teacherCourseTest" hidden><div class="kicker">Aggiornamento interno · docenti · 4 ore</div><h3>Verifica finale DigComp 3.0</h3><p>30 domande per controllare ciò che hai appreso nel corso. La soglia di superamento è <strong>21 risposte esatte su 30</strong>. Puoi ripetere la verifica dopo aver riletto i capitoli. L’attestazione PDF è riservata ai docenti interni autenticati e deve essere registrata e validata dall’Istituto.</p><div id="teacherTestContent"></div></section>
+          <div class="section-head"><div><div class="kicker">04 · Corso interattivo</div><h2>Corso DigComp 3.0</h2><p class="lead" id="courseLead">Otto capitoli per capire le competenze digitali e provarle con attività pratiche.</p></div><span class="role-pill" id="courseRole">Profilo alunno</span></div>
+          <div class="course-intro"><strong>Che cos’è DigComp 3.0?</strong><span>È il quadro europeo delle competenze digitali: 5 aree e 21 competenze utili nella vita quotidiana, nello studio e nel lavoro. L’IA compare in tutte le aree, ma non serve in ogni materia. Ogni capitolo propone esempi e un’attività da adattare alla propria classe.</span><span><strong>Docenti · 4 ore previste:</strong> 60 minuti sul metodo di insegnamento, 15 minuti per il check iniziale DigComp, 150 minuti per gli otto capitoli e le attività, 15 minuti per il test finale. Il check si svolge prima del corso; la verifica finale dopo. Per creare l’attestato, completa il percorso e rispondi correttamente ad almeno 21 domande su 30. Serve l’accesso istituzionale. Inserisci il PDF nel portale Formazione interna: l’Istituto deve convalidare le ore.</span></div>
+          <div class="course-map" id="courseMap"></div><div class="lesson" id="lesson"></div><div class="glossary"><div class="glossary-head"><div><div class="kicker">Glossario essenziale</div><p>Le parole più importanti, spiegate in breve.</p></div><button class="btn secondary glossary-toggle" id="advancedGlossaryToggle" type="button" aria-expanded="false" aria-controls="advancedGlossary">Altre parole utili</button></div><div class="glossary-grid" id="glossary"></div><div class="advanced-glossary" id="advancedGlossary" hidden><div class="advanced-glossary-intro"><div><div class="kicker">Per capire strumenti, IA e progettazione digitale</div><h3>Altre parole utili</h3></div><p>Le parole tecniche sono spiegate con esempi. Apri questa sezione quando incontri un termine nuovo.</p></div><div class="advanced-glossary-groups" id="advancedGlossaryGroups"></div></div></div><section class="teacher-course-test" id="teacherCourseTest" hidden><div class="kicker">Autoformazione docenti · 4 ore</div><h3>Test finale DigComp 3.0</h3><p>Rispondi a 30 domande sugli argomenti del corso. Per superare il test servono almeno <strong>21 risposte giuste</strong>. Puoi ripeterlo dopo aver riletto i capitoli. L’attestazione PDF è riservata ai docenti interni autenticati e deve essere registrata e validata dall’Istituto.</p><div id="teacherTestContent"></div></section>
         </section>
       </div>
     </section>
@@ -179,16 +179,16 @@
   <footer><div class="wrap">IIS “Antonio Stradivari” · Cremona · <a href="https://stradilab.org/privacy.html">Privacy</a></div></footer>
   <div id="pdfReport" aria-hidden="true"></div>
   <script src="study-method.js"></script>
-  <script src="teaching-method.js?v=5"></script>
+  <script src="teaching-method.js?v=6"></script>
   <script src="assessment-vote.js"></script>
   <script src="vendor/jspdf.js"></script>
   <script src="certificate-archive.js?v=1"></script>
-  <script src="digcomp-course.js?v=20"></script>
+  <script src="digcomp-course.js?v=21"></script>
   <script src="role-state.js?v=2"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="stradilab-auth.js?v=2"></script>
   <script src="teacher-auth.js?v=2"></script>
-  <script src="results-pdf.js?v=3"></script>
+  <script src="results-pdf.js?v=4"></script>
   <script src="app.js"></script>
 </body>
 </html>
