@@ -520,7 +520,6 @@
     answers[match[1]][match[2]] = Number(event.target.value);
     lastResult = null;
     document.getElementById('digResult').classList.remove('show');
-    trainingDeclared = false;
     saveProgress();
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
