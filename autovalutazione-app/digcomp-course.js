@@ -388,8 +388,15 @@
   function renderDig() {
     const grid = profiles[role];
     document.getElementById('digTitle').textContent = role === 'docente' ? 'DigComp per il docente' : 'La tua bussola DigComp';
-    document.getElementById('digLead').textContent = role === 'docente' ? 'Quindici frasi sulle tue attività. Scegli il livello che ti descrive. Se una frase non riguarda la tua materia, scegli “Non applicabile”.' : 'Quindici frasi per riflettere su come cerchi, collabori, crei e usi il digitale.';
+    document.getElementById('digLead').textContent = role === 'docente' ? 'Quindici frasi sulle tue attività digitali. Se una frase non riguarda la tua materia, scegli “Non applicabile”. Questo check è facoltativo e non fa parte delle 4 ore del corso.' : 'Quindici frasi per riflettere su come cerchi, collabori, crei e usi il digitale.';
     document.getElementById('digGrid').innerHTML = grid.map((area, areaIndex) => `<article class="dig-card"><h3>${areaIndex + 1}. ${area[0]}</h3>${area[1].map((indicator, indicatorIndex) => { const key = `${areaIndex}-${indicatorIndex}`; const choices=role==='docente'?[...levels,'Non applicabile']:levels; return `<div class="dig-indicator"><p>${indicator}</p><div class="level">${choices.map((label, levelIndex) => `<label><input type="radio" name="dig-${role}-${key}" value="${levelIndex}" ${answers[role][key] === levelIndex ? 'checked' : ''}><span>${label}</span></label>`).join('')}</div></div>`; }).join('')}</article>`).join('');
+    const result = document.getElementById('digResult');
+    result.innerHTML = lastResult?.completed && lastResult.role === role
+      ? lastResult.average === null
+        ? '<strong>Check completato.</strong><br>Hai scelto “Non applicabile” per tutte le frasi. Se vuoi, riprendi quelle che possono aiutarti nella tua materia.'
+        : `<strong>Il tuo risultato: ${lastResult.level}</strong><br>Media ${lastResult.average}/3. Le risposte “Non applicabile” non sono conteggiate. Usa il risultato per scegliere quale argomento riprendere.`
+      : '';
+    result.classList.toggle('show', Boolean(result.innerHTML));
   }
 
   function renderCourse() {
@@ -411,7 +418,7 @@
     if (missing.length) trainingDeclared = false;
     const declaration = !missing.length ? `<label class="teach-options"><input type="checkbox" id="trainingDeclaration" ${trainingDeclared ? 'checked' : ''}><span>Dichiaro di aver svolto personalmente il percorso complessivo previsto di 4 ore, incluse letture ed esercitazioni. La durata non è misurata automaticamente.</span></label>` : '';
     const certificate = missing.length ? `<div class="teacher-certificate-login"><strong>Completa il percorso di autoformazione</strong><p>Prima dell’attestato: ${missing.join(' · ')}.</p><p>Il report PDF dei risultati parziali resta disponibile. Per le 4 ore il riconoscimento è subordinato alla validazione dell’Istituto.</p></div>` : (authenticated
-      ? `<div class="teacher-certificate-ready"><div><span>Attestazione disponibile</span><strong>Corso di aggiornamento DigComp 3.0 · 4 ore</strong><p>Il PDF riporterà intestazione dell’Istituto, identità del docente, data e partecipazione dichiarata al percorso di 4 ore. Dopo averlo creato, scaricalo e allegalo al modulo di Formazione interna.</p></div><button class="btn teacher-certificate-btn" id="teacherCertificatePdf" type="button">Crea attestato PDF</button></div>`
+      ? `<div class="teacher-certificate-ready"><div><span>Attestazione disponibile</span><strong>Corso di aggiornamento DigComp 3.0 · 4 ore</strong><p>Il PDF riporterà intestazione dell’Istituto, identità del docente, data e partecipazione dichiarata al percorso di 4 ore.</p><p><strong>Hai completato il corso!</strong> Scarica l’attestato e caricalo nel <a href="https://formazione-interna.stradilab.org/" target="_blank" rel="noopener noreferrer">portale Formazione interna</a> tramite <a href="https://docs.google.com/forms/d/e/1FAIpQLScctSPVyIyqqdnyfwjoeN6bdRLV0XRqA3O9c1xs7E-Vy0icTg/viewform" target="_blank" rel="noopener noreferrer">Inserisci le ore di formazione</a>.</p></div><button class="btn teacher-certificate-btn" id="teacherCertificatePdf" type="button">Crea attestato PDF</button></div>`
       : `<div class="teacher-certificate-login"><strong>Percorso completato.</strong><p>Per creare l’attestazione nominale accedi con l’account istituzionale autorizzato. Gli esterni possono conservare il report PDF; il corso resta aperto.</p></div>`);
     const result = `${teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>Ripasso completato</strong><span>${teacherTestResult.message}</span><small>Le risposte restano salvate in questo browser.</small></div>` : ''}${declaration}${certificate.replace('Crea attestato PDF', 'Crea e archivia attestazione PDF')}`;
     document.getElementById('teacherTestContent').innerHTML = `<div class="teacher-test-meta"><span>Domande per ripassare i contenuti, senza voto.</span><b>${teacherTestAnswers.filter(answer => answer !== null).length}/30 risposte</b></div>${teacherQuestions.map((question, index) => `<article class="teacher-question"><div><span>${String(index + 1).padStart(2, '0')}</span><small>${question[3]}</small></div><p>${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="teacher-test-${index}" value="${optionIndex}" ${teacherTestAnswers[index] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}</article>`).join('')}<div class="teacher-test-actions"><button class="btn" id="teacherTestSubmit" type="button">Completa il ripasso</button><button class="btn secondary" id="teacherTestReset" type="button">Ricomincia</button></div>${result}`;
@@ -512,7 +519,7 @@
     if (!match) return;
     answers[match[1]][match[2]] = Number(event.target.value);
     lastResult = null;
-    trainingDeclared = false;
+    document.getElementById('digResult').classList.remove('show');
     saveProgress();
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
@@ -520,18 +527,16 @@
     const values = Object.values(answers[role]);
     if (values.length < 15) { alert('Scegli una risposta per ciascuna delle 15 frasi.'); return; }
     const ratedValues=values.filter(value=>Number.isInteger(value)&&value>=0&&value<=3);
-    if (!ratedValues.length) { alert('Scegli almeno una risposta diversa da “Non applicabile” per calcolare il risultato.'); return; }
-    const average = ratedValues.reduce((a, b) => a + b, 0) / ratedValues.length;
+    if (!ratedValues.length && role !== 'docente') { alert('Scegli almeno una risposta per leggere il risultato.'); return; }
+    const average = ratedValues.length ? ratedValues.reduce((a, b) => a + b, 0) / ratedValues.length : null;
     const names = ['Da costruire', 'Con guida', 'In autonomia', 'So guidare altri'];
     const areas = profiles[role].map((area, areaIndex) => {
       const values = area[1].map((_, indicatorIndex) => answers[role][`${areaIndex}-${indicatorIndex}`]);
       const rated=values.filter(value=>Number.isInteger(value)&&value>=0&&value<=3);
       return { name: area[0], average: rated.length ? (rated.reduce((sum, value) => sum + value, 0) / rated.length).toFixed(1) : null };
     });
-    lastResult = { role, level: names[Math.round(average)], average: average.toFixed(1), areas, completed: true };
-    const result = document.getElementById('digResult');
-    result.innerHTML = `<strong>Il tuo risultato: ${names[Math.round(average)]}</strong><br>Media ${average.toFixed(1)}/3. Le risposte “Non applicabile” non sono conteggiate. Usa il risultato per scegliere quale argomento riprendere.`;
-    result.classList.add('show');
+    lastResult = { role, level: average === null ? 'Non applicabile' : names[Math.round(average)], average: average === null ? null : average.toFixed(1), areas, completed: true };
+    renderDig();
     saveProgress();
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
@@ -617,7 +622,6 @@
     role = event.detail.role;
     loadProgress();
     renderDig(); renderCourse();
-    document.getElementById('digResult').classList.remove('show');
   });
   document.addEventListener('teacherlogin', renderTeacherTest);
   function trainingMissing() {
