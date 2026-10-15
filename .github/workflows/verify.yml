@@ -1,0 +1,25 @@
+name: Verifiche
+
+on:
+  push:
+    branches: [main, 'codex/**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: node --check autovalutazione-app/digcomp-course.js
+      - run: node --check autovalutazione-app/teaching-method.js
+      - run: node --check autovalutazione-app/results-pdf.js
+      - run: npm run test:archive
+      - run: npm run test:workerd
