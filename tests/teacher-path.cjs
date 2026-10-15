@@ -98,7 +98,7 @@ assert.equal(teacherQuestions.length,30);
     assert.ok(courseLead.indexOf('metodo di insegnamento')<courseLead.indexOf('otto capitoli'));
     const courseIntro=await page.locator('.course-intro').textContent();
     assert.ok(courseIntro.indexOf('metodo di insegnamento')<courseIntro.indexOf('otto capitoli'));
-    assert.match(courseIntro,/griglie ufficiali del PTOF/);
+    assert.match(courseIntro,/griglie di valutazione \(PTOF\)/);
     assert.equal(await page.locator('[data-tab="digcomp"]').isVisible(),true);
     assert.equal(await page.locator('[data-tab="ptofo"]').isVisible(),true);
     await page.locator('[data-teach-action="next"]').click();
