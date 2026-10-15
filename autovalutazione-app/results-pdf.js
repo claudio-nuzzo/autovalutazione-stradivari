@@ -16,7 +16,7 @@
     const studentClass = document.getElementById('pdfStudentClass')?.value.trim();
     const teacherTest = course.teacherTest;
     const digSummary = dig.completed
-      ? `${line('Profilo', dig.role)}${line('Livello prevalente', dig.level)}${line('Media', `${dig.average}/3`)}${dig.areas?.length ? `<div class="pdf-score-list">${dig.areas.map(area => `<p><strong>${escapeHtml(area.name)}:</strong> ${score(area.average)}</p>`).join('')}</div>` : ''}`
+      ? `${line('Profilo', dig.role)}${line('Livello prevalente', dig.level)}${dig.average === null ? '' : line('Media', `${dig.average}/3`)}${dig.areas?.length ? `<div class="pdf-score-list">${dig.areas.map(area => `<p><strong>${escapeHtml(area.name)}:</strong> ${score(area.average)}</p>`).join('')}</div>` : ''}`
       : '<p>Check DigComp non ancora completato.</p>';
     const courseRows = course.modules?.length
       ? `<table class="pdf-course-results"><thead><tr><th>Capitolo</th><th>Esito</th></tr></thead><tbody>${course.modules.map(module => `<tr><td>${module.number}. ${escapeHtml(module.title)}</td><td>${module.completed ? `${module.correct}/${module.total}` : 'Non completato'}</td></tr>`).join('')}</tbody></table>`

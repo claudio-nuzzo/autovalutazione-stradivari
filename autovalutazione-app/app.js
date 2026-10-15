@@ -12,7 +12,6 @@
 
   function activate(name, updateHash = false) {
     if (!validTabs.has(name)) name = 'studio';
-    if (document.body.dataset.profile === 'docente' && ['digcomp','ptofo'].includes(name)) name = 'corso';
     document.querySelectorAll('.tab').forEach(button => {
       const active = button.dataset.tab === name;
       button.classList.toggle('active', active);
@@ -48,7 +47,6 @@
   window.addEventListener('hashchange', activateRoute);
   document.addEventListener('profilechange', event => {
     if (event.detail.role === 'alunno' && document.getElementById('tab-ia-docenti')?.classList.contains('active')) activate('studio');
-    if (event.detail.role === 'docente' && (document.getElementById('tab-digcomp')?.classList.contains('active') || document.getElementById('tab-ptofo')?.classList.contains('active'))) activate('corso');
   });
 
   function progress() {

@@ -12,9 +12,9 @@
       label: 'Profilo docente',
       studyTitle: 'Il mio metodo di insegnamento',
       studyLead: 'Osserva le tue pratiche, scegli priorità fondate su evidenze e riprogetta una lezione: il digitale è un mezzo, l’apprendimento è il traguardo.',
-      ptofTitle: 'Quale voto emerge dalle evidenze?',
-      ptofLead: 'Accompagna l’alunno a compilare tutti gli indicatori PTOF, poi confrontate il voto emerso con osservazioni e feedback.',
-      courseLead: 'Autoformazione di 4 ore previste: un’attività sul metodo di insegnamento (60 min), otto capitoli con laboratori (165 min) e domande di ripasso (15 min). Nessuna griglia di autovalutazione o voto. Attestazione di partecipazione soggetta alla validazione dell’Istituto.'
+      ptofTitle: 'Schede di autovalutazione per gli allievi',
+      ptofLead: 'Queste schede servono agli allievi. I docenti che vogliono applicare le griglie ufficiali del PTOF possono scegliere la propria disciplina, mostrare i criteri alla classe e confrontare il risultato con il proprio feedback. Non fanno parte del corso DigComp.',
+      courseLead: 'Autoformazione di 4 ore previste: un’attività sul metodo di insegnamento (60 min), otto capitoli con laboratori (165 min) e domande di ripasso (15 min). Il check DigComp è facoltativo. Le schede di autovalutazione per gli allievi sono disponibili a parte per i docenti che usano le griglie del PTOF. Attestazione di partecipazione soggetta alla validazione dell’Istituto.'
     }
   };
 
@@ -38,8 +38,11 @@
     setText('#courseLead', current.courseLead);
     const methodTab = document.querySelector('[data-tab="studio"]');
     if (methodTab) methodTab.innerHTML = `<b>01</b>${role === 'docente' ? 'Metodo di insegnamento' : 'Metodo di studio'}`;
-    for (const name of ['digcomp','ptofo']) document.querySelector(`[data-tab="${name}"]`)?.toggleAttribute('hidden', role === 'docente');
-    setText('.sidebar-title', role === 'docente' ? 'Il percorso docente' : 'I cinque percorsi');
+    const gridsTab = document.querySelector('[data-tab="ptofo"]');
+    if (gridsTab) gridsTab.innerHTML = `<b>05</b>${role === 'docente' ? 'Schede PTOF per gli allievi' : 'Griglie autovalutazione'}`;
+    document.getElementById('teacherResourcesLabel')?.toggleAttribute('hidden', role !== 'docente');
+    setText('#tab-ptofo .notice', role === 'docente' ? 'Le schede sono pensate per l’autovalutazione degli allievi. Se usi le griglie ufficiali del PTOF, puoi presentare i criteri prima di una prova e poi confrontare l’autovalutazione dell’allievo con il tuo feedback. Questa attività è separata dal corso DigComp e non incide sull’attestato.' : 'Scegli ciò che ti rappresenta davvero. Per ogni indicatore troverai descrittori mescolati, senza voti né ordine crescente. Il voto apparirà soltanto dopo aver completato tutta la griglia.');
+    setText('.sidebar-title', role === 'docente' ? 'Corso e strumenti per la classe' : 'I cinque percorsi');
     document.querySelector('.teacher-tab')?.toggleAttribute('hidden', role !== 'docente');
     if (announce) document.dispatchEvent(new CustomEvent('profilechange', { detail: { role } }));
   }
