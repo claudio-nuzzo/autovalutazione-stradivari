@@ -163,13 +163,13 @@
 
         <section class="section" id="tab-digcomp" role="tabpanel" hidden>
           <div class="section-head"><div><div class="kicker">03 · Autovalutazione digitale</div><h2 id="digTitle">La tua bussola DigComp</h2><p class="lead" id="digLead"></p></div><span class="role-pill" id="digRole">Profilo alunno</span></div>
-          <div class="notice"><strong>Che cos’è DigComp 3.0?</strong> È il quadro europeo delle competenze digitali: 5 aree e 21 competenze. Aiuta a cercare informazioni, comunicare, creare contenuti, proteggersi e risolvere problemi. L’IA è presente in tutte le aree, ma non va usata per forza in ogni materia. Nel check docente puoi scegliere “Non applicabile”: la risposta non entra nel punteggio.</div>
+          <div class="notice"><strong>Che cos’è DigComp 3.0?</strong> È il quadro europeo delle competenze digitali: 5 aree e 21 competenze. Aiuta a cercare informazioni, comunicare, creare contenuti, proteggersi e risolvere problemi. L’IA è presente in tutte le aree, ma non va usata per forza in ogni materia.</div>
           <div id="digGrid" class="dig-grid"></div><div class="actions"><span class="lead small">Da costruire · con guida · in autonomia · so guidare altri</span><button class="btn" id="digDone">Leggi il risultato</button></div><div class="mini-result" id="digResult" aria-live="polite"></div>
         </section>
 
         <section class="section" id="tab-corso" role="tabpanel" hidden>
           <div class="section-head"><div><div class="kicker">04 · Corso interattivo</div><h2>Corso DigComp 3.0</h2><p class="lead" id="courseLead">Otto capitoli per capire le competenze digitali e provarle con attività pratiche.</p></div><span class="role-pill" id="courseRole">Profilo alunno</span></div>
-          <div class="course-intro"><strong>Che cos’è DigComp 3.0?</strong><span>È il quadro europeo delle competenze digitali: 5 aree e 21 competenze utili nella vita quotidiana, nello studio e nel lavoro. L’IA compare in tutte le aree, ma non serve in ogni materia. Ogni capitolo propone esempi e un’attività da adattare alla propria classe.</span><span><strong>Docenti · 4 ore previste:</strong> 60 minuti sul metodo di insegnamento, 15 minuti per il check iniziale DigComp, 150 minuti per gli otto capitoli e le attività, 15 minuti per le domande di ripasso. Il check si svolge prima del corso; le domande di ripasso dopo. Per creare l’attestato di partecipazione, completa il percorso e dichiara di aver svolto le 4 ore previste. Serve l’accesso istituzionale. Inserisci il PDF nel portale Formazione interna: l’Istituto deve convalidare le ore.</span></div>
+          <div class="course-intro"><strong>Che cos’è DigComp 3.0?</strong><span>È il quadro europeo delle competenze digitali: 5 aree e 21 competenze utili nella vita quotidiana, nello studio e nel lavoro. L’IA compare in tutte le aree, ma non serve in ogni materia. Ogni capitolo propone esempi e un’attività da adattare alla propria classe.</span><span><strong>Docenti · 4 ore previste:</strong> 60 minuti sul metodo di insegnamento, 165 minuti per gli otto capitoli e le attività, 15 minuti per le domande di ripasso. Le domande si svolgono dopo il corso. Nessuna griglia di autovalutazione o voto. Per creare l’attestato di partecipazione, completa il percorso e dichiara di aver svolto le 4 ore previste. Serve l’accesso istituzionale. Inserisci il PDF nel portale Formazione interna: l’Istituto deve convalidare le ore.</span></div>
           <div class="course-map" id="courseMap"></div><div class="lesson" id="lesson"></div><div class="glossary"><div class="glossary-head"><div><div class="kicker">Glossario essenziale</div><p>Le parole più importanti, spiegate in breve.</p></div><button class="btn secondary glossary-toggle" id="advancedGlossaryToggle" type="button" aria-expanded="false" aria-controls="advancedGlossary">Altre parole utili</button></div><div class="glossary-grid" id="glossary"></div><div class="advanced-glossary" id="advancedGlossary" hidden><div class="advanced-glossary-intro"><div><div class="kicker">Per capire strumenti, IA e progettazione digitale</div><h3>Altre parole utili</h3></div><p>Le parole tecniche sono spiegate con esempi. Apri questa sezione quando incontri un termine nuovo.</p></div><div class="advanced-glossary-groups" id="advancedGlossaryGroups"></div></div></div><section class="teacher-course-test" id="teacherCourseTest" hidden><div class="kicker">Autoformazione docenti · 4 ore</div><h3>Domande di ripasso DigComp 3.0</h3><p>Rispondi alle 30 domande per ripassare gli argomenti del corso. Non c’è un voto minimo: l’attestazione documenta la partecipazione dichiarata al percorso di 4 ore. Puoi rileggere i capitoli e cambiare le risposte. Il PDF è riservato ai docenti interni autenticati e deve essere registrato e validato dall’Istituto.</p><div id="teacherTestContent"></div></section>
         </section>
       </div>
@@ -179,16 +179,16 @@
   <footer><div class="wrap">IIS “Antonio Stradivari” · Cremona · <a href="https://stradilab.org/privacy.html">Privacy</a></div></footer>
   <div id="pdfReport" aria-hidden="true"></div>
   <script src="study-method.js"></script>
-  <script src="teaching-method.js?v=7"></script>
+  <script src="teaching-method.js?v=8"></script>
   <script src="assessment-vote.js"></script>
   <script src="vendor/jspdf.js"></script>
   <script src="certificate-archive.js?v=1"></script>
-  <script src="digcomp-course.js?v=23"></script>
-  <script src="role-state.js?v=3"></script>
+  <script src="digcomp-course.js?v=24"></script>
+  <script src="role-state.js?v=4"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="stradilab-auth.js?v=2"></script>
   <script src="teacher-auth.js?v=2"></script>
   <script src="results-pdf.js?v=4"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>

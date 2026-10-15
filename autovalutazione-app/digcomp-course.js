@@ -397,7 +397,7 @@
     document.getElementById('glossary').innerHTML = glossary.map(item => `<div class="term"><b>${item[0]}</b>${item[1]}</div>`).join('');
     document.getElementById('advancedGlossaryGroups').innerHTML = advancedGlossary.map(group => `<section class="advanced-glossary-group"><div class="advanced-glossary-group-head"><h4>${group.title}</h4><p>${group.description}</p></div><div class="advanced-terms">${group.terms.map(item => `<div class="advanced-term"><b>${item[0]}</b><span>${item[1]}</span></div>`).join('')}</div></section>`).join('');
     renderLesson(currentModule, false);
-    if (role === 'docente') document.querySelectorAll('.module-btn small').forEach((node,index) => { if (!completedModules[index]) node.textContent=`${index<6?19:18} min previsti · con laboratorio`; });
+    if (role === 'docente') document.querySelectorAll('.module-btn small').forEach((node,index) => { if (!completedModules[index]) node.textContent=`${index<5?21:20} min previsti · con laboratorio`; });
     renderTeacherTest();
   }
 
@@ -419,7 +419,7 @@
 
   async function generateTeacherCertificate() {
     const auth = window.StradivariTeacherAuth;
-    if (trainingMissing().length || !trainingDeclared) { alert('Completa il metodo di insegnamento, il check iniziale DigComp, gli otto capitoli e le domande di ripasso; conferma poi lo svolgimento delle attività previste.'); return; }
+    if (trainingMissing().length || !trainingDeclared) { alert('Completa il metodo di insegnamento, gli otto capitoli e le domande di ripasso; conferma poi lo svolgimento delle attività previste.'); return; }
     if (!teacherTestResult) { alert('Completa le domande di ripasso prima di creare l’attestazione.'); return; }
     if (!auth?.verified || !auth.user) { alert('Accedi con l’account istituzionale docente per creare l’attestazione nominale.'); return; }
     const user = auth.user;
@@ -432,7 +432,7 @@
     report.querySelector('h1').textContent = 'Attestazione di partecipazione al corso';
     report.querySelector('.certificate-facts').insertAdjacentHTML('beforeend', '<div><span>Anno scolastico</span><strong>2026/27</strong></div>');
     report.querySelector('.certificate-subtitle').innerHTML = 'Metodo di insegnamento e competenze digitali<br><strong>DigComp 3.0</strong>';
-    report.querySelector('.certificate-copy').innerHTML = 'ha dichiarato di aver svolto il percorso autonomo di autoformazione <strong>Metodo di insegnamento e DigComp 3.0</strong>: autocheck delle pratiche e progettazione di una lezione; check iniziale DigComp su 15 indicatori; otto capitoli con evidenze dei laboratori; domande di ripasso dopo il corso. Completamenti ed evidenze sono registrati localmente nel browser, non verificati da un tutor.';
+    report.querySelector('.certificate-copy').innerHTML = 'ha dichiarato di aver svolto il percorso autonomo di autoformazione <strong>Metodo di insegnamento e DigComp 3.0</strong>: riflessione su una lezione e progettazione di un’attività; otto capitoli con evidenze dei laboratori; domande di ripasso dopo il corso. Completamenti ed evidenze sono registrati localmente nel browser, non verificati da un tutor.';
     report.querySelector('.certificate-areas p').textContent += ' Progettazione didattica, metacognizione, feedback formativo, inclusione e pratica riflessiva, orientati da DigCompEdu.';
     const button = document.getElementById('teacherCertificatePdf');
     const card = document.querySelector('.teacher-certificate-ready');
@@ -442,7 +442,7 @@
     if (status) status.textContent = 'Creazione e archiviazione dell’attestazione di autoformazione…';
     try {
       const {module: currentChapter, title: currentTitle, ...course} = courseResults();
-      const snapshot = {schoolYear: '2026/27', name: teacherName, course, initialCheck: lastResult, finalTest: teacherTestResult,
+      const snapshot = {schoolYear: '2026/27', name: teacherName, course, finalTest: {completed: Boolean(teacherTestResult)},
         method: window.StradivariTeaching?.getResults?.(), declaration: trainingDeclared, completedAt: courseCompletedAt};
       const archive = await window.StradilabCertificateArchive.archive(snapshot,
         () => window.StradilabCertificateArchive.pdfBytes(report));
@@ -501,7 +501,7 @@
         ${completionAction}<nav class="lesson-nav" aria-label="Navigazione tra i capitoli"><button class="btn secondary" data-course-nav="${currentModule - 1}" ${currentModule === 0 ? 'disabled' : ''}>← Capitolo precedente</button><span>${currentModule + 1} / ${lessons.length}</span><button class="btn" data-course-nav="${currentModule + 1}" ${currentModule === lessons.length - 1 ? 'disabled' : ''}>Capitolo successivo →</button></nav>
       </article>`;
     if (isTeacher) {
-      document.querySelector('#lesson .lesson-cover .kicker').textContent = `Capitolo ${currentModule+1} di ${lessons.length} · ${currentModule<6?19:18} min previsti con laboratorio`;
+      document.querySelector('#lesson .lesson-cover .kicker').textContent = `Capitolo ${currentModule+1} di ${lessons.length} · ${currentModule<5?21:20} min previsti con laboratorio`;
       document.querySelector('#lesson .lesson-lab').insertAdjacentHTML('beforeend', `<label class="teach-field">Evidenza del laboratorio (obbligatoria per il percorso docente)<small>Annota decisioni, prodotto realizzato, controllo e miglioramento (almeno 40 caratteri). Non inserire dati personali degli alunni.</small><textarea data-course-lab="${currentModule}" maxlength="5000">${escapeHtml(courseLabNotes[currentModule])}</textarea></label>`);
     }
     if (updateHash) history.replaceState(null, '', `#corso-${currentModule + 1}`);
@@ -621,7 +621,7 @@
   });
   document.addEventListener('teacherlogin', renderTeacherTest);
   function trainingMissing() {
-    return [!window.StradivariTeaching?.getResults().completed && 'metodo di insegnamento', !(lastResult?.completed && lastResult.role === 'docente') && 'check iniziale DigComp docente (15 indicatori)', !courseResults().completed && 'otto capitoli del corso', !teacherTestResult && 'domande di ripasso dopo il corso'].filter(Boolean);
+    return [!window.StradivariTeaching?.getResults().completed && 'metodo di insegnamento', !courseResults().completed && 'otto capitoli del corso', !teacherTestResult && 'domande di ripasso dopo il corso'].filter(Boolean);
   }
   document.addEventListener('stradivari-progress', () => { if(role==='docente') renderTeacherTest(); });
 

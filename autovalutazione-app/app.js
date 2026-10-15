@@ -12,6 +12,7 @@
 
   function activate(name, updateHash = false) {
     if (!validTabs.has(name)) name = 'studio';
+    if (document.body.dataset.profile === 'docente' && ['digcomp','ptofo'].includes(name)) name = 'corso';
     document.querySelectorAll('.tab').forEach(button => {
       const active = button.dataset.tab === name;
       button.classList.toggle('active', active);
@@ -47,12 +48,16 @@
   window.addEventListener('hashchange', activateRoute);
   document.addEventListener('profilechange', event => {
     if (event.detail.role === 'alunno' && document.getElementById('tab-ia-docenti')?.classList.contains('active')) activate('studio');
+    if (event.detail.role === 'docente' && (document.getElementById('tab-digcomp')?.classList.contains('active') || document.getElementById('tab-ptofo')?.classList.contains('active'))) activate('corso');
   });
 
   function progress() {
     const method = document.body.dataset.profile === 'docente' ? window.StradivariTeaching : window.StradivariStudy;
-    const completed = (window.StradivariAssessment?.completed() || 0) + (window.StradivariDig?.completed() || 0) + (method?.completed() || 0);
-    const total = (window.StradivariAssessment?.total() || 20) + (window.StradivariDig?.total || 20) + (method?.total || 5);
+    const teacher = document.body.dataset.profile === 'docente';
+    const course = teacher ? window.StradivariCourse?.getResults() : null;
+    const completed = teacher ? (method?.completed() || 0) + (course?.modules?.filter(module => module.completed).length || 0) + (course?.teacherTest ? 1 : 0)
+      : (window.StradivariAssessment?.completed() || 0) + (window.StradivariDig?.completed() || 0) + (method?.completed() || 0);
+    const total = teacher ? 14 : (window.StradivariAssessment?.total() || 20) + (window.StradivariDig?.total || 20) + (method?.total || 5);
     document.getElementById('globalProgress').style.width = `${Math.min(100, completed / total * 100)}%`;
     document.getElementById('progressLabel').textContent = `${completed} attività completate`;
   }
