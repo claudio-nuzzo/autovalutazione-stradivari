@@ -1,7 +1,7 @@
 (() => {
   const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
   const line = (label, value) => value ? `<p><strong>${label}:</strong> ${escapeHtml(value)}</p>` : '';
-  const score = value => Number.isFinite(Number(value)) ? `${Number(value).toFixed(1)}/3` : '—';
+  const score = value => value !== null && value !== undefined && Number.isFinite(Number(value)) ? `${Number(value).toFixed(1)}/3` : 'Non applicabile';
 
   function buildReport() {
     const role = localStorage.getItem('stradivari-profile') === 'docente' ? 'Docente' : 'Alunno';
@@ -53,7 +53,7 @@
   }
   function teacherPortfolio() {
     const study = window.StradivariTeaching?.getResults?.() || {};
-    return `<section><h2>Portfolio del metodo di insegnamento</h2>${study.areas?.map(area => line(area.name, `${area.average.toFixed(1)}/3 · frequenza dichiarata`)).join('') || ''}${Object.entries({evidence:'Episodio osservato',priority:'Priorità motivate',goal:'Obiettivo e criteri',sequence:'Sequenza e micro-mappa',digital:'Digitale e accessibilità',feedback:'Feedback e revisione',safety:'IA e dati',peer:'Confronto facoltativo',change:'Cambiamento previsto',proof:'Evidenza da raccogliere',criteria:'Criteri di controllo',date:'Data del controllo'}).map(([key,label])=>line(label,study.notes?.[key])).join('')}${line('Controllo dei casi',`${study.correct || 0}/4`)}<p>Metodo di insegnamento: ${study.completed ? 'completato' : 'in corso'}. Blocco previsto: 60 minuti. Percorso complessivo: 4 ore previste; riconoscimento soggetto alla validazione dell’Istituto.</p></section>`;
+    return `<section><h2>Portfolio del metodo di insegnamento</h2>${study.areas?.map(area => line(area.name, area.average === null ? 'Non applicabile' : `${area.average.toFixed(1)}/3`)).join('') || ''}${Object.entries({evidence:'Esempio raccontato',priority:'Idee scelte',goal:'Che cosa voglio insegnare',sequence:'Passaggi della lezione',digital:'Strumento digitale',feedback:'Controllo dei progressi',safety:'Uso dell’IA',peer:'Parere di un collega',change:'Che cosa cambierò',proof:'Che cosa osserverò',criteria:'Risultato atteso',date:'Data del controllo'}).map(([key,label])=>line(label,study.notes?.[key])).join('')}${line('Casi con risposta corretta',`${study.correct || 0}/4`)}<p>Metodo di insegnamento: ${study.completed ? 'completato' : 'in corso'}. Blocco previsto: 60 minuti. Percorso complessivo: 4 ore previste; riconoscimento soggetto alla validazione dell’Istituto.</p></section>`;
   }
   window.StradivariTeacherPortfolio = { html: teacherPortfolio };
   document.getElementById('pdfIdentityForm')?.addEventListener('submit', event => {

@@ -1,6 +1,6 @@
 (() => {
   const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
-  const levels = ['Da costruire', 'Con guida', 'In autonomia', 'Guido altri'];
+  const levels = ['Da costruire', 'Con guida', 'In autonomia', 'So guidare altri'];
   const profiles = {
     alunno: [
       ['Informazione e dati', ['Formulo ricerche precise e confronto autore, data, scopo e prove.', 'Organizzo fonti e dati in modo da poterli ritrovare e citare.', 'Riconosco contenuti manipolati e distinguo fatti, opinioni e pubblicità.']],
@@ -10,150 +10,150 @@
       ['Risoluzione di problemi', ['Definisco il bisogno, provo soluzioni e imparo dagli errori.', 'Valuto criticamente strumenti digitali e risposte dell’IA.', 'Scelgo strumenti accessibili e trasferisco ciò che ho imparato a un caso nuovo.']]
     ],
     docente: [
-      ['Informazione e dati', ['Seleziono fonti affidabili per progettare attività e materiali.', 'Organizzo dati didattici nel rispetto di finalità, minimizzazione e trasparenza.', 'Rendo verificabili fonti, criteri di selezione e limiti dei materiali.']],
-      ['Comunicazione e collaborazione', ['Progetto ambienti e consegne digitali chiari e inclusivi.', 'Collaboro con colleghi e studenti rendendo visibili ruoli e feedback.', 'Definisco permessi, canali, tempi di risposta e alternative di accesso.']],
-      ['Creazione di contenuti', ['Produco materiali accessibili, riusabili e coerenti con gli obiettivi.', 'Gestisco diritto d’autore, licenze e dichiarazione dell’uso dell’IA.', 'Verifico leggibilità, interoperabilità e adeguatezza dei contenuti per destinatari diversi.']],
-      ['Sicurezza e benessere', ['Tutelo dati, account e dispositivi nelle attività didattiche.', 'Progetto un uso equilibrato del digitale e prevengo esclusione e sovraccarico.', 'Applico minimizzazione, gestione degli incidenti e valutazione dei rischi.']],
-      ['Risoluzione di problemi', ['Scelgo tecnologie a partire dal bisogno didattico, non dallo strumento.', 'Valuto limiti, bias e impatto dell’IA e mantengo supervisione umana.', 'Progetto prove, feedback e alternative per migliorare una soluzione didattica.']]
+      ['Informazione e dati', ['Scelgo fonti affidabili per preparare lezioni e materiali.', 'Raccolgo solo i dati degli alunni che mi servono.', 'Cito le fonti e controllo che i materiali siano adatti alla classe.']],
+      ['Comunicazione e collaborazione', ['Scrivo consegne digitali chiare.', 'Nei lavori di gruppo, assegno compiti e do consigli utili.', 'Controllo chi può accedere ai materiali e preparo alternative.']],
+      ['Creazione di contenuti', ['Preparo materiali facili da leggere e usare.', 'Controllo se posso riutilizzare testi e immagini di altre persone.', 'Controllo i materiali creati con l’IA prima di usarli.']],
+      ['Sicurezza e benessere', ['Proteggo i dati e gli account usati in classe.', 'Preparo alternative per chi ha difficoltà con dispositivi o connessione.', 'So che cosa fare e chi avvisare se c’è un problema di sicurezza.']],
+      ['Risoluzione di problemi', ['Scelgo uno strumento perché è utile alla lezione.', 'Controllo i risultati dell’IA e decido se usarli.', 'Provo una soluzione, raccolgo le risposte degli alunni e la miglioro.']]
     ]
   };
 
   const lessons = [
     {
       title: 'Cercare e valutare informazioni', area: 'Area 1 · Ricerca, valutazione e gestione delle informazioni', time: '18–22 min',
-      intro: 'Cercare non significa soltanto trovare: significa formulare bene il bisogno, capire come è stata prodotta un’informazione e decidere se merita fiducia.',
-      objectives: ['Trasformare un tema in domande e parole chiave efficaci', 'Valutare fonte, contenuto e processo di produzione', 'Riconoscere manipolazioni, disinformazione e risposte non verificate'],
+      intro: 'Quando cerchi informazioni, fermati a chiederti: chi le ha pubblicate? Sono aggiornate? Ci sono prove? Una risposta che sembra sicura può essere sbagliata.',
+      objectives: ['Cercare le informazioni giuste', 'Capire se una fonte è affidabile', 'Controllare le risposte trovate online o con l’IA'],
       sections: [
-        ['Dalla domanda alla ricerca', 'Una ricerca utile nasce da una domanda delimitata. Prima di aprire il motore di ricerca chiarisci argomento, periodo, luogo, tipo di fonte e uso finale. Combina parole specifiche, virgolette per le espressioni esatte, esclusioni e filtri; poi modifica la ricerca se i risultati non rispondono davvero al bisogno.', ['Scrivi ciò che vuoi sapere, non soltanto il tema.', 'Usa sinonimi e termini disciplinari.', 'Conserva le query migliori: fanno parte del metodo.']],
-        ['Valutare fonte e contenuto', 'Controlla chi pubblica, con quali competenze e per quale scopo. Data, riferimenti, prove, tono e possibilità di risalire all’origine aiutano a distinguere informazione, opinione, pubblicità e propaganda. Una pagina curata può comunque essere inaffidabile: la veste grafica non è una prova.', ['Risalire alla fonte primaria.', 'Confrontare almeno due fonti indipendenti.', 'Separare fatti, interpretazioni e pubblicità.']],
-        ['Controllare anche il processo', 'DigComp 3.0 chiede di valutare anche il processo che genera il risultato. Motori, piattaforme e IA ordinano o producono contenuti con criteri non sempre visibili. Chiediti quali dati usano, cosa potrebbe mancare e quale verifica esterna puoi compiere.', ['Apri altre fonti invece di restare sulla prima pagina.', 'Cerca conferme e smentite autorevoli.', 'Per immagini e video controlla contesto, data e provenienza.']]
+        ['Che cosa vuoi sapere?', 'Prima di cercare, scrivi una domanda precisa. Aggiungi parole come luogo, periodo o argomento. Se i risultati non rispondono alla domanda, prova parole diverse.', ['Scrivi una domanda precisa.', 'Prova parole simili.', 'Controlla che i risultati rispondano davvero alla domanda.']],
+        ['Chi ha pubblicato queste informazioni?', 'Controlla chi ha scritto il contenuto, quando e su quali prove si basa. Una pagina bella da vedere non è per forza affidabile. Confrontala con almeno un’altra fonte.', ['Cerca il nome dell’autore.', 'Controlla la data.', 'Confronta le informazioni con un’altra fonte.']],
+        ['Controlla prima di condividere', 'I motori di ricerca e l’IA scelgono quali contenuti mostrarti. Potrebbero tralasciare informazioni o contenere errori. Cerca conferme su altri siti, soprattutto per immagini e video.', ['Non fermarti al primo risultato.', 'Cerca una conferma.', 'Controlla quando e dove è stata pubblicata una foto o un video.']]
       ],
       steps: [['Domanda', 'Delimita ciò che vuoi sapere.'], ['Ricerca', 'Scegli termini e strumenti adatti.'], ['Confronta', 'Verifica origine, prove e scopo.'], ['Decidi', 'Usa e cita ciò che regge al controllo.']],
       studentExample: 'Per una presentazione sulla liuteria cremonese confronta il sito di un museo, una voce enciclopedica e un post social. Individua autore, data, prove e scopo; scegli la fonte migliore e spiega perché.',
-      teacherExample: 'Proponi tre fonti sullo stesso tema, una delle quali debole o fuorviante. Chiedi di rendere visibili query, criteri di confronto e motivazione della scelta, non soltanto il prodotto finale.',
-      studentActivity: 'Scegli un’affermazione incontrata online. Costruisci una tabella con fonte originaria, due conferme indipendenti, data, scopo e verdetto motivato in cinque righe.',
-      teacherActivity: 'Trasforma una normale ricerca in un compito di verifica: consegna una domanda controversa, una scheda di controllo e una breve restituzione orale sul processo seguito.',
+      teacherExample: 'Mostra due fonti sulla stessa notizia. Chiedi alla classe quale è più affidabile e perché.',
+      studentActivity: 'Scegli un’affermazione che hai visto online. Trova la fonte originale e controllala con altre due fonti indipendenti. Annota la data, lo scopo e la tua conclusione in cinque righe.',
+      teacherActivity: 'Prepara un’attività per verificare una notizia o un’affermazione. Scrivi la domanda, una breve lista di controlli e chiedi agli alunni di raccontare come hanno verificato.',
       checklist: ['Ho definito la domanda', 'Conosco autore e data', 'Ho cercato la fonte originaria', 'Ho confrontato più fonti', 'So spiegare perché mi fido'],
-      q: [['Qual è il primo passo di una ricerca efficace?', ['Aprire il primo risultato', 'Definire una domanda delimitata', 'Cercare una frase molto generica'], 1], ['Una fonte è affidabile soprattutto quando…', ['mostra autore, prove e riferimenti verificabili', 'ha molte immagini', 'compare per prima'], 0], ['La ricerca laterale consiste nel…', ['restare sulla stessa pagina', 'aprire altre fonti per controllare autore e affermazioni', 'leggere soltanto i commenti'], 1], ['Una risposta prodotta dall’IA…', ['è una fonte primaria', 'va verificata con fonti attendibili', 'è sempre aggiornata'], 1]]
+      q: [['Prima di cercare online, che cosa conviene fare?', ['Aprire il primo risultato', 'Decidere che cosa voglio sapere', 'Cercare una parola generica'], 1], ['Come capisco se una fonte è affidabile?', ['Controllo autore, prove e riferimenti', 'Guardo quante immagini ha', 'Scelgo quella che appare per prima'], 0], ['Come controllo una notizia?', ['Rileggo solo la stessa pagina', 'Cerco conferme su altri siti affidabili', 'Leggo solo i commenti'], 1], ['Posso fidarmi subito di una risposta dell’IA?', ['Sì, è sempre una fonte originale', 'No, devo controllarla con fonti affidabili', 'Sì, è sempre aggiornata'], 1]]
     },
     {
       title: 'Organizzare dati e informazioni', area: 'Area 1 · Ricerca, valutazione e gestione delle informazioni', time: '16–20 min',
-      intro: 'Informazioni ben raccolte ma disordinate si perdono. Organizzare significa dare struttura, rendere rintracciabile l’origine e conservare soltanto ciò che serve.',
-      objectives: ['Costruire cartelle, nomi e versioni coerenti', 'Raccogliere dati con criteri dichiarati', 'Proteggere, ritrovare e citare le informazioni'],
+      intro: 'Dai ai file nomi chiari, tieni insieme quelli che servono e annota da dove arrivano le informazioni. Così tu e i tuoi colleghi ritrovate subito ciò che vi serve.',
+      objectives: ['Dare nomi chiari ai file', 'Tenere in ordine fonti e dati', 'Raccogliere solo i dati necessari'],
       sections: [
-        ['Una struttura che parla', 'Cartelle, etichette e nomi di file devono permettere a te e agli altri di capire subito contenuto, data e versione. Evita “finale_definitivo2”: adotta uno schema stabile, per esempio data–progetto–contenuto–versione.', ['Poche cartelle con criteri chiari.', 'Nomi coerenti e comprensibili.', 'Una posizione condivisa per la versione valida.']],
-        ['Dati confrontabili', 'Una tabella è utile se ogni colonna ha un significato preciso, le unità sono uniformi e i dati mancanti sono riconoscibili. Prima di raccogliere stabilisci domanda, categorie e criterio; dopo, controlla duplicati, errori e valori anomali.', ['Non cambiare criterio durante il confronto.', 'Distingui dato grezzo e interpretazione.', 'Rappresenta i dati senza deformare le proporzioni.']],
-        ['Tracciabilità e minimizzazione', 'Ogni informazione importante deve poter tornare alla propria origine. Registra autore, titolo, data, collegamento e licenza. Con dati personali, raccogli solo quelli necessari allo scopo, limita gli accessi e stabilisci quando cancellarli.', ['Annota la fonte mentre lavori.', 'Fai copie di sicurezza dei materiali essenziali.', 'Non raccogliere dati “nel caso possano servire”.']]
+        ['Dai nomi chiari ai file', 'Scegli nomi che facciano capire subito che cosa contiene il file e qual è la versione giusta. Per esempio: “Storia_ricerca_15ottobre”. Evita nomi come “finale2”.', ['Indica l’argomento nel nome.', 'Aggiungi la data se serve.', 'Fai capire qual è la versione aggiornata.']],
+        ['Metti in ordine i dati', 'Se usi una tabella, scrivi che cosa significa ogni colonna e usa sempre le stesse unità di misura. Prima di condividere, controlla che non manchino dati e che non ci siano doppioni.', ['Usa le stesse regole per tutti i dati.', 'Controlla gli spazi vuoti.', 'Correggi eventuali doppioni.']],
+        ['Tieni traccia delle fonti', 'Quando usi un’informazione, annota da dove viene e quando l’hai trovata. Se raccogli dati personali, prendi solo quelli che ti servono e limita chi può vederli.', ['Scrivi la fonte mentre lavori.', 'Fai una copia dei file importanti.', 'Non raccogliere dati che non ti servono.']]
       ],
       steps: [['Raccogli', 'Definisci prima campi e criteri.'], ['Ordina', 'Usa nomi, cartelle e versioni coerenti.'], ['Controlla', 'Trova errori, duplicati e vuoti.'], ['Conserva', 'Proteggi il necessario, scarta il superfluo.']],
       studentExample: 'Per una ricerca crea un archivio con cartella fonti, tabella bibliografica, materiali prodotti e versioni. Un compagno deve riuscire a trovare tutto senza chiederti aiuto.',
-      teacherExample: 'Per un’attività collaborativa predisponi struttura, convenzione dei nomi, permessi e criteri di conservazione. Raccogli soltanto i dati utili alla valutazione dichiarata.',
-      studentActivity: 'Riordina cinque file di un compito: rinominali con uno schema comune, crea una tabella fonti e indica chiaramente quale versione consegnare.',
-      teacherActivity: 'Esegui una mini-audit: quali dati raccogli, perché, chi può vederli, per quanto tempo e dove si trova la versione ufficiale dei materiali?',
+      teacherExample: 'Per il prossimo lavoro di gruppo, prepara una cartella condivisa e assegna a ogni file un nome chiaro.',
+      studentActivity: 'Metti in ordine i file di un compito. Dai loro nomi chiari e uniformi, annota le fonti e indica quale file è la versione da consegnare.',
+      teacherActivity: 'Pensa a un’attività con strumenti digitali. Annota quali dati raccogli, perché ti servono, chi li può vedere e dove conservi i materiali aggiornati.',
       checklist: ['Uso nomi coerenti', 'Ritrovo la versione valida', 'Registro le fonti', 'Confronto dati omogenei', 'Raccolgo solo ciò che serve'],
-      q: [['Un buon nome di file contiene…', ['contenuto, data o versione', 'solo “nuovo”', 'simboli casuali'], 0], ['Dati confrontabili richiedono…', ['criteri uguali e dichiarati', 'unità sempre diverse', 'solo il valore maggiore'], 0], ['Minimizzare i dati significa…', ['raccogliere tutto', 'raccogliere solo ciò che serve allo scopo', 'pubblicare l’archivio'], 1], ['La tracciabilità permette di…', ['risalire all’origine dell’informazione', 'nascondere le revisioni', 'evitare le citazioni'], 0]]
+      q: [['Quale nome aiuta a trovare un file?', ['Ricerca_storia_15ottobre_v2', 'Nuovo', 'File123'], 0], ['Per confrontare due dati, è meglio…', ['usarli con le stesse regole', 'cambiare unità di misura', 'guardare solo il numero più alto'], 0], ['Quali dati è meglio raccogliere?', ['Tutti quelli possibili', 'Solo quelli necessari', 'Tutti e poi pubblicarli'], 1], ['Come faccio a risalire alla fonte di un’informazione?', ['La annoto mentre lavoro', 'Nascondo le modifiche', 'Non cito la fonte'], 0]]
     },
     {
       title: 'Comunicare e collaborare', area: 'Area 2 · Comunicazione e collaborazione', time: '18–22 min',
-      intro: 'Comunicare online è una scelta di contesto: canale, tono, pubblico, tempi, accessi e tracce devono essere coerenti con lo scopo.',
-      objectives: ['Scegliere canale e registro adeguati', 'Condividere con permessi consapevoli', 'Collaborare rendendo visibili ruoli e contributi'],
+      intro: 'Prima di inviare un messaggio o condividere un file, pensa a chi lo leggerà e a che cosa deve fare. Controlla anche chi potrà aprire o modificare il file.',
+      objectives: ['Scrivere messaggi chiari', 'Condividere file con le persone giuste', 'Lavorare bene insieme online'],
       sections: [
-        ['Il contesto prima del messaggio', 'Chat, mail, registro elettronico e documento condiviso non sono equivalenti. Considera urgenza, formalità, destinatari, reperibilità futura e sensibilità dei contenuti. Un messaggio efficace dichiara subito oggetto, richiesta e scadenza.', ['Usa un oggetto informativo.', 'Distingui “per conoscenza” da “serve un’azione”.', 'Rispetta orari, tono e diritto alla disconnessione.']],
-        ['Condividere non è pubblicare', 'Prima di inviare un link controlla chi può accedere e con quali poteri. Dai a ciascuno il permesso minimo necessario: leggere, commentare o modificare. Ricontrolla allegati e destinatari, soprattutto con dati personali.', ['Evita link aperti se non necessari.', 'Non inoltrare contenuti privati senza consenso.', 'Gestisci identità e reputazione digitale.']],
-        ['Collaborare con metodo', 'Il digitale aiuta il gruppo quando rende chiari obiettivo, ruoli, turni, scadenze e criteri di decisione. Cronologia e commenti servono a comprendere il processo. Il feedback deve essere specifico, rispettoso e orientato a un miglioramento possibile.', ['Definisci chi coordina, produce e controlla.', 'Lascia traccia delle decisioni.', 'Riconosci il contributo degli altri.']]
+        ['Scrivi che cosa serve', 'Scegli se usare una mail, una chat o un documento condiviso. Nel messaggio scrivi subito che cosa chiedi e quando serve una risposta.', ['Usa un oggetto chiaro.', 'Scrivi che cosa deve fare chi legge.', 'Rispetta gli orari di lavoro.']],
+        ['Controlla chi può aprire il file', 'Prima di condividere, controlla a chi stai mandando il link e che cosa potrà fare. Dai l’accesso solo alle persone che ne hanno bisogno.', ['Controlla i destinatari.', 'Scegli chi può leggere o modificare.', 'Non condividere messaggi privati senza permesso.']],
+        ['Dividetevi il lavoro', 'Quando lavori con altre persone, chiarite chi fa che cosa e quando. Lasciate commenti utili e annotate le decisioni, così tutti possono seguire il lavoro.', ['Assegna un compito a ciascuno.', 'Segna le decisioni prese.', 'Dai consigli chiari e rispettosi.']]
       ],
       steps: [['Scopo', 'Chiarisci cosa deve accadere.'], ['Canale', 'Scegli ambiente, tono e tempo.'], ['Permessi', 'Apri solo gli accessi necessari.'], ['Feedback', 'Rendi il contributo migliorabile.']],
       studentExample: 'Organizza un lavoro di gruppo con obiettivo, ruoli, scadenza, cartella condivisa e regola per i commenti. Alla fine ricostruisci una decisione usando la cronologia.',
       teacherExample: 'Progetta uno spazio collaborativo in cui consegna, ruoli, permessi, criteri di feedback e tempi di disconnessione siano espliciti fin dall’inizio.',
-      studentActivity: 'Riscrivi un messaggio confuso trasformandolo in una comunicazione completa; poi configura un file con accessi diversi per autore, revisore e lettore.',
-      teacherActivity: 'Crea una consegna con matrice “chi fa cosa entro quando” e una frase-modello per un feedback descrittivo e non giudicante.',
+      studentActivity: 'Riscrivi un messaggio poco chiaro: aggiungi che cosa va fatto e entro quando. Poi scegli chi può modificare il file e chi può solo leggerlo.',
+      teacherActivity: 'Scrivi una consegna che dica chi fa che cosa e entro quando. Aggiungi una frase di commento che spieghi un punto riuscito e un prossimo passo.',
       checklist: ['Il canale è adatto', 'La richiesta è chiara', 'I permessi sono minimi', 'Ruoli e tempi sono visibili', 'Il tono rispetta le persone'],
-      q: [['Prima di condividere un file controllo…', ['destinatari e permessi', 'solo il colore', 'quanti caratteri contiene'], 0], ['Un messaggio operativo indica…', ['obiettivo, azione e tempi', 'solo un saluto', 'molte abbreviazioni'], 0], ['Una buona collaborazione digitale…', ['rende visibili ruoli e decisioni', 'lascia tutto a una persona', 'elimina la cronologia'], 0], ['Il permesso minimo necessario tutela…', ['accessi e responsabilità', 'la velocità della rete', 'la dimensione del file'], 0]]
+      q: [['Prima di condividere un file, che cosa controllo?', ['Chi lo riceverà e che cosa potrà fare', 'Solo il colore', 'Quante righe contiene'], 0], ['Che cosa deve dire una consegna chiara?', ['Che cosa fare e entro quando', 'Solo un saluto', 'Molte abbreviazioni'], 0], ['Come si lavora bene in gruppo?', ['Si chiariscono compiti e decisioni', 'Una persona fa tutto', 'Si cancellano le modifiche'], 0], ['Come proteggo un file condiviso?', ['Do a ciascuno l’accesso che gli serve', 'Lascio il link aperto a tutti', 'Lo invio a tutta la scuola'], 0]]
     },
     {
       title: 'Creare contenuti accessibili', area: 'Area 3 · Creazione di contenuti digitali', time: '20–25 min',
-      intro: 'Un contenuto digitale è riuscito quando comunica bene, può essere usato da persone diverse e rende trasparenti fonti, licenze e trasformazioni.',
-      objectives: ['Progettare una gerarchia chiara e accessibile', 'Integrare e rielaborare contenuti legalmente', 'Dichiarare fonti, licenze e uso dell’IA'],
+      intro: 'Una presentazione o una scheda deve essere facile da leggere e capire. Usa immagini e testi che puoi riutilizzare e scrivi da dove vengono.',
+      objectives: ['Creare materiali facili da leggere', 'Usare immagini e testi rispettando le regole', 'Controllare i contenuti creati con l’IA'],
       sections: [
-        ['Progettare per chi legge', 'Parti dal messaggio essenziale e costruisci una gerarchia: titolo, sezioni, esempi, conclusione. Usa contrasto sufficiente, caratteri leggibili, spazio bianco e linguaggio diretto. Il colore non deve essere l’unico modo per distinguere un’informazione.', ['Titoli in ordine logico.', 'Testo alternativo per immagini informative.', 'Sottotitoli o trascrizioni per audio e video.']],
-        ['Rielaborare, non assemblare', 'Integrare contenuti significa comprenderli e trasformarli per un nuovo scopo. Distingui citazione, parafrasi e creazione originale. “Trovato online” non vuol dire libero: verifica la licenza e attribuisci autore, opera e fonte.', ['Scegli formati modificabili e interoperabili.', 'Cita vicino al contenuto usato.', 'Non rimuovere firme o filigrane.']],
-        ['IA, codice e responsabilità', 'Testi, immagini o codice generati con IA richiedono controllo umano. Verifica fatti, stereotipi, somiglianze indesiderate e accessibilità; dichiara come lo strumento ha contribuito. Se automatizzi, prova casi normali, limiti ed errori.', ['Conserva prompt e revisioni rilevanti.', 'Non inserire dati riservati senza autorizzazione.', 'La responsabilità finale resta umana.']]
+        ['Fai capire il messaggio', 'Metti un titolo chiaro e dividi il testo in parti. Usa caratteri leggibili e non affidarti solo ai colori per spiegare qualcosa. Descrivi le immagini importanti.', ['Usa titoli chiari.', 'Aggiungi una descrizione alle immagini.', 'Aggiungi sottotitoli ai video.']],
+        ['Usa testi e immagini con attenzione', 'Se usi parole o immagini di altre persone, cita la fonte. Controlla se puoi riutilizzarle: il fatto che siano online non significa che siano libere.', ['Scrivi da dove viene il contenuto.', 'Controlla se puoi riutilizzarlo.', 'Non togliere il nome dell’autore.']],
+        ['Controlla ciò che crea l’IA', 'L’IA può creare testi, immagini o codice, ma può anche sbagliare. Controlla il risultato e spiega se hai usato l’IA. Non inserire dati personali o riservati.', ['Controlla che il risultato sia corretto.', 'Non inserire dati personali.', 'Spiega come hai usato l’IA.']]
       ],
       steps: [['Messaggio', 'Definisci pubblico e idea centrale.'], ['Progetto', 'Ordina testo, immagini e interazioni.'], ['Attribuisci', 'Controlla fonti e licenze.'], ['Verifica', 'Prova accessibilità, accuratezza e formato.']],
       studentExample: 'Crea una pagina su un’opera o una performance: titolo chiaro, testo breve, immagine con licenza, didascalia, testo alternativo e nota sull’eventuale uso dell’IA.',
       teacherExample: 'Riprogetta una scheda didattica per ridurre il carico superfluo: struttura prevedibile, consegne esplicite, formati accessibili e alternative equivalenti.',
-      studentActivity: 'Scegli una vecchia presentazione e migliora cinque aspetti: gerarchia, contrasto, attribuzione, testo alternativo e dichiarazione delle rielaborazioni.',
-      teacherActivity: 'Esegui una revisione di accessibilità su un materiale reale e prepara una versione equivalente fruibile anche senza immagini, colore o audio.',
+      studentActivity: 'Scegli una tua vecchia presentazione. Rendila più facile da leggere, cita le fonti, descrivi le immagini e spiega che cosa hai modificato.',
+      teacherActivity: 'Scegli un materiale per la classe. Controlla che si capisca anche senza immagini, colori o audio e prepara un’alternativa accessibile.',
       checklist: ['La gerarchia è chiara', 'Il contrasto è sufficiente', 'Le immagini hanno uno scopo', 'Fonti e licenze sono visibili', 'Ho verificato l’output dell’IA'],
-      q: [['Il testo alternativo serve a…', ['descrivere la funzione di un’immagine', 'decorare la pagina', 'ridurre il file'], 0], ['Una licenza indica…', ['le condizioni di riuso', 'la qualità estetica', 'il numero di lettori'], 0], ['Per rendere accessibile un grafico…', ['uso anche etichette e spiegazioni testuali', 'uso soltanto colori', 'tolgo il titolo'], 0], ['Un contenuto generato con IA…', ['va verificato e dichiarato secondo il contesto', 'non richiede revisione', 'è automaticamente originale'], 0]]
+      q: [['A che cosa serve descrivere un’immagine?', ['A far capire che cosa mostra', 'A decorare la pagina', 'A ridurre il file'], 0], ['Che cosa dice una licenza?', ['Come si può riusare un contenuto', 'Quanto è bello', 'Quante persone lo hanno visto'], 0], ['Come rendo chiaro un grafico?', ['Aggiungo parole o etichette, non solo colori', 'Uso solo colori', 'Tolgo il titolo'], 0], ['Come uso un contenuto creato dall’IA?', ['Lo controllo e dico che ho usato l’IA', 'Lo uso senza rileggerlo', 'Lo considero sempre originale'], 0]]
     },
     {
       title: 'Proteggere dati, account e dispositivi', area: 'Area 4 · Sicurezza', time: '18–22 min',
-      intro: 'La sicurezza digitale è una catena di piccole decisioni: prevenire, riconoscere segnali anomali, limitare il danno e sapere a chi rivolgersi.',
-      objectives: ['Proteggere credenziali e dispositivi', 'Riconoscere phishing e manipolazioni', 'Applicare privacy, minimizzazione e procedure di risposta'],
+      intro: 'Proteggi i tuoi account e dispositivi. Fai attenzione ai messaggi che chiedono dati o password, soprattutto se ti mettono fretta.',
+      objectives: ['Proteggere account e dispositivi', 'Riconoscere messaggi sospetti', 'Sapere a chi chiedere aiuto'],
       sections: [
-        ['Difese di base', 'Usa password lunghe e diverse, meglio con un gestore affidabile, e attiva l’autenticazione a più fattori. Aggiorna sistema e applicazioni, blocca lo schermo e conserva copie di sicurezza. Le credenziali scolastiche sono personali.', ['Un account, una password diversa.', 'MFA dove disponibile.', 'Backup verificato, non soltanto dichiarato.']],
-        ['Fermarsi prima di cliccare', 'Phishing e truffe sfruttano urgenza, paura, premio o autorità. Controlla indirizzo reale, dominio del link e richiesta insolita. Non usare il contatto indicato nel messaggio sospetto: verifica attraverso un canale già noto.', ['Diffida dell’urgenza artificiale.', 'Non inviare codici temporanei.', 'Segnala senza inoltrare indiscriminatamente.']],
-        ['Dati personali e incidenti', 'Prima di raccogliere o condividere un dato chiedi: è necessario, per quale scopo, chi lo vede e fino a quando? Se sospetti una compromissione, limita l’accesso, cambia le credenziali da un dispositivo sicuro, avvisa il referente e conserva le evidenze.', ['Rivedi periodicamente permessi e accessi.', 'Non diffondere le prove dell’incidente.', 'Seguire la procedura è parte della competenza.']]
+        ['Proteggi i tuoi account', 'Usa password diverse e difficili da indovinare. Se puoi, attiva un secondo controllo per accedere. Aggiorna i dispositivi e blocca lo schermo quando ti allontani.', ['Non riutilizzare la stessa password.', 'Non condividere codici di accesso.', 'Aggiorna i dispositivi.']],
+        ['Attenzione ai messaggi urgenti', 'Un messaggio può fingere di arrivare dalla scuola o da una banca e chiedere la password. Non cliccare subito. Controlla chi l’ha inviato usando un contatto che conosci già.', ['Fermati se il messaggio mette fretta.', 'Non inviare password o codici.', 'Chiedi conferma alla persona o all’ufficio.']],
+        ['Se qualcosa non va', 'Se pensi che qualcuno sia entrato nel tuo account, avvisa subito il referente della scuola. Segui le sue indicazioni e cambia la password da un dispositivo sicuro.', ['Avvisa il referente.', 'Segui le istruzioni della scuola.', 'Non inoltrare il messaggio sospetto.']]
       ],
       steps: [['Previeni', 'Aggiorna, proteggi e fai backup.'], ['Riconosci', 'Nota urgenze e richieste insolite.'], ['Contieni', 'Limita accessi e cambia credenziali.'], ['Segnala', 'Attiva subito il canale corretto.']],
       studentExample: 'Ricevi un messaggio che chiede di “verificare subito” l’account scolastico. Non cliccare: confronta dominio, mittente e tono, poi segnala tramite il canale ufficiale.',
       teacherExample: 'Prima di usare un nuovo servizio con la classe, verifica dati richiesti, età, accessi, finalità, conservazione e possibilità di svolgere l’attività senza esporre informazioni non necessarie.',
-      studentActivity: 'Controlla aggiornamenti, blocco schermo, MFA, permessi di un’app e procedura da seguire in caso di messaggio sospetto.',
-      teacherActivity: 'Applica una scheda “privacy by design” a un’attività reale e riduci dati, account e condivisioni a ciò che è strettamente necessario.',
+      studentActivity: 'Controlla se il dispositivo è aggiornato e bloccato, quali permessi ha un’app e che cosa fare se ricevi un messaggio sospetto. MFA significa confermare l’accesso in più di un modo.',
+      teacherActivity: 'Scegli un’attività digitale. Elimina i dati e gli accessi che non servono e limita la condivisione alle persone coinvolte.',
       checklist: ['Password diverse e MFA', 'Dispositivi aggiornati', 'Controllo link e mittenti', 'Permessi essenziali', 'Conosco il canale di segnalazione'],
-      q: [['La protezione più solida è…', ['password unica per tutto', 'password diversa più MFA', 'codice condiviso in chat'], 1], ['Un messaggio urgente chiede la password: devo…', ['verificare con un canale ufficiale', 'rispondere subito', 'inoltrarlo a tutti'], 0], ['Minimizzare i dati significa…', ['limitarsi a quelli necessari', 'conservarli per sempre', 'renderli pubblici'], 0], ['Dopo un sospetto accesso abusivo…', ['seguo la procedura e cambio credenziali in sicurezza', 'cancello ogni prova', 'aspetto senza avvisare'], 0]]
+      q: [['Quale scelta protegge meglio un account?', ['Usare la stessa password ovunque', 'Usare password diverse e una conferma in più', 'Condividere il codice in chat'], 1], ['Un messaggio chiede subito la password. Che cosa fai?', ['Controllo con la scuola usando un contatto noto', 'Rispondo subito', 'Lo inoltro a tutti'], 0], ['Quali dati raccolgo?', ['Solo quelli che mi servono', 'Li conservo per sempre', 'Li rendo pubblici'], 0], ['Penso che qualcuno abbia usato il mio account. Che cosa faccio?', ['Seguo le istruzioni della scuola e cambio password', 'Cancello ogni traccia', 'Aspetto senza avvisare'], 0]]
     },
     {
       title: 'Benessere e cittadinanza digitale', area: 'Area 4 · Sicurezza', time: '18–22 min',
-      intro: 'Stare bene negli ambienti digitali richiede attenzione a tempo, corpo, relazioni, reputazione, diritti e impatto ambientale.',
-      objectives: ['Gestire attenzione e carico digitale', 'Agire con rispetto, consenso e responsabilità', 'Valutare impatti sociali e ambientali delle tecnologie'],
+      intro: 'Il digitale è utile, ma può distrarre o escludere qualcuno. Fai pause, rispetta la privacy delle altre persone e pensa a chi può partecipare.',
+      objectives: ['Usare il digitale senza distrarsi troppo', 'Rispettare la privacy degli altri', 'Prevedere un modo per far partecipare tutti'],
       sections: [
-        ['Attenzione e autoregolazione', 'Notifiche, passaggi continui e design persuasivo frammentano l’attenzione. Osserva quando, perché e per quanto usi uno strumento; crea finestre senza notifiche, pause e confini tra lavoro e riposo. Conta la qualità dell’uso, non solo il numero di ore.', ['Alterna concentrazione e recupero.', 'Proteggi postura e sonno.', 'Chiedi aiuto se l’uso diventa incontrollabile.']],
-        ['Diritti, consenso e partecipazione', 'Online valgono dignità, responsabilità e regole di convivenza. Chiedi consenso prima di pubblicare immagini o registrazioni, proteggi chi è in difficoltà e segnala contenuti dannosi. La libertà di espressione non rende accettabili molestie o odio.', ['Pensa a pubblico e permanenza della traccia.', 'Non alimentare contenuti dannosi.', 'Partecipa in modo informato, non impulsivo.']],
-        ['Inclusione e sostenibilità', 'Una scelta digitale può escludere chi non ha dispositivo, connessione o condizioni adeguate. Prevedi alternative e tempi realistici. Prolunga la vita dei dispositivi e riduci archivi inutili: anche produzione, energia e smaltimento hanno un impatto.', ['Offri modalità equivalenti di accesso.', 'Ripara e riusa quando possibile.', 'Usa il digitale quando porta un beneficio reale.']]
+        ['Fai una pausa', 'Le notifiche possono interrompere il lavoro. Metti il telefono da parte quando devi concentrarti e fai una pausa quando serve.', ['Disattiva le notifiche per un po’.', 'Fai pause.', 'Chiedi aiuto se non riesci a smettere.']],
+        ['Rispetta la privacy', 'Chiedi il permesso prima di pubblicare una foto o una registrazione di un’altra persona. Se vedi un contenuto offensivo o pericoloso, segnalalo a un adulto o al referente.', ['Chiedi il permesso prima di condividere.', 'Non diffondere contenuti offensivi.', 'Pensa a chi vedrà il tuo messaggio.']],
+        ['Fai partecipare tutti', 'Non tutti hanno lo stesso dispositivo o una buona connessione. Prepara un’alternativa. Usa i dispositivi più a lungo e sostituiscili solo quando serve.', ['Prepara un’alternativa senza internet.', 'Usa i dispositivi più a lungo.', 'Scegli il digitale quando è utile.']]
       ],
       steps: [['Osserva', 'Riconosci abitudini e segnali.'], ['Regola', 'Crea limiti e pause sostenibili.'], ['Rispetta', 'Proteggi consenso, dignità e diritti.'], ['Riequilibra', 'Scegli alternative inclusive.']],
       studentExample: 'Per una settimana osserva un’abitudine digitale che disturba studio o riposo. Introduci una sola modifica misurabile e descrivi che cosa cambia davvero.',
       teacherExample: 'Rivedi un’attività digitale considerando attenzione, accessibilità, tempi, disponibilità dei dispositivi e alternativa non digitale equivalente.',
-      studentActivity: 'Compila un diario di tre momenti: situazione, comportamento, effetto. Scegli una regola personale verificabile e confrontane l’esito.',
-      teacherActivity: 'Progetta una lezione con ritmo esplicito: attivazione, uso mirato dello schermo, confronto tra pari, pausa e restituzione. Motiva ogni passaggio digitale.',
+      studentActivity: 'Per tre volte, annota la situazione, che cosa hai fatto col dispositivo e come ti ha fatto sentire. Scegli una regola semplice e controlla se ti è stata utile.',
+      teacherActivity: 'Prepara una lezione alternando momenti con e senza schermo, lavoro individuale e confronto. Spiega perché usi il digitale in ciascun momento.',
       checklist: ['Gestisco le notifiche', 'Proteggo sonno e pause', 'Chiedo consenso', 'So come segnalare', 'Considero accesso e impatto'],
-      q: [['Il benessere digitale dipende…', ['solo dalle ore', 'anche da qualità, contesto e controllo', 'solo dal dispositivo'], 1], ['Prima di pubblicare una foto altrui…', ['chiedo consenso', 'la ritaglio', 'la mando in un gruppo'], 0], ['Un’attività inclusiva…', ['prevede accessi e alternative equivalenti', 'richiede lo stesso dispositivo a tutti', 'usa solo il colore'], 0], ['Una scelta sostenibile può essere…', ['prolungare la vita dei dispositivi', 'duplicare ogni file', 'sostituire sempre ciò che funziona'], 0]]
+      q: [['Da che cosa dipende stare bene con il digitale?', ['Solo dal numero di ore', 'Da come e quando lo uso', 'Solo dal dispositivo'], 1], ['Prima di pubblicare una foto di un’altra persona…', ['Chiedo il suo permesso', 'La ritaglio', 'La mando in un gruppo'], 0], ['Come preparo un’attività a cui tutti possano partecipare?', ['Offro modi diversi per accedere', 'Chiedo a tutti lo stesso dispositivo', 'Uso solo i colori'], 0], ['Qual è una scelta utile per l’ambiente?', ['Usare più a lungo i dispositivi', 'Fare copie di ogni file', 'Cambiare un dispositivo che funziona'], 0]]
     },
     {
       title: 'Risolvere problemi con metodo', area: 'Area 5 · Individuazione e risoluzione di problemi', time: '20–25 min',
-      intro: 'La competenza non è conoscere ogni strumento, ma saper definire un bisogno, scegliere, provare, leggere l’errore e trasferire ciò che si è imparato.',
-      objectives: ['Diagnosticare un problema prima di agire', 'Confrontare strumenti a partire dal bisogno', 'Sperimentare, documentare e migliorare una soluzione'],
+      intro: 'Quando qualcosa non funziona, prova a capire che cosa è successo prima di cambiare tutto. Fai una modifica alla volta e controlla se aiuta.',
+      objectives: ['Capire qual è il problema', 'Scegliere uno strumento adatto', 'Provare una soluzione e controllare il risultato'],
       sections: [
-        ['Definire il problema', 'Descrivi risultato atteso, ciò che accade davvero e condizioni dell’errore. Raccogli messaggi, passaggi già provati e modifiche recenti. Separare sintomo e causa evita tentativi casuali e rende possibile chiedere aiuto con precisione.', ['Riproduci il problema quando è sicuro.', 'Cambia una variabile alla volta.', 'Annota evidenze, non impressioni.']],
-        ['Scegliere con criteri', 'Lo strumento migliore non è il più nuovo, ma quello adeguato a scopo, persone e vincoli. Confronta accessibilità, privacy, costi, interoperabilità, affidabilità ed esportazione. Considera anche una soluzione non digitale.', ['Definisci i criteri prima del confronto.', 'Distingui requisito e preferenza.', 'Evita di dipendere da un solo formato.']],
-        ['Prototipare e imparare', 'Costruisci una versione piccola, provala con casi realistici e raccogli feedback. L’errore diventa utile quando ne identifichi la causa e cambi il tentativo. Documenta la soluzione perché altri possano ripeterla e migliorarla.', ['Prova anche casi limite.', 'Spiega cosa non funziona ancora.', 'Aggiorna la procedura dopo il test.']]
+        ['Descrivi che cosa succede', 'Scrivi che cosa volevi fare e che cosa è successo. Annota il messaggio di errore e i passaggi che hai già provato. Così sarà più facile trovare una soluzione o chiedere aiuto.', ['Scrivi che cosa ti aspettavi.', 'Scrivi che cosa è successo.', 'Cambia una cosa alla volta.']],
+        ['Scegli uno strumento adatto', 'Non scegliere uno strumento solo perché è nuovo. Pensa a che cosa ti serve, a chi lo userà, alla privacy e a quanto costa. A volte carta e penna sono la soluzione migliore.', ['Pensa prima a che cosa ti serve.', 'Controlla chi può accedere ai dati.', 'Valuta anche una soluzione senza tecnologia.']],
+        ['Prova e correggi', 'Fai una prova piccola. Guarda che cosa funziona e che cosa no. Correggi il problema e riprova. Annota i passaggi così potrai rifarli o spiegarli a un collega.', ['Prova con un esempio reale.', 'Segna che cosa non funziona.', 'Aggiorna i passaggi dopo la prova.']]
       ],
       steps: [['Definisci', 'Atteso, osservato e vincoli.'], ['Ipotizza', 'Formula una causa verificabile.'], ['Prova', 'Cambia una cosa e misura.'], ['Documenta', 'Conserva esito, limiti e passo seguente.']],
       studentExample: 'Un file non si apre durante un lavoro di gruppo. Descrivi formato, dispositivo ed errore, prova una modifica alla volta e prepara una soluzione ripetibile.',
       teacherExample: 'Parti da un bisogno didattico. Confronta due opzioni e una soluzione analogica con criteri di efficacia, accessibilità, privacy e sostenibilità.',
-      studentActivity: 'Scegli un problema reale, crea una scheda atteso/osservato/ipotesi/prova/esito e chiedi a un compagno di ripetere la soluzione.',
-      teacherActivity: 'Realizza un prototipo di dieci minuti di un’attività digitale, provalo come studente e annota attriti, prerequisiti e piano alternativo.',
+      studentActivity: 'Scegli un problema. Scrivi che cosa ti aspettavi, che cosa è successo, che cosa pensi sia la causa e che cosa hai provato. Chiedi a un compagno di ripetere i passaggi.',
+      teacherActivity: 'Prepara dieci minuti di un’attività digitale e provala come se fossi uno studente. Annota che cosa potrebbe essere difficile e prepara un’alternativa.',
       checklist: ['Distinguo sintomo e causa', 'Cambio una variabile alla volta', 'Scelgo con criteri', 'Provo casi realistici', 'Documento soluzione e limiti'],
-      q: [['Prima di tentare una soluzione…', ['definisco atteso e osservato', 'cambio tutto insieme', 'ignoro l’errore'], 0], ['Uno strumento è adatto quando…', ['risponde al bisogno e ai vincoli', 'è il più nuovo', 'ha più funzioni'], 0], ['Un prototipo serve a…', ['provare presto e raccogliere feedback', 'evitare controlli', 'nascondere i limiti'], 0], ['Un errore è informativo quando…', ['ne osservo causa ed effetto', 'lo ripeto identico', 'cancello ogni traccia'], 0]]
+      q: [['Prima di provare a risolvere un problema…', ['Scrivo che cosa mi aspettavo e che cosa è successo', 'Cambio tutto insieme', 'Ignoro l’errore'], 0], ['Quale strumento scelgo?', ['Quello che risponde al bisogno', 'Quello più nuovo', 'Quello con più funzioni'], 0], ['A che cosa serve fare una prima prova?', ['A vedere se l’idea funziona', 'A evitare controlli', 'A nascondere i problemi'], 0], ['Quando posso imparare da un errore?', ['Quando capisco che cosa l’ha causato', 'Quando lo ripeto senza cambiare nulla', 'Quando cancello tutto'], 0]]
     },
     {
-      title: 'Usare l’IA con responsabilità', area: 'Competenza IA trasversale alle 5 aree DigComp 3.0', time: '22–28 min',
-      intro: 'DigComp 3.0 integra l’intelligenza artificiale in tutte le 21 competenze: comprenderla, usarla e valutarla è una responsabilità trasversale, non un capitolo isolato.',
-      objectives: ['Capire che cosa può e non può fare un sistema di IA', 'Progettare richieste e verificare gli output', 'Mantenere agency, trasparenza, equità e supervisione umana'],
+      title: 'Capire e valutare l’intelligenza artificiale', area: 'L’IA nei diversi ambiti DigComp 3.0', time: '22–28 min',
+      intro: 'DigComp 3.0 include l’IA tra le competenze digitali. Non chiede di usarla in ogni materia: chiede di capire quando serve, controllare i risultati e sapere quando è meglio non usarla.',
+      objectives: ['Capire che cosa può fare l’IA e dove può sbagliare', 'Controllare quello che produce', 'Decidere quando usarla e quando no'],
       sections: [
-        ['Un sistema probabilistico, non un oracolo', 'L’IA generativa produce risposte plausibili da regolarità apprese nei dati: può inventare fatti, citazioni o collegamenti. I risultati dipendono da dati, progetto, contesto e richiesta; fluidità e sicurezza del tono non dimostrano accuratezza.', ['Distingui generazione, ricerca e decisione.', 'Chiedi evidenze verificabili.', 'Non attribuire intenzioni umane al sistema.']],
-        ['Prompt, confronto e verifica', 'Una buona richiesta specifica obiettivo, contesto, destinatario, vincoli e formato. Lavora per iterazioni: ottieni una bozza, individua lacune, chiedi alternative e confronta con fonti indipendenti. Per compiti importanti stabilisci prima i criteri.', ['Non inserire dati personali o riservati.', 'Controlla fatti, calcoli, citazioni e omissioni.', 'Conserva il tuo ragionamento, non solo l’output.']],
-        ['Agency e responsabilità', 'L’IA può sostenere ideazione, spiegazione, traduzione e revisione, ma non deve sostituire il giudizio. Considera bias, persone penalizzate, diritto d’autore e accessibilità. Dichiara l’uso e assicurati di poter spiegare il prodotto finale.', ['Decidi prima quali fasi delegare.', 'Mantieni una fase personale senza IA.', 'Rivedi, modifica e attribuisci responsabilmente.']]
+        ['L’IA può sbagliare', 'L’IA può scrivere una risposta convincente anche quando contiene errori o informazioni inventate. Non fidarti solo perché il testo sembra sicuro: controlla i fatti.', ['Controlla i nomi e le date.', 'Verifica le informazioni su altre fonti.', 'Ricorda: l’IA può sbagliare.']],
+        ['Fai una richiesta chiara e controlla la risposta', 'Spiega all’IA che cosa ti serve e per chi. Non inserire dati personali. Poi rileggi la risposta e confrontala con fonti affidabili.', ['Spiega che cosa vuoi ottenere.', 'Non scrivere dati personali.', 'Controlla la risposta prima di usarla.']],
+        ['Decidi se usarla', 'L’IA può aiutare a preparare una bozza o a trovare idee, ma la decisione resta tua. In alcune attività può essere utile; in altre, come eseguire uno strumento musicale, non serve. Se la usi, dillo e controlla il risultato.', ['Scegli se l’IA è utile per il compito.', 'Non lasciare che decida al posto tuo.', 'Spiega se l’hai usata.']]
       ],
-      steps: [['Intenzione', 'Decidi perché l’IA serve.'], ['Istruzione', 'Dai contesto, vincoli e formato.'], ['Verifica', 'Controlla fatti, bias e omissioni.'], ['Responsabilità', 'Rielabora, dichiara e mantieni il controllo.']],
-      studentExample: 'Scrivi prima una risposta con le tue idee. Chiedi poi all’IA una proposta alternativa, verifica due affermazioni e annota che cosa hai accettato, corretto o rifiutato.',
-      teacherExample: 'Progetta un compito con tre evidenze: fase personale, confronto dichiarato con l’IA e difesa orale delle revisioni. Valuta il processo, non solo l’eleganza dell’output.',
-      studentActivity: 'Prepara una prima versione, confrontala con un output IA, marca conferme/errori/aggiunte e scrivi una nota di trasparenza.',
-      teacherActivity: 'Definisci per una consegna reale: uso consentito, uso vietato, evidenze richieste, criteri di verifica e prova della padronanza personale.',
-      checklist: ['So perché uso l’IA', 'Non inserisco dati riservati', 'Verifico fatti e fonti', 'Cerco bias e assenze', 'Dichiaro l’uso e rispondo del risultato'],
-      q: [['DigComp 3.0 tratta l’IA…', ['solo nell’area problemi', 'trasversalmente nelle 21 competenze', 'come sostituto del giudizio'], 1], ['Un output convincente…', ['può comunque essere errato', 'è automaticamente verificato', 'è sempre una fonte'], 0], ['Un buon prompt include…', ['obiettivo, contesto, vincoli e formato', 'soltanto una parola', 'dati personali non necessari'], 0], ['Mantenere agency significa…', ['comprendere, scegliere e restare responsabili', 'delegare ogni decisione', 'nascondere l’uso dell’IA'], 0]]
+      steps: [['Decidi', 'L’IA serve per questo compito?'], ['Chiedi', 'Spiega che cosa ti serve.'], ['Controlla', 'Verifica la risposta.'], ['Scegli', 'Usa, correggi o scarta il risultato.']],
+      studentExample: 'Scrivi prima la tua risposta. Se è utile, chiedi all’IA un’altra idea. Controlla le informazioni e decidi che cosa tenere o correggere.',
+      teacherExample: 'Se una funzione IA di Adobe è utile per preparare un’immagine o un materiale, controlla il risultato e i diritti d’uso. Per una lezione di strumento musicale, puoi scegliere di non usare l’IA: l’obiettivo è la pratica musicale.',
+      studentActivity: 'Scrivi una prima risposta con parole tue. Confrontala con una risposta dell’IA e segna che cosa è corretto, sbagliato o nuovo. Spiega che cosa hai cambiato.',
+      teacherActivity: 'Per una consegna, scrivi quando gli alunni possono usare l’IA e quando no. Spiega che cosa dovranno controllare e come mostreranno di aver capito.',
+      checklist: ['So perché uso o non uso l’IA', 'Non inserisco dati personali', 'Controllo le risposte', 'Uso fonti affidabili', 'Spiego se ho usato l’IA'],
+      q: [['Nel corso DigComp, dove si parla di IA?', ['Solo nel capitolo sui problemi', 'In tutti gli argomenti', 'Come sostituto delle decisioni umane'], 1], ['Una risposta dell’IA che sembra sicura…', ['Può essere sbagliata', 'È già stata verificata', 'È sempre una fonte'], 0], ['Che cosa aiuta l’IA a capire la richiesta?', ['Spiegare che cosa voglio e dare dettagli utili', 'Scrivere una sola parola', 'Aggiungere dati personali'], 0], ['Chi è responsabile della risposta usata?', ['La persona che la controlla e la sceglie', 'Sempre l’IA', 'Nessuno'], 0]]
     }
   ];
 
@@ -334,7 +334,7 @@
       });
       if (teacherTestAnswers.every(value=>value!==null)) {
         const correct=teacherTestAnswers.reduce((sum,value,index)=>sum+(value===teacherQuestions[index][2]?1:0),0);
-        teacherTestResult={correct,status:correct<21?'fail':correct<26?'pass':'advanced',message:correct<21?'Non ancora sufficiente: la soglia è 21/30.':'Verifica superata.'};
+        teacherTestResult={correct,status:'complete',message:'Ripasso finale completato.'};
       }
       trainingDeclared = saved.trainingDeclared === true;
       courseLabNotes = lessons.map((_,index) => typeof saved.courseLabNotes?.[index] === 'string' ? saved.courseLabNotes[index] : '');
@@ -388,8 +388,8 @@
   function renderDig() {
     const grid = profiles[role];
     document.getElementById('digTitle').textContent = role === 'docente' ? 'DigComp per il docente' : 'La tua bussola DigComp';
-    document.getElementById('digLead').textContent = role === 'docente' ? 'Quindici indicatori per rileggere progettazione, collaborazione, contenuti, tutela e scelte tecnologiche.' : 'Quindici indicatori per rileggere come cerchi, collabori, crei, ti proteggi e risolvi problemi.';
-    document.getElementById('digGrid').innerHTML = grid.map((area, areaIndex) => `<article class="dig-card"><h3>${areaIndex + 1}. ${area[0]}</h3>${area[1].map((indicator, indicatorIndex) => { const key = `${areaIndex}-${indicatorIndex}`; return `<div class="dig-indicator"><p>${indicator}</p><div class="level">${levels.map((label, levelIndex) => `<label><input type="radio" name="dig-${role}-${key}" value="${levelIndex}" ${answers[role][key] === levelIndex ? 'checked' : ''}><span>${label}</span></label>`).join('')}</div></div>`; }).join('')}</article>`).join('');
+    document.getElementById('digLead').textContent = role === 'docente' ? 'Quindici frasi sulle tue attività. Scegli il livello che ti descrive. Se una frase non riguarda la tua materia, scegli “Non applicabile”.' : 'Quindici frasi per riflettere su come cerchi, collabori, crei e usi il digitale.';
+    document.getElementById('digGrid').innerHTML = grid.map((area, areaIndex) => `<article class="dig-card"><h3>${areaIndex + 1}. ${area[0]}</h3>${area[1].map((indicator, indicatorIndex) => { const key = `${areaIndex}-${indicatorIndex}`; const choices=role==='docente'?[...levels,'Non applicabile']:levels; return `<div class="dig-indicator"><p>${indicator}</p><div class="level">${choices.map((label, levelIndex) => `<label><input type="radio" name="dig-${role}-${key}" value="${levelIndex}" ${answers[role][key] === levelIndex ? 'checked' : ''}><span>${label}</span></label>`).join('')}</div></div>`; }).join('')}</article>`).join('');
   }
 
   function renderCourse() {
@@ -397,7 +397,7 @@
     document.getElementById('glossary').innerHTML = glossary.map(item => `<div class="term"><b>${item[0]}</b>${item[1]}</div>`).join('');
     document.getElementById('advancedGlossaryGroups').innerHTML = advancedGlossary.map(group => `<section class="advanced-glossary-group"><div class="advanced-glossary-group-head"><h4>${group.title}</h4><p>${group.description}</p></div><div class="advanced-terms">${group.terms.map(item => `<div class="advanced-term"><b>${item[0]}</b><span>${item[1]}</span></div>`).join('')}</div></section>`).join('');
     renderLesson(currentModule, false);
-    if (role === 'docente') document.querySelectorAll('.module-btn small').forEach((node,index) => { if (!completedModules[index]) node.textContent=`${index<6?19:18} min previsti · con laboratorio`; });
+    if (role === 'docente') document.querySelectorAll('.module-btn small').forEach((node,index) => { if (!completedModules[index]) node.textContent=`${index<5?21:20} min previsti · con laboratorio`; });
     renderTeacherTest();
   }
 
@@ -406,46 +406,65 @@
     if (!section) return;
     section.hidden = role !== 'docente';
     if (role !== 'docente') return;
-    const passed = teacherTestResult?.correct >= 21;
     const authenticated = Boolean(window.StradivariTeacherAuth?.verified);
     const missing = trainingMissing();
     if (missing.length) trainingDeclared = false;
     const declaration = !missing.length ? `<label class="teach-options"><input type="checkbox" id="trainingDeclaration" ${trainingDeclared ? 'checked' : ''}><span>Dichiaro di aver svolto personalmente il percorso complessivo previsto di 4 ore, incluse letture ed esercitazioni. La durata non è misurata automaticamente.</span></label>` : '';
     const certificate = missing.length ? `<div class="teacher-certificate-login"><strong>Completa il percorso di autoformazione</strong><p>Prima dell’attestato: ${missing.join(' · ')}.</p><p>Il report PDF dei risultati parziali resta disponibile. Per le 4 ore il riconoscimento è subordinato alla validazione dell’Istituto.</p></div>` : (authenticated
-      ? `<div class="teacher-certificate-ready"><div><span>Attestazione disponibile</span><strong>Corso di aggiornamento DigComp 3.0 · 4 ore</strong><p>Il PDF riporterà intestazione dell’Istituto, identità del docente, data, durata ed esito della verifica.</p></div><button class="btn teacher-certificate-btn" id="teacherCertificatePdf" type="button">Crea attestato PDF</button></div>`
+      ? `<div class="teacher-certificate-ready"><div><span>Attestazione disponibile</span><strong>Corso di aggiornamento DigComp 3.0 · 4 ore</strong><p>Il PDF riporterà intestazione dell’Istituto, identità del docente, data e partecipazione dichiarata al percorso di 4 ore. Dopo averlo creato, scaricalo e allegalo al modulo di Formazione interna.</p></div><button class="btn teacher-certificate-btn" id="teacherCertificatePdf" type="button">Crea attestato PDF</button></div>`
       : `<div class="teacher-certificate-login"><strong>Percorso completato.</strong><p>Per creare l’attestazione nominale accedi con l’account istituzionale autorizzato. Gli esterni possono conservare il report PDF; il corso resta aperto.</p></div>`);
-    const result = `${teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>${teacherTestResult.correct}/30 risposte esatte</strong><span>${teacherTestResult.message}</span><small>${teacherTestResult.status === 'fail' ? 'Rileggi i capitoli indicati e riprova.' : 'Esito salvato in questo browser.'}</small></div>` : ''}${declaration}${certificate}`;
-    document.getElementById('teacherTestContent').innerHTML = `<div class="teacher-test-meta"><span>0–20: insufficiente</span><span>21–25: superato</span><span>26–30: avanzato</span><b>${teacherTestAnswers.filter(answer => answer !== null).length}/30 risposte</b></div>${teacherQuestions.map((question, index) => `<article class="teacher-question"><div><span>${String(index + 1).padStart(2, '0')}</span><small>${question[3]}</small></div><p>${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="teacher-test-${index}" value="${optionIndex}" ${teacherTestAnswers[index] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}</article>`).join('')}<div class="teacher-test-actions"><button class="btn" id="teacherTestSubmit" type="button">Calcola il risultato</button><button class="btn secondary" id="teacherTestReset" type="button">Ricomincia</button></div>${result}`;
+    const result = `${teacherTestResult ? `<div class="teacher-test-result ${teacherTestResult.status}"><strong>Ripasso completato</strong><span>${teacherTestResult.message}</span><small>Le risposte restano salvate in questo browser.</small></div>` : ''}${declaration}${certificate.replace('Crea attestato PDF', 'Crea e archivia attestazione PDF')}`;
+    document.getElementById('teacherTestContent').innerHTML = `<div class="teacher-test-meta"><span>Domande per ripassare i contenuti, senza voto.</span><b>${teacherTestAnswers.filter(answer => answer !== null).length}/30 risposte</b></div>${teacherQuestions.map((question, index) => `<article class="teacher-question"><div><span>${String(index + 1).padStart(2, '0')}</span><small>${question[3]}</small></div><p>${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="teacher-test-${index}" value="${optionIndex}" ${teacherTestAnswers[index] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}</article>`).join('')}<div class="teacher-test-actions"><button class="btn" id="teacherTestSubmit" type="button">Completa il ripasso</button><button class="btn secondary" id="teacherTestReset" type="button">Ricomincia</button></div>${result}`;
   }
 
-  function generateTeacherCertificate() {
+  async function generateTeacherCertificate() {
     const auth = window.StradivariTeacherAuth;
-    if (trainingMissing().length || !trainingDeclared) { alert('Completa il metodo di insegnamento, il check iniziale DigComp, gli otto capitoli e la verifica finale dopo il corso; conferma poi lo svolgimento delle attività previste.'); return; }
-    if (!teacherTestResult || teacherTestResult.correct < 21) { alert('Per creare l’attestazione devi superare la verifica con almeno 21 risposte corrette.'); return; }
+    if (trainingMissing().length || !trainingDeclared) { alert('Completa il metodo di insegnamento, gli otto capitoli e le domande di ripasso; conferma poi lo svolgimento delle attività previste.'); return; }
+    if (!teacherTestResult) { alert('Completa le domande di ripasso prima di creare l’attestazione.'); return; }
     if (!auth?.verified || !auth.user) { alert('Accedi con l’account istituzionale docente per creare l’attestazione nominale.'); return; }
     const user = auth.user;
     const teacherName = user.nome || user.name || user.email;
     const teacherEmail = user.email || '';
     const generated = new Date().toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric' });
-    const level = teacherTestResult.correct >= 26 ? 'avanzato' : 'superato';
     const report = document.getElementById('pdfReport');
-    report.innerHTML = `<article class="pdf-page certificate-page"><header class="certificate-header"><div class="certificate-school">Istituto di Istruzione Superiore “Antonio Stradivari”</div><div class="certificate-city">Cremona</div></header><main><div class="pdf-eyebrow">Formazione interna del personale docente</div><h1>Attestazione di completamento</h1><p class="certificate-subtitle">Corso di aggiornamento interno<br><strong>DigComp 3.0</strong></p><p class="certificate-declaration">Si attesta che</p><h2 class="certificate-name">${escapeHtml(teacherName)}</h2>${teacherEmail ? `<p class="certificate-email">${escapeHtml(teacherEmail)}</p>` : ''}<p class="certificate-copy">ha svolto il percorso autonomo di formazione e aggiornamento dedicato al quadro europeo delle competenze digitali <strong>DigComp 3.0</strong>, comprensivo di contenuti, casi guidati, laboratori, verifiche formative e verifica finale.</p><div class="certificate-facts"><div><span>Durata del percorso</span><strong>4 ore</strong></div><div><span>Verifica finale</span><strong>${teacherTestResult.correct}/30</strong><small>Soglia: 21/30</small></div><div><span>Esito</span><strong>${escapeHtml(level)}</strong></div><div><span>Data</span><strong>${escapeHtml(generated)}</strong></div></div><section class="certificate-areas"><h3>Ambiti del percorso</h3><p>Informazione e dati · comunicazione e collaborazione · creazione di contenuti · sicurezza e benessere · risoluzione di problemi · uso critico e responsabile dell’intelligenza artificiale.</p></section><p class="certificate-framework">Percorso riconducibile alla formazione in servizio obbligatoria, permanente e strutturale nell’ambito del piano triennale dell’Istituto, previa registrazione e validazione amministrativa.</p><section class="certificate-validation"><div><strong>Documento da inserire nel portale Formazione interna</strong><span>L’efficacia amministrativa è subordinata alla registrazione e alla validazione dell’Istituto.</span></div><div class="certificate-signature"><span>Spazio riservato alla validazione</span></div></section></main><footer>Documento generato dal portale “Didattica e metodi” · didattica.stradilab.org</footer></article>`;
+    report.innerHTML = `<article class="pdf-page certificate-page"><header class="certificate-header"><div class="certificate-school">Istituto di Istruzione Superiore “Antonio Stradivari”</div><div class="certificate-city">Cremona</div></header><main><div class="pdf-eyebrow">Formazione interna del personale docente</div><h1>Attestazione di partecipazione</h1><p class="certificate-subtitle">Corso di aggiornamento interno<br><strong>DigComp 3.0</strong></p><p class="certificate-declaration">Si attesta che</p><h2 class="certificate-name">${escapeHtml(teacherName)}</h2>${teacherEmail ? `<p class="certificate-email">${escapeHtml(teacherEmail)}</p>` : ''}<p class="certificate-copy">ha svolto il percorso autonomo di formazione e aggiornamento dedicato al quadro europeo delle competenze digitali <strong>DigComp 3.0</strong>, comprensivo di contenuti, casi guidati, laboratori e domande di ripasso.</p><div class="certificate-facts"><div><span>Durata del percorso</span><strong>4 ore</strong></div><div><span>Partecipazione</span><strong>Percorso dichiarato</strong></div><div><span>Data</span><strong>${escapeHtml(generated)}</strong></div></div><section class="certificate-areas"><h3>Ambiti del percorso</h3><p>Informazione e dati · comunicazione e collaborazione · creazione di contenuti · sicurezza e benessere · risoluzione di problemi · uso critico e responsabile dell’intelligenza artificiale.</p></section><p class="certificate-framework">Percorso riconducibile alla formazione in servizio obbligatoria, permanente e strutturale nell’ambito del piano triennale dell’Istituto, previa registrazione e validazione amministrativa.</p><section class="certificate-validation"><div><strong>Documento da inserire nel portale Formazione interna</strong><span>L’efficacia amministrativa è subordinata alla registrazione e alla validazione dell’Istituto.</span></div><div class="certificate-signature"><span>Spazio riservato alla validazione</span></div></section></main><footer>Documento generato dal portale “Didattica e metodi” · didattica.stradilab.org</footer></article>`;
     report.setAttribute('aria-hidden', 'false');
-    report.querySelector('h1').textContent = 'Attestazione di autoformazione';
+    report.querySelector('h1').textContent = 'Attestazione di partecipazione al corso';
+    report.querySelector('.certificate-facts').insertAdjacentHTML('beforeend', '<div><span>Anno scolastico</span><strong>2026/27</strong></div>');
     report.querySelector('.certificate-subtitle').innerHTML = 'Metodo di insegnamento e competenze digitali<br><strong>DigComp 3.0</strong>';
-    report.querySelector('.certificate-copy').innerHTML = 'ha dichiarato di aver svolto il percorso autonomo di autoformazione <strong>Metodo di insegnamento e DigComp 3.0</strong>: autocheck delle pratiche e progettazione di una lezione; check iniziale DigComp su 15 indicatori; otto capitoli con evidenze dei laboratori; verifica finale di 30 domande dopo il corso. Completamenti ed evidenze sono registrati localmente nel browser, non verificati da un tutor.';
+    report.querySelector('.certificate-copy').innerHTML = 'ha dichiarato di aver svolto il percorso autonomo di autoformazione <strong>Metodo di insegnamento e DigComp 3.0</strong>: riflessione su una lezione e progettazione di un’attività; otto capitoli con evidenze dei laboratori; domande di ripasso dopo il corso. Completamenti ed evidenze sono registrati localmente nel browser, non verificati da un tutor.';
     report.querySelector('.certificate-areas p').textContent += ' Progettazione didattica, metacognizione, feedback formativo, inclusione e pratica riflessiva, orientati da DigCompEdu.';
-    report.insertAdjacentHTML('beforeend', `<article class="pdf-page"><h1>Portfolio di autoformazione</h1><p>Articolazione prevista: metodo di insegnamento 60 minuti; check iniziale DigComp su 15 indicatori prima del corso; corso e laboratori DigComp 150 minuti; verifica finale di 30 domande dopo il corso. I due controlli rientrano nei 30 minuti complessivi previsti. Svolgimento dichiarato dal docente, non cronometrato dal portale.</p>${window.StradivariTeacherPortfolio?.html() || ''}<h2>Check iniziale DigComp</h2><p>${escapeHtml(lastResult?.level)} · media ${escapeHtml(lastResult?.average)}/3</p><h2>Capitoli completati</h2>${courseResults().modules.map(module=>`<p>${module.number}. ${escapeHtml(module.title)} · ${module.correct}/${module.total}</p>`).join('')}<h2>Verifica finale</h2><p>${teacherTestResult ? `${teacherTestResult.correct}/30 · ${escapeHtml(teacherTestResult.message)}` : 'Verifica finale non completata.'}</p></article>`);
-    report.lastElementChild.insertAdjacentHTML('beforeend', `<section><h2>Evidenze dei laboratori DigComp</h2>${courseLabNotes.map((note,index)=>`<h3>${index+1}. ${escapeHtml(lessons[index].title)}</h3><p>${escapeHtml(note)}</p>`).join('')}</section><p>Fonti del metodo: Commissione europea – JRC, DigCompEdu; EEF, Using Digital Technology to Improve Learning (2019), Metacognition and Self-Regulated Learning (2025), Teacher Feedback to Improve Pupil Learning (2021); UNESCO, Guidance for Generative AI in Education and Research (2023). Collegamenti nel percorso online.</p>`);
-    window.print();
-    window.setTimeout(() => report.setAttribute('aria-hidden', 'true'), 1000);
+    const button = document.getElementById('teacherCertificatePdf');
+    const card = document.querySelector('.teacher-certificate-ready');
+    let status = document.getElementById('certificateArchiveStatus');
+    if (!status && card) { status = document.createElement('p'); status.id = 'certificateArchiveStatus'; status.setAttribute('role', 'status'); card.appendChild(status); }
+    if (button) button.disabled = true;
+    if (status) status.textContent = 'Creazione e archiviazione dell’attestazione di autoformazione…';
+    try {
+      const {module: currentChapter, title: currentTitle, ...course} = courseResults();
+      const snapshot = {schoolYear: '2026/27', name: teacherName, course, finalTest: {completed: Boolean(teacherTestResult)},
+        method: window.StradivariTeaching?.getResults?.(), declaration: trainingDeclared, completedAt: courseCompletedAt};
+      const archive = await window.StradilabCertificateArchive.archive(snapshot,
+        () => window.StradilabCertificateArchive.pdfBytes(report));
+      if (status) status.textContent = 'Attestazione salvata nell’Archivio generale 2026/27, in Formazione e attestati → Corso DigComp 3.0. Scarica il PDF qui sotto e allegalo al modulo di Formazione interna per registrare le 4 ore.';
+      let download = document.getElementById('downloadArchivedCertificate');
+      if (!download && card) { download = document.createElement('button'); download.id = 'downloadArchivedCertificate'; download.className = 'btn'; download.type = 'button'; card.appendChild(download); }
+      if (download) {
+        download.textContent = 'Scarica attestazione archiviata';
+        download.onclick = async () => {
+          try { await window.StradilabCertificateArchive.download(archive.key); }
+          catch (error) { if (status) status.textContent = error.message; }
+        };
+      }
+    } catch (error) { if (status) status.textContent = error.message; }
+    finally { if (button) button.disabled = false; report.setAttribute('aria-hidden', 'true'); }
   }
 
   function evaluateTeacherTest() {
-    if (teacherTestAnswers.some(answer => answer === null)) { alert('Completa tutte le 30 domande prima di calcolare il risultato.'); return; }
+    if (teacherTestAnswers.some(answer => answer === null)) { alert('Rispondi a tutte le 30 domande per completare il ripasso.'); return; }
     const correct = teacherTestAnswers.reduce((total, answer, index) => total + (answer === teacherQuestions[index][2] ? 1 : 0), 0);
-    const status = correct < 21 ? 'fail' : correct < 26 ? 'pass' : 'advanced';
-    const message = status === 'fail' ? 'Non ancora sufficiente: la soglia è 21/30.' : status === 'pass' ? 'Verifica superata: hai raggiunto la soglia di 21/30.' : 'Verifica superata con esito avanzato.';
+    const status = 'complete';
+    const message = 'Ripasso finale completato. Puoi rileggere i capitoli e cambiare le risposte quando vuoi.';
     teacherTestResult = { correct, status, message };
     saveProgress();
     renderTeacherTest();
@@ -475,14 +494,14 @@
         <div class="lesson-body">${lesson.sections.map((section, sectionIndex) => `<section class="lesson-section" id="lesson-${currentModule}-${sectionIndex}"><div class="section-number">0${sectionIndex + 1}</div><div><h4>${section[0]}</h4><p>${section[1]}</p><ul>${section[2].map(item => `<li>${item}</li>`).join('')}</ul></div></section>`).join('')}</div>
         <section class="infographic"><div class="infographic-head"><div class="kicker">Sintesi infografica</div><h4>Il metodo in quattro mosse</h4></div><div class="infographic-flow">${lesson.steps.map((step, stepIndex) => `<div class="infographic-step"><span>${stepIndex + 1}</span><b>${step[0]}</b><small>${step[1]}</small></div>`).join('')}</div></section>
         <section class="role-example"><div class="role-example-label">Caso guidato · prospettiva ${isTeacher ? 'docente' : 'alunno'}</div><h4>${isTeacher ? 'Portalo nella progettazione' : 'Provalo su un compito vero'}</h4><p>${isTeacher ? lesson.teacherExample : lesson.studentExample}</p></section>
-        <section class="activity lesson-lab"><div><div class="kicker">Laboratorio · in autonomia</div><h4>${isTeacher ? 'Esercitazione per il docente' : 'Esercitazione per l’alunno'}</h4></div><p>${isTeacher ? lesson.teacherActivity : lesson.studentActivity}</p><div class="lab-output"><b>Prodotto atteso</b> Una breve evidenza del processo: decisioni, controlli eseguiti, risultato e un possibile miglioramento.</div><div class="self-guided-note"><b>Controllo finale</b> Prima di passare oltre, rileggi il prodotto, confrontalo con i criteri del capitolo e annota una cosa riuscita e una da migliorare.</div></section>
+        <section class="activity lesson-lab"><div><div class="kicker">Laboratorio · in autonomia</div><h4>${isTeacher ? 'Domani in classe' : 'Prova con un compito'}</h4></div><p>${isTeacher ? lesson.teacherActivity : lesson.studentActivity}</p><div class="lab-output"><b>Annota</b> Che cosa hai provato? Che cosa è successo? Che cosa cambieresti?</div><div class="self-guided-note"><b>Prima di continuare</b> Rileggi la risposta e aggiungi un’idea da provare la prossima volta.</div></section>
         <section class="takeaway"><div><div class="kicker">Prima di proseguire</div><h4>Checklist del capitolo</h4></div><div class="takeaway-grid">${lesson.checklist.map(item => `<label><input type="checkbox"><span>${item}</span></label>`).join('')}</div></section>
         <section class="quiz"><div class="quiz-heading"><div><div class="kicker">Verifica formativa</div><h4>Quattro domande per controllarti</h4></div><span>Le risposte sono incluse nel risultato finale del corso.</span></div>${lesson.q.map((question, questionIndex) => `<div class="quiz-question"><p>${questionIndex + 1}. ${question[0]}</p>${question[1].map((option, optionIndex) => `<label><input type="radio" name="course-${currentModule}-${questionIndex}" value="${optionIndex}" ${courseAnswers[currentModule][questionIndex] === optionIndex ? 'checked' : ''}><span>${option}</span></label>`).join('')}<button class="btn secondary" data-check-course="${currentModule}-${questionIndex}">Verifica risposta</button><div class="quiz-feedback" id="course-feedback-${currentModule}-${questionIndex}" aria-live="polite"></div></div>`).join('')}</section>
         <p class="source-note">Adattamento didattico a cura di StradiLab, basato sul <a href="https://joint-research-centre.ec.europa.eu/scientific-activities/key-competences-lifelong-learning/digital-competence-framework-digcomp/digcomp-30_en" target="_blank" rel="noopener">quadro ufficiale DigComp 3.0</a>, Commissione europea – JRC (2025). Contenuti sintetizzati e contestualizzati per la scuola; la Commissione europea non è responsabile dell’adattamento.</p>
         ${completionAction}<nav class="lesson-nav" aria-label="Navigazione tra i capitoli"><button class="btn secondary" data-course-nav="${currentModule - 1}" ${currentModule === 0 ? 'disabled' : ''}>← Capitolo precedente</button><span>${currentModule + 1} / ${lessons.length}</span><button class="btn" data-course-nav="${currentModule + 1}" ${currentModule === lessons.length - 1 ? 'disabled' : ''}>Capitolo successivo →</button></nav>
       </article>`;
     if (isTeacher) {
-      document.querySelector('#lesson .lesson-cover .kicker').textContent = `Capitolo ${currentModule+1} di ${lessons.length} · ${currentModule<6?19:18} min previsti con laboratorio`;
+      document.querySelector('#lesson .lesson-cover .kicker').textContent = `Capitolo ${currentModule+1} di ${lessons.length} · ${currentModule<5?21:20} min previsti con laboratorio`;
       document.querySelector('#lesson .lesson-lab').insertAdjacentHTML('beforeend', `<label class="teach-field">Evidenza del laboratorio (obbligatoria per il percorso docente)<small>Annota decisioni, prodotto realizzato, controllo e miglioramento (almeno 40 caratteri). Non inserire dati personali degli alunni.</small><textarea data-course-lab="${currentModule}" maxlength="5000">${escapeHtml(courseLabNotes[currentModule])}</textarea></label>`);
     }
     if (updateHash) history.replaceState(null, '', `#corso-${currentModule + 1}`);
@@ -499,16 +518,19 @@
   });
   document.getElementById('digDone').addEventListener('click', () => {
     const values = Object.values(answers[role]);
-    if (values.length < 15) { alert('Completa tutti i quindici indicatori DigComp del profilo scelto.'); return; }
-    const average = values.reduce((a, b) => a + b, 0) / values.length;
+    if (values.length < 15) { alert('Scegli una risposta per ciascuna delle 15 frasi.'); return; }
+    const ratedValues=values.filter(value=>Number.isInteger(value)&&value>=0&&value<=3);
+    if (!ratedValues.length) { alert('Scegli almeno una risposta diversa da “Non applicabile” per calcolare il risultato.'); return; }
+    const average = ratedValues.reduce((a, b) => a + b, 0) / ratedValues.length;
     const names = ['Da costruire', 'Con guida', 'In autonomia', 'So guidare altri'];
     const areas = profiles[role].map((area, areaIndex) => {
       const values = area[1].map((_, indicatorIndex) => answers[role][`${areaIndex}-${indicatorIndex}`]);
-      return { name: area[0], average: (values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(1) };
+      const rated=values.filter(value=>Number.isInteger(value)&&value>=0&&value<=3);
+      return { name: area[0], average: rated.length ? (rated.reduce((sum, value) => sum + value, 0) / rated.length).toFixed(1) : null };
     });
     lastResult = { role, level: names[Math.round(average)], average: average.toFixed(1), areas, completed: true };
     const result = document.getElementById('digResult');
-    result.innerHTML = `<strong>Livello prevalente: ${names[Math.round(average)]}</strong><br>Media ${average.toFixed(1)}/3 sul profilo ${role}. Il risultato serve per scegliere il prossimo modulo da allenare.`;
+    result.innerHTML = `<strong>Il tuo risultato: ${names[Math.round(average)]}</strong><br>Media ${average.toFixed(1)}/3. Le risposte “Non applicabile” non sono conteggiate. Usa il risultato per scegliere quale argomento riprendere.`;
     result.classList.add('show');
     saveProgress();
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
@@ -563,9 +585,9 @@
     const [moduleIndex, questionIndex] = button.dataset.checkCourse.split('-').map(Number);
     const checked = document.querySelector(`input[name="course-${moduleIndex}-${questionIndex}"]:checked`);
     const feedback = document.getElementById(`course-feedback-${moduleIndex}-${questionIndex}`);
-    if (!checked) { feedback.textContent = 'Scegli una risposta prima di verificare.'; feedback.dataset.state = 'error'; return; }
+    if (!checked) { feedback.textContent = 'Scegli una risposta e poi controlla.'; feedback.dataset.state = 'error'; return; }
     const correct = Number(checked.value) === lessons[moduleIndex].q[questionIndex][2];
-    feedback.textContent = correct ? 'Corretto: il criterio è applicato bene.' : 'Riprova: rileggi il nucleo del capitolo e cerca la scelta più verificabile e responsabile.';
+    feedback.textContent = correct ? 'Giusto.' : 'Non è la risposta giusta. Rileggi il capitolo e riprova.';
     feedback.dataset.state = correct ? 'correct' : 'error';
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
@@ -599,7 +621,7 @@
   });
   document.addEventListener('teacherlogin', renderTeacherTest);
   function trainingMissing() {
-    return [!window.StradivariTeaching?.getResults().completed && 'metodo di insegnamento', !(lastResult?.completed && lastResult.role === 'docente') && 'check iniziale DigComp docente (15 indicatori)', !courseResults().completed && 'otto capitoli del corso', !(teacherTestResult?.correct >= 21) && 'verifica finale dopo il corso (almeno 21/30)'].filter(Boolean);
+    return [!window.StradivariTeaching?.getResults().completed && 'metodo di insegnamento', !courseResults().completed && 'otto capitoli del corso', !teacherTestResult && 'domande di ripasso dopo il corso'].filter(Boolean);
   }
   document.addEventListener('stradivari-progress', () => { if(role==='docente') renderTeacherTest(); });
 

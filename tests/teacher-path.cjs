@@ -2,20 +2,42 @@ const assert = require('node:assert/strict');
 const {execFileSync} = require('node:child_process');
 const fs = require('node:fs');
 const vm = require('node:vm');
+const http = require('node:http');
+const path = require('node:path');
 const {chromium} = require('/Users/claudionuzzo/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const source=fs.readFileSync('autovalutazione-app/digcomp-course.js','utf8');
 const lessons=vm.runInNewContext(source.slice(source.indexOf('const lessons ='),source.indexOf('const teacherQuestions ='))+'\nlessons');
 const teacherQuestions=vm.runInNewContext(source.slice(source.indexOf('const teacherQuestions ='),source.indexOf('const glossary ='))+'\nteacherQuestions');
 assert.equal(teacherQuestions.length,30);
 (async()=>{
+  const root=path.resolve('autovalutazione-app');
+  const server=http.createServer((request,response)=>{
+    const name=decodeURIComponent(new URL(request.url,'http://127.0.0.1').pathname);
+    const file=path.resolve(root,'.'+(name==='/'?'/index.html':name));
+    if(!file.startsWith(root+path.sep)) {response.writeHead(404);response.end();return;}
+    try{response.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.html')?'text/html':'application/octet-stream');response.end(fs.readFileSync(file));}
+    catch{response.writeHead(404);response.end();}
+  });
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+  const origin='http://127.0.0.1:'+server.address().port;
   const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
   try {
     const page=await browser.newPage({viewport:{width:1280,height:900}});
     const errors=[];
     page.on('pageerror',e=>errors.push(e.message));
     page.on('dialog',dialog=>dialog.dismiss());
-    await page.route('https://accounts.google.com/**',route=>route.abort());
-    await page.goto('http://127.0.0.1:8765');
+    await page.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1'?route.continue():route.abort());
+    const uploads=[];
+    await page.route('**/api/archive/**',route=>{
+      if(route.request().method()==='POST'){
+        uploads.push(route.request().postDataJSON());
+        assert.equal(route.request().headers().authorization,'Bearer synthetic-id-token');
+        return route.fulfill({status:uploads.length===1?503:200,contentType:'application/json',body:JSON.stringify(uploads.length===1?{ok:false}:{ok:true,id:19})});
+      }
+      assert.equal(new URL(route.request().url()).pathname,'/api/archive/records/19/file');
+      return route.fulfill({contentType:'application/pdf',body:Buffer.from(uploads[0].base64,'base64')});
+    });
+    await page.goto(origin);
     await page.locator('[data-role="docente"]').click();
     assert.equal(await page.locator('#tab-studio h2').textContent(),'Il mio metodo di insegnamento');
     assert.equal(await page.locator('#studyContent').isVisible(),false);
@@ -66,24 +88,24 @@ assert.equal(teacherQuestions.length,30);
     await page.setViewportSize({width:375,height:812});
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true,'Standalone Reverse AI page has no horizontal overflow on mobile');
     await page.setViewportSize({width:1280,height:900});
-    await page.goto('http://127.0.0.1:8765');
+    await page.goto(origin);
     await page.locator('[data-role="docente"]').click();
     const timeline=await page.locator('.teach-timeline span').allTextContents();
-    assert.equal(timeline.length,4);
-    assert.match(timeline[1],/Check iniziale DigComp.*prima del corso/);
-    assert.match(timeline[2],/Corso DigComp 3\.0/);
-    assert.match(timeline[3],/Verifica finale.*dopo il corso/);
+    assert.equal(timeline.length,3);
+    assert.match(timeline[1],/Corso DigComp 3\.0/);
+    assert.match(timeline[2],/Domande di ripasso.*dopo il corso/);
     const courseLead=await page.locator('#courseLead').textContent();
-    assert.ok(courseLead.indexOf('check iniziale')<courseLead.indexOf('otto capitoli'));
+    assert.ok(courseLead.indexOf('metodo di insegnamento')<courseLead.indexOf('otto capitoli'));
     const courseIntro=await page.locator('.course-intro').textContent();
-    assert.ok(courseIntro.indexOf('check iniziale')<courseIntro.indexOf('otto capitoli'));
-    assert.ok(courseIntro.indexOf('corso; la verifica finale dopo')>=0);
+    assert.ok(courseIntro.indexOf('metodo di insegnamento')<courseIntro.indexOf('otto capitoli'));
+    assert.ok(courseIntro.indexOf('Nessuna griglia di autovalutazione')>=0);
+    assert.equal(await page.locator('[data-tab="digcomp"]').isVisible(),false);
+    assert.equal(await page.locator('[data-tab="ptofo"]').isVisible(),false);
     await page.locator('[data-teach-action="next"]').click();
-    assert.match(await page.locator('#teachError').textContent(),/20 risposte/);
-    for(let i=0;i<5;i++)for(let j=0;j<4;j++)await page.locator(`input[name="teach-${i}-${j}"][value="${i%4}"]`).check();
+    assert.match(await page.locator('#teachError').textContent(),/lezione reale/);
     await page.locator('[data-teach-note="evidence"]').fill('Durante una lezione ho raccolto tre risposte anonime e ripreso il concetto più difficile.');
     await page.locator('[data-teach-action="next"]').click();
-    assert.match(await page.locator('.teach-heading').textContent(),/Due priorità/);
+    assert.match(await page.locator('.teach-heading').textContent(),/Scegli due idee/);
     await page.locator('[data-teach-strategy="0"]').check();
     await page.locator('[data-teach-strategy="2"]').check();
     await page.locator('[data-teach-note="priority"]').fill('Rendo espliciti gli obiettivi e uso il feedback per migliorare i prodotti degli alunni.');
@@ -120,29 +142,59 @@ assert.equal(teacherQuestions.length,30);
       await page.locator(`[data-complete-module="${i}"]`).click();
     }
     assert.equal(await page.evaluate(()=>StradivariCourse.getResults().completed),true);
-    for(let i=0;i<30;i++)await page.locator(`input[name="teacher-test-${i}"][value="${teacherQuestions[i][2]}"]`).check();
+    for(let i=0;i<30;i++)await page.locator(`input[name="teacher-test-${i}"][value="${(teacherQuestions[i][2]+1)%teacherQuestions[i][1].length}"]`).check();
     await page.locator('#teacherTestSubmit').click();
     assert.equal(await page.locator('#teacherCertificatePdf').count(),0,'Cannot certify without all blocks and auth');
-    await page.locator('[data-tab="digcomp"]').click();
-    for(let i=0;i<5;i++)for(let j=0;j<3;j++)await page.locator(`input[name="dig-docente-${i}-${j}"][value="2"]`).check();
-    await page.locator('#digDone').click();
-    await page.locator('[data-tab="corso"]').click();
     assert.equal(await page.locator('#trainingDeclaration').count(),1);
     await page.reload();
-    assert.equal(await page.evaluate(()=>StradivariCourse.getResults().teacherTest.correct),30);
+    assert.equal(await page.evaluate(()=>StradivariCourse.getResults().teacherTest.correct),0);
     assert.equal(await page.evaluate(()=>StradivariCourse.getResults().completed),true);
     // Test only: mock auth after guest completion. Never send credentials or access external accounts.
-    await page.evaluate(()=>{window.StradivariTeacherAuth={verified:true,user:{nome:'Docente di prova',email:'test@example.invalid'}};document.dispatchEvent(new CustomEvent('stradivari-progress'));window.print=()=>{window.testPrinted=true;};});
+    const identity=()=>{
+      const user={nome:'Docente sintetico',email:'synthetic.teacher@istitutostradivari.it',isDocente:true};
+      window.StradivariTeacherAuth={verified:true,user};window.StradilabAuth={utente:()=>user,idToken:()=> 'synthetic-id-token'};
+      document.dispatchEvent(new CustomEvent('stradivari-progress'));window.print=()=>{window.testPrinted=true;};
+    };
+    await page.evaluate(identity);
     await page.locator('#teacherCertificatePdf').click();
     assert.equal(await page.evaluate(()=>window.testPrinted===true),false,'Declaration gates certificate');
+    assert.equal(uploads.length,0);
     await page.locator('#trainingDeclaration').check();
     await page.locator('#teacherCertificatePdf').click();
-    assert.match(await page.locator('#pdfReport').textContent(),/Portfolio di autoformazione/);
-    const portfolio=(await page.locator('#pdfReport').textContent()).split('Portfolio di autoformazione').at(-1);
-    assert.ok(portfolio.indexOf('Check iniziale DigComp')<portfolio.indexOf('Capitoli completati'));
-    assert.ok(portfolio.indexOf('Capitoli completati')<portfolio.indexOf('Verifica finale'));
-    assert.equal(await page.evaluate(()=>window.testPrinted),true);
-    await page.pdf({path:'/tmp/stradilab-teacher-certificate.pdf',format:'A4',printBackground:true});
+    await page.waitForFunction(()=>document.getElementById('certificateArchiveStatus')?.textContent.includes('stessa richiesta'));
+    assert.equal(uploads.length,1,'Uncertain upload persisted before retry');
+    await page.reload();await page.evaluate(identity);
+    await page.locator('#teacherCertificatePdf').click();
+    await page.waitForFunction(()=>document.getElementById('certificateArchiveStatus')?.textContent.includes('Attestazione salvata nell’Archivio generale'));
+    assert.equal(uploads.length,2);assert.deepEqual(uploads[0],uploads[1],'Reload retries the exact UUID/fingerprint/year/bytes');
+    assert.match(uploads[0].request_id,/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+    assert.equal(uploads[0].anno_scolastico,'2026/27');assert.equal(uploads[0].tipo,'attestato-digcomp');
+    const stored=await page.evaluate(async()=>{
+      const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('stradilab-digcomp-archive-v1',1);r.onsuccess=()=>resolve(r.result);r.onerror=reject;});
+      const jobs=await new Promise((resolve,reject)=>{const r=db.transaction('jobs').objectStore('jobs').getAll();r.onsuccess=()=>resolve(r.result);r.onerror=reject;});db.close();return jobs;
+    });
+    assert.equal(stored.length,1);assert.equal(stored[0].schoolYear,'2026/27');
+    assert.equal(JSON.parse(stored[0].snapshotJson).schoolYear,'2026/27');assert.equal(stored[0].scope,'self-declared-owner-output');
+    assert.equal(JSON.stringify(stored).includes('synthetic-id-token'),false);assert.deepEqual(stored[0].body,uploads[0]);
+    assert.match(await page.locator('#pdfReport').textContent(),/Attestazione di partecipazione al corso/);
+    assert.doesNotMatch(await page.locator('#pdfReport').textContent(),/Soglia:|\/30|superato|insufficiente/);
+    assert.equal(await page.evaluate(()=>window.testPrinted===true),false,'Archive uses actual PDF bytes, not window.print');
+    fs.writeFileSync('/tmp/stradilab-teacher-certificate.pdf',Buffer.from(uploads[0].base64,'base64'));
+    const {getDocument}=await import('/Users/claudionuzzo/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pdfjs-dist/legacy/build/pdf.mjs');
+    const pdf=await getDocument({data:new Uint8Array(Buffer.from(uploads[0].base64,'base64')),disableFontFace:true}).promise;
+    let text='';for(let i=1;i<=pdf.numPages;i++)text+=(await (await pdf.getPage(i)).getTextContent()).items.map(item=>item.str).join(' ')+'\n';
+    await pdf.destroy();
+    assert.match(text,/Autoformazione dichiarata/);assert.match(text,/non verificati da un tutor/);assert.match(text,/validazione/);
+    assert.doesNotMatch(text,/Soglia:|\/30|superato|insufficiente/);
+    await page.locator('#teacherCertificatePdf').click();
+    await page.waitForFunction(()=>document.getElementById('teacherCertificatePdf')?.disabled===false);
+    assert.equal(uploads.length,2,'Completed job is not uploaded again');
+    const download=page.waitForEvent('download');await page.locator('#downloadArchivedCertificate').click();await download;
+    // A different authenticated teacher cannot read the locally stored owner's job.
+    await page.evaluate(()=>{const other={email:'other.synthetic@istitutostradivari.it',isDocente:true};window.StradilabAuth={utente:()=>other,idToken:()=> 'synthetic-other-token'};window.StradivariTeacherAuth={verified:true,user:other};});
+    await page.locator('#downloadArchivedCertificate').click();
+    await page.waitForFunction(()=>document.getElementById('certificateArchiveStatus')?.textContent.includes('questo account'));
+    await page.evaluate(identity);
     await page.locator('#downloadPdf').click();
     await page.locator('#pdfStudentName').fill('Docente di prova');
     await page.locator('#pdfIdentityForm button:not([value="cancel"])').click();
@@ -150,6 +202,6 @@ assert.equal(teacherQuestions.length,30);
     assert.match(await page.locator('#pdfReport').textContent(),/Evidenze dei laboratori DigComp/);
     await page.pdf({path:'/tmp/stradilab-teacher-portfolio.pdf',format:'A4',printBackground:true});
     assert.deepEqual(errors,[]);
-    console.log('PASS: teacher/student isolation, 20 indicators, validation, priorities, 4 cases, mobile, persistence, 8 labs, DigComp check, final test, certificate gates and PDF portfolio.');
-  } finally { await browser.close(); }
+    console.log('PASS: teacher/student isolation, practical method, 4 cases, mobile, persistence, 8 labs, review questions, participation certificate and PDF archive.');
+  } finally { await browser.close(); await new Promise(resolve=>server.close(resolve)); }
 })().catch(error=>{console.error(error);process.exitCode=1;});

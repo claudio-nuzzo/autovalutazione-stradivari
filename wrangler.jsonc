@@ -1,9 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
   "name": "autovalutazione-stradivari",
+  "main": "worker.js",
   "compatibility_date": "2026-09-11",
   "assets": {
     "directory": "./autovalutazione-app",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/archive/*"],
     "not_found_handling": "single-page-application"
   }
 }
