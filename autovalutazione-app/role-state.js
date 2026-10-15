@@ -14,7 +14,7 @@
       studyLead: 'Osserva le tue pratiche, scegli priorità fondate su evidenze e riprogetta una lezione: il digitale è un mezzo, l’apprendimento è il traguardo.',
       ptofTitle: 'Quale voto emerge dalle evidenze?',
       ptofLead: 'Accompagna l’alunno a compilare tutti gli indicatori PTOF, poi confrontate il voto emerso con osservazioni e feedback.',
-      courseLead: 'Autoformazione da 4 ore previste: metodo di insegnamento (60 min), check iniziale DigComp su 15 indicatori, otto capitoli e laboratori (150 min), verifica finale di 30 domande. Il check precede il corso; la verifica finale lo conclude. I due controlli rientrano nei 30 minuti complessivi previsti. Attestazione soggetta alla validazione dell’Istituto.'
+      courseLead: 'Autoformazione da 4 ore previste: metodo di insegnamento (60 min), check iniziale DigComp su 15 indicatori, otto capitoli e laboratori (150 min), domande di ripasso. Il check precede il corso; le domande di ripasso lo concludono senza voto. I due controlli rientrano nei 30 minuti complessivi previsti. Attestazione soggetta alla validazione dell’Istituto.'
     }
   };
 
