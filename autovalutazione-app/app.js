@@ -6,7 +6,7 @@
   }
   profileIntro();
   document.addEventListener('profilechange', profileIntro);
-  document.querySelector('#tab-ptofo .kicker')?.replaceChildren(document.createTextNode('05 · Griglie delle materie'));
+  document.querySelector('#tab-ptofo .kicker')?.replaceChildren(document.createTextNode('05 · Griglie di valutazione (PTOF)'));
   document.querySelector('#tab-ptofo .source-badge')?.replaceChildren(document.createTextNode('Griglie disciplinari'));
   document.querySelector('#tab-ptofo .assessment-types')?.setAttribute('aria-label', 'Tipo di griglia di autovalutazione');
 

@@ -78,8 +78,8 @@
           <button class="tab" data-tab="app" role="tab" aria-selected="false"><b>02</b>App per studiare</button>
           <button class="tab" data-tab="digcomp" role="tab" aria-selected="false"><b>03</b>Check DigComp</button>
           <button class="tab" data-tab="corso" role="tab" aria-selected="false"><b>04</b>Corso DigComp</button>
-          <div class="sidebar-resource-label" id="teacherResourcesLabel" role="presentation" hidden>Schede per gli allievi · fuori dal corso</div>
-          <button class="tab" data-tab="ptofo" role="tab" aria-selected="false"><b>05</b>Griglie autovalutazione</button>
+          <div class="sidebar-resource-label" id="teacherResourcesLabel" role="presentation" hidden>Strumenti per la classe · fuori dal corso</div>
+          <button class="tab" data-tab="ptofo" role="tab" aria-selected="false"><b>05</b>Griglie di valutazione (PTOF)</button>
         </div>
         <div class="status"><strong id="roleStatus">Profilo alunno</strong><div class="progress"><i id="globalProgress"></i></div><span id="progressLabel">0 attività completate</span></div>
       </aside>
@@ -151,7 +151,7 @@
         </section>
 
         <section class="section" id="tab-ptofo" role="tabpanel" hidden>
-          <div class="section-head"><div><div class="kicker">02 · Griglie ufficiali PTOF</div><h2>Che voto ti dai?</h2><p class="lead">Scegli una situazione reale, valuta tutti gli indicatori della griglia corrispondente e ottieni un voto da 1 a 10.</p></div><span class="role-pill" id="ptofoRole">Profilo alunno</span></div>
+          <div class="section-head"><div><div class="kicker">05 · Griglie di valutazione (PTOF)</div><h2>Griglie di valutazione (PTOF)</h2><p class="lead">Scegli una situazione reale, valuta tutti gli indicatori della griglia corrispondente e ottieni un voto da 1 a 10.</p></div><span class="role-pill" id="ptofoRole">Profilo alunno</span></div>
           <div class="notice"><strong>Scegli ciò che ti rappresenta davvero.</strong> Per ogni indicatore troverai descrittori mescolati, senza voti né ordine crescente. Il voto apparirà soltanto dopo aver completato tutta la griglia.</div>
           <div class="assessment-types" role="tablist" aria-label="Tipo di griglia delle materie">
             <button class="assessment-type active" data-assessment="comuni" role="tab" aria-selected="true"><b>Materie comuni</b><small>Interrogazione, verifica orale o scritta</small></button>
@@ -170,7 +170,7 @@
 
         <section class="section" id="tab-corso" role="tabpanel" hidden>
           <div class="section-head"><div><div class="kicker">04 · Corso interattivo</div><h2>Corso DigComp 3.0</h2><p class="lead" id="courseLead">Otto capitoli per capire le competenze digitali e provarle con attività pratiche.</p></div><span class="role-pill" id="courseRole">Profilo alunno</span></div>
-          <div class="course-intro"><strong>Che cos’è DigComp 3.0?</strong><span>È il quadro europeo delle competenze digitali: 5 aree e 21 competenze utili nella vita quotidiana, nello studio e nel lavoro. L’IA compare in tutte le aree, ma non serve in ogni materia. Ogni capitolo propone esempi e un’attività da adattare alla propria classe.</span><span><strong>Docenti · 4 ore previste:</strong> 60 minuti sul metodo di insegnamento, 165 minuti per gli otto capitoli e le attività, 15 minuti per le domande di ripasso. Le domande si svolgono dopo il corso, senza voto minimo. Il check DigComp è facoltativo. Le schede di autovalutazione servono agli allievi e sono disponibili a parte per i docenti che vogliono applicare le griglie ufficiali del PTOF. Non fanno parte del corso. Per creare l’attestato di partecipazione, completa il percorso e dichiara di aver svolto le 4 ore previste. Serve l’accesso istituzionale. Inserisci il PDF nel portale Formazione interna: l’Istituto deve convalidare le ore.</span></div>
+          <div class="course-intro"><strong>Che cos’è DigComp 3.0?</strong><span>È il quadro europeo delle competenze digitali: 5 aree e 21 competenze utili nella vita quotidiana, nello studio e nel lavoro. L’IA compare in tutte le aree, ma non serve in ogni materia. Ogni capitolo propone esempi e un’attività da adattare alla propria classe.</span><span><strong>Docenti · 4 ore previste:</strong> 60 minuti sul metodo di insegnamento, 165 minuti per gli otto capitoli e le attività, 15 minuti per le domande di ripasso. Le domande si svolgono dopo il corso, senza voto minimo. Il check DigComp è facoltativo. Le griglie di valutazione (PTOF) sono disponibili a parte: gli allievi possono usarle per autovalutarsi e i docenti per valutare e discutere i criteri con la classe. Non fanno parte del corso. Per creare l’attestato di partecipazione, completa il percorso e dichiara di aver svolto le 4 ore previste. Serve l’accesso istituzionale. Inserisci il PDF nel portale Formazione interna: l’Istituto deve convalidare le ore.</span></div>
           <div class="course-map" id="courseMap"></div><div class="lesson" id="lesson"></div><div class="glossary"><div class="glossary-head"><div><div class="kicker">Glossario essenziale</div><p>Le parole più importanti, spiegate in breve.</p></div><button class="btn secondary glossary-toggle" id="advancedGlossaryToggle" type="button" aria-expanded="false" aria-controls="advancedGlossary">Altre parole utili</button></div><div class="glossary-grid" id="glossary"></div><div class="advanced-glossary" id="advancedGlossary" hidden><div class="advanced-glossary-intro"><div><div class="kicker">Per capire strumenti, IA e progettazione digitale</div><h3>Altre parole utili</h3></div><p>Le parole tecniche sono spiegate con esempi. Apri questa sezione quando incontri un termine nuovo.</p></div><div class="advanced-glossary-groups" id="advancedGlossaryGroups"></div></div></div><section class="teacher-course-test" id="teacherCourseTest" hidden><div class="kicker">Autoformazione docenti · 4 ore</div><h3>Domande di ripasso DigComp 3.0</h3><p>Rispondi alle 30 domande per ripassare gli argomenti del corso. Non c’è un voto minimo: l’attestazione documenta la partecipazione dichiarata al percorso di 4 ore. Puoi rileggere i capitoli e cambiare le risposte. Il PDF è riservato ai docenti interni autenticati e deve essere registrato e validato dall’Istituto.</p><div id="teacherTestContent"></div></section>
         </section>
       </div>
@@ -180,16 +180,16 @@
   <footer><div class="wrap">IIS “Antonio Stradivari” · Cremona · <a href="https://stradilab.org/privacy.html">Privacy</a></div></footer>
   <div id="pdfReport" aria-hidden="true"></div>
   <script src="study-method.js"></script>
-  <script src="teaching-method.js?v=9"></script>
+  <script src="teaching-method.js?v=10"></script>
   <script src="assessment-vote.js"></script>
   <script src="vendor/jspdf.js"></script>
   <script src="certificate-archive.js?v=1"></script>
   <script src="digcomp-course.js?v=25"></script>
-  <script src="role-state.js?v=5"></script>
+  <script src="role-state.js?v=6"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="stradilab-auth.js?v=2"></script>
   <script src="teacher-auth.js?v=2"></script>
-  <script src="results-pdf.js?v=5"></script>
-  <script src="app.js?v=3"></script>
+  <script src="results-pdf.js?v=6"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

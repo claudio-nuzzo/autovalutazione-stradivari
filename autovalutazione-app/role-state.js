@@ -4,7 +4,7 @@
       label: 'Profilo alunno',
       studyTitle: 'Trova il tuo metodo di studio',
       studyLead: 'Osserva le tue abitudini, scopri punti di forza e fragilità, prova strategie efficaci e costruisci un piano personale.',
-      ptofTitle: 'Che voto ti dai?',
+      ptofTitle: 'Griglie di valutazione (PTOF)',
       ptofLead: 'Scegli una situazione reale, valuta tutti gli indicatori della griglia corrispondente e ottieni un voto da 1 a 10.',
       courseLead: 'Otto capitoli completi per imparare: spiegazioni, esempi, sintesi infografiche, laboratori, checklist e verifiche formative.'
     },
@@ -12,9 +12,9 @@
       label: 'Profilo docente',
       studyTitle: 'Il mio metodo di insegnamento',
       studyLead: 'Osserva le tue pratiche, scegli priorità fondate su evidenze e riprogetta una lezione: il digitale è un mezzo, l’apprendimento è il traguardo.',
-      ptofTitle: 'Schede di autovalutazione per gli allievi',
-      ptofLead: 'Queste schede servono agli allievi. I docenti che vogliono applicare le griglie ufficiali del PTOF possono scegliere la propria disciplina, mostrare i criteri alla classe e confrontare il risultato con il proprio feedback. Non fanno parte del corso DigComp.',
-      courseLead: 'Autoformazione di 4 ore previste: un’attività sul metodo di insegnamento (60 min), otto capitoli con laboratori (165 min) e domande di ripasso (15 min). Il check DigComp è facoltativo. Le schede di autovalutazione per gli allievi sono disponibili a parte per i docenti che usano le griglie del PTOF. Attestazione di partecipazione soggetta alla validazione dell’Istituto.'
+      ptofTitle: 'Griglie di valutazione (PTOF)',
+      ptofLead: 'Le griglie del PTOF mostrano agli allievi come sarà valutato un compito. Puoi usarle con la classe per spiegare i criteri prima della prova e confrontare l’autovalutazione degli allievi con il tuo feedback. Sono separate dal corso DigComp.',
+      courseLead: 'Autoformazione di 4 ore previste: un’attività sul metodo di insegnamento (60 min), otto capitoli con laboratori (165 min) e domande di ripasso (15 min). Il check DigComp è facoltativo. Le griglie di valutazione (PTOF) sono disponibili a parte per il lavoro con gli allievi. Attestazione di partecipazione soggetta alla validazione dell’Istituto.'
     }
   };
 
@@ -39,9 +39,9 @@
     const methodTab = document.querySelector('[data-tab="studio"]');
     if (methodTab) methodTab.innerHTML = `<b>01</b>${role === 'docente' ? 'Metodo di insegnamento' : 'Metodo di studio'}`;
     const gridsTab = document.querySelector('[data-tab="ptofo"]');
-    if (gridsTab) gridsTab.innerHTML = `<b>05</b>${role === 'docente' ? 'Schede PTOF per gli allievi' : 'Griglie autovalutazione'}`;
+    if (gridsTab) gridsTab.innerHTML = '<b>05</b>Griglie di valutazione (PTOF)';
     document.getElementById('teacherResourcesLabel')?.toggleAttribute('hidden', role !== 'docente');
-    setText('#tab-ptofo .notice', role === 'docente' ? 'Le schede sono pensate per l’autovalutazione degli allievi. Se usi le griglie ufficiali del PTOF, puoi presentare i criteri prima di una prova e poi confrontare l’autovalutazione dell’allievo con il tuo feedback. Questa attività è separata dal corso DigComp e non incide sull’attestato.' : 'Scegli ciò che ti rappresenta davvero. Per ogni indicatore troverai descrittori mescolati, senza voti né ordine crescente. Il voto apparirà soltanto dopo aver completato tutta la griglia.');
+    setText('#tab-ptofo .notice', role === 'docente' ? 'Queste sono le griglie di valutazione (PTOF). Gli allievi possono usarle per autovalutarsi; i docenti possono applicarle nella valutazione e discutere i criteri con la classe. Sono fuori dal corso DigComp e non incidono sull’attestato.' : 'Usa la griglia di valutazione (PTOF) per confrontare il tuo lavoro con i criteri della materia. Il voto apparirà dopo aver completato tutti gli indicatori.');
     setText('.sidebar-title', role === 'docente' ? 'Corso e strumenti per la classe' : 'I cinque percorsi');
     document.querySelector('.teacher-tab')?.toggleAttribute('hidden', role !== 'docente');
     if (announce) document.dispatchEvent(new CustomEvent('profilechange', { detail: { role } }));
