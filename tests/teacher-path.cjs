@@ -42,6 +42,22 @@ assert.equal(teacherQuestions.length,30);
     assert.equal(await page.locator('#tab-studio h2').textContent(),'Il mio metodo di insegnamento');
     assert.equal(await page.locator('#studyContent').isVisible(),false);
     assert.equal(await page.locator('#teachingContent').isVisible(),true);
+    await page.evaluate(()=>{
+      const legacyEmail='CASE.Mixed@istitutostradivari.it';
+      const normalizedEmail=legacyEmail.toLowerCase();
+      localStorage.setItem(`stradivari-teaching-v1:${legacyEmail}`,JSON.stringify({step:1,unlocked:1,notes:{priority:'legacy progress recovered'}}));
+      const user={email:normalizedEmail,isDocente:true};
+      window.StradivariUser={user,email:normalizedEmail,isTeacher:true};
+      window.StradivariTeacherAuth={verified:true,user};
+      document.dispatchEvent(new CustomEvent('teacherlogin'));
+    });
+    assert.equal(await page.evaluate(()=>StradivariTeaching.getResults().reflection),'legacy progress recovered','Progress stored with a differently-cased account email is recovered after login');
+    await page.evaluate(()=>{
+      localStorage.removeItem('stradivari-teaching-v1:CASE.Mixed@istitutostradivari.it');
+      localStorage.removeItem('stradivari-teaching-v1:case.mixed@istitutostradivari.it');
+      delete window.StradivariUser;delete window.StradivariTeacherAuth;
+      document.dispatchEvent(new CustomEvent('teacherlogin'));
+    });
     const reverseCard=page.locator('#reverseAiCard');
     assert.equal(await reverseCard.isVisible(),true,'Reverse AI card is independently available below the blue introduction');
     assert.equal(await reverseCard.evaluate(node=>node.previousElementSibling.matches('.teach-cover')),true,'Reverse AI card sits immediately below the blue introduction');
