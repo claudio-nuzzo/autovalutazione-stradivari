@@ -32,8 +32,28 @@
   const titles = ['Parti da una lezione','Cosa provare','Preparo una lezione','Mi esercito','Prossimo passo'];
   const fresh = () => ({step:0,unlocked:0,answers:{},chosen:[],notes:{},case:0,quiz:{},checked:false,completed:false});
   let state = fresh();
-  const key = () => `stradivari-teaching-v1:${window.StradivariTeacherAuth?.user?.email || window.StradivariUser?.user?.email || 'ospite'}`;
-  function load() { state=fresh(); try { const saved=JSON.parse(localStorage.getItem(key())||'null'); if(saved) { state={...state,...saved}; state.step=Math.max(0,Math.min(4,Number(state.step)||0)); state.unlocked=Math.max(0,Math.min(4,Number(state.unlocked)||0)); state.case=Math.max(0,Math.min(3,Number(state.case)||0)); } } catch(_) {} }
+  const storagePrefix = 'stradivari-teaching-v1:';
+  const accountEmail = () => String(window.StradivariTeacherAuth?.user?.email || window.StradivariUser?.user?.email || '').trim().toLowerCase();
+  const key = () => `${storagePrefix}${accountEmail() || 'ospite'}`;
+  function load() {
+    state=fresh();
+    try {
+      let raw=localStorage.getItem(key());
+      const email=accountEmail();
+      // Recover records written before email normalization changed the storage key.
+      if(!raw&&email) {
+        for(let i=0;i<localStorage.length;i++) {
+          const storedKey=localStorage.key(i);
+          if(storedKey?.startsWith(storagePrefix)&&storedKey.slice(storagePrefix.length).trim().toLowerCase()===email) {
+            raw=localStorage.getItem(storedKey);
+            if(raw) { localStorage.setItem(key(),raw); break; }
+          }
+        }
+      }
+      const saved=JSON.parse(raw||'null');
+      if(saved) { state={...state,...saved}; state.step=Math.max(0,Math.min(4,Number(state.step)||0)); state.unlocked=Math.max(0,Math.min(4,Number(state.unlocked)||0)); state.case=Math.max(0,Math.min(3,Number(state.case)||0)); }
+    } catch(_) {}
+  }
   let storageWarning='';
   function save() { try { localStorage.setItem(key(),JSON.stringify(state)); storageWarning=''; } catch(_) { storageWarning='Il browser non consente il salvataggio: esporta il PDF prima di chiudere.'; } document.dispatchEvent(new CustomEvent('stradivari-progress')); }
   const answered = () => Object.values(state.answers).filter(v=>Number.isInteger(v)&&(v>=0&&v<=3||v===4)).length;
