@@ -1,4 +1,4 @@
-# Grammatica in Atelier · versione 1.3.0
+# Grammatica in Atelier · versione 1.3.1
 
 Destinazione: https://didattica.stradilab.org/grammatica/ . Frontend statico nella sottocartella del portale esistente; API in Deepstrad, con archivio nel Drive già configurato. Nessun database persistente Cloudflare per i risultati.
 
@@ -57,3 +57,13 @@ Le gare riusano le verifiche autocorrette e rispettano il percorso scelto dall�
 L’API Deepstrad `/api/grammatica/races` archivia le gare e gli esiti nello stesso Drive. Il manager dispone di un controllo dell’archivio che verifica i permessi prima di usare i dati. Se la riservatezza non è verificabile, le letture e scritture sui dati vengono bloccate; il login del manager resta disponibile per consultare il controllo. Non vengono aggiunte credenziali o nuovi scope.
 
 `npm run test:grammar-game` verifica XP, premi, tentativi ripetuti e confini dei livelli. `npm run test:grammar-races` verifica ruoli, privacy dei risultati, gara con completamento inline e conferma, chiusura, retry e cambio account attraverso servizi sintetici. Restano separati i riscontri nominali in produzione.
+
+## Correzione 1.3.1 · diagnostica dell’archivio Drive
+
+Quando «Controlla archivio Drive» non conferma la riservatezza, il pannello del gestore mostra dove si interrompe il controllo, la causa e gli eventuali problemi della cartella principale. Fasi e codici vengono tradotti attraverso un elenco chiuso; booleani e conteggi ammettono soltanto valori del tipo previsto. Un dettaglio apribile riporta i conteggi per tipo di permesso, senza nomi di utenti, gruppi o dominio. L’identità del servizio «configurata» indica la presenza della configurazione rilevata dal backend, non una nuova attestazione dell’identità Google.
+
+Il collegamento «Apri cartella Grammatica» compare solo per un URL canonico `https://drive.google.com/drive/folders/` seguito da un identificativo di 1–160 lettere, cifre, trattini o underscore. Apre una nuova scheda con `noopener noreferrer`; query, frammenti, altri host e schemi sono esclusi. Il collegamento e i dettagli restano riservati al gestore e vengono rimossi al cambio di account, anche durante una richiesta pendente. Errori grezzi del provider, indirizzi e chiavi diagnostiche sconosciute non vengono visualizzati.
+
+Questa interfaccia usa i campi diagnostici dell’API Deepstrad 1.1.2. Non modifica i permessi Drive, le regole di autorizzazione o il blocco dei dati quando la riservatezza non è verificabile. Solo `verified: true` produce la conferma di archivio verificato; la disponibilità della diagnostica non dimostra che il problema operativo dell’archivio sia risolto.
+
+`npm run test:grammar-races` comprende URL consentiti e malevoli, etichette ammesse e sconosciute, dati privati esclusi, valori booleani/conteggi non validi, accesso del solo gestore e rimozione dei dettagli al cambio di identità. I servizi dei test sono sintetici: non attestano i permessi reali del Drive né il consenso OAuth in produzione.
