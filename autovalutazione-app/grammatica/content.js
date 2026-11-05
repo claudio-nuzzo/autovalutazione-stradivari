@@ -370,7 +370,7 @@ window.ATELIER_CONTENT={
       "options": [],
       "answer": null,
       "solution": "Un liutaio entra nel laboratorio. Prende lo scalpello e appoggia un’impiallacciatura sul banco. Poi mostra gli strumenti alla classe.",
-      "feedback": "liutaio è maschile; scalpello inizia con s + consonante; impiallacciatura è femminile e richiede un’; strumenti è maschile plurale con vocale iniziale.",
+      "feedback": "liutaio è maschile; scalpello inizia con s + consonante; impiallacciatura è femminile e richiede un’; strumenti è maschile plurale con s + consonante e richiede gli.",
       "minutes": 5,
       "source": "Banca originale articolo · 25",
       "review": "bozza"
