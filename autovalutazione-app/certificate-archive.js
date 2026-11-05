@@ -4,6 +4,7 @@
   const UPLOAD = '/api/archive/upload';
   const MAX_BYTES = 5 * 1024 * 1024;
   function identity() {
+    if (w.StradivariStorageGuard?.hasBlockedAuth()) throw new Error('Salva le modifiche e accedi di nuovo prima di usare l’archivio.');
     const auth = w.StradivariTeacherAuth;
     const current = w.StradilabAuth?.utente();
     const token = w.StradilabAuth?.idToken();

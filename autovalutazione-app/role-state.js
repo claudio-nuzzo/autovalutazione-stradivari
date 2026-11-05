@@ -20,6 +20,10 @@
 
   function setText(selector, value) { const element = document.querySelector(selector); if (element) element.textContent = value; }
   function update(role, announce = true) {
+    if (announce && document.body.dataset.profile && document.body.dataset.profile !== role && window.StradivariStorageGuard?.hasFailures()) {
+      window.StradivariStorageGuard.explain();
+      return;
+    }
     const current = copy[role] || copy.alunno;
     localStorage.setItem('stradivari-profile', role);
     document.body.dataset.profile = role;

@@ -83,6 +83,31 @@
   let current = 'comuni';
   let lastResult = null;
   const answers = Object.fromEntries(Object.keys(grids).map(key => [key, {}]));
+  const assessmentKey = () => `stradivari-assessment-v1:${String(window.StradivariUser?.email || 'ospite').trim().toLowerCase()}:${document.body.dataset.profile === 'docente' ? 'docente' : 'alunno'}`;
+  function saveAssessment() {
+    try {
+      localStorage.setItem(assessmentKey(), JSON.stringify({answers, lastResult}));
+      document.dispatchEvent(new CustomEvent('stradivari-storage-ok', {detail:assessmentKey()}));
+    } catch (_) { document.dispatchEvent(new CustomEvent('stradivari-storage-failed', {detail:assessmentKey()})); }
+  }
+  function loadAssessment() {
+    Object.keys(grids).forEach(key => { answers[key] = {}; });
+    lastResult = null;
+    try {
+      const saved = JSON.parse(localStorage.getItem(assessmentKey()) || 'null');
+      for (const [key, grid] of Object.entries(grids)) {
+        const values = saved?.answers?.[key] || {};
+        grid.items.forEach((item, index) => {
+          const value = values[index];
+          if (Number.isInteger(value) && value >= 0 && value < item.levels.length) answers[key][index] = value;
+        });
+      }
+      if (saved?.lastResult?.completed === true && typeof saved.lastResult.vote === 'number' && typeof saved.lastResult.grid === 'string') lastResult = saved.lastResult;
+    } catch (_) {}
+    document.getElementById('ptofoResult').classList.remove('show');
+    render();
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
+  }
   const orderCache = {};
   const scoreFor = entry => {
     const values = entry.range.match(/\d+/g).map(Number);
@@ -132,6 +157,7 @@
     const [, gridKey, rawIndex] = match;
     const index = Number(rawIndex);
     answers[gridKey][index] = Number(event.target.value);
+    saveAssessment();
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
 
@@ -146,6 +172,8 @@
     const average = scores.reduce((sum, value) => sum + value, 0) / scores.length;
     const vote = Math.max(1, Math.min(10, Math.round(average)));
     lastResult = { grid: grid.title, vote, completed: true };
+    saveAssessment();
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
     document.getElementById('ptofoResult').innerHTML = `<h3>Il voto che emerge è ${vote}/10</h3><p>Hai scelto prima i descrittori che ti rappresentano, senza vedere la loro corrispondenza numerica. Il risultato usa tutti gli indicatori della griglia “${grid.title}”.</p><div class="score-row">${grid.items.map(item => `<div class="score"><strong aria-hidden="true">✓</strong><span>${item.name}</span></div>`).join('')}</div>`;
     document.getElementById('ptofoResult').classList.add('show');
     document.getElementById('ptofoResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -156,5 +184,6 @@
     total: () => Object.values(grids).reduce((sum, grid) => sum + grid.items.length, 0),
     getResults: () => lastResult || { grid: grids[current].title, completed: false }
   };
-  render();
+  ['stradivari-login','stradivari-drive-restored','profilechange'].forEach(name => document.addEventListener(name, loadAssessment));
+  loadAssessment();
 })();
