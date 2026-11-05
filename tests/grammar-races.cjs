@@ -11,7 +11,7 @@ const {launchBrowser}=require('./browser-runtime.cjs');
  await page.evaluate(()=>{
   window.calls=[];window.listeners=[];window._session=null;window.fail=false;window.hold=null;window.storage={verified:true};window.detailActive=0;window.detailMax=0;
   window.race={raceId:'12345678-1234-4234-8234-123456789012',group:'1B Moda',track:'moda',area:'grammaticale',topicGroup:'Articoli',label:'<img src=x onerror=alert(1)>',suggestedMinutes:10,enabled:true};
-  window.AtelierAdapter={enabled:true,get session(){return _session},subscribe(fn){listeners.push(fn)},async request(path,options){calls.push({path,options});if(fail)throw Error('Errore backend 500');if(path.includes('storageStatus'))return {ok:true,storage};if(path.includes('?raceId')){detailActive++;detailMax=Math.max(detailMax,detailActive);await new Promise(resolve=>setTimeout(resolve,30));detailActive--}if(hold&&path.includes('?raceId'))await new Promise(resolve=>window.release=resolve);if(options?.method==='POST'){race=JSON.parse(options.body);return {ok:true,race}}return path.includes('?')?{ok:true,race,own:{correct:4,total:6,stars:2,attempts:2,durationMs:65000,improvement:true},aggregate:{participants:15,completed:6},board:[{email:'studente@example.invalid',best:{correct:4,total:6,stars:2,durationMs:65000},attempts:2},{email:'attesa@example.invalid',best:null,attempts:0}]}:{ok:true,races:window.raceList||[race]}}};
+  window.AtelierAdapter={enabled:true,get session(){return _session},subscribe(fn){listeners.push(fn)},async request(path,options){calls.push({path,options});if(fail)throw Error('Errore backend 500');if(path.includes('storageStatus')){if(window.storageHold)await new Promise(resolve=>window.releaseStorage=resolve);return {ok:true,storage}};if(path.includes('?raceId')){detailActive++;detailMax=Math.max(detailMax,detailActive);await new Promise(resolve=>setTimeout(resolve,30));detailActive--}if(hold&&path.includes('?raceId'))await new Promise(resolve=>window.release=resolve);if(options?.method==='POST'){race=JSON.parse(options.body);return {ok:true,race}}return path.includes('?')?{ok:true,race,own:{correct:4,total:6,stars:2,attempts:2,durationMs:65000,improvement:true},aggregate:{participants:15,completed:6},board:[{email:'studente@example.invalid',best:{correct:4,total:6,stars:2,durationMs:65000},attempts:2},{email:'attesa@example.invalid',best:null,attempts:0}]}:{ok:true,races:window.raceList||[race]}}};
   window.setSession=s=>{_session=s;listeners.forEach(fn=>fn(s));document.dispatchEvent(new Event('atelier-access'))};
   document.querySelector('#startSuggested').onclick=()=>window.freeStarted=true;
   document.addEventListener('atelier-race-start',e=>window.started=e.detail);
@@ -31,6 +31,38 @@ const {launchBrowser}=require('./browser-runtime.cjs');
  await page.getByRole('button',{name:'Visualizza esiti',exact:true}).waitFor();assert.equal(await page.evaluate(()=>calls.filter(c=>c.path.includes('?raceId')).length),await page.evaluate(()=>detailsBeforeTeacher));
  await page.getByRole('button',{name:'Controlla archivio Drive',exact:true}).click();await page.getByText('Archivio Drive verificato dal servizio.',{exact:true}).waitFor();
  await page.evaluate(()=>storage={verified:false,error:'SECRET <img src=x>'});await page.getByRole('button',{name:'Controlla archivio Drive',exact:true}).click();await page.locator('#raceStorageStatus').filter({hasText:'Archivio Drive non verificato'}).waitFor();assert.equal((await page.locator('#raceStorageStatus').innerText()).includes('SECRET'),false);
+
+ // The diagnostic screen exposes a closed vocabulary, never provider/private data.
+ const inspectStorage=async data=>{await page.evaluate(value=>window.storage=value,data);await page.getByRole('button',{name:'Controlla archivio Drive',exact:true}).click();await page.waitForFunction(()=>!document.querySelector('#raceStorageCheck').disabled)};
+ const trustedUrl='https://drive.google.com/drive/folders/synthetic_Grammar-folder';
+ await inspectStorage({verified:false,stage:'disable_inheritance',failureCode:'CANNOT_DISABLE_INHERITANCE',rootFailureStage:'root_metadata',rootFailureCode:'DRIVE_BAD_REQUEST',rootRestricted:false,limitedAccess:false,serviceIdentityKnown:true,capabilities:{canDisableInheritedPermissions:false,canListChildren:true,private:'PRIVATE_CAPABILITY'},broadDirectGrants:1,unknownGrants:2,rootGrantTypes:{domain:1,user:2,private:'PRIVATE_PRINCIPAL'},grantTypes:{group:2,unknownUsers:1},folderUrl:trustedUrl,error:'PRIVATE_PROVIDER_MESSAGE'});
+ const diagnostic=page.locator('#raceStorageDetails');
+ assert.match(await diagnostic.innerText(),/Limitazione dei permessi ereditati \(disable_inheritance\)/);
+ assert.match(await diagnostic.innerText(),/Richiesta non accettata da Drive \(DRIVE_BAD_REQUEST\)/);
+ assert.match(await diagnostic.innerText(),/Lettura della cartella principale \(root_metadata\)/);
+ assert.match(await diagnostic.innerText(),/Il servizio può limitare i permessi ereditati: No/);
+ assert.match(await diagnostic.innerText(),/Accessi estesi rilevati: 1/);
+ await diagnostic.locator('summary').click();assert.match(await diagnostic.innerText(),/Dominio: 1/);assert.match(await diagnostic.innerText(),/Gruppi: 2/);
+ assert.equal((await diagnostic.innerHTML()).includes('PRIVATE_'),false);
+ const folderLink=page.getByRole('link',{name:'Apri cartella Grammatica',exact:true});
+ assert.equal(await folderLink.getAttribute('href'),trustedUrl);assert.equal(await folderLink.getAttribute('target'),'_blank');assert.equal(await folderLink.getAttribute('rel'),'noopener noreferrer');
+ for(const folderUrl of ['javascript:alert(1)','https://evil.invalid/drive/folders/a','http://drive.google.com/drive/folders/a','https://drive.google.com.evil.invalid/drive/folders/a','https://drive.google.com@evil.invalid/drive/folders/a','https://drive.google.com:443/drive/folders/a','https://drive.google.com/drive/folders/a?secret=PRIVATE_QUERY','https://drive.google.com/drive/folders/a#fragment','https://drive.google.com/drive/folders/a/','https://drive.google.com/drive/folders/a\n','https://drive.google.com/drive/folders/a\r','https://drive.google.com/drive/folders/'+('a'.repeat(161)),42,null]){
+   await inspectStorage({verified:false,folderUrl});assert.equal(await diagnostic.locator('a').count(),0,'unsafe or noncanonical folder URL must not be linked');
+ }
+ await inspectStorage({verified:false,stage:'PRIVATE_STAGE',failureCode:'constructor',rootFailureStage:'PRIVATE_ROOT_STAGE',rootFailureCode:'PRIVATE_ROOT_ERROR',rootRestricted:'PRIVATE_BOOL',capabilities:{canListChildren:'PRIVATE_BOOL'},broadDirectGrants:'PRIVATE_COUNT',unknownGrants:-1,rootGrantTypes:{PRIVATE_TYPE:20,domain:'PRIVATE_COUNT'},grantTypes:{group:Infinity},error:'PRIVATE_PROVIDER',folderUrl:'javascript:PRIVATE_URL'});
+ assert.equal((await diagnostic.innerHTML()).includes('PRIVATE_'),false);assert.equal((await diagnostic.innerHTML()).includes('constructor'),false);
+ assert.equal(await diagnostic.locator('li').count(),0,'invalid booleans/counts and unknown enum fields stay absent');
+ await inspectStorage({verified:true,stage:'PRIVATE_STAGE',folderUrl:trustedUrl});assert.equal(await diagnostic.innerText(),'');
+ await inspectStorage({verified:false,folderUrl:trustedUrl});
+ await page.evaluate(()=>{window.storageHold=true;document.querySelector('#raceStorageCheck').click()});await page.waitForFunction(()=>Boolean(window.releaseStorage));
+ const storageCalls=await page.evaluate(()=>calls.filter(call=>call.path.includes('storageStatus')).length);
+ await page.evaluate(()=>setSession({email:'diagnostic-pupil@example.invalid',authorized:true,teacher:false}));
+ assert.equal(await diagnostic.innerHTML(),'');assert.equal(await page.locator('#raceStorageStatus').innerText(),'');
+ await page.evaluate(()=>{document.querySelector('#raceStorageCheck').click();releaseStorage();window.storageHold=false});
+ await page.waitForTimeout(20);assert.equal(await diagnostic.innerHTML(),'');assert.equal(await diagnostic.locator('a').count(),0);
+ assert.equal(await page.evaluate(()=>calls.filter(call=>call.path.includes('storageStatus')).length),storageCalls,'pupil cannot request storage diagnostics through a hidden teacher control');
+ await page.evaluate(()=>setSession({email:'teacher@example.invalid',authorized:true,teacher:true}));
+ await page.getByRole('button',{name:'Visualizza esiti',exact:true}).waitFor();
  await page.getByRole('button',{name:'Visualizza esiti',exact:true}).click();await page.getByText('Non completata',{exact:true}).waitFor();
  assert.ok((await page.locator('#teacherRaceResults').innerText()).includes('studente@example.invalid'));
  await page.locator('#raceLabel').fill('Nuova sfida');await page.locator('#raceGroup').fill('1B Moda');

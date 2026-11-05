@@ -31,7 +31,7 @@ const actions=el('div',undefined,'race-actions');
 const retry=button('Aggiorna gare',()=>scheduleRefresh(),true);actions.append(retry);
 const cards=el('div',undefined,'race-grid');section.append(status,actions,cards);
 home.insertBefore(section,home.querySelector('.settings,.areas'));
-let teacherSection,teacherStatus,teacherList,teacherForm,labelInput,groupInput,trackSelect,topicSelect,minutesInput,createButton,groupOptions,boardHost,storageButton,storageStatus;
+let teacherSection,teacherStatus,teacherList,teacherForm,labelInput,groupInput,trackSelect,topicSelect,minutesInput,createButton,groupOptions,boardHost,storageButton,storageStatus,storageDetails;
 function formField(form,title,node){const label=el('label',title);label.append(node);form.append(label);return node}
 function input(type,id){const node=el('input');node.type=type;node.id=id;return node}
 function topics(){return Array.from(document.querySelectorAll('#topic option')).filter(o=>o.value&&areas[o.value.split('|')[0]]&&o.value.split('|')[1]!=='Le mie sfide')}
@@ -41,7 +41,7 @@ function buildTeacher(){
   teacherSection=el('section');teacherSection.id='teacherRaces';teacherSection.hidden=true;
   teacherSection.append(el('h3','Gare della classe'),el('p','Assegna una prova a una classe già autorizzata. Stelline e miglioramenti sono premi didattici; i risultati individuali sono visibili solo a te.'));
   const storageActions=el('div',undefined,'race-actions');storageButton=button('Controlla archivio Drive',checkStorage,true);storageButton.id='raceStorageCheck';storageActions.append(storageButton);
-  storageStatus=el('p',undefined,'small');storageStatus.id='raceStorageStatus';storageStatus.setAttribute('role','status');teacherSection.append(storageActions,storageStatus);
+  storageStatus=el('p',undefined,'small');storageStatus.id='raceStorageStatus';storageStatus.setAttribute('role','status');storageDetails=el('div');storageDetails.id='raceStorageDetails';teacherSection.append(storageActions,storageStatus,storageDetails);
   teacherForm=el('form');teacherForm.id='raceCreateForm';
   labelInput=formField(teacherForm,'Nome della gara',input('text','raceLabel'));labelInput.required=true;labelInput.maxLength=80;labelInput.placeholder='Per esempio: La sfida degli articoli';
   groupInput=formField(teacherForm,'Classe',input('text','raceGroup'));groupInput.required=true;groupInput.maxLength=30;groupInput.pattern='[1-5][A-Z]{1,3}( (Moda|Arredo|Liuteria|Artistico|Musicale))?';groupInput.placeholder='1B Moda';groupInput.setAttribute('list','raceGroups');
@@ -59,9 +59,67 @@ function buildTeacher(){
 }
 function freeMission(message,waiting=false){cards.replaceChildren();const card=el('article',undefined,'race-card');card.append(el('h3','Missione libera'),el('p',message),button(waiting?'Ripassa':'Allenati',()=>{if(waiting)location.hash='pillole';else document.querySelector('#startSuggested')?.click()}));cards.append(card)}
 async function checkStorage(){
-  const ctx=snapshot();if(!live(ctx)||A.session?.teacher!==true||storageButton.disabled)return;storageButton.disabled=true;storageStatus.textContent='Verifica dell’archivio Drive…';
-  try{const data=await request('/races?storageStatus=1',undefined,ctx);if(!live(ctx)||A.session?.teacher!==true)return;storageStatus.textContent=data.storage?.verified===true?'Archivio Drive verificato dal servizio.':'Archivio Drive non verificato. Il servizio non conferma la corretta configurazione.'}
+  const ctx=snapshot();if(!live(ctx)||A.session?.teacher!==true||storageButton.disabled)return;storageButton.disabled=true;storageDetails.replaceChildren();storageStatus.textContent='Verifica dell’archivio Drive…';
+  try{const data=await request('/races?storageStatus=1',undefined,ctx);if(!live(ctx)||A.session?.teacher!==true)return;renderStorage(data.storage)}
   catch{if(live(ctx)&&A.session?.teacher===true)storageStatus.textContent='Non è stato possibile verificare l’archivio Drive. Riprova il controllo.'}finally{if(live(ctx))storageButton.disabled=false}
+}
+// Diagnostic copy is a closed vocabulary: never display provider errors,
+// principal names, arbitrary object keys or unvalidated backend URLs.
+const storageStages={
+  root_metadata:'Lettura della cartella principale',root_permissions:'Permessi della cartella principale',
+  folder_lookup:'Ricerca della cartella Grammatica',folder_metadata:'Lettura della cartella Grammatica',
+  folder_permissions:'Permessi della cartella Grammatica',disable_inheritance:'Limitazione dei permessi ereditati',
+  folder_reattest:'Ricontrollo della cartella Grammatica',verification:'Verifica finale'
+};
+const storageFailures={
+  DRIVE_NETWORK:'Connessione a Drive non riuscita',DRIVE_BAD_REQUEST:'Richiesta non accettata da Drive',
+  DRIVE_UNAUTHORIZED:'Accesso del servizio non riconosciuto da Drive',DRIVE_FORBIDDEN:'Permesso negato da Drive',
+  DRIVE_NOT_FOUND:'Cartella non trovata o non accessibile',DRIVE_RATE_LIMITED:'Troppe richieste a Drive',
+  DRIVE_UNAVAILABLE:'Drive temporaneamente non disponibile',DRIVE_INVALID_RESPONSE:'Risposta di Drive non verificabile',
+  FOLDER_LOOKUP_AMBIGUOUS:'Cartella Grammatica non identificata in modo univoco',FOLDER_ID_INVALID:'Riferimento alla cartella non valido',
+  FOLDER_TYPE_INVALID:'La destinazione non risulta una cartella',ACL_INVALID_RESPONSE:'Elenco dei permessi non verificabile',
+  ACL_INVALID_PAGINATION:'Lettura dei permessi non completata',ACL_TOO_LARGE:'Troppi permessi per completare il controllo',
+  CANNOT_DISABLE_INHERITANCE:'Il servizio non può limitare i permessi ereditati',
+  INHERITANCE_NOT_RESTRICTED:'I permessi ereditati non risultano limitati',CANNOT_LIST_CHILDREN:'Il servizio non può elencare i contenuti',
+  BROAD_CONTENT_GRANTS:'Sono presenti accessi estesi al dominio o a chiunque',UNKNOWN_CONTENT_GRANTS:'Sono presenti accessi non riconosciuti come riservati'
+};
+const grantLabels={user:'Utenti',group:'Gruppi',domain:'Dominio',anyone:'Chiunque',other:'Altri tipi',administrators:'Proprietari e gestori',allowedUsers:'Utenti ammessi',metadataOnly:'Sola visibilità della cartella',unknownUsers:'Utenti non riconosciuti'};
+const knownLabel=(labels,value)=>typeof value==='string'&&Object.hasOwn(labels,value)?labels[value]+' ('+value+')':null;
+const safeCount=value=>Number.isSafeInteger(value)&&value>=0&&value<=10000;
+function renderStorage(value){
+  const storage=value&&typeof value==='object'?value:{};
+  storageStatus.textContent=storage.verified===true?'Archivio Drive verificato dal servizio.':'Archivio Drive non verificato. Il servizio non conferma la corretta configurazione.';
+  storageDetails.replaceChildren();if(storage.verified===true)return;
+  storageDetails.append(el('h4','Dove si ferma il controllo'));
+  const facts=el('ul');
+  const enumFact=(label,labels,value)=>{const text=knownLabel(labels,value);if(text)facts.append(el('li',label+': '+text))};
+  const boolFact=(label,value)=>{if(typeof value==='boolean')facts.append(el('li',label+': '+(value?'Sì':'No')))};
+  const countFact=(label,value)=>{if(safeCount(value))facts.append(el('li',label+': '+value))};
+  enumFact('Fase',storageStages,storage.stage);enumFact('Causa',storageFailures,storage.failureCode);
+  enumFact('Fase del controllo principale',storageStages,storage.rootFailureStage);enumFact('Causa nella cartella principale',storageFailures,storage.rootFailureCode);
+  boolFact('Cartella principale riservata',storage.rootRestricted);boolFact('Accesso limitato alla cartella Grammatica',storage.limitedAccess);
+  boolFact('Identità del servizio configurata',storage.serviceIdentityKnown);
+  boolFact('Il servizio può limitare i permessi ereditati',storage.capabilities?.canDisableInheritedPermissions);
+  boolFact('Il servizio può elencare i contenuti',storage.capabilities?.canListChildren);
+  countFact('Accessi estesi rilevati',storage.broadDirectGrants);countFact('Accessi da verificare',storage.unknownGrants);
+  if(facts.childElementCount)storageDetails.append(facts);
+  const hint=storage.failureCode==='CANNOT_DISABLE_INHERITANCE'||storage.failureCode==='INHERITANCE_NOT_RESTRICTED'?
+    'Verifica l’accesso limitato nelle impostazioni di condivisione della cartella Grammatica. Può essere necessario l’intervento di un gestore del Drive condiviso.':
+    storage.failureCode==='BROAD_CONTENT_GRANTS'||storage.failureCode==='UNKNOWN_CONTENT_GRANTS'?
+    'Controlla le condivisioni della cartella Grammatica e della cartella principale. Il servizio riprenderà le attività quando potrà confermarne la riservatezza.':
+    'Il gestore può verificare i permessi della cartella e del servizio, oppure comunicare al supporto la fase e la causa mostrate qui. Dopo il controllo, premi di nuovo «Controlla archivio Drive».';
+  storageDetails.append(el('p',hint));
+  const grants=el('details');grants.append(el('summary','Conteggi dei permessi, senza nomi'));
+  for(const [field,title]of [['rootGrantTypes','Cartella principale'],['grantTypes','Cartella Grammatica']]){
+    const types=storage[field];if(!types||typeof types!=='object')continue;const list=el('ul');
+    for(const [type,label]of Object.entries(grantLabels))if(safeCount(types[type]))list.append(el('li',label+': '+types[type]));
+    if(list.childElementCount)grants.append(el('h5',title),list);
+  }
+  if(grants.childElementCount>1)storageDetails.append(grants);
+  const folderMatch=typeof storage.folderUrl==='string'?/^https:\/\/drive\.google\.com\/drive\/folders\/[a-zA-Z0-9_-]{1,160}$/.exec(storage.folderUrl):null;
+  if(folderMatch&&folderMatch[0]===storage.folderUrl){
+    const link=el('a','Apri cartella Grammatica');link.href=storage.folderUrl;link.target='_blank';link.rel='noopener noreferrer';storageDetails.append(link);
+  }
 }
 function resultContent(host,data){
   host.replaceChildren();
@@ -185,7 +243,7 @@ function scheduleRefresh(){if(scheduled||!allowed())return;scheduled=true;queueM
 function accessChanged(){
   const next=key();if(next!==contextKey){
     contextKey=next;++epoch;++revision;races=[];details.clear();pendingCreate=null;loaded=false;cards.replaceChildren();retry.disabled=false;
-    if(teacherSection){teacherSection.hidden=true;teacherList.replaceChildren();boardHost.replaceChildren();groupOptions.replaceChildren();teacherForm.reset();labelInput.value='';groupInput.value='';createButton.disabled=false;teacherStatus.textContent='';storageStatus.textContent='';storageButton.disabled=false;syncTopics()}
+    if(teacherSection){teacherSection.hidden=true;teacherList.replaceChildren();boardHost.replaceChildren();groupOptions.replaceChildren();teacherForm.reset();labelInput.value='';groupInput.value='';createButton.disabled=false;teacherStatus.textContent='';storageStatus.textContent='';storageDetails.replaceChildren();storageButton.disabled=false;syncTopics()}
     if(!allowed()){
       retry.hidden=true;status.textContent=!A.enabled?'Le gare della classe sono attive sul sito con accesso scolastico.':A.session?'Il tuo account deve essere autorizzato dal docente per partecipare alle gare.':'Accedi con il tuo account scolastico per vedere le gare assegnate.';
       const waiting=Boolean(A.enabled&&A.session);freeMission(waiting?'Nell’attesa dell’autorizzazione puoi leggere le pillole e ripassare.':'Puoi avviare il tuo allenamento dal banco di lavoro.',waiting);return;
