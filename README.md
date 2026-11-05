@@ -50,3 +50,7 @@ La correzione 1.3.1 aggiunge al controllo archivio del solo gestore fasi, cause 
 La correzione 1.3.2 ordina cronologicamente i progressi ripristinati prima di scegliere gli ultimi 20 risultati e il suggerimento della home. Lo storico completo e i relativi XP restano conservati.
 
 La revisione 1.3.3 controlla con DeepSeek Flash tutti i 1431 ID originali (1191 attività di base e 240 adattamenti PEI), confermando separatamente le segnalazioni prima di correggerle. Migliora 408 feedback verbali, 20 consegne/feedback generali e il contesto dei 240 modelli PEI; conserva soluzioni, varianti, ID e attività aperte. Il controllo esterno non equivale a certificazione editoriale e non comprende la validazione delle traduzioni.
+
+## Correzione di navigazione e layout · 1.3.4
+
+Il collegamento «Grammatica in Atelier» nella home resta visibile dopo il caricamento e il cambio profilo: l’introduzione dinamica aggiorna soltanto il paragrafo dedicato. Il pannello accesso/Drive dispone messaggi e scelte su righe leggibili, mantenendo pulsanti utilizzabili su telefono e tablet. Banche degli esercizi, servizi di autenticazione e sincronizzazione invariati.
