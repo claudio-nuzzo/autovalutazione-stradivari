@@ -10,7 +10,7 @@ const legacyChoiceOptions=new Map(bank.filter(x=>x.kind==='choice').map(x=>[x.id
 E.balanceChoices(bank);
 // Guided matching offers a concrete example before a two-choice micro-step.
 const peiGroups=new Map();for(const selectedTrack of ['moda','arredo','liuteria'])for(const item of bank){if(item.pei||!['choice','exact'].includes(item.kind)||!fitsTrack(item,selectedTrack))continue;const k=item.area+'|'+(item.topicGroup||defaultTopic(item))+'|'+selectedTrack;if(!peiGroups.has(k)||item.level<peiGroups.get(k).item.level)peiGroups.set(k,{item,selectedTrack})}
-let peiIndex=0;for(const[k,{item,selectedTrack}]of peiGroups){const correct=item.kind==='choice'?item.options[item.answer]:item.answers[0],other='Una risposta diversa';bank.push({...item,id:'pei-'+selectedTrack+'-'+item.id,track:selectedTrack,pei:true,kind:'choice',level:1,title:'Osserva e riconosci',prompt:'Esempio da osservare: «'+correct+'». Tocca la stessa risposta fra le due proposte.',options:peiIndex++%2?[other,correct]:[correct,other],answer:(peiIndex-1)%2?1:0,solution:correct,minutes:2})}
+let peiIndex=0;for(const[k,{item,selectedTrack}]of peiGroups){const correct=item.kind==='choice'?item.options[item.answer]:item.answers[0],other='Una risposta diversa';bank.push({...item,id:'pei-'+selectedTrack+'-'+item.id,track:selectedTrack,pei:true,kind:'choice',level:1,title:'Osserva e riconosci',prompt:'Esempio svolto. Consegna: «'+item.prompt+'» Risposta del modello: «'+correct+'». Ora scegli la risposta del modello fra le due proposte.',options:peiIndex++%2?[other,correct]:[correct,other],answer:(peiIndex-1)%2?1:0,solution:correct,minutes:2})}
 
 if(!A.enabled)window.ATELIER_REVIEW_BANK=bank;
 let current=null,paused=false,path='standard',timerHandle,track='';

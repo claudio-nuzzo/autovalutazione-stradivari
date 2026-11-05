@@ -1,4 +1,4 @@
-# Grammatica in Atelier · versione 1.3.2
+# Grammatica in Atelier · versione 1.3.3
 
 Destinazione: https://didattica.stradilab.org/grammatica/ . Frontend statico nella sottocartella del portale esistente; API in Deepstrad, con archivio nel Drive già configurato. Nessun database persistente Cloudflare per i risultati.
 
@@ -8,7 +8,7 @@ Destinazione: https://didattica.stradilab.org/grammatica/ . Frontend statico nel
 
 All’ingresso si sceglie Moda, Arredo o Liuteria. Gli esempi specifici dell’indirizzo hanno priorità; gli esercizi generali restano disponibili e i contesti palesemente di altri indirizzi vengono esclusi. La preferenza si conserva sul browser e si cambia dalla home. La contestualizzazione non pretende che ogni forma di coniugazione abbia un contesto professionale.
 
-L’interfaccia presenta una sola attività per volta, barra di avanzamento, avanti/indietro, ritorno al ripasso e pausa. Nei completamenti il campo è nella frase al posto della lacuna; le trasformazioni senza lacuna hanno un campo breve accanto alla consegna. Le risposte aperte mantengono lo spazio di scrittura necessario. La correzione con spiegazioni avviene alla fine della serie. La revisione completa con DeepSeek è programmata separatamente per il 5 novembre 2026 alle 15:00: non è già avvenuta e non sostituisce la conferma dei singoli errori.
+L’interfaccia presenta una sola attività per volta, barra di avanzamento, avanti/indietro, ritorno al ripasso e pausa. Nei completamenti il campo è nella frase al posto della lacuna; le trasformazioni senza lacuna hanno un campo breve accanto alla consegna. Le risposte aperte mantengono lo spazio di scrittura necessario. La correzione con spiegazioni avviene alla fine della serie. Il 5 novembre 2026 la revisione con DeepSeek Flash ha coperto tutti i 1431 ID originali, con conferma separata dei singoli errori prima della correzione.
 
 Accesso libero agli argomenti; orientamento iniziale facoltativo. Standard: fino a 6 attività per serie; lingua semplificata e DSA: fino a 4; PEI: fino a 3 microattività. La scelta è dell'alunno. I supporti DSA/PEI/L2 restano nel browser. Le attività PEI mostrano un esempio e chiedono riconoscimento fra due risposte. Le traduzioni di aiuto accompagnano tutte le 30 pillole in inglese, arabo (RTL) e coreano; gli esercizi mantengono l'italiano come lingua da apprendere. Questi aiuti non sono tre corsi integralmente tradotti e richiedono revisione di parlanti competenti.
 
@@ -30,7 +30,7 @@ Gli esiti conclusi sono sincronizzati su Drive e recuperati dopo accesso sul nuo
 
 `node --test tests/grammar-content.test.cjs`, `npm run test:grammar-browser`, `npm run test:grammar-adapter`. Playwright è una dipendenza di sviluppo del repository. La CI comprende anche i controlli dei percorsi preesistenti e della sincronizzazione Drive. I test sintetici coprono tutti gli argomenti standard/PEI per tutti e tre gli indirizzi, navigazione a schermata singola, campi inline e viewport 375/768/landscape, 30 aiuti per ciascuna lingua, RTL, creazione esercizi, conferma della coda e layout a 375 px. I test simulati non attestano OAuth reale, iPad fisico o correttezza di ogni traduzione.
 
-Per la revisione esterna: `node scripts/export-grammar-review.cjs /percorso/revisione.json` esporta soltanto le attività da un browser locale ospite isolato, senza dati di studenti. La revisione DeepSeek programmata usa l’esportazione completa e registra la copertura per ID.
+Per la revisione esterna: `node scripts/export-grammar-review.cjs /percorso/revisione.json` esporta soltanto le attività da un browser locale ospite isolato, senza dati di studenti. La revisione DeepSeek usa l’esportazione completa e registra la copertura per ID.
 
 ## Verifiche finali per argomento
 
@@ -73,3 +73,11 @@ Questa interfaccia usa i campi diagnostici dell’API Deepstrad 1.1.2. Non modif
 Dopo il ripristino da Drive, lo storico viene letto in ordine cronologico anche quando gli eventi remoti arrivano dal più recente al più vecchio o si mescolano a tentativi locali. La vista Progressi mostra i 20 risultati più recenti in ordine decrescente; il suggerimento nella home usa l’ultimo risultato effettivo. Le date sono confrontate come istanti, con valore iniziale per date non valide e identificativo evento come criterio stabile a parità di data.
 
 L’ordinamento lavora su una copia durante la lettura: non elimina eventi né riscrive la memoria locale per aggiornare la schermata. Stelline, XP e medaglie continuano a usare lo storico completo, compresi i risultati fuori dalle 20 righe visibili. `npm run test:grammar-migration` comprende un ripristino scolastico sintetico di 40 eventi in ordine decrescente mescolati a due tentativi locali, con date equivalenti in fusi diversi, una data non valida, ricaricamento e verifica della conservazione integrale dei dati. La prova automatica non sostituisce il riscontro reale tra browser.
+
+## Revisione editoriale 1.3.3 · 5 novembre 2026
+
+Copertura completa della banca esportata: 1191 attività di base (incluse tutte le 768 attività verbali e i 90 contesti di indirizzo) e 240 modelli PEI, per 1431 ID unici. I lotti con risposte troncate o JSON non valido sono stati rieseguiti; la copertura conta soltanto risposte valide con tutti gli ID dichiarati. Sono stati inviati esclusivamente esercizi originali con soluzioni e spiegazioni, da un browser locale ospite isolato, senza account, token o risultati scolastici.
+
+Le segnalazioni sono state confrontate con i testi e con il motore reale: molte erano proposte facoltative o falsi positivi e non sono state applicate. Sono corretti l’elisione davanti a «indicativo» e «imperativo» in 408 spiegazioni, 20 attività con consegne o feedback più precisi e 240 modelli PEI che ora conservano la consegna dell’esempio svolto prima del compito di riconoscimento. I feedback a scelta multipla interessati citano le frasi anziché la loro posizione, che cambia nel rimescolamento. In totale cambiano 668 record; restano invariati ID, risposte corrette, varianti accettate, opzioni, indici e modalità di correzione.
+
+I record modificati sono stati nuovamente inviati a DeepSeek, seguiti da un controllo indipendente. Il nuovo test `grammar-editorial-browser.cjs`, incluso nella CI, verifica la conservazione del contesto dei 240 modelli PEI, l’elisione, i feedback semantici e varianti verbali valide nel motore. Le prove di interfaccia continuano a coprire completamenti inline, tutte le combinazioni di argomento/indirizzo/percorso e le verifiche finali. La revisione non certifica l’assenza di ogni errore e non valida le traduzioni in inglese, arabo e coreano. Accesso, Drive, gare, livelli e premi restano sui servizi esistenti.

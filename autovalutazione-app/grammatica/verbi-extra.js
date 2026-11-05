@@ -102,10 +102,11 @@ for (const [verb, rows] of Object.entries(tables)) {
       const personIndex = mode === 'imperativo' ? [1,3,4][formIndex] : formIndex;
       const answers = Array.isArray(value) ? value : [value];
       const label = `${mode} ${tense}`;
+      const introducedLabel = `${mode === 'indicativo' || mode === 'imperativo' ? 'all’' : 'al '}${label}`;
       const variant = answers.length > 1 ? ` Sono ammesse anche le varianti: ${answers.slice(1).join(', ')}.` : '';
       const rule = verb === 'essere' || verb === 'avere'
-        ? `${verb === 'essere' ? 'Essere' : 'Avere'} ha una coniugazione irregolare: per la ${people[personIndex]}, al ${label}, la forma è «${answers[0]}».`
-        : `La forma di «${verb}» al ${label}, ${people[personIndex]}, è «${answers[0]}».`;
+        ? `${verb === 'essere' ? 'Essere' : 'Avere'} ha una coniugazione irregolare: per la ${people[personIndex]}, ${introducedLabel}, la forma è «${answers[0]}».`
+        : `La forma di «${verb}» ${introducedLabel}, ${people[personIndex]}, è «${answers[0]}».`;
       activities.push({
         id:`vx-${verb}-${key}-${personIndex + 1}`,
         area:'parole', topicGroup:`Verbi · ${label}`, topic:`Verbi: ${label} di ${verb}`,
@@ -207,6 +208,7 @@ for (const verb of Object.keys(tables)) {
       const auxiliaryForm = tables[auxiliary][auxiliaryRow][personIndex];
       const answers = agreedParticiples(verb, personIndex).map(participle => `${auxiliaryForm} ${participle}`);
       const label = `${mode} ${tense}`;
+      const nominalLabel = `${mode === 'indicativo' ? 'L’' : 'Il '}${label}`;
       const agreement = auxiliary === 'essere'
         ? ' Il participio concorda con il soggetto: sono accettate entrambe le forme di genere, nel numero richiesto.'
         : ' In questa forma senza complemento oggetto espresso il participio resta nella forma indicata.';
@@ -216,7 +218,7 @@ for (const verb of Object.keys(tables)) {
         level, pei:false, kind:'exact', title:'Officina dei verbi',
         prompt:`Scrivi soltanto la forma verbale composta di «${verb}»: modo ${mode}, tempo ${tense}, ${person}.${auxiliary === 'essere' ? ' Puoi scegliere il maschile o il femminile, rispettando il numero della persona.' : ''}`,
         answers, solution:answers[0],
-        feedback:`Il ${label} di «${verb}» si forma con l'ausiliare ${auxiliary} nella forma «${auxiliaryForm}» e il participio passato: ${answers.join(' / ')}.${agreement}`,
+        feedback:`${nominalLabel} di «${verb}» si forma con l'ausiliare ${auxiliary} nella forma «${auxiliaryForm}» e il participio passato: ${answers.join(' / ')}.${agreement}`,
         minutes:1
       });
     });

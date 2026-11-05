@@ -9,7 +9,7 @@
     "test:browser": "node tests/teacher-path.cjs",
     "test:progress": "node --test tests/progress-drive-model.test.cjs tests/progress-storage.test.cjs",
     "test:progress-browser": "node tests/progress-drive-browser.cjs",
-    "test:grammar-browser": "node tests/grammar-browser.cjs",
+    "test:grammar-browser": "node tests/grammar-editorial-browser.cjs && node tests/grammar-browser.cjs",
     "test:grammar-adapter": "node tests/grammar-adapter.cjs",
     "test:grammar-assessments": "node tests/grammar-assessments.cjs && node tests/grammar-assessment-browser.cjs",
     "test:grammar-migration": "node tests/grammar-migration.cjs && node tests/grammar-progress-order.cjs",
