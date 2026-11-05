@@ -2,7 +2,7 @@
   const validTabs = new Set(['studio', 'app', 'digcomp', 'corso', 'ptofo']);
 
   function profileIntro() {
-    document.querySelector('.hero > div:first-child p')?.replaceChildren(document.createTextNode(document.body.dataset.profile === 'docente' ? 'Rifletti sul tuo metodo di insegnamento e costruisci un portfolio: un percorso autonomo sul digitale con 4 ore previste di autoformazione.' : 'Parti dal metodo di studio, poi autovaluta una prova con le griglie delle materie e allena le competenze digitali.'));
+    document.getElementById('profileIntro')?.replaceChildren(document.createTextNode(document.body.dataset.profile === 'docente' ? 'Rifletti sul tuo metodo di insegnamento e costruisci un portfolio: un percorso autonomo sul digitale con 4 ore previste di autoformazione.' : 'Parti dal metodo di studio, poi autovaluta una prova con le griglie delle materie e allena le competenze digitali.'));
   }
   profileIntro();
   document.addEventListener('profilechange', profileIntro);
