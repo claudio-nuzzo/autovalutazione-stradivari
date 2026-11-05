@@ -297,7 +297,11 @@
   function saveProgress() {
     const key = storageKey();
     if (!key) return;
-    try { localStorage.setItem(key, JSON.stringify({ answers, lastResult, courseAnswers, completedModules, courseCompletedAt, teacherTestAnswers, trainingDeclared, courseLabNotes })); } catch (_) { /* Il percorso resta utilizzabile senza storage. */ }
+    try {
+      localStorage.setItem(key, JSON.stringify({ answers, lastResult, courseAnswers, completedModules, courseCompletedAt, teacherTestAnswers, trainingDeclared, courseLabNotes }));
+      document.dispatchEvent(new CustomEvent('stradivari-storage-ok', {detail:key}));
+      document.dispatchEvent(new CustomEvent('stradivari-dig-saved'));
+    } catch (_) { document.dispatchEvent(new CustomEvent('stradivari-storage-failed', {detail:key})); }
   }
 
   function loadProgress() {
@@ -314,7 +318,7 @@
     courseLabNotes = lessons.map(() => '');
     try {
       const legacyEmail = window.StradivariUser?.email;
-      const legacy = role === 'alunno' && legacyEmail ? localStorage.getItem(`stradivari-digcomp-progress:v1:${String(legacyEmail).toLowerCase()}`) : null;
+      const legacy = role === 'alunno' && legacyEmail && !localStorage.getItem(`stradivari-digcomp-v1-suppressed:${String(legacyEmail).toLowerCase()}`) ? localStorage.getItem(`stradivari-digcomp-progress:v1:${String(legacyEmail).toLowerCase()}`) : null;
       const saved = JSON.parse(localStorage.getItem(key) || legacy || 'null');
       if (!saved) return;
       ['alunno', 'docente'].forEach(profile => {
@@ -633,6 +637,10 @@
     loadProgress();
     renderDig();
     renderCourse();
+    document.dispatchEvent(new CustomEvent('stradivari-progress'));
+  });
+  document.addEventListener('stradivari-drive-restored', () => {
+    loadProgress(); renderDig(); renderCourse();
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
 

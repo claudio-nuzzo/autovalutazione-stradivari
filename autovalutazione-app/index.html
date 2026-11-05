@@ -44,7 +44,7 @@
           <button class="role" data-role="alunno" aria-pressed="false"><b>Sono un alunno</b><small>Mi osservo, provo, miglioro.</small></button>
           <button class="role" data-role="docente" aria-pressed="false"><b>Sono un docente</b><small>Progetto, accompagno, valuto.</small></button>
         </div>
-        <div class="pdf-actions"><button class="btn secondary" id="downloadPdf" type="button">Scarica i risultati in PDF</button><small>Salvataggio locale · nessun dato viene inviato</small></div>
+        <div class="pdf-actions"><button class="btn secondary" id="downloadPdf" type="button">Scarica i risultati in PDF</button><small>Il PDF viene generato sul dispositivo</small></div>
         <dialog id="pdfIdentityDialog" class="pdf-dialog" aria-labelledby="pdfIdentityTitle">
           <form method="dialog" id="pdfIdentityForm">
             <div class="kicker">Prima di creare il PDF</div><h2 id="pdfIdentityTitle">Come vuoi intestare il report?</h2><p>Nome e classe sono facoltativi: servono solo a rendere il documento più chiaro e non vengono salvati né inviati.</p>
@@ -60,11 +60,17 @@
       <div class="teacher-access-copy">
         <div class="kicker">Accesso StradiLab · account d'istituto</div>
         <strong id="teacherAccessTitle">Accedi per conservare il tuo percorso</strong>
-        <p>Per gli alunni, l'accesso associa il corso e il check DigComp al proprio account sul dispositivo e abilita il report finale del modulo 8.</p>
+        <p>Accedi e collega Google Drive per ritrovare i progressi anche su un altro dispositivo. La sincronizzazione richiede una connessione e l’autorizzazione dell’account.</p>
       </div>
       <div class="teacher-access-actions">
         <div id="sl-login"></div>
         <div class="teacher-auth-status" id="teacherAuthStatus" role="status" aria-live="polite"><span class="guest-dot" aria-hidden="true"></span>Accedi con l'account @istitutostradivari.it per salvare il report.</div>
+        <button class="btn secondary" type="button" id="driveSyncConnect">Collega Google Drive</button>
+        <button class="btn secondary" type="button" id="driveSyncNow" hidden>Sincronizza ora</button>
+        <div id="driveSyncStatus" role="status" aria-live="polite">Accedi e collega Drive per ritrovare i progressi sugli altri dispositivi.</div>
+        <div id="driveSyncChoices"></div>
+        <div id="guestProgressChoices"></div>
+        <details id="localBackupPanel" hidden><summary>Recupera una copia conservata su questo dispositivo</summary><p>Ripristinando una copia, il lavoro attuale viene conservato come un’altra copia locale.</p><div id="localBackupChoices"></div></details>
       </div>
     </section>
 
@@ -179,17 +185,25 @@
 
   <footer><div class="wrap">IIS “Antonio Stradivari” · Cremona · <a href="https://stradilab.org/privacy.html">Privacy</a></div></footer>
   <div id="pdfReport" aria-hidden="true"></div>
-  <script src="study-method.js"></script>
-  <script src="teaching-method.js?v=10"></script>
-  <script src="assessment-vote.js"></script>
-  <script src="vendor/jspdf.js"></script>
-  <script src="certificate-archive.js?v=1"></script>
-  <script src="digcomp-course.js?v=25"></script>
-  <script src="role-state.js?v=6"></script>
+  <dialog id="tabLockDialog" aria-labelledby="tabLockTitle" aria-describedby="tabLockNote">
+    <h2 id="tabLockTitle">Proteggiamo i tuoi progressi</h2>
+    <p id="tabLockNote">Verifica delle schede aperte in corso…</p>
+    <button class="btn" id="tabLockRetry" type="button">Riprova</button>
+  </dialog>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="stradilab-auth.js?v=2"></script>
-  <script src="teacher-auth.js?v=2"></script>
-  <script src="results-pdf.js?v=6"></script>
-  <script src="app.js?v=4"></script>
+  <script type="application/x-stradilab" data-src="study-method.js"></script>
+  <script type="application/x-stradilab" data-src="teaching-method.js?v=11"></script>
+  <script type="application/x-stradilab" data-src="assessment-vote.js"></script>
+  <script type="application/x-stradilab" data-src="vendor/jspdf.js"></script>
+  <script type="application/x-stradilab" data-src="certificate-archive.js?v=2"></script>
+  <script type="application/x-stradilab" data-src="digcomp-course.js?v=26"></script>
+  <script type="application/x-stradilab" data-src="role-state.js?v=7"></script>
+  <script type="application/x-stradilab" data-src="progress-drive-model.js"></script>
+  <script type="application/x-stradilab" data-src="progress-drive.js"></script>
+  <script type="application/x-stradilab" data-src="stradilab-auth.js?v=2"></script>
+  <script type="application/x-stradilab" data-src="teacher-auth.js?v=3"></script>
+  <script type="application/x-stradilab" data-src="results-pdf.js?v=6"></script>
+  <script type="application/x-stradilab" data-src="app.js?v=4"></script>
+  <script src="tab-lock.js"></script>
 </body>
 </html>

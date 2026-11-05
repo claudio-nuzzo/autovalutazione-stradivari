@@ -6,8 +6,16 @@
     "build:pdf": "esbuild pdf-vendor-entry.mjs --bundle --platform=browser --target=es2020 --format=iife --minify --outfile=autovalutazione-app/vendor/jspdf.js",
     "test:archive": "node --test tests/archive.test.mjs",
     "test:workerd": "node --test tests/archive-workerd.test.mjs",
-    "test:browser": "node tests/teacher-path.cjs"
+    "test:browser": "node tests/teacher-path.cjs",
+    "test:progress": "node --test tests/progress-drive-model.test.cjs",
+    "test:progress-browser": "node tests/progress-drive-browser.cjs"
   },
-  "dependencies": { "jspdf": "4.2.1" },
-  "devDependencies": { "esbuild": "0.28.2", "miniflare": "5.20261001.0-alpha" }
+  "dependencies": {
+    "jspdf": "4.2.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "miniflare": "5.20261001.0-alpha",
+    "playwright": "1.62.1"
+  }
 }

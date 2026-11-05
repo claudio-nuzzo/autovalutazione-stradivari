@@ -21,5 +21,11 @@ jobs:
       - run: node --check autovalutazione-app/digcomp-course.js
       - run: node --check autovalutazione-app/teaching-method.js
       - run: node --check autovalutazione-app/results-pdf.js
+      - run: node --check autovalutazione-app/progress-drive.js
+      - run: node --check autovalutazione-app/tab-lock.js
       - run: npm run test:archive
       - run: npm run test:workerd
+      - run: npm run test:progress
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:progress-browser
+      - run: npm run test:browser

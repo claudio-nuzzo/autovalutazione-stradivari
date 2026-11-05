@@ -17,6 +17,14 @@
     minimo: 'nessuno',
     mount: 'sl-login',
     onReady: (user) => {
+      if (window.StradivariStorageGuard?.hasFailures()) {
+        window.StradivariStorageGuard.blockAuth();
+        window.StradivariStorageGuard.explain();
+        login.style.display = '';
+        setStatus('Salva prima le modifiche rimaste in memoria; poi riprova l’accesso.', 'error');
+        return;
+      }
+      window.StradivariStorageGuard?.allowAuth();
       const isTeacher = Boolean(user.isDocente);
       document.body.dataset.teacherAuth = 'verified';
       window.StradivariUser = { user, email: user.email, isTeacher };

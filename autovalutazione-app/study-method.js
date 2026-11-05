@@ -92,6 +92,32 @@
     return `<section class="study-maps" aria-labelledby="map-title"><div class="study-map-head"><div><div class="kicker">Esempio sul brano</div><h4 id="map-title">${map.title}</h4></div><span>Osserva le relazioni, non copiare le frasi</span></div><div class="map-flow">${map.nodes.map((node, index) => `<div class="map-node"><span>${String(index + 1).padStart(2, '0')}</span><b>${node}</b>${index < map.links.length ? `<small>${map.links[index]}</small>` : ''}</div>`).join('')}</div><div class="map-note"><strong>Come leggerla.</strong> Le frecce rispondono alla domanda-guida: ogni nodo è breve, ogni relazione dice che cosa cambia o dipende da che cosa. Ora prova a costruire una versione tua con massimo 5–7 nodi.</div></section>`;
   }
   const state = { step: 0, answers: [], chosen: [], exercise: [], reflection: '', sample: 0, recall: '', reveal: false, year: '1', school: 'professionali' };
+  const initialState = structuredClone(state);
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const studyKey = () => `stradivari-study-v1:${String(window.StradivariUser?.email || 'ospite').trim().toLowerCase()}`;
+  function saveStudy() {
+    try {
+      localStorage.setItem(studyKey(), JSON.stringify(state));
+      document.dispatchEvent(new CustomEvent('stradivari-storage-ok', {detail:studyKey()}));
+      document.dispatchEvent(new CustomEvent('stradivari-study-saved'));
+    } catch (_) { document.dispatchEvent(new CustomEvent('stradivari-storage-failed', {detail:studyKey()})); }
+  }
+  function loadStudy() {
+    Object.assign(state, structuredClone(initialState));
+    try {
+      const saved = JSON.parse(localStorage.getItem(studyKey()) || 'null');
+      if (saved && typeof saved === 'object' && !Array.isArray(saved)) {
+        Object.assign(state, saved);
+        if (!['professionali','tecnici','licei'].includes(state.school)) state.school = 'professionali';
+        state.step = Math.max(0, Math.min(4, Number(state.step) || 0));
+        for (const name of ['answers','chosen','exercise']) if (!Array.isArray(state[name])) state[name] = [];
+        state.chosen = state.chosen.filter(value => Number.isInteger(value) && value >= 0 && value < 10).slice(0, 2);
+        state.recall = typeof state.recall === 'string' ? state.recall : '';
+        state.reflection = typeof state.reflection === 'string' ? state.reflection : '';
+      }
+    } catch (_) { /* Ignore an unreadable local record. */ }
+    applyProfile();
+  }
   function applyProfile() {
     state.year = '1';
     const selectedQuestions = isBeginnerProfile() ? beginnerQuestions : state.school === 'tecnici' ? standardQuestions.slice(0, 10) : standardQuestions.slice(0, 14);
@@ -102,7 +128,7 @@
   function renderProfileChooser() {
     return `<section class="study-profile study-profile-single" aria-label="Scegli il percorso di prima"><h4>Scegli il tuo percorso</h4><p>Per ora il laboratorio è dedicato alle classi prime, con tre livelli di guida.</p><label for="studySchool">Classe prima<select id="studySchool" data-study-profile><option value="professionali" ${state.school === 'professionali' ? 'selected' : ''}>1ª professionale · molto guidato</option><option value="tecnici" ${state.school === 'tecnici' ? 'selected' : ''}>1ª tecnico · guidato</option><option value="licei" ${state.school === 'licei' ? 'selected' : ''}>1ª liceo · guidato avanzato</option></select></label></section>`;
   }
-  applyProfile();
+  loadStudy();
   const content = document.getElementById('studyContent');
   const button = (label, action, disabled = false, secondary = false) => `<button class="btn ${secondary ? 'secondary' : ''}" data-study-action="${action}" ${disabled ? 'disabled' : ''}>${label}</button>`;
   const exerciseCheck = (index, label) => `<label class="guided-check"><input type="checkbox" name="study-exercise${index}" ${state.exercise[index] ? 'checked' : ''}><span>${label}</span></label>`;
@@ -176,7 +202,7 @@
           <section class="guided-step"><div class="guided-step-number">4<span>4 min</span></div><div><h4>Costruisci la catena</h4><p>Senza copiare frasi intere, scrivi cinque passaggi dal livello dell’acqua alla conservazione del raccolto. Collega i passaggi con parole come <em>lascia</em>, <em>permette</em>, <em>quindi</em>.</p>${exerciseCheck(3, 'Ho creato cinque passaggi e indicato almeno due relazioni.')}</div></section>
           <section class="guided-step"><div class="guided-step-number">5<span>4 min</span></div><div><h4>Applica: ${selectedStrategies[0].name}</h4><p>${selectedStrategies[0].practice}</p><div class="guided-hint"><b>Attenzione</b>${selectedStrategies[0].avoid}</div>${exerciseCheck(4, `Ho applicato ${selectedStrategies[0].name.toLowerCase()} e controllato il risultato.`)}</div></section>
           <section class="guided-step"><div class="guided-step-number">6<span>4 min</span></div><div><h4>Applica: ${selectedStrategies[1].name}</h4><p>${selectedStrategies[1].practice}</p><div class="guided-hint"><b>Attenzione</b>${selectedStrategies[1].avoid}</div>${exerciseCheck(5, `Ho applicato ${selectedStrategies[1].name.toLowerCase()} e controllato il risultato.`)}</div></section>
-          <section class="guided-step"><div class="guided-step-number">7<span>8 min</span></div><div><h4>Rispondi senza copiare</h4><p>Copri il brano e rispondi alle cinque domande con frasi complete. Per l’ultima usa almeno due informazioni del testo. Poi riapri, controlla e correggi in un altro colore.</p><ol class="recall-prompts">${sample.prompts.map(prompt => `<li>${prompt}</li>`).join('')}</ol><label class="recall-field"><span>Le mie risposte</span><textarea id="studyRecall" rows="9">${state.recall}</textarea></label><button class="btn secondary" data-study-action="model" ${state.recall.trim().length < 80 ? 'disabled' : ''}>${state.reveal ? 'Nascondi la soluzione-modello' : 'Confronta con la soluzione-modello'}</button>${state.reveal ? `<div class="model-answer"><b>Soluzione-modello</b><p>${sample.model}</p><span>La tua risposta può usare parole diverse. Controlla soprattutto ordine, cause e informazioni essenziali.</span></div>` : ''}${exerciseCheck(6, 'Ho risposto senza copiare, confrontato e corretto ciò che mancava.')}</div></section>
+          <section class="guided-step"><div class="guided-step-number">7<span>8 min</span></div><div><h4>Rispondi senza copiare</h4><p>Copri il brano e rispondi alle cinque domande con frasi complete. Per l’ultima usa almeno due informazioni del testo. Poi riapri, controlla e correggi in un altro colore.</p><ol class="recall-prompts">${sample.prompts.map(prompt => `<li>${prompt}</li>`).join('')}</ol><label class="recall-field"><span>Le mie risposte</span><textarea id="studyRecall" rows="9">${esc(state.recall)}</textarea></label><button class="btn secondary" data-study-action="model" ${state.recall.trim().length < 80 ? 'disabled' : ''}>${state.reveal ? 'Nascondi la soluzione-modello' : 'Confronta con la soluzione-modello'}</button>${state.reveal ? `<div class="model-answer"><b>Soluzione-modello</b><p>${sample.model}</p><span>La tua risposta può usare parole diverse. Controlla soprattutto ordine, cause e informazioni essenziali.</span></div>` : ''}${exerciseCheck(6, 'Ho risposto senza copiare, confrontato e corretto ciò che mancava.')}</div></section>
         </div>${renderStudyMap(sample)}<div class="study-question reflection-block"><p>Quale passaggio ti è stato più utile?</p>${[['obiettivo', 'Capire prima che cosa dovevo trovare.'], ['catena', 'Mettere in ordine fatti, cause e conseguenze.'], ['controllo', 'Rispondere senza testo e poi correggere.']].map(([value, label]) => `<label class="study-option"><input type="radio" name="study-reflection" value="${value}" ${state.reflection === value ? 'checked' : ''}><span>${label}</span></label>`).join('')}</div><div class="study-actions">${button('Torna alle strategie', 'back', false, true)}${button('Costruisci il mio piano', 'plan', state.exercise.length !== 7 || !state.exercise.every(Boolean) || !state.reflection)}</div>`;
       } else {
         const selectedStrategies = state.chosen.map(index => strategies[index]);
@@ -185,7 +211,7 @@
         <section class="guided-step"><div class="guided-step-number">2<span>3 min</span></div><div><h4>Prima lettura attiva</h4><p>Leggi il testo una volta. Dopo ogni paragrafo scrivi a margine una frase di massimo sette parole. Non evidenziare più di una frase per paragrafo.</p>${exerciseCheck(1, 'Ho individuato l’idea centrale dei tre paragrafi.')}</div></section>
         <section class="guided-step"><div class="guided-step-number">3<span>5 min</span></div><div><h4>Applica: ${selectedStrategies[0].name}</h4><p>${selectedStrategies[0].practice}</p><div class="guided-hint"><b>Non saltare il controllo.</b> ${selectedStrategies[0].avoid}</div>${exerciseCheck(2, `Ho applicato ${selectedStrategies[0].name.toLowerCase()} e controllato il risultato.`)}</div></section>
         <section class="guided-step"><div class="guided-step-number">4<span>5 min</span></div><div><h4>Applica: ${selectedStrategies[1].name}</h4><p>${selectedStrategies[1].practice}</p><div class="guided-hint"><b>Non saltare il controllo.</b> ${selectedStrategies[1].avoid}</div>${exerciseCheck(3, `Ho applicato ${selectedStrategies[1].name.toLowerCase()} e controllato il risultato.`)}</div></section>
-        <section class="guided-step"><div class="guided-step-number">5<span>5 min</span></div><div><h4>Richiamo finale senza testo</h4><p>Copri il brano e rispondi alle tre domande. Non cercare frasi perfette: rendi visibili ciò che ricordi e i collegamenti.</p><ol class="recall-prompts">${sample.prompts.map(prompt => `<li>${prompt}</li>`).join('')}</ol><label class="recall-field"><span>Scrivi qui la tua ricostruzione</span><textarea id="studyRecall" rows="7">${state.recall}</textarea></label><button class="btn secondary" data-study-action="model" ${state.recall.trim().length < 30 ? 'disabled' : ''}>${state.reveal ? 'Nascondi la soluzione-modello' : 'Confronta con la soluzione-modello'}</button>${state.reveal ? `<div class="model-answer"><b>Soluzione-modello</b><p>${sample.model}</p><span>Non deve essere identica alla tua: controlla presenza delle relazioni essenziali e correggi in un altro colore.</span></div>` : ''}${exerciseCheck(4, 'Ho risposto senza testo, confrontato e corretto ciò che mancava.')}</div></section>
+        <section class="guided-step"><div class="guided-step-number">5<span>5 min</span></div><div><h4>Richiamo finale senza testo</h4><p>Copri il brano e rispondi alle tre domande. Non cercare frasi perfette: rendi visibili ciò che ricordi e i collegamenti.</p><ol class="recall-prompts">${sample.prompts.map(prompt => `<li>${prompt}</li>`).join('')}</ol><label class="recall-field"><span>Scrivi qui la tua ricostruzione</span><textarea id="studyRecall" rows="7">${esc(state.recall)}</textarea></label><button class="btn secondary" data-study-action="model" ${state.recall.trim().length < 30 ? 'disabled' : ''}>${state.reveal ? 'Nascondi la soluzione-modello' : 'Confronta con la soluzione-modello'}</button>${state.reveal ? `<div class="model-answer"><b>Soluzione-modello</b><p>${sample.model}</p><span>Non deve essere identica alla tua: controlla presenza delle relazioni essenziali e correggi in un altro colore.</span></div>` : ''}${exerciseCheck(4, 'Ho risposto senza testo, confrontato e corretto ciò che mancava.')}</div></section>
         </div><div class="study-question reflection-block"><p>Che cosa hai notato?</p>${[['utile', 'Le strategie mi hanno mostrato cosa sapevo davvero.'], ['difficile', 'È stato difficile, ma ora so quale passaggio allenare.'], ['riprovare', 'Riproverò con un testo più breve e lo stesso procedimento.']].map(([value, label]) => `<label class="study-option"><input type="radio" name="study-reflection" value="${value}" ${state.reflection === value ? 'checked' : ''}><span>${label}</span></label>`).join('')}</div><div class="study-actions">${button('Torna alle strategie', 'back', false, true)}${button('Costruisci il piano', 'plan', state.exercise.length !== 5 || !state.exercise.every(Boolean) || !state.reflection)}</div>`;
       }
     } else {
@@ -194,7 +220,7 @@
         const reflectionLabels = { obiettivo: 'capire prima che cosa dovevo trovare', catena: 'mettere in ordine fatti, cause e conseguenze', controllo: 'rispondere senza testo e poi correggere' };
         content.innerHTML = `<h3>5. Il mio piano per 7 giorni</h3><p>Quattro prove brevi da 15 minuti. Ogni volta usa un testo di una materia che stai studiando.</p><div class="study-card"><h4>Giorno 1 · Capire e dividere</h4><p>Leggo titolo e consegna, scrivo l’obiettivo e divido il lavoro in passaggi. Poi leggo il testo e do un titolo a ogni paragrafo.</p></div><div class="study-card"><h4>Giorno 2 · Ricordare</h4><p>Senza guardare, scrivo quattro idee del testo del giorno prima. Riapro e aggiungo in un altro colore ciò che manca.</p></div><div class="study-card"><h4>Giorno 4 · Collegare</h4><p>Creo una catena di cinque fatti. Uso frecce e parole come “perché”, “poi” e “quindi” per mostrare le relazioni.</p></div><div class="study-card"><h4>Giorno 7 · Verificare e correggere</h4><p>Preparo tre domande, rispondo senza aiuti e registro un errore: che cosa mancava, perché e come lo correggo.</p></div><section class="study-recap"><div class="kicker">Il tuo metodo</div><h4>Prima, durante, dopo</h4><p><strong>Prima:</strong> chiarisco l’obiettivo e preparo i passaggi.</p><p><strong>Durante:</strong> uso ${selectedNames.join(' e ')}.</p><p><strong>Dopo:</strong> controllo che cosa ricordo, correggo e decido quando riprovare.</p><p><strong>Passaggio risultato più utile:</strong> ${reflectionLabels[state.reflection]}.</p></section><div class="study-result show"><strong>Percorso completato · circa 50 minuti</strong><br>Hai osservato il tuo metodo, scelto due strategie, lavorato su un testo di storia e costruito un piano di sette giorni.<br><span class="welcome-line">La guida resta disponibile: con la pratica potrai usare gli stessi passaggi in modo sempre più autonomo.</span></div><div class="study-actions">${button('Rivedi la prova sugli Egizi', 'back', false, true)}${button('Ricomincia', 'restart', false, true)}${button('Salva come PDF', 'pdf')}</div>`;
       } else {
-        content.innerHTML = `<h3>5. Il tuo piano per 7 giorni</h3><p>Trasforma l’esperimento in una routine breve e verificabile. Tempo previsto: 10 minuti.</p><div class="study-card"><h4>La mia routine</h4><p><strong>Prima:</strong> definisco un obiettivo concreto. <strong>Durante:</strong> uso ${state.chosen.map(index => strategies[index].name).join(' e ')}. <strong>Dopo:</strong> richiamo senza libro e registro un errore utile.</p></div><div class="study-card"><h4>Impegno concreto</h4><p>Per sette giorni farò quattro blocchi da 25 minuti, con telefono fuori portata. Riprenderò lo stesso contenuto in almeno tre giorni diversi e controllerò ciò che ricordo senza aiuti.</p></div><section class="study-recap"><div class="kicker">Il tuo riepilogo</div><h4>Che cosa hai scelto e sperimentato</h4><p><strong>Brano:</strong> ${samples[state.sample].title}</p><p><strong>Strategie:</strong> ${state.chosen.map(index => strategies[index].name).join(' · ')}</p><p><strong>La tua riflessione:</strong> ${state.reflection}</p><p><strong>Passo successivo:</strong> riprendi la mappa e il richiamo tra tre giorni, poi registra che cosa è migliorato.</p></section><div class="study-result show"><strong>Percorso completato · circa 65–70 minuti</strong><br>Hai osservato il tuo metodo, riconosciuto punti di forza e fragilità, compreso e provato due strategie e progettato un’applicazione settimanale.<br><span class="welcome-line">Continua così: ogni prova ti aiuta a conoscere meglio come impari.</span><br><strong>Benvenuto allo Stradivari!</strong></div><div class="study-actions">${button('Rivedi la prova', 'back', false, true)}${button('Ricomincia', 'restart', false, true)}${button('Salva come PDF', 'pdf')}</div>`;
+        content.innerHTML = `<h3>5. Il tuo piano per 7 giorni</h3><p>Trasforma l’esperimento in una routine breve e verificabile. Tempo previsto: 10 minuti.</p><div class="study-card"><h4>La mia routine</h4><p><strong>Prima:</strong> definisco un obiettivo concreto. <strong>Durante:</strong> uso ${state.chosen.map(index => strategies[index].name).join(' e ')}. <strong>Dopo:</strong> richiamo senza libro e registro un errore utile.</p></div><div class="study-card"><h4>Impegno concreto</h4><p>Per sette giorni farò quattro blocchi da 25 minuti, con telefono fuori portata. Riprenderò lo stesso contenuto in almeno tre giorni diversi e controllerò ciò che ricordo senza aiuti.</p></div><section class="study-recap"><div class="kicker">Il tuo riepilogo</div><h4>Che cosa hai scelto e sperimentato</h4><p><strong>Brano:</strong> ${samples[state.sample].title}</p><p><strong>Strategie:</strong> ${state.chosen.map(index => strategies[index].name).join(' · ')}</p><p><strong>La tua riflessione:</strong> ${esc(state.reflection)}</p><p><strong>Passo successivo:</strong> riprendi la mappa e il richiamo tra tre giorni, poi registra che cosa è migliorato.</p></section><div class="study-result show"><strong>Percorso completato · circa 65–70 minuti</strong><br>Hai osservato il tuo metodo, riconosciuto punti di forza e fragilità, compreso e provato due strategie e progettato un’applicazione settimanale.<br><span class="welcome-line">Continua così: ogni prova ti aiuta a conoscere meglio come impari.</span><br><strong>Benvenuto allo Stradivari!</strong></div><div class="study-actions">${button('Rivedi la prova', 'back', false, true)}${button('Ricomincia', 'restart', false, true)}${button('Salva come PDF', 'pdf')}</div>`;
       }
     }
 
@@ -248,7 +274,7 @@
       state.reflection = '';
       state.recall = '';
       state.reveal = false;
-      render();
+      saveStudy(); render();
       return;
     }
     const trigger = event.target.closest('[data-study-action]');
@@ -268,12 +294,22 @@
       document.getElementById('downloadPdf')?.click();
       return;
     }
-    render();
+    saveStudy(); render();
     content.scrollIntoView({ behavior: 'smooth', block: 'start' });
     document.dispatchEvent(new CustomEvent('stradivari-progress'));
   });
 
   window.StradivariStudy = { completed: () => state.step === 4 ? 5 : state.step, total: 5, getResults: () => ({ step: state.step, sample: samples[state.sample]?.title, strategies: state.chosen.map(index => currentStrategyLibrary()[index]?.name).filter(Boolean), reflection: state.reflection, completed: state.step === 4 }) };
+  content.addEventListener('change', event => {
+    const match = event.target.name?.match(/^study-q(\d+)$/);
+    if (match) state.answers[Number(match[1])] = Number(event.target.value);
+    saveStudy();
+  });
+  content.addEventListener('input', event => {
+    if (event.target.id === 'studyRecall') saveStudy();
+  });
+  document.addEventListener('stradivari-login', () => { loadStudy(); render(); });
+  document.addEventListener('stradivari-drive-restored', () => { loadStudy(); render(); });
   document.addEventListener('profilechange', updateSteps);
   render();
 })();
