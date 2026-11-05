@@ -5,5 +5,6 @@ function grade(item,value){if(item.kind==='open')return {status:String(value||''
 function stars(event){return event.mode==='guided'?1:1+(event.total>0&&event.correct/event.total>=.6?1:0)+(event.total>0&&event.correct===event.total?1:0)}
 function totalStars(events){const best=new Map();for(const e of events)best.set(e.activityId,Math.max(best.get(e.activityId)||0,Number.isInteger(e.stars)?e.stars:stars(e)));return [...best.values()].reduce((a,b)=>a+b,0)}
 function idFor(ids){let h=2166136261;for(const c of ids.join('|')){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return 'serie-'+(h>>>0).toString(16)}
-window.ATELIER_ENGINE={normalize,grade,stars,totalStars,idFor};
+function balanceChoices(bank){let seed=61729;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};for(const n of [2,3,4]){const items=bank.filter(x=>x.kind==='choice'&&x.options.length===n),positions=items.map((_,i)=>i%n);for(let i=positions.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[positions[i],positions[j]]=[positions[j],positions[i]]}items.forEach((item,i)=>{const correct=item.options[item.answer],others=item.options.filter((_,j)=>j!==item.answer);others.splice(positions[i],0,correct);item.options=others;item.answer=positions[i]})}}
+window.ATELIER_ENGINE={balanceChoices,normalize,grade,stars,totalStars,idFor};
 })();
