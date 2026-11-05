@@ -1,4 +1,4 @@
-# Grammatica in Atelier · versione 1.2.0
+# Grammatica in Atelier · versione 1.2.1
 
 Destinazione: https://didattica.stradilab.org/grammatica/ . Frontend statico nella sottocartella del portale esistente; API in Deepstrad, con archivio nel Drive già configurato. Nessun database persistente Cloudflare per i risultati.
 
@@ -37,3 +37,7 @@ Per la revisione esterna: `node scripts/export-grammar-review.cjs /percorso/revi
 Ogni argomento propone una verifica finale raggiungibile dalla home dopo la scelta dell’argomento oppure dalla conclusione di una serie. Sono inclusi soltanto scelta, completamento e selezione parole con soluzione strutturata; sono escluse risposte aperte e sfide personali. Fino a 8 quesiti standard, 6 nei percorsi L2/DSA, 3 PEI, con riduzione quando la banca dell’argomento contiene meno quesiti diversi. La selezione è stabile e varia livelli e, nei verbi, lemmi. Correzione automatica e spiegazioni finali, percentuale, tempo attivo e tempo consigliato (3–20 minuti). Nessun blocco per tempo scaduto. Il docente riconosce la verifica dall’identificativo attività, riceve risultato e durata, senza diagnosi o voti automatici.
 
 Le bozze conservano il testo delle opzioni scelte, così un diverso ordine delle risposte non altera il lavoro ripreso. Le bozze 1.1.0 vengono migrate attraverso le opzioni originali. Il timer non riparte mentre si consulta una sezione diversa dalla lezione.
+
+## Correzione 1.2.1
+
+La consegna articolo28 chiede di scegliere una frase e motivarla con due regole: ora è risposta aperta con confronto guidato ed è esclusa dalle verifiche automatiche. Le bozze precedenti conservano il testo dell’opzione scelta al posto del vecchio indice, anche nel passaggio da scelta a risposta aperta.
