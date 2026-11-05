@@ -1,4 +1,4 @@
-# Grammatica in Atelier · versione 1.3.1
+# Grammatica in Atelier · versione 1.3.2
 
 Destinazione: https://didattica.stradilab.org/grammatica/ . Frontend statico nella sottocartella del portale esistente; API in Deepstrad, con archivio nel Drive già configurato. Nessun database persistente Cloudflare per i risultati.
 
@@ -67,3 +67,9 @@ Il collegamento «Apri cartella Grammatica» compare solo per un URL canonico `h
 Questa interfaccia usa i campi diagnostici dell’API Deepstrad 1.1.2. Non modifica i permessi Drive, le regole di autorizzazione o il blocco dei dati quando la riservatezza non è verificabile. Solo `verified: true` produce la conferma di archivio verificato; la disponibilità della diagnostica non dimostra che il problema operativo dell’archivio sia risolto.
 
 `npm run test:grammar-races` comprende URL consentiti e malevoli, etichette ammesse e sconosciute, dati privati esclusi, valori booleani/conteggi non validi, accesso del solo gestore e rimozione dei dettagli al cambio di identità. I servizi dei test sono sintetici: non attestano i permessi reali del Drive né il consenso OAuth in produzione.
+
+## Correzione 1.3.2 · ordine dei progressi ripristinati
+
+Dopo il ripristino da Drive, lo storico viene letto in ordine cronologico anche quando gli eventi remoti arrivano dal più recente al più vecchio o si mescolano a tentativi locali. La vista Progressi mostra i 20 risultati più recenti in ordine decrescente; il suggerimento nella home usa l’ultimo risultato effettivo. Le date sono confrontate come istanti, con valore iniziale per date non valide e identificativo evento come criterio stabile a parità di data.
+
+L’ordinamento lavora su una copia durante la lettura: non elimina eventi né riscrive la memoria locale per aggiornare la schermata. Stelline, XP e medaglie continuano a usare lo storico completo, compresi i risultati fuori dalle 20 righe visibili. `npm run test:grammar-migration` comprende un ripristino scolastico sintetico di 40 eventi in ordine decrescente mescolati a due tentativi locali, con date equivalenti in fusi diversi, una data non valida, ricaricamento e verifica della conservazione integrale dei dati. La prova automatica non sostituisce il riscontro reale tra browser.
