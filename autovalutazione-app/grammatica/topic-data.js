@@ -44,13 +44,13 @@ choice('t07','Gradi dell’aggettivo','parole',2,'«Più veloce di» esprime il 
 exact('t08','Aggettivo: superlativo','parole',2,'Forma il superlativo assoluto di «gentile».',['gentilissimo','molto gentile'],'Gentilissimo (oppure molto gentile) esprime il superlativo assoluto.');
 choice('t09','Aggettivo: concordanza','parole',1,'Scegli la forma corretta: «Le finestre sono ___».',['aperta','aperti','aperte'],2,'L’aggettivo concorda con finestre, femminile plurale.');
 choice('t10','Pronomi personali','parole',1,'In «Loro arrivano domani», quale parola è pronome personale?',['arrivano','domani','Loro'],2,'Loro è un pronome personale soggetto.');
-choice('t11','Pronomi: uso del pronome','parole',2,'Evita la ripetizione: «Ho visto Sara e ___ ho salutata».',['la','le','li','ne'],0,'La sostituisce Sara e svolge la funzione di complemento oggetto.');
+choice('t11','Pronomi: uso del pronome','parole',2,'Evita la ripetizione: «Vedo Sara e ___ saluto».',['la','le','li','ne'],0,'La sostituisce Sara e svolge la funzione di complemento oggetto.');
 choice('t12','Pronomi possessivi','parole',2,'In «Questa penna è la mia», mia è:',['aggettivo possessivo','pronome possessivo','articolo'],1,'Mia è pronome perché sta al posto del nome penna.');
 choice('t13','Pronomi relativi','parole',2,'Completa: «Il libro ___ mi hai prestato è avvincente».',['che','cui','chi'],0,'Che riprende libro e svolge la funzione di oggetto di hai prestato.');
 choice('t14','Avverbi di modo','parole',1,'Quale avverbio completa «Cammina ___»?',['silenziosamente','silenziosa','silenzio'],0,'Silenziosamente è un avverbio di modo e modifica cammina.');
 choice('t15','Avverbi di tempo e luogo','parole',1,'In «Ci vediamo domani», domani è un avverbio di:',['luogo','tempo','modo','quantità'],1,'Domani indica quando avverrà l’incontro.');
 choice('t16','Avverbi di quantità','parole',2,'Quale parola è un avverbio di quantità?',['abbastanza','laggiù','ieri'],0,'Abbastanza indica in quale misura.');
-choice('t17','Preposizioni semplici','parole',1,'Completa: «Il gatto salta ___ divano».',['sul','perché','molto'],0,'Sul (su + il) introduce il luogo su cui salta il gatto.');
+choice('t17','Preposizioni articolate','parole',1,'Completa: «Il gatto salta ___ divano».',['sul','perché','molto'],0,'Sul (su + il) introduce il luogo su cui salta il gatto.');
 choice('t18','Preposizioni articolate','parole',2,'«Dagli amici» è formato da:',['da + gli','di + gli','a + gli'],0,'Dagli unisce la preposizione da e l’articolo gli.');
 choice('t19','Congiunzioni coordinanti','parole',2,'In «Vorrei uscire, ma piove», ma è:',['avversativa','conclusiva','dichiarativa'],0,'Ma oppone il desiderio di uscire al fatto che piove.');
 choice('t20','Congiunzioni subordinanti','parole',2,'Completa con una congiunzione causale: «Resto a casa ___ sono stanco».',['perché','sebbene','affinché','mentre'],0,'Perché introduce la causa del restare a casa.');
@@ -78,7 +78,7 @@ choice('t39','Complemento di causa','frase',2,'In «Tremava per il freddo», per
 choice('t40','Complemento di fine','frase',2,'In «Mi alleno per la gara», per la gara indica:',['fine o scopo','causa','modo'],0,'La gara è lo scopo dell’allenamento.');
 choice('t41','Complemento di mezzo','frase',2,'In «Ho tagliato il cartone con le forbici», con le forbici indica:',['mezzo','compagnia','causa'],0,'Le forbici sono lo strumento usato per tagliare.');
 choice('t42','Complemento di modo','frase',2,'In «Rispose con gentilezza», con gentilezza indica:',['modo','luogo','termine'],0,'Con gentilezza descrive il modo in cui rispose.');
-choice('t43','Riconoscere il complemento oggetto','frase',1,'In «Sara prepara una torta», qual è il complemento oggetto?',['Sara','prepara','una torta'],2,'Prepara che cosa? Una torta.');
+choice('t43','Riconoscere il complemento oggetto','frase',1,'In «Sara prepara una torta», qual è il gruppo del complemento oggetto, compreso l’articolo?',['Sara','prepara','una torta'],2,'Prepara che cosa? Una torta.');
 choice('t44','Predicato nominale','frase',2,'In «Il cielo è limpido», il predicato nominale è:',['il cielo','è limpido','limpido'],1,'È limpido comprende copula e nome del predicato.');
 choice('t45','Soggetto sottinteso','frase',1,'In «Abbiamo vinto la partita», il soggetto sottinteso è:',['noi','voi','loro'],0,'La desinenza -iamo indica la prima persona plurale: noi.');
 choice('t46','Complemento d’agente','frase',2,'In «La notizia fu diffusa da Luca», da Luca è:',['complemento d’agente','complemento oggetto','specificazione'],0,'La forma passiva introduce con da chi compie l’azione.');
