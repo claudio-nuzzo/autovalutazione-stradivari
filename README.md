@@ -23,7 +23,7 @@ Le 4 ore previste comprendono metodo di insegnamento (60 min), otto capitoli e a
 
 I progressi dei percorsi (studio, insegnamento, DigComp e griglie) sono conservati localmente per account e profilo e possono essere sincronizzati nel Drive personale con «Collega Google Drive». La sincronizzazione richiede una concessione OAuth separata dal login e non costituisce un registro ufficiale. Gli ospiti possono lavorare localmente; dopo l'accesso possono importare esplicitamente i propri dati ospite, con conservazione della copia precedente. Nessun dato personale degli alunni va inserito nelle evidenze del corso docente.
 
-## Sincronizzazione Drive — candidato 1.0.10
+## Sincronizzazione Drive — 1.0.10
 
 Il client richiede esclusivamente `https://www.googleapis.com/auth/drive.appdata`. Il token OAuth resta in memoria; prima di leggere o scrivere il client confronta l'account Drive con l'account scolastico verificato. Non vengono trasferiti progressi a D1/R2 o al Worker: le chiamate avvengono dal browser alle API Google.
 
@@ -31,7 +31,7 @@ Il client richiede esclusivamente `https://www.googleapis.com/auth/drive.appdata
 - I progressi vengono recuperati automaticamente dopo il collegamento. «Sincronizza ora» conferma il trasferimento prima di cambiare dispositivo; le modifiche locali attivano anche un tentativo dopo 15 secondi di inattività. Il browser può non mostrare un avviso alla chiusura su iOS: non promettere un salvataggio alla chiusura.
 - Revisioni immutabili proteggono le copie concorrenti. In caso di divergenza, la scelta è esplicita e le altre revisioni restano archiviate. Un indice aggiornato tramite Drive Changes evita di rileggere ogni revisione a ogni salvataggio; lo storico continua a consumare quota. La pulizia dello storico non è implementata e non vengono eliminate revisioni automaticamente.
 - La cartella dati dell'app è privata per account e non condivisibile: non abilita una dashboard docente. Se l'utente elimina i dati dell'app da Drive, elimina anche queste copie; la sincronizzazione non sostituisce un backup istituzionale.
-- Una sola scheda per origine può modificare i progressi; il portale attende un Web Lock prima di inizializzare i moduli. Sono richiesti browser moderni con Web Locks e dialog modale; una seconda scheda informa come riaprire il lavoro. Le prove su Safari/iPad fisico restano una verifica di rilascio.
+- Una sola scheda per origine può modificare i progressi; il portale attende un Web Lock prima di inizializzare i moduli. Sono richiesti browser moderni con Web Locks e dialog modale; una seconda scheda informa come riaprire il lavoro. Il ripristino reale tra Chrome e Safari su macOS è stato verificato il 5 novembre 2026; iPad fisico non provato.
 - Gli errori di memoria locale sono visibili e bloccano sincronizzazione, cambio profilo/account e ripristini che potrebbero scartare dati non salvati. Le copie locali possono essere recuperate dal pannello dedicato.
 - Il ripristino delle chiavi locali salva prima un registro di annullamento. Se una scrittura fallisce, tutte le chiavi precedenti vengono ripristinate; se anche questo recupero fallisce, il registro resta disponibile e il portale blocca il lavoro. Al successivo avvio il recupero viene tentato prima di caricare i percorsi, senza presentare dati parziali come un ripristino riuscito.
 
@@ -39,4 +39,8 @@ Il client richiede esclusivamente `https://www.googleapis.com/auth/drive.appdata
 
 `npm run test:progress` prova il modello delle revisioni e il registro di annullamento; `npm run test:progress-browser` usa un servizio Drive simulato e account sintetici per verificare identità, conflitti, ripristino, quota anche a metà ripristino e più schede; `npm run test:browser` copre i percorsi preesistenti. Installare Chromium con `npx playwright install chromium` e Poppler (`pdfinfo`, pacchetto `poppler-utils` in Ubuntu); per un eseguibile locale specifico usare `PLAYWRIGHT_CHROMIUM_EXECUTABLE`. I test non provano il consenso OAuth reale, le politiche Workspace o la consistenza del feed Google reale.
 
-Prima della produzione: revisione dello SHA esatto, CI, autorizzazione OAuth con account di prova, salvataggio e ripristino su un secondo dispositivo, prova Safari/iPad e confronto degli asset pubblicati. La versione di manifest è un candidato, non una dichiarazione di pubblicazione. L'audit dipendenze ha segnalato avvisi preesistenti in DOMPurify e dipendenze Miniflare; questo intervento non modifica il bundle PDF e richiede una valutazione separata della raggiungibilità prima del rilascio.
+La versione 1.0.10 è stata pubblicata tramite PR #5 dopo revisione indipendente dello SHA esatto e CI. Il 5 novembre 2026 il collegamento OAuth reale, il salvataggio su Drive e il ripristino passando da Chrome a Safari su macOS sono stati verificati con il titolare. iPad fisico non provato. L'audit dipendenze ha segnalato avvisi preesistenti in DOMPurify e dipendenze Miniflare; questo intervento non modifica il bundle PDF e richiede una valutazione separata della raggiungibilità prima del rilascio.
+
+## Grammatica in Atelier — 1.1.0
+
+Nuovo portale in `autovalutazione-app/grammatica/`, collegato dalla home: esercizi di analisi grammaticale, logica e del periodo, ripasso visuale, supporti di lettura, accesso autorizzato dal docente e progressi su Drive. Dettagli in [docs/grammatica.md](docs/grammatica.md).

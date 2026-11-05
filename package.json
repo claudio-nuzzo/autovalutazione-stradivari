@@ -8,7 +8,9 @@
     "test:workerd": "node --test tests/archive-workerd.test.mjs",
     "test:browser": "node tests/teacher-path.cjs",
     "test:progress": "node --test tests/progress-drive-model.test.cjs tests/progress-storage.test.cjs",
-    "test:progress-browser": "node tests/progress-drive-browser.cjs"
+    "test:progress-browser": "node tests/progress-drive-browser.cjs",
+    "test:grammar-browser": "node tests/grammar-browser.cjs",
+    "test:grammar-adapter": "node tests/grammar-adapter.cjs"
   },
   "dependencies": {
     "jspdf": "4.2.1"
