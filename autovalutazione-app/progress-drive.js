@@ -147,12 +147,18 @@
     const existing = snapshot(email);
     // Preserve existing local work before replacing any keys; fail closed on quota errors.
     if (nonempty(existing)) localStorage.setItem(`stradivari-drive-backup:${email}:${crypto.randomUUID()}`, JSON.stringify(existing));
-    for (const [part, key] of Object.entries(keys(email))) {
-      if (part === 'digStudent') {
-        if (data[part] === null) localStorage.setItem(suppressLegacyKey(email),'1');
-        else localStorage.removeItem(suppressLegacyKey(email));
+    const updates = Object.entries(keys(email)).map(([part,key]) => ({key,value:data[part]}));
+    updates.push({key:suppressLegacyKey(email), value:data.digStudent === null ? '1' : null});
+    try { StradivariStorageTransaction.replace(localStorage,email,updates); }
+    catch (error) {
+      if (error.recoveryRequired) {
+        storageFailures.add(`stradivari-restore-journal:v1:${email}`);
+        window.StradivariStorageGuard.blockAuth();
+        const dialog=document.getElementById('tabLockDialog');
+        document.getElementById('tabLockNote').textContent=error.message;
+        if (!dialog.open) dialog.showModal();
       }
-      if (data[part] === null) localStorage.removeItem(key); else localStorage.setItem(key, data[part]);
+      throw error;
     }
     document.dispatchEvent(new CustomEvent('stradivari-drive-restored'));
     showBackups();

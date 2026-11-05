@@ -7,7 +7,7 @@
     "test:archive": "node --test tests/archive.test.mjs",
     "test:workerd": "node --test tests/archive-workerd.test.mjs",
     "test:browser": "node tests/teacher-path.cjs",
-    "test:progress": "node --test tests/progress-drive-model.test.cjs",
+    "test:progress": "node --test tests/progress-drive-model.test.cjs tests/progress-storage.test.cjs",
     "test:progress-browser": "node tests/progress-drive-browser.cjs"
   },
   "dependencies": {

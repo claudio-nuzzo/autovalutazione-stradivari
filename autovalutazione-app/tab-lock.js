@@ -29,6 +29,10 @@
         const script = document.createElement('script'); script.src = tag.dataset.src;
         script.onload = resolve; script.onerror = reject; document.body.appendChild(script);
       });
+      if (window.StradivariStorageTransaction?.ready === false) {
+        note.textContent = 'Il ripristino precedente è conservato ma non è stato possibile recuperarlo. Libera spazio nel dispositivo e premi Riprova; se il problema continua, contatta il referente.';
+        return;
+      }
     }
     if (leaving) return;
     window.StradivariAppReady = true;

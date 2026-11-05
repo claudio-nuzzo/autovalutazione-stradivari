@@ -22,6 +22,7 @@ jobs:
       - run: node --check autovalutazione-app/teaching-method.js
       - run: node --check autovalutazione-app/results-pdf.js
       - run: node --check autovalutazione-app/progress-drive.js
+      - run: node --check autovalutazione-app/progress-storage.js
       - run: node --check autovalutazione-app/tab-lock.js
       - run: npm run test:archive
       - run: npm run test:workerd
