@@ -410,15 +410,16 @@ window.ATELIER_CONTENT={
       "area": "parole",
       "title": "Scelta multipla con motivazione",
       "level": 3,
-      "kind": "choice",
-      "prompt": "Seleziona la frase corretta e motiva la scelta con due regole.",
-      "options": [
+      "kind": "open",
+      "prompt": "Seleziona la frase corretta e motiva la scelta con due regole.\n\nA. Un’arco è nella custodia.\nB. Un arco è nella custodia.\nC. Uno arco è nella custodia.\nD. Un’ arco è nella custodia.",
+      "options": [],
+      "answer": 1,
+      "originalOptions": [
         "Un’arco è nella custodia.",
         "Un arco è nella custodia.",
         "Uno arco è nella custodia.",
         "Un’ arco è nella custodia."
       ],
-      "answer": 1,
       "solution": "Un arco è nella custodia.",
       "feedback": "Arco è maschile singolare e inizia per vocale: si usa un senza apostrofo. Nella concorda con custodia, femminile singolare.",
       "minutes": 5,
