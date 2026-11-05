@@ -41,8 +41,10 @@ Il client richiede esclusivamente `https://www.googleapis.com/auth/drive.appdata
 
 La versione 1.0.10 è stata pubblicata tramite PR #5 dopo revisione indipendente dello SHA esatto e CI. Il 5 novembre 2026 il collegamento OAuth reale, il salvataggio su Drive e il ripristino passando da Chrome a Safari su macOS sono stati verificati con il titolare. iPad fisico non provato. L'audit dipendenze ha segnalato avvisi preesistenti in DOMPurify e dipendenze Miniflare; questo intervento non modifica il bundle PDF e richiede una valutazione separata della raggiungibilità prima del rilascio.
 
-## Grammatica in Atelier — 1.3.1
+## Grammatica in Atelier — 1.3.2
 
 Nuovo portale in `autovalutazione-app/grammatica/`, collegato dalla home: esercizi di analisi grammaticale, logica e del periodo, missioni autonome, gare di classe, XP, livelli e medaglie, ripasso visuale, supporti di lettura, accesso autorizzato dal docente e progressi su Drive. Dettagli in [docs/grammatica.md](docs/grammatica.md).
 
 La correzione 1.3.1 aggiunge al controllo archivio del solo gestore fasi, cause e conteggi dei permessi senza dati nominali, con un collegamento validato alla cartella Grammatica. Non cambia i permessi o le regole di accesso e non attesta la risoluzione del problema Drive in produzione.
+
+La correzione 1.3.2 ordina cronologicamente i progressi ripristinati prima di scegliere gli ultimi 20 risultati e il suggerimento della home. Lo storico completo e i relativi XP restano conservati.
