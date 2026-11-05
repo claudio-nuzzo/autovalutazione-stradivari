@@ -34,3 +34,5 @@ jobs:
       - run: node --test tests/grammar-content.test.cjs
       - run: npm run test:grammar-browser
       - run: npm run test:grammar-adapter
+      - run: npm run test:grammar-migration
+      - run: npm run test:grammar-assessments

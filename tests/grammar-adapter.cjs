@@ -29,9 +29,10 @@ const {launchBrowser}=require('./browser-runtime.cjs');
   return route.fulfill({contentType:file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'text/html',body:fs.readFileSync(root)});
  });
  await page.goto('https://didattica.stradilab.org/grammatica/');
- await page.locator('#accountStatus').filter({hasText:'Accesso verificato'}).waitFor();
+ if(await page.locator('#trackChoice').isVisible())await page.locator('[data-track=moda]').click();await page.locator('#accountStatus').filter({hasText:'Accesso verificato'}).waitFor();
  await page.locator('[data-area="parole"]').click();
- await page.locator('#exerciseForm').evaluate(form=>{for(const item of window.ATELIER_EXTRA.filter(x=>x.area==='parole'&&!x.pei&&x.level===1).slice(0,6)){if(item.kind==='tokens'){for(const idx of item.answer)form.querySelector('[data-item="'+item.id+'"][data-token="'+idx+'"]').click();continue}const node=form.elements[item.id];if(item.kind==='choice')node[item.answer].click();else{node.value=item.answers[0];node.dispatchEvent(new Event('input',{bubbles:true}))}}});
+ const answerVisible=async()=>{const value=await page.locator('.exercise.active').evaluate(card=>{const id=card.querySelector('input,textarea,button[data-token]')?.name||card.querySelector('[data-token]')?.dataset.item;const bank=[...window.ATELIER_EXTRA,...window.ATELIER_CONTENT.exercises,...window.ATELIER_TOPICS,...window.ATELIER_LEARNING_EXTRA,...window.ATELIER_PERIOD_EXTRA,...window.ATELIER_VERB_EXTRA,...window.ATELIER_TRACK_DATA];return bank.find(x=>x.id===id)});const card=page.locator('.exercise.active');if(value.kind==='choice')await card.locator('input[type=radio]').nth(value.answer).check();else if(value.kind==='tokens'){for(const i of value.answer)await card.locator('[data-token="'+i+'"]').click()}else await card.locator('input.inline-gap').fill(value.answers[0]);};
+ const length=await page.locator('.exercise').count();for(let i=0;i<length;i++){await answerVisible();if(i<length-1)await page.locator('#nextExercise').click()}
  await page.locator('#exerciseForm button[type=submit]').click();
  await page.locator('#syncStatus').filter({hasText:'Progressi confermati su Drive.'}).waitFor();
  assert.equal(events.length,1);assert.match(await page.locator('#progressList').innerText(),/Confermato su Drive/);
