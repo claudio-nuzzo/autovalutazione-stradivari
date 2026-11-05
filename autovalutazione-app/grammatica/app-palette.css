@@ -1,0 +1,71 @@
+/* StradiLab grammar palette. Load after app-modern.css. */
+:root {
+  --brand-burgundy: #792d46;
+  --lesson-parole: #2455b8;
+  --lesson-parole-soft: #eaf2ff;
+  --lesson-frase: #08766b;
+  --lesson-frase-soft: #e7f5ef;
+  --lesson-periodo: #a65c12;
+  --lesson-periodo-soft: #fff3de;
+  --teacher-ink: #17243a;
+  --teacher-surface: #f4f7fb;
+  --teacher-line: #b8c5d5;
+}
+
+/* The root app updates data-area as the active lesson changes. */
+body { --lesson-accent: var(--brand-burgundy); --lesson-soft: #f8edf1; }
+body[data-area="parole"] { --lesson-accent: var(--lesson-parole); --lesson-soft: var(--lesson-parole-soft); }
+body[data-area="frase"] { --lesson-accent: var(--lesson-frase); --lesson-soft: var(--lesson-frase-soft); }
+body[data-area="periodo"] { --lesson-accent: var(--lesson-periodo); --lesson-soft: var(--lesson-periodo-soft); }
+
+/* Home area cards keep their distinction visible in color, labels, and order. */
+.areas article {
+  --area-accent: var(--lesson-parole);
+  --area-soft: var(--lesson-parole-soft);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--area-accent);
+}
+.areas article:nth-child(2) { --area-accent: var(--lesson-frase); --area-soft: var(--lesson-frase-soft); }
+.areas article:nth-child(3) { --area-accent: var(--lesson-periodo); --area-soft: var(--lesson-periodo-soft); }
+.areas .area-number {
+  background: var(--area-soft);
+  color: var(--area-accent);
+  font-weight: 800;
+}
+.areas article h3 { color: var(--area-accent); }
+.areas .area-map span {
+  background: var(--area-soft);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.areas article > button { margin-top: auto; background: var(--area-accent); border-color: var(--area-accent); color: #fff; }
+.areas article > button:hover { background: color-mix(in srgb, var(--area-accent) 88%, #000); border-color: color-mix(in srgb, var(--area-accent) 88%, #000); }
+
+/* Accent follows the current exercise through progress, answers, and recap. */
+.worktop .eyebrow, .lesson-step, #lessonStep { color: var(--lesson-accent); }
+.lesson-meter span, #lessonProgress[role="progressbar"] > span { background: var(--lesson-accent); }
+.option:has(input:checked) { border-color: var(--lesson-accent); background: var(--lesson-soft); box-shadow: 0 3px 0 color-mix(in srgb, var(--lesson-accent) 28%, white); }
+.tokens button[aria-pressed="true"] { background: var(--lesson-soft); color: var(--lesson-accent); border-color: var(--lesson-accent); box-shadow: 0 3px 0 color-mix(in srgb, var(--lesson-accent) 28%, white); }
+.gap-sentence input, input.inline-gap { border-color: var(--lesson-accent); background: var(--lesson-soft); }
+.summarybox { background: var(--lesson-accent); color: #fff; }
+.summarybox a { color: #fff; }
+.summarybox button { background: #fff; color: var(--lesson-accent); border-color: #fff; box-shadow: 0 3px 0 color-mix(in srgb, var(--lesson-accent) 68%, #000); }
+
+:focus-visible{outline-color:#2455b8}
+#nextExercise,#checkSeriesButton{background:var(--lesson-accent);border-color:var(--lesson-accent);box-shadow:0 4px 0 color-mix(in srgb,var(--lesson-accent) 68%,#000)}
+#nextExercise:hover,#checkSeriesButton:hover{background:color-mix(in srgb,var(--lesson-accent) 88%,#000)}
+.today{background:#fff9e9;border-top-color:#c58a13}.today strong{color:#7c4e08}
+body[data-view="work"] .lesson-progress{position:sticky;top:0;z-index:10;background:var(--paper);padding:12px 0 8px;margin-bottom:12px}body[data-view="work"] .exercise{scroll-margin-top:100px}
+
+.areas article:nth-child(n){border-top-color:var(--area-accent)}.areas article>button{box-shadow:0 4px 0 color-mix(in srgb,var(--area-accent) 68%,#000)}.areas article>button:active{box-shadow:0 1px 0 color-mix(in srgb,var(--area-accent) 68%,#000)}
+#nextExercise:active,#checkSeriesButton:active{box-shadow:0 1px 0 color-mix(in srgb,var(--lesson-accent) 68%,#000)}
+.lesson-meta{display:flex;align-items:center;justify-content:space-between;gap:12px}.lesson-meta .lesson-step{margin:8px 0}.lesson-meta small{font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* Personal achievements and class missions. */
+.game-widget{margin:16px 0;padding-top:16px;border-top:1px solid #d9c992}.game-widget h2{font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}.game-widget .game-level{font-size:1.15rem;color:var(--ink);font-weight:800}.game-widget p{margin:8px 0}.game-meter{height:12px;background:#e5ddc6;border-radius:8px;overflow:hidden}.game-meter>div{height:100%;background:#9b640c;transition:width .3s ease}.game-next{font-size:.8rem}
+.game-awards{display:grid;grid-template-columns:1fr;gap:14px;margin:24px 0}.game-awards>h2,.game-awards>p{grid-column:1/-1}.game-awards>h2{font-size:1.3rem}.game-award{display:flex;align-items:center;gap:14px;border:1px solid #d9c992;border-radius:16px;background:#fff9e9;padding:16px;color:#7c4e08}.game-award svg{flex-shrink:0}.game-award h3{font-size:.95rem;margin:0;line-height:1.5}
+#classRaces{border:1px solid var(--line);border-radius:20px;background:#fff;padding:20px;margin:24px 0}.race-grid{display:grid;grid-template-columns:1fr;gap:16px}.race-card{padding:20px;border:1px solid #b9c9e7;border-top:4px solid #2455b8;border-radius:16px;background:#f6f9ff;display:flex;flex-direction:column;gap:8px;min-width:0}.race-card h3{margin:0}.race-card p{margin:4px 0}.race-card>button{margin-top:auto;background:#2455b8;border-color:#2455b8;box-shadow:0 4px 0 #173977}.race-card>button:disabled{background:#e1e6ef;border-color:#b7bccb;color:#414854;opacity:1;box-shadow:none}.race-card .medal{color:#7c4e08;font-weight:800}.race-card progress{width:100%;accent-color:#08766b}.race-actions{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.race-actions button{width:auto}.race-board{width:100%;border-collapse:collapse;font-size:.85rem}.race-board th,.race-board td{text-align:start;vertical-align:top;padding:12px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.race-board th{background:#edf2fb;color:#17243a}.race-board .race-actions{margin:0}.race-board button{font-size:.8rem;min-height:48px}.race-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:16px 0}.race-table-wrap .race-board{min-width:540px}#teacherRaces{border-top:1px solid var(--line);margin-top:24px}#raceCreateForm{display:grid;gap:16px;grid-template-columns:1fr}#raceCreateForm label{min-width:0}#raceCreateForm input,#raceCreateForm select{width:100%;box-sizing:border-box}#teacherRaceResults{margin-top:24px}.race-storage-check{padding:14px;border-radius:12px;background:#edf2fb;margin:16px 0}
+@media(min-width:700px){.race-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.game-awards{grid-template-columns:repeat(2,minmax(0,1fr))}#raceCreateForm{grid-template-columns:repeat(2,minmax(0,1fr))}#raceCreateForm>button{justify-self:start}}
+@media(prefers-reduced-motion:reduce){.game-meter>div{transition:none}}

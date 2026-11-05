@@ -2,7 +2,7 @@ name: Verifiche
 
 on:
   push:
-    branches: [main, 'codex/**']
+    branches: [main]
   pull_request:
 
 permissions:
@@ -36,3 +36,5 @@ jobs:
       - run: npm run test:grammar-adapter
       - run: npm run test:grammar-migration
       - run: npm run test:grammar-assessments
+      - run: npm run test:grammar-game
+      - run: npm run test:grammar-races

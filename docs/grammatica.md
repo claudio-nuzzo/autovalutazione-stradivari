@@ -1,4 +1,4 @@
-# Grammatica in Atelier · versione 1.2.1
+# Grammatica in Atelier · versione 1.3.0
 
 Destinazione: https://didattica.stradilab.org/grammatica/ . Frontend statico nella sottocartella del portale esistente; API in Deepstrad, con archivio nel Drive già configurato. Nessun database persistente Cloudflare per i risultati.
 
@@ -28,7 +28,7 @@ Gli esiti conclusi sono sincronizzati su Drive e recuperati dopo accesso sul nuo
 
 ## Verifica
 
-`node --test tests/grammar-content.test.cjs`, `npm run test:grammar-browser`, `npm run test:grammar-adapter`. Playwright è una dipendenza di sviluppo del repository. La CI comprende anche i controlli dei percorsi preesistenti e della sincronizzazione Drive. I test sintetici coprono tutti gli argomenti standard/PEI per tutti e tre gli indirizzi, navigazione a schermata singola, campi inline e viewport 375/768/landscape,, 30 aiuti per ciascuna lingua, RTL, creazione esercizi, conferma della coda e layout a 375 px. I test simulati non attestano OAuth reale, iPad fisico o correttezza di ogni traduzione.
+`node --test tests/grammar-content.test.cjs`, `npm run test:grammar-browser`, `npm run test:grammar-adapter`. Playwright è una dipendenza di sviluppo del repository. La CI comprende anche i controlli dei percorsi preesistenti e della sincronizzazione Drive. I test sintetici coprono tutti gli argomenti standard/PEI per tutti e tre gli indirizzi, navigazione a schermata singola, campi inline e viewport 375/768/landscape, 30 aiuti per ciascuna lingua, RTL, creazione esercizi, conferma della coda e layout a 375 px. I test simulati non attestano OAuth reale, iPad fisico o correttezza di ogni traduzione.
 
 Per la revisione esterna: `node scripts/export-grammar-review.cjs /percorso/revisione.json` esporta soltanto le attività da un browser locale ospite isolato, senza dati di studenti. La revisione DeepSeek programmata usa l’esportazione completa e registra la copertura per ID.
 
@@ -41,3 +41,19 @@ Le bozze conservano il testo delle opzioni scelte, così un diverso ordine delle
 ## Correzione 1.2.1
 
 La consegna articolo28 chiede di scegliere una frase e motivarla con due regole: ora è risposta aperta con confronto guidato ed è esclusa dalle verifiche automatiche. Le bozze precedenti conservano il testo dell’opzione scelta al posto del vecchio indice, anche nel passaggio da scelta a risposta aperta.
+
+## Frontend 1.3.0 · missioni, gare e livelli
+
+Ispirazione grafica: [HUB Scuola, esercizi interattivi in pagina](https://assistenza.hubscuola.it/hc/it/articles/7460605781661-Videotutorial-Esercizi-interattivi-in-pagina-funzioni-per-il-docente). Campi nel testo, brani leggibili, modelli finali e controlli chiari accompagnano un percorso autonomo, una domanda alla volta. Il portale mantiene contenuti, account e identità StradiLab.
+
+Tre accenti distinguono le analisi: blu per le parole, petrolio per la frase e ambra per il periodo; bordeaux per il marchio e sfondi chiari. Le etichette restano esplicite; barra di avanzamento e tempo compatto seguono la domanda su cellulare.
+
+Ogni stellina del miglior risultato vale 10 XP. I livelli partono a 0, 60, 180, 360, 600, 900, 1400 e 2000 XP, poi proseguono ogni 500 XP. Nessun contenuto è bloccato dal livello. Le medaglie premiano prima missione, tre aree, tre giorni diversi (anche non consecutivi), miglioramento della precisione, verifica dall’80% e gara confermata. Non si perdono premi saltando un giorno. Il docente può leggere livelli, XP e risultati e tenerne conto nel proprio giudizio didattico: il portale non assegna voti.
+
+Il docente crea una gara indicando classe, laboratorio, argomento, nome e minuti consigliati. Gli studenti autorizzati della stessa classe vedono la gara, il proprio miglior risultato e il numero aggregato dei partecipanti che hanno terminato. Gli esiti nominali restano nel pannello docente e vengono caricati solo su richiesta. La chiusura è definitiva; per una nuova gara si copia la precedente con un nuovo UUID. Non sono gare a chi finisce prima.
+
+Le gare riusano le verifiche autocorrette e rispettano il percorso scelto dall’alunno, senza inviare preferenze di accessibilità. I tentativi della stessa gara valgono una sola volta per i premi, al miglior risultato, anche se cambia la serie. Se il docente chiude una gara durante il lavoro, il tentativo resta un allenamento personale e la sincronizzazione continua. Nessuna classifica pubblica con i nomi. I risultati sono formativi e inviati dal browser, non certificazioni di prove sorvegliate.
+
+L’API Deepstrad `/api/grammatica/races` archivia le gare e gli esiti nello stesso Drive. Il manager dispone di un controllo dell’archivio che verifica i permessi prima di usare i dati. Se la riservatezza non è verificabile, le letture e scritture sui dati vengono bloccate; il login del manager resta disponibile per consultare il controllo. Non vengono aggiunte credenziali o nuovi scope.
+
+`npm run test:grammar-game` verifica XP, premi, tentativi ripetuti e confini dei livelli. `npm run test:grammar-races` verifica ruoli, privacy dei risultati, gara con completamento inline e conferma, chiusura, retry e cambio account attraverso servizi sintetici. Restano separati i riscontri nominali in produzione.
