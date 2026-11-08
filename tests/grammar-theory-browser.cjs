@@ -356,6 +356,10 @@ async function main() {
     assert.equal(await deepstrad.count(), 1);
     assert.equal(await deepstrad.getAttribute('target'), '_blank');
     assert.match(await page.locator('.deepstrad-reference').innerText(), /pillole.*Deepstrad/);
+    await page.locator('#theorySearch').fill('articolo');
+    assert.equal(await page.locator('#theoryCount').innerText(), '1 argomento');
+    await page.locator('#theorySearch').fill('nessun-risultato-grammaticale');
+    assert.equal(await page.locator('#theoryCount').innerText(), '0 argomenti');
     await page.locator('#theorySearch').fill('trapassato');
     const filtered = await page.locator('#theoryCatalogue [data-theory-slug]').allTextContents();
     assert.ok(filtered.length > 0 && filtered.length < 80);
