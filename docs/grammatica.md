@@ -1,4 +1,4 @@
-# Grammatica in Atelier · versione 1.3.3
+# Grammatica in Atelier · versione 1.4.0
 
 Destinazione: https://didattica.stradilab.org/grammatica/ . Frontend statico nella sottocartella del portale esistente; API in Deepstrad, con archivio nel Drive già configurato. Nessun database persistente Cloudflare per i risultati.
 
@@ -10,13 +10,13 @@ All’ingresso si sceglie Moda, Arredo o Liuteria. Gli esempi specifici dell’i
 
 L’interfaccia presenta una sola attività per volta, barra di avanzamento, avanti/indietro, ritorno al ripasso e pausa. Nei completamenti il campo è nella frase al posto della lacuna; le trasformazioni senza lacuna hanno un campo breve accanto alla consegna. Le risposte aperte mantengono lo spazio di scrittura necessario. La correzione con spiegazioni avviene alla fine della serie. Il 5 novembre 2026 la revisione con DeepSeek Flash ha coperto tutti i 1431 ID originali, con conferma separata dei singoli errori prima della correzione.
 
-Accesso libero agli argomenti; orientamento iniziale facoltativo. Standard: fino a 6 attività per serie; lingua semplificata e DSA: fino a 4; PEI: fino a 3 microattività. La scelta è dell'alunno. I supporti DSA/PEI/L2 restano nel browser. Le attività PEI mostrano un esempio e chiedono riconoscimento fra due risposte. Le traduzioni di aiuto accompagnano tutte le 30 pillole in inglese, arabo (RTL) e coreano; gli esercizi mantengono l'italiano come lingua da apprendere. Questi aiuti non sono tre corsi integralmente tradotti e richiedono revisione di parlanti competenti.
+Accesso libero agli argomenti; orientamento iniziale facoltativo. Standard: fino a 6 attività per serie; lingua semplificata e DSA: fino a 4; PEI: fino a 3 microattività. La scelta è dell'alunno. I supporti DSA/PEI/L2 restano nel browser. Le attività PEI mostrano un esempio e chiedono riconoscimento fra due risposte. La teoria include regole in parole semplici e un esempio PEI per ciascuno degli 80 argomenti. Gli esercizi mantengono l’italiano come lingua da apprendere; questa versione non offre tre corsi integralmente tradotti.
 
-30 pillole con mini-schemi, glossario ricercabile di 90 voci e sintesi delle tre analisi. Timer di tempo attivo, pausa, sospensione a scheda nascosta e stime non vincolanti. Percorso consigliato entro 120 minuti per argomento e 30 a casa; per i verbi più sessioni. I tempi reali vanno osservati nel gruppo.
+80 lezioni di teoria con esempio guida e infografica, glossario ricercabile di 90 voci e sintesi delle tre analisi. Le pillole sono soltanto in Deepstrad; nel portale resta un richiamo. Timer di tempo attivo, pausa, sospensione a scheda nascosta e stime non vincolanti. Percorso consigliato entro 120 minuti per argomento e 30 a casa; per i verbi più sessioni. I tempi reali vanno osservati nel gruppo.
 
 Stelline per completamento, 60% e 100% nelle serie chiuse; una di partecipazione per pratica guidata. Totale sul miglior risultato della medesima serie; traguardi incoraggianti, nessuna penalità per giorni saltati o velocità. Il docente vede dati utili al confronto, non voti automatici.
 
-Il tutor cerca le pillole pertinenti: è uno strumento locale guidato, non un servizio di IA generativa. Il creatore consente esercizi personali a tre risposte con spiegazione ed esportazione JSON. Questi esercizi restano nel browser e non attribuiscono premi remoti; non sono pubblicati agli altri alunni.
+La ricerca guidata propone le lezioni di teoria pertinenti: è uno strumento locale guidato, non un servizio di IA generativa. Il creatore consente esercizi personali a tre risposte con spiegazione ed esportazione JSON. Questi esercizi restano nel browser e non attribuiscono premi remoti; non sono pubblicati agli altri alunni.
 
 ## Accesso, dati e docente
 
@@ -28,7 +28,7 @@ Gli esiti conclusi sono sincronizzati su Drive e recuperati dopo accesso sul nuo
 
 ## Verifica
 
-`node --test tests/grammar-content.test.cjs`, `npm run test:grammar-browser`, `npm run test:grammar-adapter`. Playwright è una dipendenza di sviluppo del repository. La CI comprende anche i controlli dei percorsi preesistenti e della sincronizzazione Drive. I test sintetici coprono tutti gli argomenti standard/PEI per tutti e tre gli indirizzi, navigazione a schermata singola, campi inline e viewport 375/768/landscape, 30 aiuti per ciascuna lingua, RTL, creazione esercizi, conferma della coda e layout a 375 px. I test simulati non attestano OAuth reale, iPad fisico o correttezza di ogni traduzione.
+`node --test tests/grammar-content.test.cjs`, `npm run test:grammar-browser`, `npm run test:grammar-adapter`. Playwright è una dipendenza di sviluppo del repository. La CI comprende anche i controlli dei percorsi preesistenti e della sincronizzazione Drive. I test sintetici coprono tutti gli argomenti standard/PEI per tutti e tre gli indirizzi, navigazione a schermata singola, campi inline e viewport 375/768/landscape, 80 lezioni con esempio guida e infografica, i tre livelli, quattro supporti, catalogo, ripasso e passaggio agli esercizi, creazione esercizi, conferma della coda e layout a 375 px. I test simulati non attestano OAuth reale, iPad fisico o correttezza di ogni frase teorica.
 
 Per la revisione esterna: `node scripts/export-grammar-review.cjs /percorso/revisione.json` esporta soltanto le attività da un browser locale ospite isolato, senza dati di studenti. La revisione DeepSeek usa l’esportazione completa e registra la copertura per ID.
 
@@ -81,3 +81,17 @@ Copertura completa della banca esportata: 1191 attività di base (incluse tutte 
 Le segnalazioni sono state confrontate con i testi e con il motore reale: molte erano proposte facoltative o falsi positivi e non sono state applicate. Sono corretti l’elisione davanti a «indicativo» e «imperativo» in 408 spiegazioni, 20 attività con consegne o feedback più precisi e 240 modelli PEI che ora conservano la consegna dell’esempio svolto prima del compito di riconoscimento. I feedback a scelta multipla interessati citano le frasi anziché la loro posizione, che cambia nel rimescolamento. In totale cambiano 668 record; restano invariati ID, risposte corrette, varianti accettate, opzioni, indici e modalità di correzione.
 
 I record modificati sono stati nuovamente inviati a DeepSeek, seguiti da un controllo indipendente. Il nuovo test `grammar-editorial-browser.cjs`, incluso nella CI, verifica la conservazione del contesto dei 240 modelli PEI, l’elisione, i feedback semantici e varianti verbali valide nel motore. Le prove di interfaccia continuano a coprire completamenti inline, tutte le combinazioni di argomento/indirizzo/percorso e le verifiche finali. La revisione non certifica l’assenza di ogni errore e non valida le traduzioni in inglese, arabo e coreano. Accesso, Drive, gare, livelli e premi restano sui servizi esistenti.
+
+## Teoria e ripasso · 1.4.0 · 8 novembre 2026
+
+La card «Grammatica in Atelier» si trova nella home StradiLab, nel gruppo «Didattica e materiali», separata da Didattica e metodi. Il servizio continua a usare il medesimo indirizzo, accesso e archivio. Il collegamento precedente nella home Didattica e metodi è stato rimosso durante questo trasferimento.
+
+Il flusso iniziale è livello → argomento → teoria → ripasso → esercizi → verifica. Si può tornare a un passaggio precedente o aprire liberamente il catalogo «Teoria e ripasso». I link dei vecchi segnalibri #pillole continuano ad aprire il catalogo; non caricano pillole.
+
+Ogni argomento ha un esempio iniziale da ricordare, un’infografica HTML accessibile, almeno quattro sezioni di spiegazione con esempi commentati, due errori da evitare, riepilogo e tre domande di recupero attivo con risposte apribili. Le lezioni verbali pertinenti includono tabelle delle forme. Il nucleo completo è comune ai livelli, con obiettivi ed esempi specifici per Base, Consolidamento e Avanzato. Il livello iniziale e l’argomento scelto si conservano localmente per account; non sono risultati aggiunti al registro Drive.
+
+La lingua semplificata e DSA mostrano regola e passi di lettura. Il percorso PEI apre una regola breve con esempio; si può espandere la spiegazione completa. La scelta resta dell’alunno e non viene inviata al docente come diagnosi. Questi supporti non sostituiscono una progettazione individuale del docente.
+
+Le 80 lezioni sono sorgenti originali in theory-parole.json, theory-verbi.json e theory-periodo.json. La costruzione controlla che coincidano con gli 80 argomenti della banca, senza duplicati. Tre lettori incrociati hanno controllato i contenuti di un altro lotto e verificato le correzioni; i relativi rapporti sono conservati nelle evidenze del progetto. La nuova interfaccia usa Titillium Web locale, mantiene i colori delle tre analisi e dispone lettura, schemi e controlli su telefono e tablet.
+
+Le prove automatiche lavorano solo su ospiti e account sintetici. Le 1431 attività originali mantengono ID, testo, soluzioni, varianti e spiegazioni della versione 1.3.3. Nessuna nuova modifica al backend, agli accessi o ai permessi Drive rientra in questa release.

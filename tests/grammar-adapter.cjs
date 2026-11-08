@@ -25,12 +25,16 @@ const {launchBrowser}=require('./browser-runtime.cjs');
    }else data={ok:true,events,nextCursor:null};
    return route.fulfill({headers,contentType:'application/json',body:JSON.stringify(data)});
   }
-  const file=u.pathname.endsWith('/')?'index.html':path.basename(u.pathname),root=path.resolve(__dirname,'../autovalutazione-app/grammatica',file);
-  return route.fulfill({contentType:file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'text/html',body:fs.readFileSync(root)});
+  const file=u.pathname.endsWith('/')?'index.html':u.pathname.replace(/^\/grammatica\//,''),root=path.resolve(__dirname,'../autovalutazione-app/grammatica',file);
+  return route.fulfill({contentType:file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.ttf')?'font/ttf':'text/html',body:fs.readFileSync(root)});
  });
  await page.goto('https://didattica.stradilab.org/grammatica/');
  if(await page.locator('#trackChoice').isVisible())await page.locator('[data-track=moda]').click();await page.locator('#accountStatus').filter({hasText:'Accesso verificato'}).waitFor();
- await page.locator('[data-area="parole"]').click();
+ await page.locator('#topic').selectOption('parole|Articolo');
+ await page.locator('#startSuggested').click();
+ await page.locator('.theory-lesson').waitFor({state:'visible'});
+ await page.locator('#goReview').click();
+ await page.locator('#goPractice').click();
  const answerVisible=async()=>{const value=await page.locator('.exercise.active').evaluate(card=>{const id=card.querySelector('input,textarea,button[data-token]')?.name||card.querySelector('[data-token]')?.dataset.item;const bank=[...window.ATELIER_EXTRA,...window.ATELIER_CONTENT.exercises,...window.ATELIER_TOPICS,...window.ATELIER_LEARNING_EXTRA,...window.ATELIER_PERIOD_EXTRA,...window.ATELIER_VERB_EXTRA,...window.ATELIER_TRACK_DATA];return bank.find(x=>x.id===id)});const card=page.locator('.exercise.active');if(value.kind==='choice')await card.locator('input[type=radio]').nth(value.answer).check();else if(value.kind==='tokens'){for(const i of value.answer)await card.locator('[data-token="'+i+'"]').click()}else await card.locator('input.inline-gap').fill(value.answers[0]);};
  const length=await page.locator('.exercise').count();for(let i=0;i<length;i++){await answerVisible();if(i<length-1)await page.locator('#nextExercise').click()}
  await page.locator('#exerciseForm button[type=submit]').click();
