@@ -41,9 +41,9 @@ Il client richiede esclusivamente `https://www.googleapis.com/auth/drive.appdata
 
 La versione 1.0.10 è stata pubblicata tramite PR #5 dopo revisione indipendente dello SHA esatto e CI. Il 5 novembre 2026 il collegamento OAuth reale, il salvataggio su Drive e il ripristino passando da Chrome a Safari su macOS sono stati verificati con il titolare. iPad fisico non provato. L'audit dipendenze ha segnalato avvisi preesistenti in DOMPurify e dipendenze Miniflare; questo intervento non modifica il bundle PDF e richiede una valutazione separata della raggiungibilità prima del rilascio.
 
-## Grammatica in Atelier — 1.3.3
+## Grammatica in Atelier — 1.4.0
 
-Nuovo portale in `autovalutazione-app/grammatica/`, collegato dalla home: esercizi di analisi grammaticale, logica e del periodo, missioni autonome, gare di classe, XP, livelli e medaglie, ripasso visuale, supporti di lettura, accesso autorizzato dal docente e progressi su Drive. Dettagli in [docs/grammatica.md](docs/grammatica.md).
+Nuovo portale in `autovalutazione-app/grammatica/`, con una card autonoma nella home StradiLab, sotto «Didattica e materiali»: teoria ed esercizi di analisi grammaticale, logica e del periodo, missioni autonome, gare di classe, XP, livelli e medaglie, ripasso visuale, supporti di lettura, accesso autorizzato dal docente e progressi su Drive. Dettagli in [docs/grammatica.md](docs/grammatica.md).
 
 La correzione 1.3.1 aggiunge al controllo archivio del solo gestore fasi, cause e conteggi dei permessi senza dati nominali, con un collegamento validato alla cartella Grammatica. Non cambia i permessi o le regole di accesso e non attesta la risoluzione del problema Drive in produzione.
 
@@ -54,3 +54,11 @@ La revisione 1.3.3 controlla con DeepSeek Flash tutti i 1431 ID originali (1191 
 ## Correzione di navigazione e layout · 1.3.4
 
 Il collegamento «Grammatica in Atelier» nella home resta visibile dopo il caricamento e il cambio profilo: l’introduzione dinamica aggiorna soltanto il paragrafo dedicato. Il pannello accesso/Drive dispone messaggi e scelte su righe leggibili, mantenendo pulsanti utilizzabili su telefono e tablet. Banche degli esercizi, servizi di autenticazione e sincronizzazione invariati.
+
+## Teoria e ripasso · 1.4.0
+
+Il percorso segue sei passaggi: livello, argomento, teoria, ripasso, esercizi, verifica. Tutti gli 80 argomenti delle tre analisi hanno una lezione originale, un esempio guida iniziale, un’infografica, spiegazioni con esempi commentati, errori da evitare e domande per ripassare. I tre livelli propongono un obiettivo ed un esempio diverso; i supporti di lingua semplificata e DSA aggiungono passi di lettura, mentre PEI apre una regola breve con la spiegazione completa disponibile su richiesta. Gli esempi di laboratorio seguono Moda, Arredo o Liuteria.
+
+La sezione «Teoria e ripasso» è sempre nella navigazione inferiore. Le 30 pillole restano in Deepstrad: il portale contiene soltanto un richiamo, senza duplicarle. Il glossario, le sintesi delle tre analisi e il creatore di sfide restano disponibili. La banca di 1431 attività, le verifiche finali, le gare, l’accesso e il salvataggio degli esiti su Drive sono conservati.
+
+`npm run build:theory` valida i tre file editoriali JSON e genera `theory-data.js`; la CI confronta il risultato con le sorgenti per impedire di pubblicare una copia vecchia. I testi sono stati rivisti da un secondo lettore e ripuliti dalle formule artificiose. La revisione editoriale resta distinta dalla verifica automatica della struttura.

@@ -224,7 +224,7 @@ footer { padding: 24px 20px; font-size: .8rem; }
 }
 
 /* Route panels keep the phone experience focused. */
-body[data-view="home"] main>section:not(#home),body[data-view="work"] main>section:not(#work),body[data-view="ripasso"] main>section:not(#pillole):not(#strumenti-ripasso):not(#studio),body[data-view="progress"] main>section:not(#progress):not(#teacher){display:none}
+body[data-view="home"] main>section:not(#home),body[data-view="work"] main>section:not(#work),body[data-view="ripasso"] main>section:not(#teoria):not(#strumenti-ripasso):not(#studio),body[data-view="progress"] main>section:not(#progress):not(#teacher){display:none}
 [hidden]{display:none!important}
 .track-current{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:20px 0}
 #lessonProgress>span{width:100%;transform-origin:left center;transition:transform 180ms ease-out}
