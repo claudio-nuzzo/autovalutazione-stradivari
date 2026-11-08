@@ -1,4 +1,4 @@
-# Grammatica in Atelier · versione 1.4.0
+# Grammatica in Atelier · versione 1.4.1
 
 Destinazione: https://didattica.stradilab.org/grammatica/ . Frontend statico nella sottocartella del portale esistente; API in Deepstrad, con archivio nel Drive già configurato. Nessun database persistente Cloudflare per i risultati.
 
@@ -95,3 +95,7 @@ La lingua semplificata e DSA mostrano regola e passi di lettura. Il percorso PEI
 Le 80 lezioni sono sorgenti originali in theory-parole.json, theory-verbi.json e theory-periodo.json. La costruzione controlla che coincidano con gli 80 argomenti della banca, senza duplicati. Tre lettori incrociati hanno controllato i contenuti di un altro lotto e verificato le correzioni; i relativi rapporti sono conservati nelle evidenze del progetto. La nuova interfaccia usa Titillium Web locale, mantiene i colori delle tre analisi e dispone lettura, schemi e controlli su telefono e tablet.
 
 Le prove automatiche lavorano solo su ospiti e account sintetici. Le 1431 attività originali mantengono ID, testo, soluzioni, varianti e spiegazioni della versione 1.3.3. Nessuna nuova modifica al backend, agli accessi o ai permessi Drive rientra in questa release.
+
+## Correzione 1.4.1 · conteggio della ricerca
+
+Il catalogo usa «1 argomento» quando la ricerca trova una sola lezione; mantiene il plurale con zero o più risultati. Il controllo browser copre tutti e tre i casi. Contenuti, flusso e accessi sono invariati.
