@@ -84,7 +84,7 @@ async function checkProductionGate(browser) {
     await page.locator('[data-track="moda"]').click();
     await page.locator('.bottom a[href="#pillole"]').click();
     await page.locator('#theorySearch').waitFor({ state: 'visible' });
-    assert.equal(await page.locator('#theoryCatalogue [data-theory-slug]').count(), 80);
+    assert.equal(await page.locator('#theoryCatalogue [data-theory-slug]').count(), 82);
     for (const lesson of sourceLessons) {
       const topic = value(lesson);
       await page.locator('.bottom a[href="#home"]').click();
@@ -120,14 +120,14 @@ async function checkProductionGate(browser) {
     assert.deepEqual(missingAssets, []);
     assert.deepEqual(apiRequests, [], 'Anonymous reading must not call account APIs');
     assert.deepEqual(foreignRequests, [], 'Google and Deepstrad remain outside this fully offline test');
-    console.log('Production gate: 80 public theory/review journeys; practice and assessment require login; no identity, API calls or real network');
+    console.log('Production gate: 82 public theory/review journeys; practice and assessment require login; no identity, API calls or real network');
   } finally {
     await context.close();
   }
 }
 
 async function main() {
-  assert.equal(sourceLessons.length, 80);
+  assert.equal(sourceLessons.length, 82);
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const origin = `http://127.0.0.1:${server.address().port}`;
   const browser = await launchBrowser();
@@ -239,13 +239,13 @@ async function main() {
     assert.equal(await page.locator('#learningSetup label').first().locator('select').getAttribute('id'), 'level');
     assert.equal(await page.locator('#learningSetup label').nth(1).locator('select').getAttribute('id'), 'topic');
     assert.equal(await page.locator('#pillList, [data-pill-id], #bridgeLanguage').count(), 0);
-    assert.equal(await page.evaluate(() => window.ATELIER_THEORY.length), 80);
+    assert.equal(await page.evaluate(() => window.ATELIER_THEORY.length), 82);
     await page.evaluate(() => document.fonts.ready);
     assert.match(await page.locator('body').evaluate(node => getComputedStyle(node).fontFamily), /Titillium Web/);
     assert.equal(await page.evaluate(() => document.fonts.check('16px \"Titillium Web\"')), true);
 
     const choices = await page.locator('#topic option').evaluateAll(nodes => nodes.map(node => node.value).filter(Boolean));
-    assert.equal(choices.length, 80);
+    assert.equal(choices.length, 82);
     assert.deepEqual([...choices].sort(), sourceLessons.map(value).sort());
 
     // Every available topic follows the actual mobile reading-to-practice path.
@@ -272,10 +272,10 @@ async function main() {
       assert.equal(await answer.locator('p').innerText(), lesson.review[0].answer);
       await page.locator('#goPractice').click();
       await practiceCoherent(topic);
-      if ((index + 1) % 20 === 0) console.log(`Mobile: ${index + 1}/80 topics passed theory, review and coherent practice`);
+      if ((index + 1) % 20 === 0) console.log(`Mobile: ${index + 1}/82 topics passed theory, review and coherent practice`);
     }
 
-    assert.deepEqual(errors, [], 'All 80 topic journeys remain free of page errors');
+    assert.deepEqual(errors, [], 'All 82 topic journeys remain free of page errors');
     // Each level and each reading support is checked in all three areas.
     for (const topic of representatives) {
       const lesson = lessonFor(topic);
@@ -351,7 +351,7 @@ async function main() {
     await page.waitForURL(/#pillole$/);
     await page.locator('#theorySearch').waitFor({ state: 'visible' });
     assert.equal(await page.locator('#theoryHeading').innerText(), 'Teoria e ripasso');
-    assert.equal(await page.locator('#theoryCatalogue [data-theory-slug]').count(), 80);
+    assert.equal(await page.locator('#theoryCatalogue [data-theory-slug]').count(), 82);
     const deepstrad = page.locator('#teoria a[href="https://deepstrad.stradilab.org/"]');
     assert.equal(await deepstrad.count(), 1);
     assert.equal(await deepstrad.getAttribute('target'), '_blank');
@@ -362,7 +362,7 @@ async function main() {
     assert.equal(await page.locator('#theoryCount').innerText(), '0 argomenti');
     await page.locator('#theorySearch').fill('trapassato');
     const filtered = await page.locator('#theoryCatalogue [data-theory-slug]').allTextContents();
-    assert.ok(filtered.length > 0 && filtered.length < 80);
+    assert.ok(filtered.length > 0 && filtered.length < 82);
     assert.ok(filtered.every(title => /trapassato/i.test(title)));
     await page.locator('#theoryCatalogue [data-theory-slug]').first().click();
     await page.locator('.theory-lesson').waitFor({ state: 'visible' });
@@ -374,7 +374,7 @@ async function main() {
     assert.deepEqual(failedLocalRequests, [], 'All local assets load');
     assert.deepEqual(externalRequests, [], 'Guest theory flow makes no external requests');
     await checkProductionGate(browser);
-    console.log('PASS: 80 mobile topics; anchor and infographic for every topic; 3 levels × 3 areas; 4 supports × 3 areas; complete practice and assessment with explained feedback; theory catalogue; no legacy pills; 375/768/1440/landscape; isolated guest with no external requests');
+    console.log('PASS: 82 mobile topics; anchor and infographic for every topic; 3 levels × 3 areas; 4 supports × 3 areas; complete practice and assessment with explained feedback; theory catalogue; no legacy pills; 375/768/1440/landscape; isolated guest with no external requests');
   } finally {
     await context.close();
     await browser.close();

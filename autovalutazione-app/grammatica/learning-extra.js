@@ -68,5 +68,37 @@ trio('frase','Predicativi del soggetto e dell’oggetto',[
  ['In «Considero Luca affidabile», «affidabile» è…','predicativo dell’oggetto',['predicativo del soggetto','complemento di modo'],'L’aggettivo si riferisce all’oggetto Luca e completa considero.'],
  ['In «Gli allievi hanno eletto Sara rappresentante», «rappresentante» si riferisce a…','Sara, complemento oggetto',['gli allievi, soggetto','hanno, ausiliare'],'Rappresentante è il predicativo dell’oggetto Sara.']
 ]);
+trio('parole','Articolo',[
+ ['Quale articolo indeterminativo completa «Ho trovato ___ ago sul tavolo»?','un',['uno','un’'],'Ago è maschile e comincia per vocale: si usa un, senza apostrofo.',2],
+ ['Quale forma completa «La sarta cerca ___ stoffa resistente» se intende una quantità imprecisata?','della',['dello','degli'],'Della è un articolo partitivo femminile singolare; qui significa un po’ di.',2],
+ ['In quale frase «degli» è un articolo partitivo?','Degli allievi preparano il modello.',['Il banco degli allievi è pulito.','Parlo degli allievi.'],'Qui degli significa alcuni; nelle altre frasi introduce un complemento.',3],
+ ['Quale gruppo è scritto correttamente?','un’interessante proposta',['un interessante proposta','un’interessante progetto'],'Proposta è femminile: una si elide davanti a interessante.',2],
+ ['Quale forma completa «___ strumenti dello scaffale sono accordati»?','Gli',['I','Le'],'Strumenti è maschile plurale e comincia per s seguita da consonante.',2],
+ ['In «Il legno del violino è stagionato», quale parola è articolo determinativo semplice?','Il',['del','di'],'Il precede legno; del è formato da di più il.',2],
+ ['Quale articolo completa «Osserva ___ xilofono esposto»?','lo',['il','l’'],'Davanti a x iniziale si usa lo: lo xilofono.',2],
+ ['Quale frase contiene un articolo usato per indicare una categoria nel suo insieme?','Il violino è uno strumento ad arco.',['Ho lasciato il violino nella custodia.','Ho riparato un violino ieri.'],'Il violino indica qui la categoria degli strumenti chiamati violino.',3],
+ ['Quale trasformazione mantiene il valore indefinito di «Una sarta entra»?','Alcune sarte entrano.',['Le sarte entrano.','La sarta entra.'],'Alcune esprime una quantità indefinita al plurale.',3],
+ ['Quale coppia completa «___ zaino è vicino a ___ scaffale»?','lo; uno',['il; uno','lo; un'],'Davanti a z e a s più consonante si usano rispettivamente lo e uno.',2]
+]);
+trio('parole','Aggettivo',[
+ ['In «Questa stoffa è più resistente di quella», il grado di «resistente» è…','comparativo di maggioranza',['superlativo assoluto','comparativo di uguaglianza'],'Più resistente di stabilisce una maggioranza nel confronto.',2],
+ ['In «Il mobile è molto elegante», «molto elegante» è…','superlativo assoluto',['comparativo di maggioranza','superlativo relativo'],'Molto intensifica la qualità senza confrontarla con un gruppo.',2],
+ ['In «Sara è la più veloce della squadra», il gruppo «della squadra» indica…','il gruppo entro cui si stabilisce il confronto',['la causa della velocità','il destinatario della squadra'],'Il superlativo relativo esprime il grado massimo all’interno di un gruppo.',3],
+ ['Quale frase contiene un aggettivo dimostrativo?','Questa stoffa è morbida.',['Questa è morbida.','La stoffa è molto morbida.'],'Questa accompagna il nome stoffa; usato da solo può essere pronome.',2],
+ ['Quale forma concorda con «le superfici»?','levigate',['levigato','levigati'],'Superfici è femminile plurale: anche l’aggettivo è femminile plurale.',1]
+]);
+trio('parole','Pronomi',[
+ ['In «Ho visto Marta e le ho parlato», «le» sostituisce…','a Marta',['Marta come complemento oggetto','la parola parlato'],'Parlare a qualcuno richiede il complemento di termine: le significa a lei.',3],
+ ['In «Il violino che ascolti è antico», «che» è…','pronome relativo con funzione di oggetto',['congiunzione causale','aggettivo dimostrativo'],'Che sostituisce il violino ed è oggetto di ascolti.',3],
+ ['In «Questi sono pronti», «questi» è…','pronome dimostrativo',['aggettivo dimostrativo','articolo determinativo'],'Questi sostituisce un nome sottinteso e non lo accompagna.',2],
+ ['Quale frase usa un pronome possessivo?','La mia cartella è rossa; la tua è blu.',['La tua cartella è blu.','La cartella è blu.'],'La tua sostituisce la tua cartella nella seconda parte.',2],
+ ['In «Chi ha chiuso la finestra?», «chi» è…','pronome interrogativo',['pronome relativo','congiunzione subordinante'],'Chi introduce una domanda e indica una persona da identificare.',2]
+]);
+trio('parole','Congiunzioni',[
+ ['In «La prova è finita, ma il lavoro continua», «ma» introduce…','un’opposizione',['una causa','un fine'],'Ma collega le due proposizioni mettendole in contrasto.',2],
+ ['Quale congiunzione introduce una causa in «Resto perché devo finire»?','perché',['devo','finire'],'Perché introduce la ragione per cui il soggetto resta.',2],
+ ['In «Se il colore asciuga, possiamo verniciare», «se» introduce…','una condizione',['una conclusione','una conseguenza'],'La subordinata indica la condizione posta per verniciare.',3],
+ ['Quale frase contiene una congiunzione coordinante?','Taglio il tessuto e preparo il modello.',['Quando taglio il tessuto, preparo il modello.','Preparo il modello perché serve.'],'E collega due proposizioni sullo stesso piano.',3]
+]);
 window.ATELIER_LEARNING_EXTRA=bank;
 })();

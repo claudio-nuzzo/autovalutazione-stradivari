@@ -1,0 +1,58 @@
+(() => {
+'use strict';
+const bank=[];
+function choice(group,level,prompt,solution,wrong,feedback){const options=[solution,...wrong],answer=bank.length%options.length;options.splice(answer,0,options.shift());bank.push({id:`pa-nuovo-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'choice',title:'Ragiona nel contesto',prompt,options,answer,solution,feedback,minutes:2});}
+function exact(group,level,prompt,answers,feedback){bank.push({id:`pa-nuovo-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'exact',title:'Completa la frase',prompt,answers,solution:answers[0],feedback,minutes:2});}
+function tokens(group,level,prompt,words,answer,feedback){bank.push({id:`pa-nuovo-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'tokens',title:'Osserva la frase',prompt,tokens:words,answer,solution:answer.map(i=>words[i]).join(' · '),feedback,minutes:3});}
+choice('Aggettivo',2,'In «Ho scelto una stoffa morbida», quale parola qualifica il nome stoffa?','morbida',['scelto','una'],'Morbida è un aggettivo qualificativo riferito a stoffa.');
+choice('Aggettivo',2,'In «La stoffa è morbida», quale parola esprime una qualità della stoffa?','morbida',['è','stoffa'],'Morbida è un aggettivo: con la copula è forma il predicato nominale.');
+choice('Aggettivo',3,'In quale frase «verde» accompagna un nome come aggettivo?','Ho scelto il tessuto verde.',['Il verde è intenso.','Preferisco il verde.'],'Verde qualifica tessuto; nelle altre frasi è usato come nome.');
+choice('Aggettivo',3,'In «Il tavolo nuovo è stabile», quale aggettivo è attributo del nome tavolo?','nuovo',['stabile','è'],'Nuovo accompagna il nome; stabile forma con è il predicato nominale.');
+choice('Aggettivo',2,'Quale forma concorda con «due mensole»?','resistenti',['resistente','resistento'],'Mensole è femminile plurale; resistente ha plurale resistenti.');
+choice('Aggettivo',2,'Quale forma completa «una giacca ___»?','blu',['blia','blua'],'Blu è un aggettivo invariabile: mantiene la stessa forma.');
+choice('Aggettivo',3,'Quale frase usa «blu» concordando correttamente?','Ho scelto due nastri blu.',['Ho scelto due nastri blui.','Ho scelto due nastri blua.'],'Blu è invariabile anche con nomi plurali.');
+choice('Aggettivo',2,'In «Il piano è più largo del ripiano», quale grado esprime «più largo»?','comparativo di maggioranza',['superlativo assoluto','comparativo di uguaglianza'],'Più introduce il confronto di maggioranza tra due elementi.');
+choice('Aggettivo',2,'In «Il panno è meno ruvido della tela», quale grado esprime «meno ruvido»?','comparativo di minoranza',['superlativo relativo','comparativo di maggioranza'],'Meno introduce un confronto di minoranza.');
+choice('Aggettivo',2,'In «Il righello è tanto lungo quanto la matita», quale rapporto si esprime?','uguaglianza',['maggioranza','minoranza'],'Tanto… quanto costruisce un comparativo di uguaglianza.');
+choice('Aggettivo',3,'In «È il più accurato del gruppo», il grado è…','superlativo relativo',['superlativo assoluto','comparativo di minoranza'],'Il più accurato individua il grado massimo entro il gruppo indicato.');
+choice('Aggettivo',3,'In «Il disegno è accuratissimo», il grado è…','superlativo assoluto',['superlativo relativo','comparativo di maggioranza'],'Il suffisso -issimo esprime il grado molto alto senza confronto con un gruppo.');
+choice('Aggettivo',3,'Quale riscrittura conserva il valore di superlativo relativo di «Lia è la più precisa della classe»?','Nella classe nessuna è più precisa di Lia.',['Lia è molto precisa.','Lia è meno precisa di tutte.'],'Il confronto resta limitato alla classe e indica che nessuna supera Lia in precisione.');
+choice('Aggettivo',3,'Quale coppia contiene una forma comparativa e una superlativa assoluta di buono?','migliore; ottimo',['ottimo; migliore','migliore; buono'],'Migliore è comparativo di maggioranza; ottimo è superlativo assoluto.');
+choice('Aggettivo',2,'In «Questi campioni sono pronti», «questi» è…','aggettivo dimostrativo',['pronome dimostrativo','articolo determinativo'],'Questi accompagna il nome campioni e lo determina.');
+choice('Aggettivo',2,'In «Molti allievi disegnano», «molti» è…','aggettivo indefinito',['pronome indefinito','aggettivo numerale ordinale'],'Molti accompagna allievi e ne indica una quantità non precisa.');
+choice('Aggettivo',2,'In «Il secondo progetto è pronto», «secondo» è…','aggettivo numerale ordinale',['aggettivo numerale cardinale','pronome personale'],'Secondo accompagna progetto e ne indica la posizione in una serie.');
+choice('Aggettivo',3,'Quale frase contiene un aggettivo possessivo?','La nostra squadra misura il tavolo.',['La nostra misura il tavolo.','Noi misuriamo il tavolo.'],'Nostra accompagna squadra; nella seconda frase sostituisce un nome sottinteso.');
+choice('Aggettivo',3,'In quale frase «quale» accompagna un nome come aggettivo interrogativo?','Quale tessuto preferisci?',['Quale preferisci?','Non so quale preferisci.'],'Quale determina il nome tessuto; nelle altre frasi lo sostituisce.');
+choice('Aggettivo',3,'Quale frase contiene un aggettivo esclamativo?','Quante idee originali hai!',['Quante ne hai?','Ne hai molte.'],'Quante accompagna idee in un’esclamazione.');
+choice('Aggettivo',3,'Quale frase contiene un comparativo fra due qualità della stessa persona?','Marta è più paziente che rapida.',['Marta è la più paziente del gruppo.','Marta è pazientissima.'],'Più paziente che rapida confronta due qualità riferite a Marta.');
+exact('Aggettivo',2,'Completa con il femminile plurale di «accurato»: «Le misure sono ___».',['accurate'],'Accurate concorda con misure, femminile plurale.');
+exact('Aggettivo',2,'Completa con il plurale di «facile»: «Gli esercizi sono ___».',['facili'],'Facile ha plurale facili sia al maschile sia al femminile.');
+tokens('Aggettivo',2,'Seleziona tutti gli aggettivi qualificativi della frase.',['Il','tessuto','morbido','ha','un','colore','intenso.'],[2,6],'Morbido qualifica tessuto; intenso qualifica colore.');
+tokens('Aggettivo',3,'Seleziona l’aggettivo possessivo e il nome che accompagna.',['La','nostra','classe','visita','il','laboratorio.'],[1,2],'Nostra determina il nome classe; la è un articolo.');
+choice('Pronomi',2,'In «Marta controlla il disegno e lo corregge», che cosa riprende «lo»?','il disegno',['Marta','controlla'],'Lo sostituisce il disegno come oggetto diretto di corregge.');
+choice('Pronomi',2,'In «Ho telefonato a Sara e le ho scritto», «le» significa…','a Sara',['Sara come oggetto diretto','la lettera'],'Le riprende a Sara e ha funzione di complemento di termine.');
+choice('Pronomi',3,'Quale frase usa «gli» per riprendere «a Marco»?','Ho visto Marco e gli ho parlato.',['Ho visto Marco e li ho parlato.','Ho visto Marco e lo ho parlato.'],'Gli significa a lui ed è retto da parlare a qualcuno.');
+choice('Pronomi',2,'In «I campioni sono pronti: li porto in aula», «li» sostituisce…','i campioni',['in aula','porto'],'Li è un pronome personale che riprende i campioni.');
+choice('Pronomi',3,'In «La sarta prepara i modelli e ne controlla due», «ne» significa…','dei modelli',['alla sarta','in laboratorio'],'Ne riprende dei modelli: controlla due di essi.');
+choice('Pronomi',3,'In «Conosci il laboratorio? Ci lavoro ogni lunedì», «ci» significa…','in quel laboratorio',['con il laboratorio','a quei laboratori come persone'],'Ci riprende il luogo nominato nella frase precedente.');
+choice('Pronomi',2,'In quale frase «questo» è pronome dimostrativo?','Questo è pronto.',['Questo modello è pronto.','Questo tavolo è pronto.'],'Questo sostituisce un nome sottinteso; nelle altre frasi accompagna un nome.');
+choice('Pronomi',3,'Quale frase contiene un pronome possessivo?','Il mio è nel cassetto.',['Il mio quaderno è nel cassetto.','Ho un quaderno nel cassetto.'],'Il mio sostituisce un nome sottinteso; mio accompagna invece il nome quaderno.');
+choice('Pronomi',2,'In «Alcuni sono già arrivati», «alcuni» è…','pronome indefinito',['aggettivo indefinito','articolo partitivo'],'Alcuni sostituisce un nome di persone già noto dal contesto.');
+choice('Pronomi',3,'Quale frase contiene «molti» come pronome?','Molti hanno risposto.',['Molti allievi hanno risposto.','Molte risposte sono arrivate.'],'Molti sostituisce un nome sottinteso, per esempio allievi.');
+choice('Pronomi',2,'In «La stoffa che ho scelto è leggera», «che» riprende…','la stoffa',['ho scelto','leggera'],'Il pronome relativo che riprende stoffa e svolge la funzione di oggetto di ho scelto.');
+choice('Pronomi',3,'In «La ragazza che disegna è Sara», quale funzione ha «che» nella relativa?','soggetto di disegna',['oggetto di disegna','complemento di termine'],'È la ragazza a disegnare: che è soggetto della relativa.');
+choice('Pronomi',3,'In «La ragazza che saluto è Sara», quale funzione ha «che» nella relativa?','oggetto di saluto',['soggetto di saluto','complemento di luogo'],'Il soggetto di saluto è io sottinteso; che riprende la ragazza salutata.');
+choice('Pronomi',3,'In «Il collega a cui scrivo è Luca», «a cui» equivale a…','al quale',['il quale','dal quale'],'Scrivo a qualcuno: a cui riprende il collega con la preposizione a.');
+choice('Pronomi',3,'In «Il progetto di cui parli è pronto», «di cui» riprende…','il progetto',['parli','pronto'],'Di cui significa qui del quale e dipende da parlare di qualcosa.');
+choice('Pronomi',3,'Quale frase contiene «che» come pronome relativo?','Il libro che leggo è utile.',['Penso che il libro sia utile.','Credo che tu abbia ragione.'],'Nel primo caso che riprende libro; nelle altre frasi introduce una completiva.');
+choice('Pronomi',3,'Quale frase contiene «chi» come pronome relativo doppio?','Chi studia comprende.',['Chi ha studiato?','Mi domando chi abbia studiato.'],'Qui chi equivale a colui o colei che; nelle altre frasi introduce una domanda.');
+choice('Pronomi',2,'In «Chi arriva?», «chi» introduce…','una domanda diretta',['una proposizione relativa','un ordine'],'Chi è un pronome interrogativo in una domanda diretta.');
+choice('Pronomi',3,'Quale frase contiene un pronome esclamativo?','Quanti ne sono arrivati!',['Quanti modelli sono arrivati!','Molti modelli sono arrivati.'],'Quanti sostituisce un nome sottinteso ed è usato in un’esclamazione.');
+choice('Pronomi',3,'In «Luca e Ada si salutano», quale valore può avere «si»?','reciproco',['articolo determinativo','congiunzione causale'],'Si può esprimere un’azione scambiata tra Luca e Ada.');
+choice('Pronomi',3,'In «Lia si pettina», «si» indica…','la stessa persona che compie l’azione',['una persona necessariamente diversa','il luogo dell’azione'],'Lia compie l’azione su sé stessa: si è riflessivo.');
+exact('Pronomi',2,'Completa con «lo», «la», «li» o «le»: «Il campione? ___ controllo subito».',['lo'],'Lo riprende il campione come oggetto diretto.');
+exact('Pronomi',2,'Completa con «lo», «la», «li» o «le»: «Le misure? ___ verifico subito».',['le'],'Le riprende le misure, femminile plurale, come oggetto diretto.');
+exact('Pronomi',3,'Completa con «che» o «cui»: «Il disegno di ___ parli è sul banco».',['cui'],'Dopo la preposizione di si usa qui il relativo cui: di cui.');
+tokens('Pronomi',3,'Seleziona i pronomi personali della frase.',['Luca','mi','mostra','il','modello','e','io','lo','osservo.'],[1,6,7],'Mi, io e lo sono pronomi personali; il è un articolo.');
+window.ATELIER_NEW_PRONOMI_AGGETTIVI=bank;
+})();
