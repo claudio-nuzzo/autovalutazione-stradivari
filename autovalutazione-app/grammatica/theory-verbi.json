@@ -2810,6 +2810,20 @@
             "explanation": "Cantante è usato come nome; interessante qualifica prova come aggettivo."
           }
         ]
+      },
+      {
+        "title": "Il participio come verbo e come aggettivo",
+        "text": "Un participio presente può essere usato come aggettivo o nome, ma in alcune costruzioni conserva valore verbale e può reggere un complemento: un disegno raffigurante una barca contiene raffigurante una barca, equivalente a che raffigura una barca. Il participio passato può comparire nei tempi composti, come aggettivo o nome: le misure controllate, gli invitati. In un’espressione come la porta chiusa il participio di un verbo transitivo si riferisce a ciò che ha ricevuto l’azione; in gli ospiti arrivati, arrivati riguarda chi ha compiuto il movimento. Analizza il verbo e il contesto prima di decidere il valore.",
+        "examples": [
+          {
+            "sentence": "Il libro contiene immagini raffiguranti strumenti.",
+            "explanation": "Raffiguranti regge il complemento strumenti e può essere reso con che raffigurano strumenti."
+          },
+          {
+            "sentence": "Le scatole aperte sono sul banco; gli ospiti arrivati salutano.",
+            "explanation": "Aperte descrive scatole che hanno ricevuto l’azione; arrivati riguarda gli ospiti che sono arrivati."
+          }
+        ]
       }
     ],
     "diagram": {

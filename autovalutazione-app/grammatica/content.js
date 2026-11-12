@@ -114,8 +114,8 @@ window.ATELIER_CONTENT = {
       "prompt": "La classe realizza (un / uno) schizzo, (un / un’) idea e (una / un’) etichetta per il prototipo.",
       "options": [],
       "answer": null,
-      "solution": "uno schizzo; un’idea; un’etichetta.",
-      "feedback": "Davanti a schizzo maschile si usa uno. Davanti a nomi femminili singolari che iniziano per vocale, una si elide in un’.",
+      "solution": "uno schizzo; un’idea; un’etichetta oppure una etichetta.",
+      "feedback": "Davanti a schizzo maschile si usa uno. Davanti a etichetta si può usare la forma elisa un’ oppure la forma intera una.",
       "minutes": 3,
       "source": "Banca originale articolo · 8",
       "review": "bozza"
@@ -370,7 +370,7 @@ window.ATELIER_CONTENT = {
       "options": [],
       "answer": null,
       "solution": "Un liutaio entra nel laboratorio. Prende lo scalpello e appoggia un’impiallacciatura sul banco. Poi mostra gli strumenti alla classe.",
-      "feedback": "liutaio è maschile; scalpello inizia con s + consonante; impiallacciatura è femminile e richiede un’; strumenti è maschile plurale con s + consonante e richiede gli.",
+      "feedback": "liutaio è maschile; scalpello inizia con s + consonante; impiallacciatura è femminile: un’ è la forma elisa di una; strumenti è maschile plurale con s + consonante e richiede gli.",
       "minutes": 5,
       "source": "Banca originale articolo · 25",
       "review": "bozza"

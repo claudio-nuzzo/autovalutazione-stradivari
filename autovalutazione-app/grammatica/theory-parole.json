@@ -25,7 +25,7 @@
       },
       {
         "title": "Le forme e i suoni iniziali",
-        "text": "I determinativi sono il, lo, la, l’, i, gli, le. Il e i precedono molti nomi maschili; lo e gli precedono, fra gli altri, s seguita da consonante, z, gn, ps: lo studente, gli zaini. Davanti a vocale il singolare diventa l’: l’arco, l’isola; al plurale diciamo gli archi, le isole. Gli indeterminativi singolari sono un, uno, una, un’. Un precede anche un nome maschile che comincia per vocale e non vuole apostrofo. Un’ si usa davanti a un nome femminile che comincia per vocale.",
+        "text": "I determinativi sono il, lo, la, l’, i, gli, le. Il e i precedono molti nomi maschili; lo e gli precedono, fra gli altri, s seguita da consonante, z, gn, ps: lo studente, gli zaini. Davanti a una vocale piena il maschile lo si elide: l’arco. Al femminile la forma elisa è comune, ma la forma intera può restare: l’amica o la amica. Gli indeterminativi singolari sono un, uno, una e un’. Un davanti a vocale maschile non vuole apostrofo; al femminile si può usare la forma elisa un’amica oppure la forma intera una amica. Alcune parole che iniziano per i seguita da vocale, come iato e iena, cominciano nella pronuncia con una i semiconsonantica: nella norma tradizionale si dicono lo iato e la iena, senza elidere l’articolo. Negli usi reali possono esserci oscillazioni: se hai un dubbio consulta un dizionario.",
         "examples": [
           {
             "sentence": "Un arco e un’asola sono sul tavolo.",
@@ -34,6 +34,10 @@
           {
             "sentence": "Prendo del legno.",
             "explanation": "Del è partitivo: significa una quantità non precisata di legno."
+          },
+          {
+            "sentence": "Lo iato e la iena sono due gruppi corretti.",
+            "explanation": "La i iniziale di iato e iena ha valore semiconsonantico; nella norma tradizionale l’articolo non è eliso."
           }
         ]
       },
@@ -516,6 +520,24 @@
             "explanation": "Altrui accompagna idee e resta invariabile."
           }
         ]
+      },
+      {
+        "title": "Cardinali, ordinali e moltiplicativi",
+        "text": "I numerali cardinali indicano quante persone o cose: tre pannelli. Gli ordinali indicano il posto in una serie: il terzo pannello. I moltiplicativi indicano un multiplo, come doppio, triplo e quadruplo: una dose doppia. Come altri aggettivi, concordano quando la loro forma è variabile. I numeri possono essere scritti con cifre arabe, come 4 e 12, oppure con numeri romani, come IV e XII, secondo l’uso: IV può indicare quarto e XII dodicesimo in una successione.",
+        "examples": [
+          {
+            "sentence": "Servono tre ripiani; montiamo il terzo.",
+            "explanation": "Tre è cardinale e indica la quantità; terzo è ordinale e indica una posizione."
+          },
+          {
+            "sentence": "Prepara una dose doppia.",
+            "explanation": "Doppia è numerale moltiplicativo e concorda con dose."
+          },
+          {
+            "sentence": "Il capitolo IV segue il capitolo III.",
+            "explanation": "IV e III sono numeri romani che indicano qui quarto e terzo."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -702,6 +724,24 @@
           {
             "sentence": "Chi arriva alla porta?",
             "explanation": "Chi introduce una domanda: qui è interrogativo, non relativo misto."
+          }
+        ]
+      },
+      {
+        "title": "Identificativi e riflessivo tonico",
+        "text": "Stesso e medesimo possono essere pronomi identificativi quando sostituiscono un nome già noto: scelgo la stessa sottintende, per esempio, la stessa stoffa. Se accompagnano il nome sono aggettivi: scelgo la stessa stoffa. Il pronome tonico sé si riferisce al soggetto di terza persona: Marta porta con sé il quaderno. Davanti a stesso o medesimo si incontrano sia sé stesso sia se stesso: entrambe le grafie sono accettate. Senza questi rafforzativi, non confondere sé pronome con se congiunzione.",
+        "examples": [
+          {
+            "sentence": "Ho scelto la stessa.",
+            "explanation": "Stessa sostituisce un nome femminile già noto ed è pronome identificativo."
+          },
+          {
+            "sentence": "Luca porta il quaderno con sé.",
+            "explanation": "Sé è pronome tonico riferito al soggetto Luca."
+          },
+          {
+            "sentence": "Nora pensa a sé stessa; si trova anche «se stessa».",
+            "explanation": "Con stessa sono ammesse entrambe le grafie del pronome rafforzato."
           }
         ]
       }
@@ -1454,6 +1494,38 @@
           {
             "sentence": "I campioni sono ventitré, non tre.",
             "explanation": "Ventitré porta l’accento grafico; tre da solo non lo richiede."
+          }
+        ]
+      },
+      {
+        "title": "Grafie vicine: ce, cie, li, gli e consonanti doppie",
+        "text": "Il suono non basta sempre per scegliere tutte le lettere. Cielo e cieco si scrivono con cie, mentre cena e cento si scrivono con ce. Foglia contiene il gruppo gli; parole come Italia e vigilia si scrivono con li. Il contesto e la famiglia di parole aiutano, ma le grafie vanno conosciute e, nel dubbio, controllate nel dizionario. Acqua e acquisto hanno cqu; soqquadro si scrive invece con qq. Non ricavare automaticamente la grafia di ogni parola da una sola somiglianza di suono.",
+        "examples": [
+          {
+            "sentence": "Il cielo è chiaro sopra la città.",
+            "explanation": "Cielo si scrive con cie."
+          },
+          {
+            "sentence": "La foglia è accanto al libro sulla storia d’Italia.",
+            "explanation": "Foglia contiene gli; Italia contiene li."
+          },
+          {
+            "sentence": "La stanza è a soqquadro.",
+            "explanation": "Soqquadro si scrive con qq."
+          }
+        ]
+      },
+      {
+        "title": "Elisione, forma intera e parole vicine",
+        "text": "Nell’elisione una vocale finale cade davanti a una vocale e l’apostrofo segnala la caduta: un’amica deriva da una amica. Con gli articoli femminili la e una davanti a vocale piena, la forma elisa è comune, ma si può anche mantenere la forma intera: l’insegnante o la insegnante, un’amica o una amica. Un maschile invece non prende apostrofo: un amico. Non sostituire l’apostrofo con un accento e non inserire uno spazio dopo l’apostrofo nella forma elisa.",
+        "examples": [
+          {
+            "sentence": "L’insegnante entra; anche «la insegnante entra» è possibile.",
+            "explanation": "La può elidersi davanti a vocale oppure rimanere intero."
+          },
+          {
+            "sentence": "Ho incontrato un’amica; «una amica» è possibile.",
+            "explanation": "L’apostrofo compare soltanto nella forma elisa un’."
           }
         ]
       }
@@ -3602,6 +3674,26 @@
             "explanation": "Il modello è soggetto passivo, non oggetto."
           }
         ]
+      },
+      {
+        "title": "La frase minima e le espansioni",
+        "text": "La frase minima contiene il verbo e gli elementi richiesti dal suo significato nella costruzione considerata. Un verbo impersonale può bastare da solo: nevica. Con dorme serve normalmente il soggetto: il gatto dorme. Con ripara possiamo indicare anche ciò che viene riparato: Lea ripara il violino. In Lea consegna il modello a Sam il verbo collega chi consegna, ciò che è consegnato e il destinatario. Altri dettagli possono ampliare la frase: ieri, nel laboratorio o con cura. Le costruzioni cambiano a seconda del contesto: non decidere che un elemento manca senza verificare se può essere sottinteso. Il nucleo della frase è diverso dal nucleo di un gruppo nominale: in una tavola lunga, tavola è il nome centrale del gruppo.",
+        "examples": [
+          {
+            "sentence": "Ieri Lea ha riparato il violino in laboratorio.",
+            "explanation": "Lea ha riparato il violino è il nucleo della costruzione; ieri e in laboratorio aggiungono informazioni."
+          }
+        ]
+      },
+      {
+        "title": "Una frase, analizzata passo per passo",
+        "text": "Osserva: «Ieri Nora, giovane liutaia, ha mostrato il progetto a Sam in laboratorio». 1. Trova il predicato: ha mostrato. 2. Cerca il soggetto: Nora; giovane liutaia precisa Nora, con liutaia apposizione e giovane suo attributo. 3. Individua l’oggetto: il progetto. 4. Cerca il destinatario: a Sam è complemento di termine. 5. Individua gli altri elementi: ieri indica tempo e in laboratorio luogo. Rileggi collegando ogni gruppo alla parola cui si riferisce. La stessa frase può essere suddivisa in gruppi e poi analizzata distinguendo le funzioni al loro interno.",
+        "examples": [
+          {
+            "sentence": "Ieri Nora, giovane liutaia, ha mostrato il progetto a Sam in laboratorio.",
+            "explanation": "Nora: soggetto; giovane: attributo; liutaia: apposizione; ha mostrato: predicato verbale; il progetto: oggetto; a Sam: termine; ieri: tempo; in laboratorio: stato in luogo."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -3962,6 +4054,20 @@
           {
             "sentence": "Consegno il progetto di Sara alla docente.",
             "explanation": "Di Sara specifica progetto; alla docente è il termine di consegno."
+          }
+        ]
+      },
+      {
+        "title": "La particella ne: guarda il contesto",
+        "text": "La particella ne può sostituire gruppi con funzioni diverse: per riconoscerla ricostruisci il gruppo a cui rimanda e osserva il rapporto nella frase. In «Conosco il progetto e ne parlo» significa del progetto e indica l’argomento; in «Conosco il progetto e ne apprezzo i dettagli» significa del progetto e specifica dettagli. In «Entro in aula e ne esco» significa dall’aula e indica provenienza; in «Ho cinque matite e ne scelgo due» significa delle cinque matite e indica l’insieme da cui si sceglie, cioè un partitivo. Non attribuire sempre a ne la stessa funzione.",
+        "examples": [
+          {
+            "sentence": "Conosco il progetto: ne parlo e ne controllo i dettagli.",
+            "explanation": "Nel primo caso ne indica l’argomento; nel secondo specifica i dettagli."
+          },
+          {
+            "sentence": "Ho cinque matite e ne scelgo due.",
+            "explanation": "Ne rimanda all’insieme delle matite: è complemento partitivo."
           }
         ]
       }

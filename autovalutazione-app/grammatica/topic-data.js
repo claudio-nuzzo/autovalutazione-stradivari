@@ -120,7 +120,7 @@ choice('t79','Subordinata causale implicita','periodo',3,'In «Essendo stanca, A
 choice('t80','Coordinata copulativa','periodo',1,'In «Marco ascolta e prende appunti», e introduce una coordinata:',['copulativa','avversativa','conclusiva'],0,'E aggiunge una seconda azione: coordinazione copulativa.');
 
 // Risposte esatte circoscritte e selezione di parole: tre meccaniche distribuite.
-exact('t81','Ortografia: apostrofo','parole',1,'Riscrivi correttamente: «un amica».',['un’amica'],'Amica è femminile e inizia per vocale: si scrive un’amica.');
+exact('t81','Ortografia: apostrofo','parole',1,'Riscrivi correttamente: «un amica».',['un’amica','una amica'],'Sono ammesse la forma elisa un’amica e la forma intera una amica.');
 exact('t82','Verbo: ausiliare','parole',2,'Completa scegliendo l’ausiliare corretto: «Noi ___ arrivati» al passato prossimo.',['siamo'],'Arrivare forma il passato prossimo con essere.');
 exact('t83','Complemento di modo','frase',2,'In «Ha risolto il problema con pazienza», trascrivi il complemento di modo.',['con pazienza'],'Con pazienza indica il modo in cui ha risolto il problema.');
 exact('t84','Proposizione temporale','periodo',2,'Completa scegliendo soltanto «quando» oppure «appena»: «___ suona la sveglia, mi alzo».',['Quando','Appena'],'Quando (o appena) introduce il momento dell’alzarsi.');

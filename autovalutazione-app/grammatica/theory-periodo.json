@@ -52,6 +52,20 @@
             "explanation": "Penso è principale; che Luca sappia è dipendente di primo grado e regge dove abita Marta, di secondo grado."
           }
         ]
+      },
+      {
+        "title": "Esempio guida: un periodo intero",
+        "text": "Leggi il periodo dell’esempio e cerca prima i nuclei verbali: arriva, mostra, spiega, ha scelto, preferisce. Sono cinque. La principale è Lia mostra il disegno; e spiega è coordinata alla principale. Quando arriva la docente è temporale e dipende da mostra.\n\nChe ha scelto il blu è oggettiva e dipende da spiega: rispetto a questa reggente è di primo grado. Poiché la cliente lo preferisce è causale e dipende da ha scelto: è quindi di secondo grado rispetto a spiega. Nello schema metti mostra e spiega sullo stesso piano; sotto mostra colloca quando arriva; sotto spiega metti che ha scelto, e sotto quest’ultima poiché la cliente lo preferisce.",
+        "examples": [
+          {
+            "sentence": "Quando arriva la docente, Lia mostra il disegno e spiega che, poiché la cliente lo preferisce, ha scelto il blu.",
+            "explanation": "Cinque nuclei: la temporale dipende da mostra; l’oggettiva da spiega; la causale dall’oggettiva."
+          },
+          {
+            "sentence": "Mentre il colore asciuga, Noor pulisce e prepara i pennelli.",
+            "explanation": "Pulisce è principale; prepara è coordinata; mentre il colore asciuga è temporale."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -226,6 +240,24 @@
             "explanation": "La principale è Il tavolo regge bene; la relativa si inserisce fra soggetto e predicato."
           }
         ]
+      },
+      {
+        "title": "Domande dirette ed esclamazioni",
+        "text": "Una proposizione principale esclamativa esprime una reazione, come gioia, sorpresa o dispiacere. Una interrogativa diretta pone invece una domanda autonoma. Le domande totali ammettono in genere sì o no; le parziali chiedono un’informazione, per esempio un luogo o una persona. Le disgiuntive propongono alternative; una domanda retorica può servire a sottolineare un’affermazione senza attendere una risposta.\n\nLa punteggiatura e il contesto aiutano a riconoscere l’intenzione. Una domanda principale può anche contenere una domanda indiretta dipendente: in «Sai dove lavora?» l’intero enunciato è interrogativo diretto, mentre dove lavora è una dipendente.",
+        "examples": [
+          {
+            "sentence": "Che bel disegno hai preparato!",
+            "explanation": "La frase esprime una reazione esclamativa."
+          },
+          {
+            "sentence": "Preferisci disegnare o modellare?",
+            "explanation": "La domanda offre due alternative: è interrogativa diretta disgiuntiva."
+          },
+          {
+            "sentence": "Chi non vorrebbe una giornata libera?",
+            "explanation": "Nel contesto la domanda può essere retorica: suggerisce una risposta condivisa."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -394,6 +426,20 @@
           {
             "sentence": "Credo che il tavolo sia stabile e che il piano sia uniforme.",
             "explanation": "Le due oggettive sono coordinate fra loro e dipendono entrambe da Credo."
+          }
+        ]
+      },
+      {
+        "title": "Polisindeto e correlazioni",
+        "text": "Il polisindeto è una forma di collegamento in cui una congiunzione viene ripetuta davanti a più elementi o proposizioni: la ripetizione può dare ritmo o evidenza. Se invece le proposizioni sono accostate senza congiunzioni, parliamo di asindeto.\n\nLa correlazione distribuisce i collegamenti in due o più elementi che si richiamano: per esempio ora… ora può alternare due azioni. Per analizzare le proposizioni individua ogni predicato e poi verifica se i collegamenti le pongono sullo stesso piano.",
+        "examples": [
+          {
+            "sentence": "E cerca il metro, e prende il foglio, e misura il banco.",
+            "explanation": "La ripetizione di e collega le azioni per polisindeto."
+          },
+          {
+            "sentence": "Ora il cane corre, ora si ferma.",
+            "explanation": "Ora… ora correla due momenti alternati."
           }
         ]
       }
@@ -1092,6 +1138,32 @@
             "explanation": "Che resista è relativa al congiuntivo: descrive una proprietà richiesta, senza affermare che il tessuto sia già stato trovato."
           }
         ]
+      },
+      {
+        "title": "Le sfumature delle relative improprie",
+        "text": "Una relativa resta collegata al suo antecedente; in alcuni contesti può anche suggerire una circostanza. Si parla allora di relativa impropria o circostanziale. La sfumatura può essere temporale, causale, finale, consecutiva o concessiva.\n\nUna parafrasi aiuta a formulare l’interpretazione, ma non è sempre l’unica possibile: verifica se il rapporto sia effettivamente sostenuto dal contesto e specifica che la costruzione rimane relativa.",
+        "examples": [
+          {
+            "sentence": "Ho salutato Amir, che entrava in aula.",
+            "explanation": "Che entrava può essere interpretata anche con una sfumatura temporale: mentre entrava."
+          },
+          {
+            "sentence": "Cerco una scatola che contenga tutti i pennelli.",
+            "explanation": "La relativa può descrivere una proprietà richiesta e avere una sfumatura finale."
+          },
+          {
+            "sentence": "Nora, che aveva studiato molto, non superò la prova.",
+            "explanation": "Nel contesto la relativa può assumere una sfumatura concessiva."
+          },
+          {
+            "sentence": "Ammiriamo Lia, che conosce bene i materiali.",
+            "explanation": "La relativa può anche suggerire una ragione dell’ammirazione: perché conosce bene i materiali."
+          },
+          {
+            "sentence": "Vorrei un materiale che resista alla pioggia.",
+            "explanation": "Che riprende materiale e precisa una caratteristica desiderata; alcune analisi riconoscono anche una sfumatura finale o finale-consecutiva. L’interpretazione dipende dal contesto."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -1786,6 +1858,20 @@
           {
             "sentence": "Non sappiamo quale finitura scegliere.",
             "explanation": "Quale finitura scegliere è interrogativa indiretta implicita: la scelta è l’informazione ancora da decidere."
+          }
+        ]
+      },
+      {
+        "title": "Più domande collegate",
+        "text": "Una reggente può introdurre più interrogative indirette. Se le domande hanno ciascuna il proprio predicato e sono collegate sullo stesso piano, si può analizzare la prima come subordinata e la seconda come coordinata alla subordinata.\n\nLe alternative possono essere espresse con se… o, oppure: osserva se entrambe le possibilità contengono un verbo oppure se si tratta di due semplici parole all’interno di una sola proposizione.",
+        "examples": [
+          {
+            "sentence": "Mi chiedo se Sara arrivi e se Luca partecipi.",
+            "explanation": "Le due domande hanno i predicati arrivi e partecipi: la seconda è coordinata alla prima."
+          },
+          {
+            "sentence": "Dimmi se preferisci il blu o il verde.",
+            "explanation": "Blu e verde sono alternative nella stessa proposizione: non aggiungono un secondo predicato."
           }
         ]
       }
