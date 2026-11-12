@@ -480,8 +480,8 @@ window.ATELIER_CONTENT = {
       "prompt": "Inserisci articoli determinativi, indeterminativi o partitivi secondo il significato.\n\nPer ___ seduta del prototipo useremo ___ legno chiaro e ___ imbottitura. Aggiungeremo anche ___ rivetti e ___ stoffa resistente. Domani arriveranno ___ campioni; la quantità non è precisata.",
       "options": [],
       "answer": null,
-      "solution": "Per la seduta useremo del legno chiaro e un’imbottitura. Aggiungeremo anche dei rivetti e della stoffa resistente. Domani arriveranno dei campioni.",
-      "feedback": "La scheda identifica una seduta (la); indica quantità non precisate di legno, rivetti, stoffa e campioni (del, dei, della, dei); imbottitura femminile davanti a vocale richiede un’.",
+      "solution": "Per la seduta useremo del legno chiaro e un’imbottitura (oppure una imbottitura). Aggiungeremo anche dei rivetti e della stoffa resistente. Domani arriveranno dei campioni.",
+      "feedback": "La scheda identifica una seduta (la); indica quantità non precisate di legno, rivetti, stoffa e campioni (del, dei, della, dei); davanti a imbottitura sono possibili un’ oppure la forma intera una.",
       "minutes": 5,
       "source": "Banca originale articolo · 32",
       "review": "bozza"
