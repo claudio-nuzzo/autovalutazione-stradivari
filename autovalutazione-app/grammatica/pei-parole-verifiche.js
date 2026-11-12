@@ -130,7 +130,7 @@ const paradigms=[
 ['congiuntivo trapassato',[['io','avessi cantato',['ho cantato','avrò cantato']],['noi','avessimo cantato',['avevamo cantato','avremo cantato']],['loro','avessero cantato',['hanno cantato','avranno cantato']]]],
 ['condizionale passato',[['io','avrei cantato',['ho cantato','avrò cantato']],['tu','avresti cantato',['hai cantato','avrai cantato']],['noi','avremmo cantato',['abbiamo cantato','avremo cantato']]]]
 ];
-for(const [name,forms] of paradigms)entries['Verbi · '+name]=forms.map(([person,answer,wrong])=>[`Scegli il ${name} di «cantare» per «${person}».`,answer,wrong,`${answer} è la forma richiesta di cantare.`]);
+for(const [name,forms] of paradigms)entries['Verbi · '+name]=forms.map(([person,answer,wrong])=>[`Scegli ${name.startsWith('indicativo')?'l’':'il '}${name} di «cantare» per «${person}».`,answer,wrong,`${answer} è la forma richiesta di cantare.`]);
 entries['Verbi · imperativo presente']=[['Dai un invito a una persona: ___.','canta',['cantano'],'Canta è l’imperativo rivolto a tu.'],['Dai un invito a più persone: ___.','cantate',['cantano'],'Cantate è l’imperativo rivolto a voi.'],['Dai un invito a una persona: ___.','ascolta',['ascoltano'],'Ascolta è l’imperativo rivolto a tu.']];
 const bank=[];
 for(const [topicGroup,rows] of Object.entries(entries)) for(const [prompt,solution,wrong,feedback] of rows){const options=[solution,...wrong],answer=bank.length%options.length;options.splice(answer,0,options.shift());bank.push({id:`pei-par-ver-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup,topic:topicGroup,level:1,pei:true,assessmentOnly:true,kind:'choice',title:'Una domanda alla volta',prompt,options,answer,solution,feedback,minutes:1})}
