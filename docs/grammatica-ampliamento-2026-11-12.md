@@ -1,5 +1,11 @@
 # Grammatica in Atelier: ampliamento del 12 novembre 2026
 
+## Aggiornamento 1.4.4
+
+Sono aggiunte 65 attività originali di approfondimento: 30 di analisi logica e 35 di analisi del periodo. La banca comprende ora 3.264 attività di base e 246 quesiti per le verifiche PEI; con i 246 esempi guidati generati dal portale si arriva a 3.756 attività complessive. Gli argomenti restano 82. La teoria aggiornata è rigenerata dai file sorgente; i controlli automatici non sostituiscono la revisione didattica delle nuove attività.
+
+## Ampliamento precedente (1.4.3)
+
 La banca di base passa da 1.191 a 3.199 attività originali; si aggiungono 246 quesiti dedicati alle verifiche PEI e i 246 esempi guidati preesistenti, per 3.691 record totali. La teoria comprende 82 argomenti: si aggiungono «Altri complementi» e «Altre subordinate». L'ampliamento riguarda ortografia, morfologia, analisi logica e periodo; non introduce nuovi percorsi di fonologia.
 
 I volumi A tutto campo, consultati localmente, sono stati usati per confrontare l'indice, gli obiettivi e le tipologie didattiche. Testi, quesiti, esempi e schemi aggiunti sono originali. Il confronto dell'indice non dimostra una corrispondenza puntuale con ogni pagina o esercizio del manuale.

@@ -5,13 +5,13 @@ function choice(group,level,prompt,solution,wrong,feedback){const options=[solut
 function exact(group,level,prompt,answers,feedback){items.push({id:`ort-nuovo-${String(items.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'exact',title:'Scrivi la forma corretta',prompt,answers,solution:answers[0],feedback,minutes:2});}
 function tokens(group,level,prompt,words,answer,feedback){items.push({id:`ort-nuovo-${String(items.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'tokens',title:'Cerca nella frase',prompt,tokens:words,answer,solution:answer.map(i=>words[i]).join(' · '),feedback,minutes:2});}
 choice('Ortografia',1,'Quale forma completa «Ho trovato ___ ago»?','un',['un’','uno'],'Ago è maschile: un non si apostrofa.');
-choice('Ortografia',1,'Quale forma completa «Serve ___ asola più larga»?','un’',['un','una’'],'Davanti alla vocale iniziale di asola, una si elide.');
+choice('Ortografia',1,'Quale forma completa «Serve ___ asola più larga»?','un’',['un','una’'],'Davanti alla vocale iniziale di asola, una può elidersi: fra le opzioni, un’ è corretta.');
 choice('Ortografia',2,'Quale gruppo è scritto correttamente?','un’amica',['un amica','un’ amica'],'L’apostrofo unisce l’articolo eliso alla parola seguente.');
-choice('Ortografia',2,'Quale forma completa «___ insegnante è arrivata»?','L’',['La','L'],'L’articolo la si elide davanti alla vocale di insegnante.');
+choice('Ortografia',2,'Quale forma elisa completa «___ insegnante è arrivata»?','L’',['La','L'],'La forma elisa di la davanti a insegnante è l’; è possibile anche mantenere la forma intera la.');
 choice('Ortografia',2,'Quale forma completa «Porta ___ zaino in laboratorio»?','lo',['l’','il'],'Davanti a z iniziale si usa lo, senza elisione.');
 choice('Ortografia',3,'Quale coppia completa «___ sarta ha salutato ___ artigiano»?','la; l’',['l’; l’','la; lo'],'La precede sarta; lo si elide davanti alla vocale iniziale di artigiano.');
 exact('Ortografia',2,'Correggi la sola forma errata e scrivi le due parole: «un’amico».',['un amico'],'Amico è maschile: un si scrive senza apostrofo.');
-exact('Ortografia',2,'Correggi la sola forma errata e scrivi le due parole: «un allieva».',['un’allieva',"un'allieva"],'Allieva è femminile: una si elide davanti a vocale.');
+exact('Ortografia',2,'Correggi la sola forma errata e scrivi le due parole: «un allieva».',['un’allieva',"un'allieva",'una allieva'],'Sono ammesse la forma elisa un’allieva e la forma intera una allieva.');
 choice('Ortografia',1,'Quale forma completa «Il tessuto ___ morbido»?','è',['e','é'],'È con accento grave è una forma del verbo essere.');
 choice('Ortografia',1,'Quale forma completa «Sara ___ Luca preparano il banco»?','e',['è','é'],'E senza accento collega due nomi.');
 choice('Ortografia',2,'Quale parola completa «Vorrei un ___ caldo»?','tè',['te','té'],'La bevanda si scrive tè con accento grave.');
@@ -56,7 +56,7 @@ choice('Ortografia',2,'Quale completamento indica un’affermazione? «___, il m
 choice('Ortografia',2,'Quale frase è scritta correttamente?','Già lo so, ma non so dove sia.',['Già lo sò, ma non so dove sia.','Già lo so, mà non so dove sia.'],'So e ma non richiedono accento grafico; già lo richiede.');
 choice('Ortografia',2,'Quale frase distingue correttamente «dà» e «da»?','Ada dà il disegno da controllare.',['Ada da il disegno dà controllare.','Ada dà il disegno dà controllare.'],'Dà è verbo; da è preposizione.');
 choice('Ortografia',2,'Quale grafia completa la domanda «___ il materiale giusto»?','Qual è',['Qual’è','Quale’'],'Qual è si scrive senza apostrofo: qual è una forma tronca.');
-choice('Ortografia',2,'Quale forma completa «___ idea interessante»?','un’',['un','uno'],'Idea è femminile e inizia per vocale: una si elide.');
+choice('Ortografia',2,'Quale forma completa «___ idea interessante»?','un’',['un','uno'],'Idea è femminile e inizia per vocale: una può elidersi in un’.');
 choice('Ortografia',2,'Quale gruppo è corretto davanti al nome maschile «ingegnere»?','un ingegnere',['un’ingegnere','uno ingegnere'],'Davanti a nome maschile con iniziale vocalica si scrive un senza apostrofo.');
 choice('Ortografia',2,'Quale frase contiene il troncamento corretto?','Fa’ attenzione alla misura.',['Fà attenzione alla misura.','Fá attenzione alla misura.'],'Fa’ con apostrofo è una forma dell’imperativo di fare; fa senza apostrofo può essere indicativo.');
 choice('Ortografia',2,'In quale frase «sta» è scritto correttamente come indicativo?','Luca sta aspettando.',['Luca stà aspettando.','Luca sta’ aspettando.'],'Sta, indicativo presente di stare, non porta accento né apostrofo.');

@@ -3,7 +3,7 @@
 const data=[
 {g:'Ortografia',c:[
 ['Quale frase distingue correttamente la congiunzione dal verbo?','Il mobile è solido e leggero.',['Il mobile e solido è leggero.','Il mobile è solido è leggero.'],'È è verbo; e collega gli aggettivi.'],
-['Quale frase usa correttamente l’apostrofo in entrambi i gruppi?','Un’idea guida un nuovo progetto.',['Un idea guida un nuovo progetto.','Un’idea guida un’nuovo progetto.'],'Idea è femminile e richiede un’; progetto è maschile e richiede un.'],
+['Quale frase usa correttamente gli articoli?','Un’idea guida un nuovo progetto.',['Un idea guida un nuovo progetto.','Un’idea guida un’nuovo progetto.'],'Idea è femminile: la forma elisa è un’; progetto è maschile e richiede un.'],
 ['Quale frase distingue correttamente la forma verbale dall’avverbio di luogo?','Lia dà il foglio e lo ripone là.',['Lia da il foglio e lo ripone la.','Lia dà il foglio e lo ripone la.'],'Dà è verbo e là indica un luogo: entrambi vogliono l’accento.'],
 ['Quale versione è corretta?','Qual è il colore che hai scelto?',['Qual’è il colore che ai scelto?','Qual è il colore che ai scelto?'],'Qual è è senza apostrofo; hai è una forma di avere.'],
 ['Quale frase usa correttamente una forma verbale e un nome di tempo?','Hanno lavorato tutto l’anno.',['Anno lavorato tutto l’hanno.','Hanno lavorato tutto l’hanno.'],'Hanno è verbo avere; anno è un nome.'],

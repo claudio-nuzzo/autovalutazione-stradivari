@@ -114,8 +114,8 @@ window.ATELIER_CONTENT = {
       "prompt": "La classe realizza (un / uno) schizzo, (un / un’) idea e (una / un’) etichetta per il prototipo.",
       "options": [],
       "answer": null,
-      "solution": "uno schizzo; un’idea; un’etichetta.",
-      "feedback": "Davanti a schizzo maschile si usa uno. Davanti a nomi femminili singolari che iniziano per vocale, una si elide in un’.",
+      "solution": "uno schizzo; un’idea; un’etichetta oppure una etichetta.",
+      "feedback": "Davanti a schizzo maschile si usa uno. Davanti a etichetta si può usare la forma elisa un’ oppure la forma intera una.",
       "minutes": 3,
       "source": "Banca originale articolo · 8",
       "review": "bozza"
@@ -370,7 +370,7 @@ window.ATELIER_CONTENT = {
       "options": [],
       "answer": null,
       "solution": "Un liutaio entra nel laboratorio. Prende lo scalpello e appoggia un’impiallacciatura sul banco. Poi mostra gli strumenti alla classe.",
-      "feedback": "liutaio è maschile; scalpello inizia con s + consonante; impiallacciatura è femminile e richiede un’; strumenti è maschile plurale con s + consonante e richiede gli.",
+      "feedback": "liutaio è maschile; scalpello inizia con s + consonante; impiallacciatura è femminile: un’ è la forma elisa di una; strumenti è maschile plurale con s + consonante e richiede gli.",
       "minutes": 5,
       "source": "Banca originale articolo · 25",
       "review": "bozza"
@@ -480,8 +480,8 @@ window.ATELIER_CONTENT = {
       "prompt": "Inserisci articoli determinativi, indeterminativi o partitivi secondo il significato.\n\nPer ___ seduta del prototipo useremo ___ legno chiaro e ___ imbottitura. Aggiungeremo anche ___ rivetti e ___ stoffa resistente. Domani arriveranno ___ campioni; la quantità non è precisata.",
       "options": [],
       "answer": null,
-      "solution": "Per la seduta useremo del legno chiaro e un’imbottitura. Aggiungeremo anche dei rivetti e della stoffa resistente. Domani arriveranno dei campioni.",
-      "feedback": "La scheda identifica una seduta (la); indica quantità non precisate di legno, rivetti, stoffa e campioni (del, dei, della, dei); imbottitura femminile davanti a vocale richiede un’.",
+      "solution": "Per la seduta useremo del legno chiaro e un’imbottitura (oppure una imbottitura). Aggiungeremo anche dei rivetti e della stoffa resistente. Domani arriveranno dei campioni.",
+      "feedback": "La scheda identifica una seduta (la); indica quantità non precisate di legno, rivetti, stoffa e campioni (del, dei, della, dei); davanti a imbottitura sono possibili un’ oppure la forma intera una.",
       "minutes": 5,
       "source": "Banca originale articolo · 32",
       "review": "bozza"
