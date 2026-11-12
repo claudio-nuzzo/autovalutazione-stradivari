@@ -8,7 +8,7 @@ function tokens(g,p,words,answer,f){bank.push({...base(g,'tokens',p,f),tokens:wo
 const groups=[
 ['Principale e proposizioni',[
 ['Quale frase esprime una reazione esclamativa?','Che bella sorpresa!',['Quando arriva il corriere?','Il corriere arriva domani.'],'Che bella sorpresa! comunica una reazione esclamativa.'],
-['Quale domanda diretta ammette normalmente sì oppure no?','Hai riposto il metro?',['Dove hai riposto il metro?','Quale metro hai riposto?'],'La prima domanda è totale: si può rispondere sì o no.'],
+['Quale domanda diretta ammette normalmente sì oppure no?','Hai riposto il metro?',['Dove hai riposto il metro?','Quale metro hai riposto?'],'«Hai riposto il metro?» è una domanda totale: si può rispondere sì o no.'],
 ['Quale domanda presenta alternative?','Vuoi disegnare o costruire?',['Chi vuole disegnare?','Dove vuoi costruire?'],'La domanda propone due possibilità tra cui scegliere.'],
 ['In un discorso elogiativo, «Chi non desidera essere ascoltato?» può essere…','una domanda retorica',['un ordine con imperativo','una frase senza intenzione comunicativa'],'Nel contesto può suggerire una risposta condivisa senza richiederla.'],
 ['Quale domanda chiede un’informazione sul luogo?','Dove si riunisce la classe?',['La classe si riunisce?','La classe si riunisce o esce?'],'Dove chiede una singola informazione sul luogo.']

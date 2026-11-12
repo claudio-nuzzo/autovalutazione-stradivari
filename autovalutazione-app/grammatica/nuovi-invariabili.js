@@ -21,11 +21,11 @@ choice('Congiunzioni',2,'Quale congiunzione esprime un’alternativa?','oppure',
 choice('Congiunzioni',1,'In «Volevo uscire, ma pioveva», «ma» esprime…','contrasto',['causa','scopo'],'Ma coordina due proposizioni mettendole in contrasto.');
 choice('Congiunzioni',2,'In «Resto perché piove», «perché» introduce…','una causa',['una domanda diretta','uno scopo in questo contesto'],'Piove spiega perché resto.');
 choice('Congiunzioni',2,'In «Proteggo il banco affinché la colla non lo sporchi», «affinché» introduce…','uno scopo',['una causa già avvenuta','un’alternativa'],'Affinché collega la reggente alla finale.');
-choice('Congiunzioni',3,'Quale frase contiene «se» con valore condizionale?','Se piove, resto in aula.',['Chiedo se piove.','Non so se piove.'],'La prima frase pone una condizione; nelle altre se introduce una domanda indiretta.');
+choice('Congiunzioni',3,'Quale frase contiene «se» con valore condizionale?','Se piove, resto in aula.',['Chiedo se piove.','Non so se piove.'],'In «Se piove, resto in aula», se introduce una condizione; con chiedo e non so introduce una domanda indiretta.');
 choice('Congiunzioni',3,'Quale frase contiene «se» interrogativo?','Domando se il banco è libero.',['Se il banco è libero, lavoro lì.','Se piove, chiudo la finestra.'],'Domando se introduce un’interrogativa indiretta.');
 choice('Congiunzioni',2,'In «La colla è asciutta, quindi togliamo i morsetti», «quindi» esprime…','conseguenza',['alternativa','concessione'],'Quindi collega la constatazione alla sua conseguenza.');
 choice('Congiunzioni',2,'In «Benché sia tardi, controlliamo il modello», «benché» introduce…','una concessione',['una causa','un luogo'],'Benché presenta un ostacolo che non impedisce l’azione.');
-choice('Congiunzioni',3,'In quale frase «che» è congiunzione e non pronome relativo?','Penso che il progetto sia pronto.',['Il progetto che preparo è pronto.','Il foglio che leggo è chiaro.'],'Nel primo caso che introduce il contenuto di penso e non riprende un nome.');
+choice('Congiunzioni',3,'In quale frase «che» è congiunzione e non pronome relativo?','Penso che il progetto sia pronto.',['Il progetto che preparo è pronto.','Il foglio che leggo è chiaro.'],'In «Penso che il progetto sia pronto», che introduce il contenuto di penso e non riprende un nome.');
 exact('Congiunzioni',2,'Scegli tra «ma» e «oppure»: «Il banco è piccolo, ___ è stabile».',['ma'],'Ma esprime il contrasto fra piccolo e stabile.');
 tokens('Congiunzioni',2,'Seleziona le congiunzioni presenti nella frase.',['Lia','disegna','e','Nora','misura,','ma','il','tempo','finisce.'],[2,5],'E e ma collegano proposizioni.');
 choice('Avverbi',2,'In «Il laboratorio apre presto», «presto» indica…','tempo',['luogo','quantità'],'Presto precisa quando apre.');

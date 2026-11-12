@@ -13,3 +13,9 @@ I volumi A tutto campo, consultati localmente, sono stati usati per confrontare 
 I nuovi lotti hanno ricevuto una lettura separata delle chiavi e delle spiegazioni; le ambiguità individuate sono state corrette. I controlli automatici verificano struttura, identificativi, selezione, percorsi, valutazione e interfaccia; non possono certificare l'assenza di qualsiasi errore didattico.
 
 Le verifiche PEI usano tre quesiti semplici senza soluzione anticipata per argomento e indirizzo. Gli esempi guidati restano nell'allenamento. Le bozze di verifiche precedenti a questa versione sono archiviate localmente e incluse nell'esportazione; i risultati storici non vengono ricalcolati. Le versioni complete del corso in inglese, arabo e coreano non fanno parte di questo aggiornamento.
+
+## Aggiornamento 1.4.5
+
+Sono aggiunte 34 attività originali su proposizioni locative e incidentali, verbi aspettuali e causativi e analisi guidata. La banca comprende 3.298 attività base, 246 quesiti per verifiche PEI e 246 esempi guidati: 3.790 record in tutto. Diciannove spiegazioni sono state corrette perché non dipendano dall'ordine, variabile, delle risposte.
+
+L'aiuto linguistico offre istruzioni e 30 termini in inglese, arabo e coreano. È un supporto parziale: teoria e attività restano in italiano e le traduzioni richiedono ulteriore revisione madrelingua. Il confronto con gli indici dei manuali non dimostra una copertura puntuale di ogni pagina o esercizio.
