@@ -22,7 +22,7 @@ choice('Articolo',1,'Quale articolo completa «___ strumenti sono accordati»?',
 exact('Articolo',1,'Completa con l’articolo determinativo maschile singolare: ___ violino è nella custodia.',['il'],'Violino è maschile singolare e inizia con consonante semplice: il violino.');
 exact('Articolo',1,'Completa con l’articolo determinativo plurale: ___ sedie sono impilate.',['le'],'Sedie è femminile plurale: le sedie.');
 tokens('Articolo',1,'Seleziona gli articoli presenti nella frase.',['La','sarta','prepara','un','cartamodello','.'],[0,3],'La è determinativo e un è indeterminativo.');
-choice('Articolo',2,'In quale frase «delle» indica una quantità imprecisata?','Ho scelto delle perline.',['Il colore delle perline è intenso.','Parliamo delle perline.'],'Nella prima frase delle significa alcune: è partitivo.');
+choice('Articolo',2,'In quale frase «delle» indica una quantità imprecisata?','Ho scelto delle perline.',['Il colore delle perline è intenso.','Parliamo delle perline.'],'In «Ho scelto delle perline», delle significa alcune: è partitivo.');
 choice('Articolo',2,'Quale coppia completa «___ specchio riflette ___ luce»?','Lo; la',['Il; la','Lo; le'],'Specchio comincia per s più consonante; luce è femminile singolare.');
 choice('Articolo',2,'Quale gruppo è scritto correttamente?','un’ampia sala',['un ampia sala','un’ampio salone'],'Ampia sala è femminile: una si elide davanti alla vocale.');
 choice('Articolo',2,'Quale gruppo è scritto correttamente?','un elegante mobile',['un’elegante mobile','uno elegante mobile'],'Mobile è maschile: un non si elide e non vuole apostrofo.');

@@ -17,7 +17,7 @@ const data=[
 ['In «Giada, giovane progettista, presenta il bozzetto», quale parola è il nucleo dell’apposizione?','progettista',['giovane','bozzetto'],'Progettista precisa Giada; giovane accompagna progettista.'],
 ['In «Il mobile è robusto e occupa la stanza», «robusto» è…','parte nominale del predicato',['attributo dell’oggetto','complemento di termine'],'Robusto con è forma il predicato nominale.'],
 ['In «La docente osserva il campione ruvido», «ruvido» è…','attributo del complemento oggetto',['predicativo del soggetto','apposizione'],'Ruvido accompagna campione, che è oggetto di osserva.'],
-['In quale frase «esperta» accompagna direttamente un nome?','Conosco una liutaia esperta.',['La liutaia è esperta.','La liutaia lavora con cura.'],'Esperta qualifica direttamente liutaia nel primo esempio.']
+['In quale frase «esperta» accompagna direttamente un nome?','Conosco una liutaia esperta.',['La liutaia è esperta.','La liutaia lavora con cura.'],'In «Conosco una liutaia esperta», esperta qualifica direttamente liutaia.']
 ],['Scrivi l’attributo riferito a «stoffa» in «Una stoffa morbida copre il tavolo».','morbida','Morbida accompagna stoffa.'],['Scrivi il nome in apposizione in «Lia, la sarta, prepara il modello».','sarta','Sarta precisa Lia.'],['Seleziona l’attributo dell’oggetto.',['Marta','controlla','il','disegno','definitivo','con','cura.'],[4],'Definitivo accompagna disegno, complemento oggetto.']],
 ['Oggetto',[
 ['In «Alla fine della prova Ada consegna il progetto alla docente», qual è l’oggetto?','il progetto',['alla docente','della prova'],'Il progetto completa direttamente consegna.'],
