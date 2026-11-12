@@ -1,0 +1,81 @@
+(() => {
+'use strict';
+const items=[];
+function choice(group,level,prompt,solution,wrong,feedback){const options=[solution,...wrong];const answer=items.length%options.length;options.splice(answer,0,options.shift());items.push({id:`log-nuovo-${String(items.length+1).padStart(3,'0')}`,area:'frase',topicGroup:group,topic:group,level,pei:false,kind:'choice',title:'Ragiona sulla frase',prompt,options,answer,solution,feedback,minutes:2});}
+function exact(group,level,prompt,answers,feedback){items.push({id:`log-nuovo-${String(items.length+1).padStart(3,'0')}`,area:'frase',topicGroup:group,topic:group,level,pei:false,kind:'exact',title:'Trova nella frase',prompt,answers,solution:answers[0],feedback,minutes:2});}
+function tokens(group,level,prompt,words,answer,feedback){items.push({id:`log-nuovo-${String(items.length+1).padStart(3,'0')}`,area:'frase',topicGroup:group,topic:group,level,pei:false,kind:'tokens',title:'Cerca nella frase',prompt,tokens:words,answer,solution:answer.map(i=>words[i]).join(' · '),feedback,minutes:2});}
+choice('Soggetto e predicato',1,'In «Il liutaio accorda il violoncello», chi compie l’azione?','Il liutaio',['il violoncello','accorda'],'Il liutaio è il soggetto del verbo accorda.');
+choice('Soggetto e predicato',2,'In «Sono arrivate le stoffe», qual è il soggetto?','le stoffe',['sono arrivate','sottinteso: noi'],'Il soggetto segue il verbo e concorda con arrivate.');
+choice('Soggetto e predicato',2,'In «Prepareremo il modello domani», qual è il soggetto sottinteso?','noi',['voi','loro'],'La desinenza -remo indica la prima persona plurale.');
+choice('Soggetto e predicato',3,'In «La superficie del tavolo è liscia», quale gruppo forma il predicato nominale?','è liscia',['del tavolo','è liscia la superficie'],'La copula è e la parte nominale liscia formano il predicato nominale.');
+tokens('Soggetto e predicato',2,'Seleziona le parole che formano il predicato verbale.',['Le','allieve','hanno','finito','il','disegno.'],[2,3],'Hanno finito comprende ausiliare e participio.');
+choice('Oggetto',1,'In «Marta taglia il cartone», qual è il complemento oggetto?','il cartone',['Marta','taglia'],'Il cartone riceve direttamente l’azione del verbo transitivo taglia.');
+choice('Oggetto',2,'In «Il tecnico li ripara», quale parola svolge la funzione di complemento oggetto?','li',['Il tecnico','ripara'],'Il pronome li sostituisce le cose o persone riparate.');
+choice('Oggetto',3,'Quale frase contiene un complemento oggetto partitivo?','Ho comprato delle viti.',['Parlo delle viti.','Il colore delle viti è scuro.'],'Delle viti è oggetto di ho comprato e indica una quantità imprecisata.');
+exact('Oggetto',2,'Scrivi il complemento oggetto completo in «La modellista disegna un abito».',['un abito'],'Un abito è ciò che viene disegnato.');
+choice('Attributo e apposizione',1,'In «Il tessuto morbido cade bene», quale parola è attributo?','morbido',['tessuto','bene'],'Morbido è un aggettivo riferito al nome tessuto.');
+choice('Attributo e apposizione',2,'In «Giulia, la sarta, prepara il modello», «la sarta» è…','apposizione del soggetto',['complemento oggetto','attributo'],'Sarta è un nome che precisa chi è Giulia.');
+choice('Attributo e apposizione',3,'In «La docente ha scelto un tessuto leggero», a quale elemento si riferisce l’attributo «leggero»?','al complemento oggetto',['al soggetto','al predicato'],'Leggero accompagna tessuto, che è complemento oggetto.');
+tokens('Attributo e apposizione',2,'Seleziona l’aggettivo che funziona da attributo.',['Il','nuovo','tavolo','è','stabile.'],[1],'Nuovo accompagna il nome tavolo; stabile fa parte del predicato nominale.');
+choice('Termine e specificazione',1,'In «Consegno il cartamodello a Chiara», «a Chiara» indica…','la persona a cui consegno',['il materiale del cartamodello','la causa della consegna'],'A Chiara è il complemento di termine.');
+choice('Termine e specificazione',2,'In «Il coperchio della scatola è aperto», «della scatola» è…','complemento di specificazione',['complemento oggetto','complemento di termine'],'Della scatola precisa il nome coperchio.');
+choice('Termine e specificazione',3,'In «Le ho mostrato il disegno», quale parola esprime il complemento di termine?','Le',['il','disegno'],'Le significa a lei: indica la destinataria del mostrare.');
+choice('Luogo e tempo',1,'In «Il righello è sul banco», «sul banco» indica…','stato in luogo',['moto a luogo','moto da luogo'],'Sul banco indica il luogo in cui si trova il righello.');
+choice('Luogo e tempo',2,'In «Porto il telaio in laboratorio», «in laboratorio» indica…','moto a luogo',['stato in luogo','moto da luogo'],'Il gruppo indica la destinazione del movimento.');
+choice('Luogo e tempo',2,'In «Partiamo dal laboratorio», «dal laboratorio» indica…','moto da luogo',['moto a luogo','stato in luogo'],'Dal laboratorio indica il punto di partenza.');
+choice('Luogo e tempo',3,'In «Abbiamo lavorato per due ore», «per due ore» esprime…','tempo continuato',['tempo determinato','moto per luogo'],'La durata dell’azione è di due ore.');
+choice('Luogo e tempo',2,'In «La consegna è prevista venerdì», «venerdì» esprime…','tempo determinato',['tempo continuato','fine'],'Venerdì indica quando è prevista la consegna.');
+choice('Causa, fine, mezzo e modo',2,'In «Il legno si è deformato per l’umidità», «per l’umidità» indica…','causa',['fine','mezzo'],'L’umidità è la causa della deformazione.');
+choice('Causa, fine, mezzo e modo',2,'In «Studiamo per la verifica», «per la verifica» indica…','fine',['causa','mezzo'],'La verifica è lo scopo per cui si studia.');
+choice('Causa, fine, mezzo e modo',2,'In «Taglia il cartone con le forbici», «con le forbici» indica…','mezzo',['compagnia','causa'],'Le forbici sono lo strumento usato per tagliare.');
+choice('Causa, fine, mezzo e modo',2,'In «La sarta lavora con pazienza», «con pazienza» indica…','modo',['mezzo','compagnia'],'Con pazienza descrive come lavora la sarta.');
+choice('Compagnia e unione',2,'In «Mina entra con la collega», «con la collega» indica…','compagnia',['mezzo','unione'],'La collega è la persona insieme alla quale entra Mina.');
+choice('Compagnia e unione',2,'In «La musicista arriva con il violino», «con il violino» indica…','unione',['compagnia','termine'],'Il violino è la cosa che accompagna la musicista.');
+choice('Materia e qualità',2,'In «Una cornice di legno», «di legno» indica…','materia',['argomento','termine'],'Di legno indica il materiale della cornice.');
+choice('Materia e qualità',2,'In «Una persona di grande pazienza», «di grande pazienza» indica…','qualità',['materia','denominazione'],'Il gruppo descrive una qualità della persona.');
+choice('Denominazione e argomento',2,'In «Il mese di novembre», «di novembre» indica…','denominazione',['specificazione di possesso','materia'],'Novembre è il nome con cui si identifica il mese.');
+choice('Denominazione e argomento',2,'In «Discutiamo di sicurezza», «di sicurezza» indica…','argomento',['causa','fine'],'Il gruppo indica ciò di cui si discute.');
+choice('Limitazione e paragone',3,'In «Marta è più alta di Luca», «di Luca» è…','secondo termine di paragone',['complemento di termine','complemento di causa'],'Di Luca introduce l’elemento con cui si confronta l’altezza di Marta.');
+choice('Limitazione e paragone',3,'In «È esperta in disegno», «in disegno» indica…','limitazione',['moto a luogo','tempo determinato'],'Il gruppo delimita l’ambito in cui la persona è esperta.');
+choice('Complemento partitivo',2,'In «Tre delle sedie sono pronte», «delle sedie» indica…','l’insieme da cui si considera una parte',['il materiale delle sedie','il destinatario'],'Tre costituisce una parte dell’insieme delle sedie.');
+choice('Complementi di misura',2,'In «Il pannello pesa otto chili», «otto chili» indica…','peso',['prezzo','età'],'Otto chili esprime la misura del peso.');
+choice('Complementi di misura',2,'In «Il tessuto costa venti euro», «venti euro» indica…','prezzo',['peso','tempo'],'Venti euro esprime il prezzo.');
+choice('Predicativi del soggetto e dell’oggetto',3,'In «I compagni hanno eletto Lea rappresentante», «rappresentante» è…','predicativo dell’oggetto',['apposizione del soggetto','complemento di termine'],'Rappresentante completa il verbo eletto e si riferisce all’oggetto Lea.');
+choice('Predicativi del soggetto e dell’oggetto',3,'In «Lea è stata eletta rappresentante», «rappresentante» è…','predicativo del soggetto',['complemento oggetto','attributo'],'Con il verbo passivo è stata eletta, rappresentante si riferisce al soggetto Lea.');
+choice('Agente e passivo',2,'In «Il mobile è stato restaurato da Nadia», «da Nadia» è…','complemento d’agente',['complemento oggetto','complemento di termine'],'Nadia è la persona che compie l’azione espressa dal verbo passivo.');
+choice('Agente e passivo',3,'In «La porta è stata danneggiata dal vento», «dal vento» è…','complemento di causa efficiente',['complemento d’agente','complemento di moto da luogo'],'Il vento è una causa non animata dell’azione passiva.');
+
+// Nuove attività originali: identificazione, distinzione in contesto, selezione nel testo e completamento guidato.
+choice('Termine e specificazione',3,'In «Abbiamo dato alla classe il progetto del laboratorio», quale gruppo è complemento di specificazione?','del laboratorio',['alla classe','il progetto'],'Del laboratorio precisa il nome progetto.');
+choice('Termine e specificazione',3,'In «Ho chiesto alla sarta il colore della fodera», quale gruppo indica il destinatario della domanda?','alla sarta',['della fodera','il colore'],'Alla sarta indica la persona a cui è rivolta la richiesta.');
+tokens('Termine e specificazione',3,'Seleziona tutte le parole del complemento di specificazione.',['Il','coperchio','della','scatola','è','aperto.'],[2,3],'Della scatola specifica il nome coperchio.');
+choice('Oggetto',3,'Quale frase contiene «le» come complemento oggetto?','Le vedo sul banco.',['Le parlo del disegno.','Le sedie sono pronte.'],'In le vedo, le sostituisce un oggetto plurale femminile; in le parlo significa a lei.');
+choice('Oggetto',3,'In «Ho visto la collega con la borsa», quale gruppo è complemento oggetto?','la collega',['la borsa','con la borsa'],'La collega è l’elemento direttamente retto dal verbo transitivo ho visto.');
+exact('Oggetto',2,'Completa con il pronome oggetto «lo», «la», «li» o «le»: «I fogli? ___ porto io».',['li'],'Li riprende i fogli, maschile plurale, come oggetto diretto.');
+choice('Luogo e tempo',3,'In «Siamo passati attraverso il corridoio», il gruppo introdotto da attraverso indica…','moto per luogo',['moto a luogo','stato in luogo'],'Il corridoio è il luogo attraversato durante il movimento.');
+choice('Luogo e tempo',3,'In quale frase «in laboratorio» esprime uno stato in luogo?','La classe lavora in laboratorio.',['La classe entra in laboratorio.','La classe va in laboratorio.'],'Lavora indica un’azione svolta nel luogo; entra e va indicano movimento verso il luogo.');
+choice('Luogo e tempo',3,'Quale frase contiene un complemento di tempo continuato?','La vernice asciuga per due giorni.',['La vernice asciuga martedì.','La vernice asciuga sul banco.'],'Per due giorni esprime la durata del processo.');
+choice('Luogo e tempo',3,'In «Da lunedì lavoriamo a questo progetto», «da lunedì» indica…','il momento iniziale da cui dura l’azione',['la destinazione del movimento','la causa del progetto'],'Da lunedì indica il punto iniziale del periodo in cui lavoriamo.');
+tokens('Luogo e tempo',2,'Seleziona il complemento che indica quando avverrà la consegna.',['La','consegna','avverrà','domani','mattina.'],[3,4],'Domani mattina indica il momento previsto della consegna.');
+choice('Causa, fine, mezzo e modo',3,'Quale frase presenta «per» con valore di causa?','La mostra è rinviata per il maltempo.',['Prepariamo il tavolo per la mostra.','Passiamo per il corridoio.'],'Il maltempo è la ragione del rinvio.');
+choice('Causa, fine, mezzo e modo',3,'In quale frase «con» introduce uno strumento?','Apro la scatola con un cacciavite.',['Apro la scatola con prudenza.','Apro la scatola con Luca.'],'Il cacciavite è lo strumento impiegato per aprire.');
+choice('Causa, fine, mezzo e modo',3,'In quale frase il gruppo introdotto da «per» indica uno scopo?','Conservo gli appunti per il ripasso.',['Tremo per il freddo.','Sono passato per il cortile.'],'Il ripasso è lo scopo per cui conservo gli appunti.');
+choice('Causa, fine, mezzo e modo',3,'In «Il tecnico controlla con attenzione la misura», «con attenzione» esprime…','modo',['mezzo','compagnia'],'Con attenzione descrive come viene svolto il controllo.');
+choice('Compagnia e unione',3,'Quale coppia distingue compagnia e unione nell’ordine?','con una collega; con una cartella',['con una cartella; con una collega','con attenzione; con cura'],'La collega è una persona; la cartella è una cosa portata insieme.');
+choice('Compagnia e unione',3,'In «Viaggio con il violino nella custodia», «con il violino» indica…','unione',['compagnia','causa'],'Il violino è la cosa che accompagna chi viaggia.');
+choice('Materia e qualità',3,'Quale frase contiene un complemento di materia?','Hanno costruito una mensola di legno.',['Hanno discusso di legno.','Hanno parlato con il falegname.'],'Di legno indica il materiale di cui è fatta la mensola.');
+choice('Materia e qualità',3,'In «Cerco un tessuto di buona qualità», il gruppo «di buona qualità» descrive…','una caratteristica del tessuto',['il materiale di cui è fatto','il destinatario'],'Il gruppo attribuisce una caratteristica al tessuto.');
+choice('Denominazione e argomento',3,'In quale frase «di Cremona» è complemento di denominazione?','La città di Cremona è in Lombardia.',['La storia di Cremona è interessante.','Il centro di Cremona è affollato.'],'Cremona è il nome proprio con cui si identifica la città.');
+choice('Denominazione e argomento',3,'In «Leggiamo un articolo sulla liuteria», «sulla liuteria» esprime…','argomento',['stato in luogo','mezzo'],'Il gruppo indica il tema dell’articolo.');
+choice('Limitazione e paragone',3,'Quale frase contiene un complemento di paragone?','Questa tavola è più larga di quella.',['Questa tavola è fatta di legno.','Questa tavola è utile per il lavoro.'],'Di quella introduce il termine rispetto al quale si confronta la larghezza.');
+choice('Limitazione e paragone',3,'In «Quanto a precisione, il lavoro è ottimo», il gruppo iniziale indica…','limitazione',['causa','fine'],'Quanto a precisione delimita l’aspetto sotto cui si giudica il lavoro.');
+choice('Complemento partitivo',3,'Quale frase contiene un complemento partitivo?','Nessuno dei modelli è pronto.',['Il colore dei modelli è acceso.','Parliamo dei modelli.'],'Dei modelli indica l’insieme entro il quale si considera nessuno.');
+choice('Complemento partitivo',3,'In «La più alta delle sedie è blu», quale gruppo è partitivo?','delle sedie',['la più alta','è blu'],'Delle sedie indica l’insieme da cui viene distinta quella più alta.');
+choice('Complementi di misura',3,'In «La tavola è lunga due metri», il gruppo «due metri» indica…','estensione',['prezzo','tempo'],'Due metri esprime la misura della lunghezza.');
+choice('Complementi di misura',3,'In «La confezione costa quindici euro», il gruppo «quindici euro» indica…','prezzo',['peso','distanza'],'Il gruppo esprime quanto costa la confezione.');
+choice('Predicativi del soggetto e dell’oggetto',3,'In «La commissione giudica il progetto interessante», «interessante» è…','predicativo dell’oggetto',['attributo del soggetto','complemento di mezzo'],'Interessante completa giudica e si riferisce all’oggetto il progetto.');
+choice('Predicativi del soggetto e dell’oggetto',3,'In «Il progetto è giudicato interessante», «interessante» si riferisce…','al soggetto il progetto',['al complemento oggetto','al complemento di termine'],'Con il verbo passivo è giudicato, interessante è predicativo del soggetto.');
+choice('Agente e passivo',3,'Quale frase contiene un complemento di causa efficiente?','Il telo è stato spostato dal vento.',['Il telo è stato spostato dalla sarta.','La sarta ha spostato il telo.'],'Il vento è la causa non animata dell’azione passiva.');
+
+window.ATELIER_NEW_LOGICA=items;
+})();

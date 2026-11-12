@@ -4518,5 +4518,191 @@
       "explanation": "Amir è complemento oggetto di consideriamo. Indispensabile gli attribuisce una qualità attraverso il verbo: è predicativo dell’oggetto.",
       "memory": "Segui il filo: consideriamo → Amir → indispensabile."
     }
+  },
+  {
+    "topic": "Altre subordinate",
+    "area": "periodo",
+    "lead": "Alcune subordinate indicano un luogo, aggiungono un fatto o mettono in contrasto due azioni. Un inciso può invece interrompere il filo del periodo.",
+    "objectives": [
+      "Riconoscere locative, aggiuntive e avversative nel contesto",
+      "Interpretare la sfumatura delle relative improprie",
+      "Distinguere una proposizione incidentale da una subordinata"
+    ],
+    "sections": [
+      {
+        "title": "Dove avviene il fatto: la locativa",
+        "text": "La subordinata locativa indica il luogo, reale o figurato, in cui si svolge l’azione della reggente o verso cui essa si dirige. Può essere introdotta da «dove», «da dove», «fin dove» o espressioni simili e ha una forma esplicita con verbo finito.\n\nNon confonderla con una relativa: nella relativa l’avverbio dove riprende un nome espresso, come laboratorio; nella locativa il luogo è indicato dalla proposizione senza un antecedente nominale espresso. La frase può però ammettere analisi diverse se un antecedente è sottinteso: osserva sempre il contesto.",
+        "examples": [
+          {
+            "sentence": "Riponi il righello dove trovi spazio.",
+            "explanation": "Dove trovi spazio indica il luogo in cui riporre il righello."
+          },
+          {
+            "sentence": "Questo è il cassetto dove ripongo il righello.",
+            "explanation": "Dove ripongo il righello precisa il nome cassetto: è relativa."
+          }
+        ]
+      },
+      {
+        "title": "Un fatto in più: l’aggiuntiva",
+        "text": "La subordinata aggiuntiva presenta un fatto che si aggiunge a quello espresso dalla reggente. La forma più comune è implicita: oltre a oppure oltre che precedono un infinito.\n\nPer riconoscerla prova a parafrasare aggiungendo anche un’azione, senza cambiare soggetto o rapporti temporali. Non basta incontrare oltre: se introduce soltanto un nome e non un predicato, non forma una subordinata.",
+        "examples": [
+          {
+            "sentence": "Oltre a disegnare la sedia, Nora costruisce un modellino.",
+            "explanation": "Oltre a disegnare aggiunge un’azione a costruisce."
+          },
+          {
+            "sentence": "Oltre al modello, porto il righello.",
+            "explanation": "Al modello è un gruppo nominale: non contiene un predicato subordinato."
+          }
+        ]
+      },
+      {
+        "title": "Contrapporre due fatti: l’avversativa",
+        "text": "La subordinata avversativa contrappone un fatto a quello della reggente. Può essere implicita con invece di o anziché seguiti dall’infinito; una forma esplicita può essere introdotta da mentre o laddove con valore di contrasto.\n\nMentre può anche indicare contemporaneità: non classificarlo automaticamente. Chiediti se il periodo contrappone le informazioni oppure si limita a dire quando avvengono le azioni. Una coordinata con ma collega invece proposizioni sullo stesso piano.",
+        "examples": [
+          {
+            "sentence": "Invece di buttare il cartone, lo riutilizziamo.",
+            "explanation": "La subordinata oppone l’azione non scelta a quella realizzata."
+          },
+          {
+            "sentence": "Mentre Sara taglia la stoffa, Luca prepara il cartamodello.",
+            "explanation": "Senza altri indizi, mentre indica la contemporaneità delle azioni."
+          }
+        ]
+      },
+      {
+        "title": "Relative con sfumatura e incidentali",
+        "text": "Una relativa impropria resta legata a un antecedente ma, nel contesto, può assumere anche un valore circostanziale: per esempio finale, causale o concessivo. La parafrasi aiuta a interpretare la sfumatura, senza cancellare il legame relativo.\n\nUna proposizione incidentale interrompe o accompagna il discorso come commento del parlante; spesso è isolata da virgole, trattini o parentesi. Per esempio «credo» in «La misura, credo, è giusta» esprime un inciso e non precisa un luogo o uno scopo. Le grammatiche possono descrivere le incidentali con etichette diverse.",
+        "examples": [
+          {
+            "sentence": "Cerco una persona che mi aiuti.",
+            "explanation": "Che mi aiuti precisa persona e ha anche una sfumatura di scopo."
+          },
+          {
+            "sentence": "Il disegno, penso, è pronto.",
+            "explanation": "Penso è un commento incidentale inserito nel periodo."
+          }
+        ]
+      }
+    ],
+    "diagram": {
+      "title": "Tre domande e un inciso",
+      "steps": [
+        {
+          "label": "Dove?",
+          "detail": "La locativa indica il luogo dell’azione."
+        },
+        {
+          "label": "Che cosa in più?",
+          "detail": "L’aggiuntiva affianca un’ulteriore azione."
+        },
+        {
+          "label": "In contrasto?",
+          "detail": "L’avversativa contrappone due fatti."
+        },
+        {
+          "label": "Relativa",
+          "detail": "Riprende un antecedente e può avere una sfumatura circostanziale."
+        },
+        {
+          "label": "Inciso",
+          "detail": "L’incidentale inserisce un commento nel discorso."
+        }
+      ]
+    },
+    "pitfalls": [
+      {
+        "mistake": "Chiamare sempre temporale una subordinata introdotta da mentre.",
+        "correction": "Leggere il rapporto tra le due azioni.",
+        "why": "Mentre può indicare contemporaneità oppure contrasto."
+      },
+      {
+        "mistake": "Definire locativa ogni proposizione introdotta da dove.",
+        "correction": "Cercare un antecedente nominale espresso.",
+        "why": "Se dove riprende un nome, la costruzione è relativa."
+      }
+    ],
+    "recap": [
+      "La locativa indica il luogo dell’azione senza un antecedente nominale espresso.",
+      "L’aggiuntiva aggiunge un’azione; l’avversativa contrappone fatti.",
+      "Una relativa impropria può avere una sfumatura di scopo, causa o concessione.",
+      "Una incidentale inserisce un commento e può essere isolata dalla punteggiatura."
+    ],
+    "review": [
+      {
+        "question": "Come distingui locativa e relativa con dove?",
+        "answer": "Cerco un antecedente nominale espresso: se dove lo riprende, la proposizione è relativa."
+      },
+      {
+        "question": "Che cosa aggiunge oltre a disegnare in «Oltre a disegnare, costruisco»?",
+        "answer": "Un’azione ulteriore rispetto a costruire."
+      },
+      {
+        "question": "Che cosa fa penso in «Il disegno, penso, è pronto»?",
+        "answer": "Inserisce un commento incidentale."
+      }
+    ],
+    "levels": {
+      "base": {
+        "focus": "Riconoscere il rapporto di luogo e di aggiunta.",
+        "example": {
+          "sentence": "Lascia il filo dove trovi spazio.",
+          "explanation": "Dove trovi spazio indica il luogo."
+        }
+      },
+      "consolidamento": {
+        "focus": "Distinguere contrasto e contemporaneità.",
+        "example": {
+          "sentence": "Invece di scartare il legno, lo recuperiamo.",
+          "explanation": "Invece di scartare contrappone due scelte."
+        }
+      },
+      "avanzato": {
+        "focus": "Distinguere relativa impropria e proposizione incidentale.",
+        "example": {
+          "sentence": "Cerco una persona che mi consigli.",
+          "explanation": "Chi mi consigli ha una sfumatura di scopo: cerco una persona perché mi consigli."
+        }
+      }
+    },
+    "simplified": {
+      "lead": "Alcune frasi indicano dove, aggiungono un’azione o mostrano un contrasto.",
+      "steps": [
+        "Cerca i verbi.",
+        "Chiediti se una parte indica luogo, aggiunta o contrasto.",
+        "Controlla se una parte è solo un commento inserito."
+      ],
+      "example": {
+        "sentence": "Appoggia il libro dove c’è spazio.",
+        "explanation": "Dove c’è spazio indica il luogo."
+      }
+    },
+    "pei": {
+      "rule": "Dove può indicare il luogo. Cerca il verbo nella parte che inizia con dove.",
+      "example": {
+        "sentence": "Siediti dove c’è posto.",
+        "explanation": "Dove c’è posto indica il luogo."
+      }
+    },
+    "trackExamples": {
+      "moda": {
+        "sentence": "Riponi il filo dove trovi spazio.",
+        "explanation": "La subordinata indica il luogo."
+      },
+      "arredo": {
+        "sentence": "Oltre a disegnare il tavolo, costruisco un modello.",
+        "explanation": "La subordinata aggiunge un’azione."
+      },
+      "liuteria": {
+        "sentence": "Invece di scartare il legno, lo recupero.",
+        "explanation": "La subordinata contrappone due scelte."
+      }
+    },
+    "anchor": {
+      "sentence": "Il righello, credo, si è nascosto dove nessuno guarda!",
+      "explanation": "Credo è un commento incidentale; dove nessuno guarda indica il luogo in cui si sarebbe nascosto.",
+      "memory": "Prima cerca il luogo, poi isola il piccolo commento tra virgole."
+    }
   }
 ]

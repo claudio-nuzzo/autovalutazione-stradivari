@@ -1,0 +1,58 @@
+(() => {
+'use strict';
+const bank=[];
+function choice(group,level,prompt,solution,wrong,feedback){const options=[solution,...wrong],answer=bank.length%options.length;options.splice(answer,0,options.shift());bank.push({id:`inv-nuovo-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'choice',title:'Osserva il contesto',prompt,options,answer,solution,feedback,minutes:2});}
+function exact(group,level,prompt,answers,feedback){bank.push({id:`inv-nuovo-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'exact',title:'Completa il collegamento',prompt,answers,solution:answers[0],feedback,minutes:2});}
+function tokens(group,level,prompt,words,answer,feedback){bank.push({id:`inv-nuovo-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'tokens',title:'Individua le parole',prompt,tokens:words,answer,solution:answer.map(i=>words[i]).join(' · '),feedback,minutes:3});}
+choice('Preposizioni',2,'In «Il libro di Nora è sul banco», quale preposizione semplice introduce Nora?','di',['il','sul'],'Di collega il nome libro a Nora; sul è una preposizione articolata.');
+choice('Preposizioni',2,'Quale preposizione articolata nasce dall’unione di «in» e «il»?','nel',['del','sul'],'In più il forma nel.');
+choice('Preposizioni',2,'Quale preposizione articolata completa «I pennelli sono ___ scatola»?','nella',['dalla','alla'],'Nella esprime qui lo stato in luogo ed è formata da in più la.');
+choice('Preposizioni',2,'In «Parlo della mostra», «della» è…','preposizione articolata',['articolo partitivo','congiunzione'],'Parlare di qualcosa richiede di; della equivale a di più la.');
+choice('Preposizioni',2,'In quale frase «delle» è una preposizione articolata?','Il colore delle pareti è chiaro.',['Delle allieve dipingono.','Ho scelto delle stoffe.'],'Delle pareti specifica colore; nelle altre frasi delle indica una quantità indefinita.');
+choice('Preposizioni',2,'Quale gruppo contiene soltanto preposizioni semplici?','di; a; per',['del; nella; sul','e; ma; perché'],'Di, a e per sono preposizioni semplici.');
+choice('Preposizioni',1,'In «La scatola è sotto il banco», «sotto» introduce…','un gruppo che indica il luogo',['una frase causale','un articolo'],'Sotto collega banco alla posizione della scatola.');
+choice('Preposizioni',1,'Quale frase usa «senza» come preposizione?','Esco senza ombrello.',['Esco e saluto.','Esco quando smette.'],'Senza introduce il nome ombrello e indica mancanza.');
+choice('Preposizioni',2,'Quale coppia completa «Vado ___ laboratorio e torno ___ laboratorio»?','in; dal',['dal; in','in; al'],'In indica qui la destinazione; dal il punto di partenza.');
+choice('Preposizioni',2,'In «La sedia di legno è per Ada», quali relazioni esprimono i gruppi con preposizione?','materia; destinazione',['tempo; causa','compagnia; mezzo'],'Di legno indica la materia; per Ada indica la destinataria.');
+exact('Preposizioni',2,'Completa con la preposizione articolata formata da «su + il»: «Il foglio è ___ banco».',['sul'],'Su più il forma sul.');
+tokens('Preposizioni',2,'Seleziona tutte le preposizioni della frase, semplici o articolate.',['Il','modello','di','Lia','è','sul','tavolo.'],[2,5],'Di è semplice; sul è articolata.');
+choice('Congiunzioni',2,'In «Lia disegna e Sara misura», «e» collega…','due proposizioni',['un nome al suo articolo','un pronome al suo antecedente'],'E coordina le due proposizioni.');
+choice('Congiunzioni',2,'Quale congiunzione esprime un’alternativa?','oppure',['infatti','quindi'],'Oppure presenta una scelta fra possibilità.');
+choice('Congiunzioni',1,'In «Volevo uscire, ma pioveva», «ma» esprime…','contrasto',['causa','scopo'],'Ma coordina due proposizioni mettendole in contrasto.');
+choice('Congiunzioni',2,'In «Resto perché piove», «perché» introduce…','una causa',['una domanda diretta','uno scopo in questo contesto'],'Piove spiega perché resto.');
+choice('Congiunzioni',2,'In «Proteggo il banco affinché la colla non lo sporchi», «affinché» introduce…','uno scopo',['una causa già avvenuta','un’alternativa'],'Affinché collega la reggente alla finale.');
+choice('Congiunzioni',3,'Quale frase contiene «se» con valore condizionale?','Se piove, resto in aula.',['Chiedo se piove.','Non so se piove.'],'La prima frase pone una condizione; nelle altre se introduce una domanda indiretta.');
+choice('Congiunzioni',3,'Quale frase contiene «se» interrogativo?','Domando se il banco è libero.',['Se il banco è libero, lavoro lì.','Se piove, chiudo la finestra.'],'Domando se introduce un’interrogativa indiretta.');
+choice('Congiunzioni',2,'In «La colla è asciutta, quindi togliamo i morsetti», «quindi» esprime…','conseguenza',['alternativa','concessione'],'Quindi collega la constatazione alla sua conseguenza.');
+choice('Congiunzioni',2,'In «Benché sia tardi, controlliamo il modello», «benché» introduce…','una concessione',['una causa','un luogo'],'Benché presenta un ostacolo che non impedisce l’azione.');
+choice('Congiunzioni',3,'In quale frase «che» è congiunzione e non pronome relativo?','Penso che il progetto sia pronto.',['Il progetto che preparo è pronto.','Il foglio che leggo è chiaro.'],'Nel primo caso che introduce il contenuto di penso e non riprende un nome.');
+exact('Congiunzioni',2,'Scegli tra «ma» e «oppure»: «Il banco è piccolo, ___ è stabile».',['ma'],'Ma esprime il contrasto fra piccolo e stabile.');
+tokens('Congiunzioni',2,'Seleziona le congiunzioni presenti nella frase.',['Lia','disegna','e','Nora','misura,','ma','il','tempo','finisce.'],[2,5],'E e ma collegano proposizioni.');
+choice('Avverbi',2,'In «Il laboratorio apre presto», «presto» indica…','tempo',['luogo','quantità'],'Presto precisa quando apre.');
+choice('Avverbi',2,'In «La squadra lavora bene», «bene» indica…','modo',['luogo','negazione'],'Bene precisa come lavora la squadra.');
+choice('Avverbi',2,'In «Il filo è qui», «qui» indica…','luogo',['tempo','quantità'],'Qui precisa il luogo in cui si trova il filo.');
+choice('Avverbi',2,'In «Il banco è molto largo», «molto» modifica…','l’aggettivo largo',['il nome banco','il verbo è da solo'],'Molto intensifica l’aggettivo largo.');
+choice('Avverbi',3,'In quale frase «molto» è un avverbio?','Il tavolo è molto stabile.',['Ho molto legno.','Molti sono arrivati.'],'Molto modifica stabile e resta invariabile; nelle altre frasi determina o sostituisce un nome.');
+choice('Avverbi',2,'In quale frase «piano» funziona da avverbio?','Cammina piano.',['Il piano è pulito.','Il piano superiore è chiuso.'],'Piano modifica il verbo cammina e indica il modo.');
+choice('Avverbi',1,'In «Forse il colore asciugherà presto», «forse» esprime…','dubbio',['negazione','luogo'],'Forse presenta l’affermazione come possibile.');
+choice('Avverbi',2,'In «Non abbiamo finito», quale parola esprime negazione?','non',['abbiamo','finito'],'Non nega l’azione.');
+choice('Avverbi',2,'Quale frase contiene un avverbio interrogativo di tempo?','Quando arriva il materiale?',['Quanto materiale arriva?','Quale materiale arriva?'],'Quando domanda il momento dell’arrivo.');
+choice('Avverbi',2,'In «Abbiamo lavorato più attentamente di ieri», «più attentamente» esprime…','un confronto di maggioranza nel modo',['un superlativo assoluto','una negazione'],'Più attentamente confronta il modo di lavorare con quello di ieri.');
+choice('Avverbi',2,'Quale frase contiene la locuzione avverbiale «a poco a poco»?','Il colore asciuga a poco a poco.',['Ho poco colore.','Ne uso poco.'],'A poco a poco è un insieme di parole che indica gradualità.');
+exact('Avverbi',2,'Scegli tra «ieri» e «domani»: «Ieri il laboratorio era chiuso; ___ aprirà».',['domani'],'Domani colloca l’apertura dopo il momento in cui si parla.');
+tokens('Avverbi',2,'Seleziona i due avverbi della frase.',['Oggi','Lia','lavora','attentamente','in','laboratorio.'],[0,3],'Oggi indica tempo; attentamente indica modo.');
+choice('Interiezioni',2,'In «Ehi! Aspettami», «Ehi!» serve a…','richiamare l’attenzione',['indicare il luogo','esprimere possesso'],'Ehi richiama direttamente l’attenzione di qualcuno.');
+choice('Interiezioni',2,'In «Ahimè! Ho perso il righello», «Ahimè!» esprime…','dispiacere',['quantità','una condizione'],'Ahimè manifesta dispiacere.');
+choice('Interiezioni',2,'In «Evviva! Il modello è pronto», «Evviva!» esprime…','gioia',['negazione','una causa'],'Evviva esprime entusiasmo o gioia.');
+choice('Interiezioni',1,'In «Uffa! La colla non asciuga», «Uffa!» esprime soprattutto…','fastidio',['un rapporto di tempo','possesso'],'Uffa manifesta insofferenza o fastidio.');
+choice('Interiezioni',2,'Quale espressione richiama il silenzio?','Shh!',['Evviva!','Ahimè!'],'Shh invita a fare silenzio.');
+choice('Interiezioni',1,'In «Ahi! Mi sono punto», «Ahi!» manifesta…','dolore',['un complemento di luogo','una congiunzione'],'Ahi esprime una reazione al dolore.');
+choice('Interiezioni',2,'Quale frase usa «bravo!» come interiezione?','Bravo! Hai finito il progetto.',['Il ragazzo bravo ha finito.','Il ragazzo è bravo.'],'Bravo! esprime un apprezzamento autonomo; nelle altre frasi è un aggettivo.');
+choice('Interiezioni',2,'Quale frase usa «forza!» per incoraggiare?','Forza! Puoi riprovare.',['La forza del legno è notevole.','Misuriamo la forza.'],'Forza! invita e incoraggia; nelle altre frasi forza è un nome.');
+choice('Interiezioni',2,'Quale frase contiene una locuzione interiettiva?','Mamma mia! Che rumore!',['Mia madre arriva.','La mia matita è qui.'],'Mamma mia! è un’espressione esclamativa composta da più parole.');
+choice('Interiezioni',1,'In «Oh! Non ti avevo visto», quale interpretazione è più naturale?','sorpresa',['specificazione','moto a luogo'],'Oh può esprimere sorpresa; il contesto chiarisce la reazione.');
+choice('Interiezioni',2,'Quale frase usa «silenzio!» come esclamazione autonoma?','Silenzio! Inizia la prova.',['Il silenzio aiuta la concentrazione.','Cerco il silenzio.'],'Silenzio! funziona qui come invito autonomo.');
+choice('Interiezioni',2,'Quale frase contiene un’interiezione e un verbo?','Ops! Ho sbagliato.',['Ops!','Il mio errore.'],'Ops esprime una reazione; ho sbagliato contiene un verbo.');
+tokens('Interiezioni',2,'Seleziona l’interiezione che esprime sorpresa.',['Oh!','Il','violino','è','già','pronto.'],[0],'Oh! esprime qui una reazione di sorpresa.');
+window.ATELIER_NEW_INVARIABILI=bank;
+})();

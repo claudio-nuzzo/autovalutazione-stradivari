@@ -1,0 +1,51 @@
+(() => {
+'use strict';
+const bank=[];
+function choice(group,level,prompt,solution,wrong,feedback){const options=[solution,...wrong],answer=bank.length%options.length;options.splice(answer,0,options.shift());bank.push({id:`sub-avanzate-${String(bank.length+1).padStart(3,'0')}`,area:'periodo',topicGroup:group,topic:group,level,pei:false,kind:'choice',title:'Analizza il rapporto',prompt,options,answer,solution,feedback,minutes:3});}
+function exact(group,prompt,answers,feedback){bank.push({id:`sub-avanzate-${String(bank.length+1).padStart(3,'0')}`,area:'periodo',topicGroup:group,topic:group,level:1,pei:false,kind:'exact',title:'Completa il collegamento',prompt,answers,solution:answers[0],feedback,minutes:2});}
+function tokens(group,prompt,words,answer,feedback){bank.push({id:`sub-avanzate-${String(bank.length+1).padStart(3,'0')}`,area:'periodo',topicGroup:group,topic:group,level:3,pei:false,kind:'tokens',title:'Trova la subordinata',prompt,tokens:words,answer,solution:answer.map(i=>words[i]).join(' '),feedback,minutes:3});}
+const rows=[
+['Causali',2,'In «Il legno è stato scartato perché presentava una crepa», la subordinata indica…','il motivo dello scarto',['lo scopo della crepa','il tempo della scelta'],'La crepa spiega perché il legno è stato scartato.'],
+['Causali',3,'Quale trasformazione esplicita conserva il significato causale di «Essendo finita la vernice, rimandiamo»?','Poiché la vernice è finita, rimandiamo.',['Affinché la vernice finisca, rimandiamo.','Anche se la vernice è finita, rimandiamo.'],'Poiché introduce la causa del rinvio.'],
+['Finali',2,'In «Abbiamo protetto il banco affinché la colla non lo macchiasse», la subordinata indica…','lo scopo della protezione',['la causa del banco','una conseguenza già avvenuta'],'Affinché la colla non lo macchiasse esprime lo scopo perseguito.'],
+['Finali',3,'In «Cerchiamo un tessuto che resista alla pioggia», la relativa ha anche una possibile sfumatura…','finale',['di tempo trascorso necessariamente','interrogativa diretta'],'Il tessuto è cercato per avere una proprietà utile: che resista alla pioggia.'],
+['Temporali',2,'In «Dopo aver controllato le misure, prepariamo il taglio», il controllo avviene…','prima del taglio',['dopo il taglio','in un tempo indeterminabile rispetto al taglio'],'Dopo aver controllato indica un’azione anteriore a prepariamo.'],
+['Temporali',3,'In «Finché il colore asciuga, puliamo i pennelli», finché indica…','l’intervallo entro cui si puliscono i pennelli',['una causa del colore','una condizione contraria ai fatti'],'Le due azioni si sovrappongono durante l’asciugatura.'],
+['Consecutive',2,'In «La scatola è così pesante che non riesco a sollevarla», la dipendente esprime…','una conseguenza',['un’ipotesi','un’azione aggiuntiva'],'Così… che lega il grado di pesantezza alla conseguenza.'],
+['Consecutive',3,'Quale frase contiene una consecutiva implicita?','Il foglio è troppo sottile per reggere il peso.',['Il foglio serve per disegnare.','Il foglio si è rotto per il peso.'],'Troppo sottile per reggere indica una conseguenza legata al grado della proprietà.'],
+['Concessive',2,'In «Benché piovesse, l’esposizione si è svolta», la pioggia è…','una circostanza che non ha impedito l’evento',['lo scopo dell’evento','la conseguenza dell’evento'],'Benché introduce un possibile ostacolo che non impedisce quanto affermato.'],
+['Concessive',3,'Quale frase mantiene il rapporto di «Pur avendo poco tempo, controllo le cuciture»?','Anche se ho poco tempo, controllo le cuciture.',['Poiché ho poco tempo, controllo le cuciture.','Controllo le cuciture affinché il tempo sia poco.'],'Pur avendo e anche se presentano qui un rapporto concessivo.'],
+['Condizionali e periodo ipotetico',2,'In «Se il laboratorio è libero, lavoriamo lì», quale parte esprime la condizione?','se il laboratorio è libero',['lavoriamo lì','il laboratorio'],'La protasi indica la condizione da cui dipende la reggente.'],
+['Condizionali e periodo ipotetico',3,'Quale periodo esprime una condizione non realizzata nel passato?','Se avessi annotato la misura, non l’avrei dimenticata.',['Se annoto la misura, la ricordo.','Quando annoto la misura, la ricordo.'],'Trapassato congiuntivo e condizionale passato presentano un’ipotesi passata contraria ai fatti.'],
+['Interrogative indirette',2,'In «Non sappiamo quando arriverà il materiale», la subordinata esprime…','una domanda sul momento di arrivo',['una condizione','un ordine'],'Il contenuto interrogativo dipende da non sappiamo.'],
+['Interrogative indirette',3,'Quale frase contiene «se» interrogativo?','Chiedo se la consegna è possibile.',['Se la consegna è possibile, la effettuiamo.','La consegna è possibile, se controlli.'],'Chiedo se introduce una domanda indiretta; negli altri casi se introduce una condizione.'],
+['Completive',3,'In «È necessario che il banco sia pulito», la subordinata svolge la funzione di…','soggetto della reggente',['complemento di luogo','attributo del banco'],'Che il banco sia pulito esprime ciò che è necessario.'],
+['Completive',3,'In «L’istruttrice ritiene che il disegno sia chiaro», che il disegno sia chiaro è…','oggettiva',['soggettiva','relativa'],'La subordinata completa il contenuto del verbo ritiene.'],
+['Dichiarative',3,'In «Ho una speranza: che il progetto riesca», la subordinata precisa…','il contenuto della speranza',['il luogo del progetto','la causa del progetto'],'Che il progetto riesca esplicita il contenuto del nome speranza.'],
+['Relative',2,'In «La sarta che conosci realizza costumi», che riprende…','la sarta',['costumi','realizza'],'Che è pronome relativo e riprende sarta.'],
+['Relative',3,'In «La stoffa di cui parlavamo è arrivata», di cui si riferisce…','alla stoffa',['a parlavamo','all’arrivo'],'Parlare di qualcosa richiede di; cui riprende stoffa.'],
+['Comparative',3,'In «La sedia è più leggera di quanto immaginassi», si confrontano…','il peso reale e quello immaginato',['il prezzo e il peso','la sedia e il tavolo necessariamente'],'Di quanto immaginassi completa il confronto relativo al peso.'],
+['Modali',2,'In «Disponi gli attrezzi come ti ho mostrato», la subordinata indica…','il modo di disporre',['la ragione per cui gli attrezzi esistono','il tempo trascorso'],'Come ti ho mostrato descrive come disporre gli attrezzi.'],
+['Strumentali',2,'In «Abbiamo fissato il pannello usando due morsetti», la subordinata indica…','il mezzo impiegato',['una concessione','una condizione'],'Usando due morsetti indica il mezzo usato per il fissaggio.'],
+['Limitative',3,'In «Per quanto ne so, l’aula è disponibile», la subordinata limita…','l’affermazione alle conoscenze del parlante',['la dimensione dell’aula','il tempo necessario alla pulizia'],'Per quanto ne so circoscrive ciò che il parlante può affermare.'],
+['Eccettuative',3,'In «Usciremo, a meno che non piova», la subordinata introduce…','un’eccezione che impedirebbe l’uscita',['uno scopo dell’uscita','un confronto fra luoghi'],'La pioggia è il caso che fa eccezione alla previsione di uscire.'],
+['Esclusive',3,'In «La classe è uscita senza salutare», la subordinata esprime…','un’azione esclusa',['una ragione dell’uscita','una conseguenza obbligata'],'Senza salutare esclude il saluto dall’azione compiuta.'],
+['Altre subordinate',3,'In «Metti il cartone dove non intralcia», dove non intralcia è…','locativa',['relativa con antecedente espresso','interrogativa indiretta'],'La dipendente indica un luogo senza riprendere un nome espresso.'],
+['Altre subordinate',3,'In «Oltre a dipingere il mobile, ho sostituito i pomelli», la subordinata è…','aggiuntiva',['causale','interrogativa'],'Oltre a dipingere aggiunge un’azione a sostituire.'],
+['Altre subordinate',3,'In «Anziché usare colla, abbiamo cucito i pezzi», la subordinata è…','avversativa implicita',['temporale esplicita','soggettiva'],'Anziché usare contrappone l’azione non scelta a quella compiuta.'],
+['Subordinate e gradi',3,'In «Spero che tu sappia perché la misura cambia», perché la misura cambia dipende da…','tu sappia',['spero direttamente','cambia'],'La domanda indiretta completa sappia; è di secondo grado rispetto a spero.'],
+['Esplicite e implicite',3,'Quale subordinata è esplicita?','quando il colore sarà asciutto',['dopo aver asciugato il colore','asciugando il colore'],'Sarà è un verbo di modo finito; aver asciugato e asciugando sono indefiniti.']
+];
+for(const row of rows) choice(...row);
+exact('Causali','Completa con «poiché»: «___ manca il materiale, rinviamo il laboratorio».',['poiché'],'Poiché introduce la ragione del rinvio.');
+exact('Concessive','Completa con «benché»: «___ sia tardi, controlliamo le misure».',['benché'],'Benché introduce una circostanza che non impedisce il controllo.');
+exact('Finali','Completa con «affinché»: «Proteggiamo il banco ___ la colla non lo rovini».',['affinché'],'Affinché introduce lo scopo della protezione.');
+exact('Temporali','Completa con «quando»: «___ la colla sarà asciutta, toglieremo i morsetti».',['quando'],'Quando colloca nel tempo la rimozione dei morsetti.');
+exact('Condizionali e periodo ipotetico','Completa con «se»: «___ il progetto fosse approvato, inizieremmo».',['se'],'Se introduce la condizione formulata nella protasi.');
+tokens('Causali','Seleziona tutte le parole della subordinata causale.',['Il','tessuto','è','utile','perché','resiste','alla','pioggia.'],[4,5,6,7],'Perché resiste alla pioggia spiega il motivo della sua utilità.');
+tokens('Finali','Seleziona tutte le parole della subordinata finale.',['Abbiamo','coperto','il','banco','per','proteggerlo','dalla','vernice.'],[4,5,6,7],'Per proteggerlo dalla vernice esprime lo scopo della copertura.');
+tokens('Concessive','Seleziona tutte le parole della subordinata concessiva.',['Sebbene','sia','tardi,','controlliamo','il','disegno.'],[0,1,2],'Sebbene sia tardi introduce la circostanza che non impedisce il controllo.');
+tokens('Relative','Seleziona tutte le parole della subordinata relativa.',['Il','campione','che','hai','preparato','è','asciutto.'],[2,3,4],'Che hai preparato precisa il nome campione.');
+tokens('Altre subordinate','Seleziona tutte le parole della subordinata aggiuntiva.',['Oltre','a','tagliare,','Lia','cuce','il','tessuto.'],[0,1,2],'Oltre a tagliare aggiunge un’azione a cucire.');
+window.ATELIER_NEW_SUBORDINATE_AVANZATE=bank;
+})();

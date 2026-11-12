@@ -56,6 +56,34 @@
             "explanation": "Il primo lo introduce studente ed è articolo; il secondo sostituisce un oggetto ed è pronome."
           }
         ]
+      },
+      {
+        "title": "Quando l’articolo cambia il valore della parola",
+        "text": "L’articolo può presentare come nome una parola che normalmente appartiene a un’altra categoria: il rosso indica un colore; il progettare può indicare l’attività del progettare. In questi casi non basta osservare la forma isolata: controlla come la parola funziona nella frase. L’indeterminativo non possiede un plurale proprio: per parlare di più elementi indefiniti si possono usare alcuni o alcune, oppure un partitivo plurale, quando il contesto lo consente.",
+        "examples": [
+          {
+            "sentence": "Il verde del campione è intenso; una foglia verde è sul tavolo.",
+            "explanation": "Nel primo gruppo verde funziona come nome di colore; nel secondo qualifica foglia."
+          },
+          {
+            "sentence": "Una matita è sul tavolo; alcune matite sono nel cassetto.",
+            "explanation": "Alcune esprime una quantità indefinita al plurale: non è il plurale di una."
+          }
+        ]
+      },
+      {
+        "title": "Articolo e nomi di parentela",
+        "text": "Con un nome di parentela singolare preceduto da mio, tuo, suo, nostro o vostro, nell’uso comune l’articolo manca: mia sorella. Ricompare, per esempio, con il plurale, con loro o con un nome alterato: le mie sorelle, il loro zio, la mia sorellina. Ci sono altre costruzioni e usi familiari possibili: valuta sempre l’espressione completa. Se una preposizione precede un’espressione con quantità indefinita, spesso alcuni o un po’ di aiutano a formulare la frase in modo chiaro.",
+        "examples": [
+          {
+            "sentence": "Mia zia prepara il modello; le mie zie lo osservano.",
+            "explanation": "Con zia singolare preceduto da mia manca l’articolo; con zie plurale compare le."
+          },
+          {
+            "sentence": "Parlo con alcuni allievi del corso.",
+            "explanation": "Alcuni allievi indica una quantità indefinita dopo la preposizione con."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -228,6 +256,62 @@
           {
             "sentence": "Le braccia sono stanche; i bracci della gru sono lunghi.",
             "explanation": "I due plurali di braccio hanno significati diversi."
+          }
+        ]
+      },
+      {
+        "title": "Nomi mobili, comuni, indipendenti e promiscui",
+        "text": "Per alcune persone il nome cambia forma secondo il genere: allievo e allieva sono forme mobili. Altri nomi riferiti a persone conservano la stessa forma: il cantante e la cantante sono di genere comune; articoli e accordi aiutano a riconoscere il genere. Nelle coppie indipendenti cambiano le parole, come padre e madre. Per alcuni animali il nome ha un solo genere grammaticale per entrambi i sessi: la giraffa può indicare un maschio o una femmina; se serve, si aggiunge maschio o femmina. Genere grammaticale e sesso del referente non coincidono automaticamente.",
+        "examples": [
+          {
+            "sentence": "Il cantante è arrivato; la cantante è arrivata.",
+            "explanation": "Cantante mantiene la forma; articolo e participio indicano il genere del referente."
+          },
+          {
+            "sentence": "Una giraffa maschio attraversa il recinto.",
+            "explanation": "Giraffa rimane grammaticalmente femminile anche quando l’animale è maschio."
+          }
+        ]
+      },
+      {
+        "title": "Nomi difettivi e plurali diversi",
+        "text": "Un nome invariabile mantiene la stessa forma nei due numeri: il film, i film. Un nome difettivo è invece normalmente usato soltanto in uno dei due numeri: le stoviglie si usa di solito al plurale; il latte come materia si usa per lo più al singolare. Alcuni nomi ammettono due plurali con significati o contesti differenti: i muri di una casa, le mura di una città. Queste sono tendenze d’uso, non un divieto assoluto per ogni significato: in caso di dubbio consulta un dizionario.",
+        "examples": [
+          {
+            "sentence": "I film iniziano alle quattro; le stoviglie sono nell’armadio.",
+            "explanation": "Film è invariabile; stoviglie è usato normalmente al plurale."
+          },
+          {
+            "sentence": "I muri della stanza sono bianchi; le mura della città sono antiche.",
+            "explanation": "Muri e mura sono due plurali di muro, usati qui con significati diversi."
+          }
+        ]
+      },
+      {
+        "title": "Sfumature dei nomi alterati",
+        "text": "Un suffisso alterativo può suggerire dimensione, affetto o giudizio: un diminutivo può indicare piccolezza, un accrescitivo grandezza, un vezzeggiativo affetto e un peggiorativo una valutazione negativa. Il significato dipende però dal contesto: un suffisso non basta da solo a stabilire l’intenzione di chi parla. Non confondere un vero alterato con un falso alterato, cioè una parola che assomiglia a un alterato ma ha un significato proprio: un mattone non è un grande matto.",
+        "examples": [
+          {
+            "sentence": "Un tavolino sostiene il vaso; un tavolone occupa la sala.",
+            "explanation": "Tavolino suggerisce piccolezza; tavolone suggerisce grandi dimensioni."
+          },
+          {
+            "sentence": "La casetta è al termine del sentiero.",
+            "explanation": "Casetta può indicare una casa piccola; il contesto aiuta a interpretare la sfumatura."
+          }
+        ]
+      },
+      {
+        "title": "Nomi sovrabbondanti",
+        "text": "Alcuni nomi presentano più di una forma di plurale, talvolta con significati o usi differenti: sono detti sovrabbondanti nella terminologia scolastica. Braccio può dare i bracci di una gru oppure le braccia di una persona; muro dà i muri di una stanza oppure le mura di una città. Non sono nomi invariabili, che mantengono la stessa forma, né difettivi, usati normalmente soltanto in un numero. Per scegliere la forma controlla il significato nel contesto e consulta il dizionario.",
+        "examples": [
+          {
+            "sentence": "Le braccia di Nora sono stanche; i bracci della gru si alzano.",
+            "explanation": "I due plurali di braccio sono usati qui per referenti diversi."
+          },
+          {
+            "sentence": "I muri della stanza sono chiari; le mura della città sono antiche.",
+            "explanation": "Muri e mura sono due plurali di muro con usi distinti nel contesto."
           }
         ]
       }
@@ -404,6 +488,34 @@
             "explanation": "Questi è aggettivo perché accompagna fogli; quelli è pronome."
           }
         ]
+      },
+      {
+        "title": "La struttura dei qualificativi",
+        "text": "Un aggettivo primitivo costituisce una base lessicale, come dolce. Un derivato nasce da un’altra parola mediante un elemento aggiunto: nebbioso da nebbia. Un alterato modifica una sfumatura, spesso attraverso un suffisso: bellino può suggerire apprezzamento o una qualità attenuata secondo il contesto. Un composto unisce più elementi lessicali: agrodolce. Le categorie descrivono la formazione della parola e sono distinte dal suo genere, numero e grado.",
+        "examples": [
+          {
+            "sentence": "Il tè è agrodolce.",
+            "explanation": "Agrodolce unisce due elementi che esprimono qualità."
+          },
+          {
+            "sentence": "Il paesaggio è nebbioso.",
+            "explanation": "Nebbioso deriva dal nome nebbia con un suffisso."
+          }
+        ]
+      },
+      {
+        "title": "Identificativi e possessivi particolari",
+        "text": "Stesso e medesimo possono accompagnare un nome per indicare identità: scegliamo la stessa stoffa. Se sostituiscono un nome assumono funzione pronominale: scelgo la medesima. Proprio può rafforzare un possessivo oppure riferirsi al soggetto: Sara cura il proprio lavoro. Altrui è invariabile e indica ciò che appartiene ad altre persone: rispettiamo le idee altrui. Per distinguere aggettivo e pronome verifica se la parola accompagna o sostituisce il nome.",
+        "examples": [
+          {
+            "sentence": "Usiamo lo stesso metro.",
+            "explanation": "Stesso accompagna metro e indica identità."
+          },
+          {
+            "sentence": "Le allieve rispettano le idee altrui.",
+            "explanation": "Altrui accompagna idee e resta invariabile."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -578,6 +690,20 @@
             "explanation": "Cui riprende progetto; a appartiene alla costruzione lavorare a qualcosa."
           }
         ]
+      },
+      {
+        "title": "Relativi misti o doppi",
+        "text": "Alcune parole riuniscono il riferimento a una persona o cosa e il collegamento con una relativa. Chi può significare «colui o colei che»: in Chi ascolta capisce, chi vale come la persona che ascolta. Chiunque può indicare qualunque persona che compia l’azione. Sono detti pronomi relativi misti o doppi perché concentrano due funzioni. Non ogni chi ha questo valore: in Chi arriva? introduce una domanda ed è un pronome interrogativo.",
+        "examples": [
+          {
+            "sentence": "Chi costruisce il modello controlla le misure.",
+            "explanation": "Chi equivale qui a la persona che e introduce la relativa."
+          },
+          {
+            "sentence": "Chi arriva alla porta?",
+            "explanation": "Chi introduce una domanda: qui è interrogativo, non relativo misto."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -750,6 +876,20 @@
           {
             "sentence": "Solo Marta legge; Marta legge solo racconti.",
             "explanation": "Nella prima frase è esclusa ogni altra persona; nella seconda ogni altro tipo di testo."
+          }
+        ]
+      },
+      {
+        "title": "Avverbi interrogativi, esclamativi e alterati",
+        "text": "Dove, quando, come, perché e quanto possono introdurre una domanda diretta o indiretta quando precisano luogo, tempo, modo, causa o quantità: dove lavori? e non so dove lavori. Come e quanto possono anche introdurre esclamazioni: quanto corre! Alcuni avverbi hanno forme alterate che aggiungono una sfumatura: benino, maluccio, pochino o prestino. Il loro valore dipende dal contesto e non coincide necessariamente con un superlativo: benissimo esprime intensità, benino spesso un giudizio moderato.",
+        "examples": [
+          {
+            "sentence": "Quando arriva il tessuto? Non so quando arriverà.",
+            "explanation": "Quando introduce una domanda diretta e poi una domanda indiretta."
+          },
+          {
+            "sentence": "Quanto corre il treno!",
+            "explanation": "Quanto introduce un’esclamazione riferita all’intensità del correre."
           }
         ]
       }
@@ -1257,7 +1397,7 @@
       },
       {
         "title": "Accento e apostrofo",
-        "text": "L’accento scritto segnala la vocale tonica in alcune parole e distingue forme diverse: è verbo, e congiunzione; dà verbo, da preposizione; sì affermazione, si pronome. Sui polisillabi tronchi è obbligatorio: città, perché. Qui e qua non lo richiedono. L’apostrofo segnala spesso un’elisione: l’amica, un’amica. Un maschile davanti a vocale resta senza apostrofo: un amico. Il troncamento può non avere apostrofo: qual è, buon giorno; po’ è invece la forma troncata di poco e si scrive con apostrofo, non con accento. Dopo un apostrofo interno alla parola non si mette uno spazio.",
+        "text": "L’accento scritto segnala la vocale tonica in alcune parole e distingue forme diverse: è verbo, e congiunzione; dà verbo, da preposizione; sì affermazione, si pronome. Nei polisillabi italiani tronchi terminanti in vocale è obbligatorio: città, perché. Qui e qua non lo richiedono. L’apostrofo segnala spesso un’elisione: l’amica, un’amica. Un maschile davanti a vocale resta senza apostrofo: un amico. Il troncamento può non avere apostrofo: qual è, buon giorno; po’ è invece la forma troncata di poco e si scrive con apostrofo, non con accento. Dopo un apostrofo interno alla parola non si mette uno spazio.",
         "examples": [
           {
             "sentence": "Qual è il tuo banco?",
@@ -1272,6 +1412,48 @@
           {
             "sentence": "Marta ha il metro e va a scuola.",
             "explanation": "Ha è verbo avere; a è preposizione. Possiamo dire Marta aveva il metro."
+          }
+        ]
+      },
+      {
+        "title": "Accento: quando serve",
+        "text": "L’accento tonico è la maggiore intensità con cui si pronuncia una sillaba; l’accento grafico è il segno scritto. Nei polisillabi italiani terminanti in vocale e accentati sull’ultima sillaba il segno è obbligatorio: libertà, lunedì, perché. Molti monosillabi non lo richiedono: qui, qua, fu, fa. Alcuni monosillabi lo portano per distinguersi da parole uguali nella forma ma diverse nella funzione: dà verbo e da preposizione; lì avverbio e li pronome; sì affermazione e si pronome. Non confondere l’accento con l’apostrofo: è e un po’ hanno segni e funzioni diversi.",
+        "examples": [
+          {
+            "sentence": "Lì c’è il cassetto; li ripongo più tardi.",
+            "explanation": "Lì indica un luogo; li è un pronome e non porta l’accento."
+          },
+          {
+            "sentence": "Il corso finì lunedì.",
+            "explanation": "Finì e lunedì hanno l’accento sull’ultima sillaba, indicato nella scrittura."
+          }
+        ]
+      },
+      {
+        "title": "Maiuscole e parole da distinguere",
+        "text": "Usa la maiuscola all’inizio di un testo e dopo un punto che chiude una frase; usala nei nomi propri di persone e luoghi: Nora, Cremona. Dopo due punti la maiuscola dipende dalla costruzione, per esempio può introdurre una citazione diretta. Alcune parole simili si distinguono dal loro significato: l’anno è un periodo di dodici mesi, hanno è una voce di avere; la può essere un articolo, là indica un luogo. Controlla anche i confini delle parole: a volte si scrive separato, invece avvolte è una forma del verbo avvolgere. Se una parola ha più grafie possibili, consulta il dizionario e il contesto.",
+        "examples": [
+          {
+            "sentence": "A volte le stoffe sono avvolte nella carta.",
+            "explanation": "A volte significa talvolta; avvolte descrive le stoffe ed è una forma di avvolgere."
+          },
+          {
+            "sentence": "Nora vive a Cremona. Studia liuteria.",
+            "explanation": "Nora e Cremona sono nomi propri; Studia inizia una nuova frase."
+          }
+        ]
+      },
+      {
+        "title": "Accento grave e acuto sulla e",
+        "text": "La e finale accentata può essere scritta con accento grave, è, oppure acuto, é. Nella grafia standard perché, poiché e affinché vogliono é; caffè, cioè ed è verbo vogliono è. Anche ventitré e sé pronome prendono l’acuto. Il segno corrisponde di norma alla differenza fra e aperta ed e chiusa, ma la pronuncia varia tra le regioni: quando hai un dubbio controlla il dizionario. Il monosillabo tre, senza prefisso, non ha accento.",
+        "examples": [
+          {
+            "sentence": "Perché il caffè è pronto?",
+            "explanation": "Perché porta l’acuto; caffè ed è portano il grave."
+          },
+          {
+            "sentence": "I campioni sono ventitré, non tre.",
+            "explanation": "Ventitré porta l’accento grafico; tre da solo non lo richiede."
           }
         ]
       }
@@ -2856,6 +3038,34 @@
             "explanation": "Il composto unisce nome e aggettivo; al plurale cambiano entrambi gli elementi."
           }
         ]
+      },
+      {
+        "title": "Elementi di origine greca o latina e parole macedonia",
+        "text": "Alcune parole si costruiscono con elementi dotati di significato che derivano spesso dal greco o dal latino: bio- in biologia richiama la vita e -logia lo studio. Questi elementi possono chiamarsi prefissoidi se compaiono all’inizio e suffissoidi se compaiono alla fine. Una parola macedonia nasce invece dalla fusione di parti di parole: cantautore unisce parti di cantante e autore; apericena combina aperitivo e cena. Non tutte le parole che si somigliano si formano così: il dizionario aiuta a ricostruirne la struttura.",
+        "examples": [
+          {
+            "sentence": "La biologia studia gli esseri viventi.",
+            "explanation": "Bio- richiama la vita e -logia lo studio."
+          },
+          {
+            "sentence": "Un cantautore presenta la propria canzone.",
+            "explanation": "Cantautore unisce parti di cantante e autore."
+          }
+        ]
+      },
+      {
+        "title": "Conglomerati, parole-frase e unità lessicali",
+        "text": "Un conglomerato può nascere dalla saldatura di più parole in un’unica forma, come saliscendi. Alcune espressioni nate da una frase, come fai da te, possono funzionare come un’unica unità di significato; alcune grammatiche le chiamano parole-frase. Un’unità lessicale, detta anche polirematica, è un gruppo di parole separate che insieme esprime un significato unitario: ferro da stiro indica un oggetto preciso. Queste etichette possono variare secondo la grammatica; cerca soprattutto di capire come il gruppo sia formato e quale significato abbia nell’uso.",
+        "examples": [
+          {
+            "sentence": "Il saliscendi chiude il cancello.",
+            "explanation": "Saliscendi è una forma unica nata dall’unione di più elementi."
+          },
+          {
+            "sentence": "Il ferro da stiro è sul ripiano.",
+            "explanation": "Ferro da stiro è un gruppo di parole che indica un oggetto preciso."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -3028,6 +3238,20 @@
           {
             "sentence": "Il fondo del violino è di acero.",
             "explanation": "Fondo ha qui un significato tecnico legato alle parti dello strumento."
+          }
+        ]
+      },
+      {
+        "title": "Denotazione e connotazione",
+        "text": "La denotazione è il significato descrittivo che una parola usa per individuare qualcosa: volpe può indicare un animale. La connotazione comprende le associazioni o le sfumature che la parola assume in un contesto: dire che una persona è una volpe può suggerire astuzia, con apprezzamento o critica secondo la situazione. Non tutte le persone associano le stesse emozioni a una parola. Distingui ciò che il termine designa dalla valutazione o dall’effetto che suggerisce nel testo.",
+        "examples": [
+          {
+            "sentence": "Una volpe attraversa il prato.",
+            "explanation": "Volpe indica qui l’animale nel suo significato descrittivo."
+          },
+          {
+            "sentence": "Marta è una volpe negli scacchi.",
+            "explanation": "Volpe è usato in senso figurato e suggerisce astuzia; il contesto orienta la valutazione."
           }
         ]
       }
@@ -3550,6 +3774,20 @@
           {
             "sentence": "Il ponte è vecchio.",
             "explanation": "È vecchio è predicato nominale: vecchio non è attributo in questa frase."
+          }
+        ]
+      },
+      {
+        "title": "Attributo del nome del predicato e tipi di apposizione",
+        "text": "Un attributo può precisare anche il nome che costituisce la parte nominale del predicato: in Lina è una liutaia esperta, esperta accompagna liutaia ed è attributo di quel nome. Non va separato come se il verbo attribuisse direttamente esperta a Lina. In alcune grammatiche scolastiche si distingue tra apposizione semplice, formata dal nome che precisa un altro nome, e apposizione composta, quando quel nome è accompagnato da attributi o complementi. Confronta la liutaia Lina e Lina, esperta liutaia del quartiere: la seconda apposizione comprende un gruppo più ampio. Le virgole dipendono dalla funzione e dal contesto, non soltanto dall’etichetta semplice o composta.",
+        "examples": [
+          {
+            "sentence": "Nora è una restauratrice attenta.",
+            "explanation": "Attenta è attributo di restauratrice, nome che fa parte del predicato nominale."
+          },
+          {
+            "sentence": "La docente Lina parla; Lina, docente esperta del laboratorio, spiega.",
+            "explanation": "Docente è apposizione semplice nel primo esempio; docente esperta del laboratorio è un gruppo appositivo più ampio nel secondo."
           }
         ]
       }
@@ -4426,6 +4664,20 @@
             "explanation": "Essere significa trovarsi e forma qui predicato verbale."
           }
         ]
+      },
+      {
+        "title": "Soggetto partitivo e parole usate come nomi",
+        "text": "Un soggetto può essere introdotto da un articolo partitivo quando indica una quantità o un numero non precisato: degli allievi aspettano significa che alcuni allievi aspettano. Il soggetto è l’intero gruppo degli allievi; degli è articolo partitivo. Non confonderlo con il complemento partitivo: in due degli allievi aspettano, due è il nucleo del soggetto e degli allievi indica l’insieme da cui due sono individuati. Anche parole di altre categorie possono funzionare come nomi e fare da soggetto: in il necessario è pronto, necessario è un aggettivo usato come nome.",
+        "examples": [
+          {
+            "sentence": "Delle allieve arrivano; due delle allieve restano.",
+            "explanation": "Nel primo caso delle allieve è soggetto partitivo; nel secondo delle allieve è complemento partitivo dipendente da due."
+          },
+          {
+            "sentence": "Il necessario è sul banco.",
+            "explanation": "Necessario è un aggettivo usato come nome e costituisce il nucleo del soggetto."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -4719,6 +4971,207 @@
       "sentence": "Il panino è stato preso dal gatto. Nessuno aveva dubbi.",
       "explanation": "Il panino è soggetto passivo; dal gatto è complemento d’agente perché indica l’animale che ha compiuto l’azione.",
       "memory": "Nel passivo chiedi: da chi è stata compiuta l’azione?"
+    }
+  },
+  {
+    "topic": "Altri complementi",
+    "area": "frase",
+    "lead": "Alcuni complementi precisano separazione, origine, benefici, mancanze o responsabilità.",
+    "objectives": [
+      "Riconoscere la relazione",
+      "Distinguere complementi vicini",
+      "Motivare la scelta nel contesto"
+    ],
+    "sections": [
+      {
+        "title": "Allontanamento e separazione",
+        "text": "Il complemento di allontanamento o separazione indica la persona, la cosa o l’ambito da cui qualcuno o qualcosa viene separato. Dipende spesso da verbi come separare, liberare o allontanare e può essere introdotto da da. Un distacco può essere anche figurato: separare una notizia da un’opinione. Il moto da luogo descrive invece il luogo da cui parte uno spostamento: esco dalla stanza. La preposizione da compare in entrambi i casi: serve interpretare il verbo e il rapporto.",
+        "examples": [
+          {
+            "sentence": "La docente separa i campioni difettosi da quelli integri.",
+            "explanation": "Da quelli integri indica ciò da cui i campioni sono separati."
+          },
+          {
+            "sentence": "Il gruppo si è allontanato dalle cattive abitudini.",
+            "explanation": "Dalle cattive abitudini indica un distacco figurato."
+          }
+        ]
+      },
+      {
+        "title": "Origine e provenienza",
+        "text": "Il complemento di origine o provenienza indica da quale famiglia, condizione, ambiente o luogo qualcuno o qualcosa trae origine. Può dipendere da parole come nato, discendere o provenire. In «Nadia discende da una famiglia di musicisti», il gruppo «da una famiglia di musicisti» presenta un’origine familiare; non descrive necessariamente un viaggio. Il moto da luogo indica invece la partenza concreta di uno spostamento. Alcune grammatiche distinguono questi casi in modi diversi: esplicita il significato nella frase.",
+        "examples": [
+          {
+            "sentence": "La restauratrice discende da una famiglia di falegnami.",
+            "explanation": "Da una famiglia di falegnami indica origine familiare."
+          },
+          {
+            "sentence": "L’allieva esce dal laboratorio.",
+            "explanation": "Dal laboratorio è il punto di partenza di uno spostamento."
+          }
+        ]
+      },
+      {
+        "title": "Vantaggio e svantaggio",
+        "text": "Il complemento di vantaggio indica la persona, il gruppo o la cosa che riceve un beneficio; quello di svantaggio indica chi subisce un danno. Possono essere introdotti da per, a favore di o a danno di. Non ogni gruppo con per ha questa funzione: risparmio per il viaggio indica lo scopo del risparmio; raccolgo fondi per la biblioteca indica il soggetto beneficiario. Considera il senso dell’intera frase.",
+        "examples": [
+          {
+            "sentence": "La classe raccoglie fondi per la biblioteca.",
+            "explanation": "Per la biblioteca indica chi beneficia della raccolta."
+          },
+          {
+            "sentence": "La scelta va a danno dei partecipanti.",
+            "explanation": "A danno dei partecipanti indica chi subisce uno svantaggio."
+          }
+        ]
+      },
+      {
+        "title": "Abbondanza e privazione",
+        "text": "Il complemento di abbondanza indica ciò di cui qualcuno o qualcosa è ricco o fornito; quello di privazione indica ciò che manca. Si collega spesso a parole come pieno, ricco, privo o sprovvisto ed è introdotto da di. Il medesimo gruppo può avere funzioni diverse in altre frasi: la scatola dei bottoni precisa quale scatola; piena di bottoni indica ciò che abbonda nella scatola.",
+        "examples": [
+          {
+            "sentence": "Il cassetto è pieno di matite.",
+            "explanation": "Di matite indica ciò che abbonda nel cassetto."
+          },
+          {
+            "sentence": "Il telaio è privo di cornice.",
+            "explanation": "Di cornice indica ciò che manca al telaio."
+          }
+        ]
+      },
+      {
+        "title": "Colpa e pena",
+        "text": "Il complemento di colpa indica il fatto contestato o la responsabilità attribuita a qualcuno; compare con parole come accusare o imputare. Il complemento di pena indica invece la sanzione stabilita o inflitta, con verbi come condannare o punire. Non identificare le funzioni solo attraverso la preposizione: verifica se la frase parla della contestazione oppure della conseguenza disciplinare o giuridica.",
+        "examples": [
+          {
+            "sentence": "Il giocatore è accusato di violazione del regolamento.",
+            "explanation": "Di violazione del regolamento indica la colpa contestata."
+          },
+          {
+            "sentence": "La squadra è stata punita con una giornata di sospensione.",
+            "explanation": "Con una giornata di sospensione indica la pena."
+          }
+        ]
+      }
+    ],
+    "diagram": {
+      "title": "Altri complementi: osserva il rapporto",
+      "steps": [
+        {
+          "label": "Separazione",
+          "detail": "Da chi o da che cosa si separa?"
+        },
+        {
+          "label": "Origine",
+          "detail": "Da quale famiglia o ambiente proviene?"
+        },
+        {
+          "label": "Beneficio o danno",
+          "detail": "Chi riceve il vantaggio o subisce lo svantaggio?"
+        },
+        {
+          "label": "Presenza o mancanza",
+          "detail": "Di che cosa è pieno o privo?"
+        },
+        {
+          "label": "Responsabilità e sanzione",
+          "detail": "Quale fatto è contestato? Quale pena è inflitta?"
+        }
+      ]
+    },
+    "pitfalls": [
+      {
+        "mistake": "Ogni gruppo con da indica moto da luogo.",
+        "correction": "Può indicare anche separazione o origine.",
+        "why": "La preposizione da sola non identifica la funzione."
+      },
+      {
+        "mistake": "Colpa e pena sono la stessa cosa.",
+        "correction": "La colpa è il fatto contestato; la pena è la sanzione.",
+        "why": "I due gruppi rispondono a relazioni diverse."
+      }
+    ],
+    "recap": [
+      "La separazione indica da che cosa ci si distacca.",
+      "L’origine può riferirsi anche a una famiglia o a un ambiente.",
+      "Vantaggio e svantaggio riguardano beneficio e danno.",
+      "Abbondanza e privazione riguardano presenza o mancanza.",
+      "Colpa e pena distinguono il fatto contestato dalla sanzione."
+    ],
+    "review": [
+      {
+        "question": "In «La classe raccoglie fondi per la biblioteca», chi beneficia della raccolta?",
+        "answer": "La biblioteca: per la biblioteca è complemento di vantaggio."
+      },
+      {
+        "question": "Che cosa manca in «Il cassetto è privo di matite»?",
+        "answer": "Le matite: di matite è complemento di privazione."
+      },
+      {
+        "question": "In che cosa differiscono colpa e pena?",
+        "answer": "La colpa è il fatto contestato; la pena è la sanzione."
+      }
+    ],
+    "levels": {
+      "base": {
+        "focus": "Riconoscere il beneficio",
+        "example": {
+          "sentence": "Raccogliamo fondi per la biblioteca.",
+          "explanation": "Per la biblioteca indica il beneficiario."
+        }
+      },
+      "consolidamento": {
+        "focus": "Distinguere abbondanza e privazione",
+        "example": {
+          "sentence": "La scatola è piena di fili e priva di etichette.",
+          "explanation": "Di fili indica abbondanza; di etichette privazione."
+        }
+      },
+      "avanzato": {
+        "focus": "Distinguere rapporti vicini",
+        "example": {
+          "sentence": "L’allieva discende da una famiglia di artigiani ed esce dal laboratorio.",
+          "explanation": "Il primo gruppo indica origine familiare, il secondo il luogo di partenza."
+        }
+      }
+    },
+    "simplified": {
+      "lead": "Il complemento aggiunge un’informazione alla frase.",
+      "steps": [
+        "Cerca il verbo o la parola che il gruppo completa.",
+        "Chiediti quale rapporto esprime.",
+        "Controlla il significato della frase intera."
+      ],
+      "example": {
+        "sentence": "Il cassetto è pieno di matite.",
+        "explanation": "Di matite dice che cosa c’è in abbondanza."
+      }
+    },
+    "pei": {
+      "rule": "Pieno di indica che cosa c’è in abbondanza.",
+      "example": {
+        "sentence": "Il cassetto è pieno di matite.",
+        "explanation": "Di matite indica che cosa contiene il cassetto."
+      }
+    },
+    "trackExamples": {
+      "moda": {
+        "sentence": "La scatola è piena di bottoni.",
+        "explanation": "Di bottoni indica abbondanza."
+      },
+      "arredo": {
+        "sentence": "La cornice è priva di sostegno.",
+        "explanation": "Di sostegno indica privazione."
+      },
+      "liuteria": {
+        "sentence": "La liutaia discende da una famiglia di musicisti.",
+        "explanation": "Da una famiglia di musicisti indica origine familiare."
+      }
+    },
+    "anchor": {
+      "sentence": "La scatola è piena di bottoni, ma priva di ago.",
+      "explanation": "Di bottoni indica abbondanza; di ago indica privazione.",
+      "memory": "Pieno: che cosa c’è? Privo: che cosa manca?"
     }
   }
 ]

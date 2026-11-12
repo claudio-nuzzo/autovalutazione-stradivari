@@ -1,0 +1,58 @@
+(() => {
+'use strict';
+const bank=[];
+function choice(group,level,prompt,solution,wrong,feedback){const options=[solution,...wrong],answer=bank.length%options.length;options.splice(answer,0,options.shift());bank.push({id:`cp-nuovo-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'choice',title:'Interpreta il collegamento',prompt,options,answer,solution,feedback,minutes:2});}
+function exact(group,level,prompt,answers,feedback){bank.push({id:`cp-nuovo-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'exact',title:'Completa o trasforma',prompt,answers,solution:answers[0],feedback,minutes:2});}
+function tokens(group,level,prompt,words,answer,feedback){bank.push({id:`cp-nuovo-${String(bank.length+1).padStart(3,'0')}`,area:'parole',topicGroup:group,topic:group,level,pei:false,kind:'tokens',title:'Cerca nel testo',prompt,tokens:words,answer,solution:answer.map(i=>words[i]).join(' · '),feedback,minutes:3});}
+choice('Preposizioni',2,'In «Il modello della sedia è sul banco», quali parole sono preposizioni articolate?','della; sul',['il; è','sedia; banco'],'Della è di più la; sul è su più il.');
+choice('Preposizioni',2,'Quale frase contiene «dalle», formato da da + le?','Lia torna dalle prove.',['Lia parla delle prove.','Lia arriva alle prove.'],'Dalle unisce da e le; delle e alle contengono altre preposizioni.');
+choice('Preposizioni',2,'Quale forma completa «Abbiamo parlato ___ insegnanti», sapendo che sono tutti uomini?','agli',['ai','alle'],'Agli è a più gli, richiesto davanti al maschile plurale insegnanti in questo contesto.');
+choice('Preposizioni',3,'Quale frase usa «sul» per indicare un argomento?','Leggiamo un articolo sul riciclo.',['La rivista è sul tavolo.','Appoggio la rivista sul tavolo.'],'Sul riciclo indica il tema dell’articolo; sul tavolo indica luogo.');
+choice('Preposizioni',3,'Quale frase usa «per» per indicare un fine?','Studiamo per la verifica.',['Tremiamo per il freddo.','Passiamo per il cortile.'],'Per la verifica indica lo scopo dello studio; gli altri gruppi indicano causa e luogo.');
+choice('Preposizioni',3,'Quale frase usa «con» per indicare un mezzo?','Taglio il cartone con le forbici.',['Esco con la collega.','Esco con il quaderno.'],'Le forbici sono lo strumento utilizzato.');
+choice('Preposizioni',3,'Quale frase usa «con» per indicare compagnia?','Visito la mostra con il collega.',['Taglio con il cutter.','Esco con il quaderno.'],'Il collega è la persona che accompagna chi visita.');
+choice('Preposizioni',2,'In «Rientriamo da scuola», «da» indica…','il luogo di partenza',['la destinazione','il destinatario'],'Da scuola indica da dove si rientra.');
+choice('Preposizioni',3,'In «Il modello è vicino alla finestra», quale gruppo introduce il luogo?','vicino alla finestra',['il modello','è'],'Vicino a forma qui un’espressione preposizionale con il nome finestra.');
+choice('Preposizioni',3,'In quale frase «dopo» introduce un nome?','Dopo la prova riordino.',['Dopo aver provato, riordino.','Quando provo, riordino.'],'Dopo la prova contiene una preposizione seguita da un nome.');
+choice('Preposizioni',3,'Quale frase contiene una preposizione impropria seguita da un nome?','Il righello è sopra il foglio.',['Il righello è sopra.','Il righello è lungo.'],'Sopra introduce il gruppo nominale il foglio.');
+choice('Preposizioni',3,'In quale frase «di» introduce l’argomento di una conversazione?','Discutiamo di sicurezza.',['Il quaderno di Ada è qui.','La mensola è di legno.'],'Di sicurezza indica il tema della discussione.');
+choice('Preposizioni',2,'Quale frase contiene una preposizione semplice e una articolata?','Il foglio di Nora è sul tavolo.',['Il foglio è pronto.','Il foglio è pulito e ordinato.'],'Di è semplice; sul è articolata.');
+choice('Preposizioni',3,'Quale coppia completa «La classe esce ___ aula e va ___ laboratorio»?','dall’; in',['nell’; da','dall’; dal'],'Dall’aula esprime la partenza; in laboratorio la destinazione.');
+choice('Preposizioni',3,'Quale frase contiene «tra» con valore temporale?','La prova inizia tra un’ora.',['Il banco è tra due sedie.','Il filo passa tra i bottoni.'],'Tra un’ora colloca l’inizio nel tempo.');
+choice('Preposizioni',3,'Quale frase contiene «tra» con valore spaziale?','Il tavolo è tra le finestre.',['Partiamo tra due ore.','Torniamo tra poco.'],'Tra le finestre indica la posizione del tavolo.');
+choice('Preposizioni',3,'Quale riscrittura conserva il significato di «Il righello è sopra il tavolo»?','Il righello è al di sopra del tavolo.',['Il righello è sotto il tavolo.','Il righello è lontano dal tavolo.'],'Al di sopra del tavolo conserva la posizione indicata da sopra.');
+exact('Preposizioni',2,'Unisci «di + il» in una sola parola: il colore ___ legno.',['del'],'Di più il forma del.');
+exact('Preposizioni',2,'Unisci «a + le» in una sola parola: consegno i disegni ___ allieve.',['alle'],'A più le forma alle.');
+exact('Preposizioni',2,'Unisci «in + gli» in una sola parola: gli attrezzi sono ___ armadi.',['negli'],'In più gli forma negli.');
+exact('Preposizioni',3,'Completa con «da» o «a»: «Luca parte ___ scuola e torna a casa».',['da'],'Da indica il luogo di partenza.');
+exact('Preposizioni',3,'Completa con «per» o «con»: «Taglio la stoffa ___ le forbici».',['con'],'Con introduce lo strumento utilizzato.');
+tokens('Preposizioni',2,'Seleziona le due preposizioni semplici.',['Lia','parla','di','tessuti','con','Sara.'],[2,4],'Di e con sono preposizioni semplici.');
+tokens('Preposizioni',3,'Seleziona tutte le preposizioni articolate.',['Le','misure','della','sedia','sono','sul','foglio.'],[2,5],'Della è di più la; sul è su più il.');
+tokens('Preposizioni',3,'Seleziona soltanto le preposizioni semplici o articolate.',['Nella','scatola','di','legno','ci','sono','gli','aghi.'],[0,2],'Nella è articolata; di è semplice; gli è articolo.');
+choice('Congiunzioni',2,'Quale congiunzione collega due possibilità alternative?','oppure',['dunque','perché'],'Oppure presenta una scelta.');
+choice('Congiunzioni',2,'In «Sara misura e Lea taglia», «e» collega…','due proposizioni coordinate',['un nome e il suo articolo','una parola al suo accento'],'E collega le due azioni sullo stesso piano.');
+choice('Congiunzioni',2,'Quale congiunzione completa «Il progetto è pronto, ___ manca la firma»?','ma',['perché','quando'],'Ma contrappone il progetto pronto alla firma mancante.');
+choice('Congiunzioni',3,'Quale frase usa «perché» per indicare uno scopo?','Chiudi la scatola perché il contenuto non cada.',['Chiudo la scatola perché il contenuto è fragile.','Perché hai chiuso la scatola?'],'Perché non cada esprime lo scopo; il congiuntivo accompagna qui il valore finale.');
+choice('Congiunzioni',3,'In «Rimandiamo perché manca la colla», che rapporto introduce «perché»?','causa',['fine','alternativa'],'La mancanza della colla è il motivo del rinvio.');
+choice('Congiunzioni',3,'Quale frase contiene una congiunzione concessiva?','Sebbene sia tardi, terminiamo.',['Terminiamo perché è tardi.','Terminiamo quando è tardi.'],'Sebbene introduce una circostanza che non impedisce l’azione.');
+choice('Congiunzioni',3,'Quale frase contiene una congiunzione condizionale?','Se la colla asciuga, montiamo il pezzo.',['Non so se la colla asciughi.','Chiedo se la colla asciughi.'],'Nel primo periodo se introduce la condizione per montare.');
+choice('Congiunzioni',3,'Quale frase contiene «se» interrogativo?','Mi chiedo se il filo basti.',['Se il filo basta, inizio.','Se piove, resto.'],'Mi chiedo se introduce una domanda indiretta.');
+choice('Congiunzioni',3,'Quale frase contiene «che» come congiunzione?','Credo che il progetto funzioni.',['Il progetto che preparo funziona.','Il progetto che vedi funziona.'],'Nel primo caso che introduce il contenuto di credo; negli altri riprende progetto.');
+choice('Congiunzioni',3,'Quale frase contiene «mentre» con valore temporale?','Mentre Lea disegna, Luca misura.',['Mentre ieri era stabile, oggi il piano oscilla.','Il piano è stabile, ma la sedia oscilla.'],'Mentre presenta come contemporanee le due azioni.');
+choice('Congiunzioni',3,'Quale frase usa una congiunzione conclusiva?','La misura è confermata, dunque iniziamo.',['La misura è confermata, ma aspettiamo.','La misura è confermata oppure va ripetuta?'],'Dunque introduce una conclusione.');
+choice('Congiunzioni',2,'In «Non solo cuce, ma ricama anche», la coppia «non solo … ma anche» esprime…','aggiunta',['esclusione','condizione'],'La seconda azione si aggiunge alla prima.');
+choice('Congiunzioni',3,'Quale frase contiene una congiunzione disgiuntiva?','Puoi cucire oppure incollare.',['Puoi cucire, quindi hai finito.','Puoi cucire, benché sia tardi.'],'Oppure introduce un’alternativa.');
+choice('Congiunzioni',3,'Quale frase contiene una congiunzione subordinante?','Resto finché termina la prova.',['Resto e aspetto.','Resto, ma aspetto.'],'Finché introduce una subordinata temporale.');
+choice('Congiunzioni',3,'Quale trasformazione mantiene il rapporto causale di «Poiché il legno è umido, aspettiamo»?','Aspettiamo perché il legno è umido.',['Aspettiamo affinché il legno sia umido.','Aspettiamo benché il legno sia umido.'],'Poiché e perché introducono qui la stessa causa.');
+choice('Congiunzioni',3,'Quale trasformazione mantiene la concessione di «Sebbene sia stanca, continua»?','Anche se è stanca, continua.',['Poiché è stanca, continua.','Quando è stanca, continua.'],'Anche se conserva il rapporto concessivo.');
+choice('Congiunzioni',3,'Quale coppia completa il confronto «È ___ accurato ___ rapido»?','più; che',['più; perché','meno; poiché'],'Più … che confronta due qualità dello stesso soggetto.');
+exact('Congiunzioni',2,'Scegli tra «ma» e «perciò»: «Il tavolo è piccolo, ___ è stabile».',['ma'],'Ma introduce un contrasto fra le due qualità.');
+exact('Congiunzioni',3,'Scegli tra «perché» e «benché»: «___ il legno è umido, aspettiamo che asciughi».',['perché'],'Perché introduce la causa dell’attesa.');
+exact('Congiunzioni',3,'Scegli tra «oppure» e «quindi»: «La prova è conclusa, ___ possiamo riordinare».',['quindi'],'Quindi introduce la conseguenza della conclusione della prova.');
+exact('Congiunzioni',3,'Scegli tra «mentre» e «affinché»: «___ Sara disegna, Luca misura».',['mentre'],'Mentre indica la contemporaneità delle due azioni.');
+exact('Congiunzioni',3,'Trasforma in una parola sola «anche se» usando «benché»: «___ sia stanca, continua».',['benché'],'Benché introduce una concessione ed è seguito qui dal congiuntivo.');
+tokens('Congiunzioni',3,'Seleziona tutte le congiunzioni coordinanti.',['Lia','cuce','e','Nora','misura,','ma','il','filo','finisce.'],[2,5],'E è copulativa; ma è avversativa.');
+tokens('Congiunzioni',3,'Seleziona la congiunzione che introduce la causa.',['Rinvio','il','taglio','perché','manca','la','stoffa.'],[3],'Perché collega l’attesa alla sua ragione.');
+tokens('Congiunzioni',3,'Seleziona la congiunzione che introduce la condizione.',['Se','il','tavolo','è','libero,','iniziamo.'],[0],'Se introduce la condizione.');
+window.ATELIER_NEW_CONGIUNZIONI_PREPOSIZIONI=bank;
+})();

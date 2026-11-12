@@ -31,6 +31,22 @@
     return false;
   }
 
+  // A quoted solution in the instructions is useful practice, but not a final test.
+  function isIndependent(item) {
+    if (item.assessmentEligible === false) return false;
+    if (item.kind !== 'exact') return true;
+    const quoted = [...item.prompt.matchAll(/«([^»]+)»/g)].map(match => normalize(match[1]));
+    return !item.answers.some(answer => {
+      const value = normalize(answer);
+      if (quoted.includes(value)) return true;
+      if (!/_{2,}/.test(item.prompt)) return false;
+      const literal = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const word = new RegExp('(?:^|[^\\p{L}\\p{N}])' + literal + '(?=$|[^\\p{L}\\p{N}])', 'u');
+      if (new RegExp('infinito\\s+(?:presente|passato)\\s+di\\s+' + literal + '(?=$|[^\\p{L}\\p{N}])', 'u').test(normalize(item.prompt))) return true;
+      return quoted.some(segment => !/_{2,}/.test(segment) && word.test(segment));
+    });
+  }
+
   function hash(value) {
     let result = 2166136261;
     for (const char of value) result = Math.imul(result ^ char.charCodeAt(0), 16777619);
@@ -52,8 +68,8 @@
     const seed = [area, group, path, track].join('|');
     const seenIds = new Set(), seenQuestions = new Set();
     const candidates = (Array.isArray(bank) ? bank : []).filter(item =>
-      isGradable(item) && item.area === area && (item.topicGroup || defaultTopic(item)) === group
-      && (path === 'pei' ? item.pei === true : !item.pei)
+      isGradable(item) && isIndependent(item) && item.area === area && (item.topicGroup || defaultTopic(item)) === group
+      && (path === 'pei' ? item.pei === true && item.assessmentOnly === true : !item.pei && !item.assessmentOnly)
       && (!item.track || item.track === track) && eligible(item)
     ).map(item => ({item, rank: hash(seed + '|' + item.id)}))
       .sort((a, b) => Number(b.item.track === track) - Number(a.item.track === track)
@@ -84,9 +100,10 @@
       items.push(item);
       for (const [map, key] of [[levels, item.level], [kinds, item.kind], [verbs, lemma(item)]]) map.set(key, count(map, key) + 1);
     }
+    if (path === 'pei' && items.length < 3) return {items: [], suggestedMinutes: 0, label: 'Verifica finale · ' + group};
     const minutes = items.reduce((sum, item) => sum + (Number.isFinite(item.minutes) && item.minutes > 0 ? item.minutes : 2), 0);
     return {items, suggestedMinutes: Math.max(3, Math.min(20, Math.ceil(minutes))), label: 'Verifica finale · ' + group};
   }
 
-  window.ATELIER_ASSESSMENTS = {select, defaultTopic, isGradable};
+  window.ATELIER_ASSESSMENTS = {select, defaultTopic, isGradable, isIndependent};
 })();

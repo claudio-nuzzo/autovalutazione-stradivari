@@ -2370,6 +2370,20 @@
             "explanation": "La posizione del pronome cambia, ma il significato resta lo stesso."
           }
         ]
+      },
+      {
+        "title": "Verbi fraseologici e causativi",
+        "text": "Alcuni verbi accompagnano un infinito o un gerundio e precisano una fase o un aspetto dell’azione: stare per partire indica un’azione imminente, cominciare a lavorare l’inizio, continuare a lavorare la prosecuzione, finire di lavorare la conclusione. Sono spesso chiamati fraseologici aspettuali. Fare o lasciare più infinito possono esprimere un rapporto causativo: la docente fa preparare il modello dagli allievi significa che dispone la preparazione, svolta materialmente dagli allievi. Distingui chi provoca il fatto da chi materialmente compie l’azione.",
+        "examples": [
+          {
+            "sentence": "La classe sta per iniziare la prova.",
+            "explanation": "Sta per iniziare presenta l’azione come imminente."
+          },
+          {
+            "sentence": "La docente fa controllare il disegno agli allievi.",
+            "explanation": "La docente dispone il controllo; gli allievi lo eseguono."
+          }
+        ]
       }
     ],
     "diagram": {
@@ -2780,6 +2794,20 @@
           {
             "sentence": "Quando sono arrivata, il negozio aveva già chiuso.",
             "explanation": "Sono arrivata indica l’arrivo; aveva chiuso il fatto precedente."
+          }
+        ]
+      },
+      {
+        "title": "Participio passato e participio presente",
+        "text": "Il participio passato contribuisce a formare i tempi composti: in hanno rifinito, rifinito è participio passato insieme all’ausiliare hanno. Esiste anche un participio presente, spesso terminante in -ante o -ente: cantante, dirigente, interessante. Nell’italiano attuale molte di queste forme funzionano come nomi o aggettivi: una cantante e una prova interessante. Per analizzarle osserva la funzione effettiva nella frase; non considerare automaticamente ogni parola in -ante o -ente un verbo.",
+        "examples": [
+          {
+            "sentence": "Le allieve hanno completato il pannello.",
+            "explanation": "Completato è participio passato e, con hanno, forma il passato prossimo."
+          },
+          {
+            "sentence": "La cantante presenta una prova interessante.",
+            "explanation": "Cantante è usato come nome; interessante qualifica prova come aggettivo."
           }
         ]
       }
