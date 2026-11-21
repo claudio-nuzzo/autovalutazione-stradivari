@@ -66,6 +66,11 @@
   flow.innerHTML = '<ol>' + steps.map((label, index) => '<li><button type="button" data-learning-go="' + stageNames[index] + '"><span aria-hidden="true">' + (index + 1) + '</span>' + label + '</button></li>').join('') + '</ol>';
   $('#main').prepend(flow);
   flow.addEventListener('click', event => { const button = event.target.closest('[data-learning-go]'); if (button) go(button.dataset.learningGo); });
+  // On phones the steps scroll sideways: keep the current step visible without moving the page.
+  const revealStep = () => requestAnimationFrame(() => { const row = flow.firstElementChild, step = flow.querySelector('[aria-current="step"]'); if (!step || row.scrollWidth <= row.clientWidth) return; const item = step.parentElement; row.scrollLeft = Math.max(0, item.offsetLeft - row.offsetLeft - (row.clientWidth - item.offsetWidth) / 2); });
+  window.addEventListener('hashchange', revealStep);
+  document.addEventListener('atelier-learning-work', revealStep);
+  window.addEventListener('resize', revealStep);
 
   // Reuse the existing settings so the chosen level/topic also select the exercises.
   const setup = document.createElement('div');

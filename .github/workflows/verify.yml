@@ -40,3 +40,4 @@ jobs:
       - run: npm run test:grammar-assessments
       - run: npm run test:grammar-game
       - run: npm run test:grammar-races
+      - run: npm run test:grammar-ux

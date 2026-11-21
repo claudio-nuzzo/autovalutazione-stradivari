@@ -15,7 +15,8 @@
     "test:grammar-assessments": "node tests/grammar-assessments.cjs && node tests/grammar-assessment-browser.cjs",
     "test:grammar-migration": "node tests/grammar-migration.cjs && node tests/grammar-progress-order.cjs && node tests/grammar-pei-legacy-browser.cjs",
     "test:grammar-game": "node tests/grammar-game.cjs",
-    "test:grammar-races": "node tests/grammar-races.cjs && node tests/grammar-race-browser.cjs"
+    "test:grammar-races": "node tests/grammar-races.cjs && node tests/grammar-race-browser.cjs",
+    "test:grammar-ux": "node tests/grammar-ux-browser.cjs"
   },
   "dependencies": {
     "jspdf": "4.2.1"

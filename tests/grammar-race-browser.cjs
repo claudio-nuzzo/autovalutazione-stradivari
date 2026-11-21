@@ -138,7 +138,7 @@ const server=http.createServer((req,res)=>{
     assert.equal(first.raceId,'12345678-1234-4234-8234-123456789012');assert.equal(first.remote,true);assert.equal(first.raceCounted,true);
     assert.equal(first.correct,first.total);assert.equal(first.stars,3);
     assert.match(await page.locator('#gameWidget').innerText(),/3 stelline · 30 XP/);
-    assert.match(await page.locator('#gameAwards').innerText(),/Gara completata/);
+    assert.equal(await page.locator('#gameAwards [data-medal="race-finished"]:not(.locked)').count(),1,'counted race earns the race medal');
     // Re-submitting the same completed series creates another attempt, never more XP.
     await page.locator('#checkSeriesButton').click();
     await page.waitForFunction(()=>JSON.parse(localStorage.getItem('atelier-events-v1:pupil@example.invalid')).filter(event=>event.remote).length===2);
@@ -161,11 +161,11 @@ const server=http.createServer((req,res)=>{
     await page.evaluate(()=>{__grammarFixture.countRace=false});
     await setPupil('ordinary-fallback@example.invalid');
     assert.match(await page.locator('#gameWidget').innerText(),/0 stelline · 0 XP/,'new identity starts with its own progress');
-    assert.equal((await page.locator('#gameAwards').innerText()).includes('Gara completata'),false);
+    assert.equal(await page.locator('#gameAwards [data-medal="race-finished"]:not(.locked)').count(),0);
     const ordinary=await finishRace();
     assert.equal(ordinary.remote,true);assert.equal(ordinary.raceCounted,false);assert.equal(ordinary.correct,ordinary.total);
     assert.match(await page.locator('#gameWidget').innerText(),/3 stelline · 30 XP/);
-    assert.equal((await page.locator('#gameAwards').innerText()).includes('Gara completata'),false,'ordinary fallback cannot earn a counted race medal');
+    assert.equal(await page.locator('#gameAwards [data-medal="race-finished"]:not(.locked)').count(),0,'ordinary fallback cannot earn a counted race medal');
     await page.locator('.bottom a[href="#progress"]').click();assert.match(await page.locator('#progressList').innerText(),/Confermato su Drive/);
     await page.evaluate(()=>__grammarFixture.setSession({email:'waiting@example.invalid',authorized:false,teacher:false}));
     await page.locator('.bottom a[href="#home"]').click();await page.getByRole('button',{name:'Ripassa',exact:true}).waitFor();
