@@ -89,9 +89,12 @@ body[data-view="teoria"] #teoria{display:block}
 .path-dsa .theory-lesson,.path-dsa .theory-review{line-height:1.85;letter-spacing:.02em}
 .path-pei .theory-anchor,.path-pei .theory-support{font-size:1.15rem}
 @media(max-width:680px){
-  #learningSteps ol{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-  #learningSteps button{min-height:44px;font-size:14px;padding:8px 4px}
-  #learningSteps{padding:8px 0}
+  /* Phones: one swipeable row keeps the six steps reachable without covering the lesson. */
+  #learningSteps{padding:6px 0;margin-inline:-16px;padding-inline:16px}
+  #learningSteps ol{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;padding-bottom:2px}
+  #learningSteps ol::-webkit-scrollbar{display:none}
+  #learningSteps li{flex:0 0 auto;scroll-snap-align:start}
+  #learningSteps button{min-height:44px;font-size:14px;padding:8px 12px;white-space:nowrap}
   .learning-selects{grid-template-columns:1fr;gap:16px}
   .learning-begin{align-items:stretch;gap:18px;flex-direction:column}
   .learning-begin button,.learning-next button{width:100%;min-width:0}
@@ -100,6 +103,7 @@ body[data-view="teoria"] #teoria{display:block}
   .theory-anchor .example-sentence{font-size:1.35rem}
   #theoryHeading{font-size:1.9rem}
   .theory-topic-heading h2{font-size:1.6rem}
-  #teoria{padding-top:24px;scroll-margin-top:120px}
+  #teoria{padding-top:24px;scroll-margin-top:72px}
+  #learningSetup,#classRaces,.final-check-entry{scroll-margin-top:72px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

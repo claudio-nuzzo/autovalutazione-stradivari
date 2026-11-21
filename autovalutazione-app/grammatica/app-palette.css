@@ -69,3 +69,37 @@ body[data-view="work"] .lesson-progress{position:sticky;top:0;z-index:10;backgro
 #classRaces{border:1px solid var(--line);border-radius:20px;background:#fff;padding:20px;margin:24px 0}.race-grid{display:grid;grid-template-columns:1fr;gap:16px}.race-card{padding:20px;border:1px solid #b9c9e7;border-top:4px solid #2455b8;border-radius:16px;background:#f6f9ff;display:flex;flex-direction:column;gap:8px;min-width:0}.race-card h3{margin:0}.race-card p{margin:4px 0}.race-card>button{margin-top:auto;background:#2455b8;border-color:#2455b8;box-shadow:0 4px 0 #173977}.race-card>button:disabled{background:#e1e6ef;border-color:#b7bccb;color:#414854;opacity:1;box-shadow:none}.race-card .medal{color:#7c4e08;font-weight:800}.race-card progress{width:100%;accent-color:#08766b}.race-actions{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.race-actions button{width:auto}.race-board{width:100%;border-collapse:collapse;font-size:.85rem}.race-board th,.race-board td{text-align:start;vertical-align:top;padding:12px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.race-board th{background:#edf2fb;color:#17243a}.race-board .race-actions{margin:0}.race-board button{font-size:.8rem;min-height:48px}.race-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:16px 0}.race-table-wrap .race-board{min-width:540px}#teacherRaces{border-top:1px solid var(--line);margin-top:24px}#raceCreateForm{display:grid;gap:16px;grid-template-columns:1fr}#raceCreateForm label{min-width:0}#raceCreateForm input,#raceCreateForm select{width:100%;box-sizing:border-box}#teacherRaceResults{margin-top:24px}.race-storage-check{padding:14px;border-radius:12px;background:#edf2fb;margin:16px 0}
 @media(min-width:700px){.race-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.game-awards{grid-template-columns:repeat(2,minmax(0,1fr))}#raceCreateForm{grid-template-columns:repeat(2,minmax(0,1fr))}#raceCreateForm>button{justify-self:start}}
 @media(prefers-reduced-motion:reduce){.game-meter>div{transition:none}}
+/* Atelier UX 2026-11: level badge, full medal case, end-of-series reward, touch targets, motion preferences. */
+.game-widget .game-level{display:flex;align-items:center;gap:10px}
+.game-badge{display:inline-grid;place-items:center;flex:0 0 auto;width:36px;height:36px;border-radius:50%;background:#9b640c;color:#fff;font-size:1rem;font-weight:800;box-shadow:0 0 0 3px #f3e2b5}
+.game-stats{font-weight:650;color:#6b4407}
+.game-next{color:#5c4a2a}
+.game-awards-count{margin:0;color:var(--muted)}
+.game-award>div{min-width:0}
+.game-award p{margin:4px 0 0;font-size:.88rem;line-height:1.45}
+.game-award.locked{background:#f6f4f0;border-style:dashed;border-color:#c9c2b8;color:#5f5953}
+.game-award.locked svg{opacity:.45}
+.game-award.locked h3{color:#3d3834}
+.reward-card{margin-top:18px;padding:18px;border-radius:16px;background:#fffdf6;color:#2b2420;border:2px solid #e8cf8a;box-shadow:0 4px 0 #d9b864}
+.reward-card p{margin:6px 0}
+.reward-stars{display:flex;gap:8px;margin:0 0 4px!important}
+.reward-star svg{display:block;width:40px;height:40px;fill:#e4ddd0;stroke:#b9ad99;stroke-width:1}
+.reward-star.on svg{fill:#e0a526;stroke:#9b640c}
+.reward-title{font-size:1.2rem;font-weight:800;color:#2b2420}
+.reward-xp{font-weight:700;color:#6b4407}
+.reward-levelup{display:inline-block;padding:6px 12px;border-radius:999px;background:#2455b8;color:#fff;font-weight:800}
+.reward-medal{display:flex;align-items:center;gap:10px;font-weight:700;color:#7c4e08}
+.reward-medal svg{flex:0 0 auto}
+.reward-card .game-meter{margin-top:10px}
+.reward-card .game-meter>div{transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.today>a,.learning-begin>a,.back-to-theory,footer a{display:inline-flex;align-items:center;min-height:44px}
+@media(prefers-reduced-motion:no-preference){
+  .reward-card{animation:reward-rise .35s ease-out both}
+  .reward-star.on svg{animation:reward-pop .5s cubic-bezier(.3,1.6,.5,1) both;animation-delay:calc(.15s + var(--i,0) * .14s)}
+  .reward-levelup,.reward-medal{animation:reward-rise .4s ease-out .55s both}
+  .game-award:not(.locked){transition:transform .2s ease}
+  .game-award:not(.locked):hover{transform:translateY(-2px)}
+}
+@keyframes reward-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes reward-pop{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.15);opacity:1}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
