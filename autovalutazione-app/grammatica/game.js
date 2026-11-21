@@ -94,11 +94,14 @@ function render(events){
 // End-of-series reward, shown only after a saved and counted series, inside the existing result box.
 function reward(){
   const box=document.querySelector('#seriesResult');if(!box||!latestEvents.length)return;
-  const last=latestEvents[latestEvents.length-1];
-  if(!last||last.localOnly===true||!validEvents([last]).length)return;
-  const before=summary(latestEvents.slice(0,-1)),after=summary(latestEvents);
-  const gained=after.xp-before.xp,guided=last.mode==='guided',earnedNow=guided?1:Math.max(1,Math.min(3,Math.round(Number(last.stars)||1)));
+  // Identify the series just checked by its event ID: stored events are sorted by date, so the
+  // last element can be a record with a future or identical timestamp.
+  const id=window.ATELIER_LEARNING_BRIDGE?.resultId?.();
+  const last=id?latestEvents.find(e=>e&&e.eventId===id):null;
   box.querySelector('.reward-card')?.remove();
+  if(!last||last.localOnly===true||!validEvents([last]).length)return;
+  const before=summary(latestEvents.filter(e=>!e||e.eventId!==id)),after=summary(latestEvents);
+  const gained=after.xp-before.xp,guided=last.mode==='guided',earnedNow=guided?1:Math.max(1,Math.min(3,Math.round(Number(last.stars)||1)));
   const card=el('div','reward-card');card.dataset.gained=String(gained);
   const row=el('p','reward-stars');row.setAttribute('aria-hidden','true');
   for(let i=0;i<(guided?1:3);i++){const s=el('span','reward-star'+(i<earnedNow?' on':''));s.style.setProperty('--i',String(i));s.append(svgStar());row.append(s)}
