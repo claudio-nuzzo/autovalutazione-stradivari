@@ -41,7 +41,7 @@ const server=http.createServer((req,res)=>{
       const rows=await page.locator('#progressList .progressrow span').allTextContents();
       assert.equal(rows.length,20);
       assert.deepEqual(rows.map(text=>Number(text.match(/(\d+)\/100 corrette/)[1])),[40,91,...Array.from({length:18},(_,index)=>39-index)],'latest twenty must descend by parsed time and stable eventId, irrespective of merge order');
-      assert.equal(await page.locator('#suggestion').textContent(),'Un ripasso può aiutarti: rileggi una pillola e riprova una serie.','home suggestion must use the latest partial result, not the oldest perfect result');
+      assert.equal(await page.locator('#suggestion').textContent(),'Un ripasso può aiutarti: rileggi la teoria e riprova una serie.','home suggestion must use the latest partial result, not the oldest perfect result');
       assert.match(await page.locator('#gameWidget').innerText(),/45 stelline · 450 XP/,'XP includes all 42 events, not just the displayed twenty');
       const stored=await page.evaluate(key=>localStorage.getItem(key),key),events=JSON.parse(stored);
       assert.equal(events.length,42);assert.deepEqual(events.map(event=>event.eventId),[...local,...remote].map(event=>event.eventId),'rendering must leave the persisted merge/insertion order untouched');
